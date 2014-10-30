@@ -114,8 +114,10 @@ namespace LightningRyze
 			Game.OnGameUpdate += Game_OnGameUpdate;
 			LXOrbwalker.BeforeAttack += LXOrbwalker_BeforeAttack;
 			Drawing.OnDraw += Drawing_OnDraw;
-			Obj_AI_Base.OnProcessSpellCast += Obj_AI_Hero_OnProcessSpellCast; 	
-			AntiGapcloser.OnEnemyGapcloser += AntiGapcloser_OnEnemyGapcloser;			
+			Obj_AI_Base.OnProcessSpellCast += Obj_AI_Hero_OnProcessSpellCast;
+            AntiGapcloser.OnEnemyGapcloser += AntiGapcloser_OnEnemyGapcloser;
+            Drawing.OnDraw += onDraw;
+            Drawing.OnEndScene += OnEndScene;	
         }
                           
         private static void Game_OnGameUpdate(EventArgs args)
