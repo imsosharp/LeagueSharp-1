@@ -119,7 +119,35 @@ namespace LightningRyze
             Drawing.OnDraw += onDraw;
             Drawing.OnEndScene += OnEndScene;	
         }
-                          
+
+        private static void OnEndScene(EventArgs args)
+        {
+            if (Config.Item("drawDamage").GetValue<bool>())
+            {
+                foreach (var enemy in ObjectManager.Get<Obj_AI_Hero>().Where(ene => !ene.IsDead && ene.IsEnemy && ene.IsVisible))
+                {
+                    hpi.unit = enemy;
+                    hpi.drawDmg(GetComboDamage(enemy), Color.Yellow);
+                }
+            }
+        }
+
+        private static void onDraw(EventArgs args)
+        {
+            try
+            {
+                if (Config.Item("drawDamage").GetValue<bool>())
+                {
+                    foreach (var enemy in ObjectManager.Get<Obj_AI_Hero>().Where(ene => !ene.IsDead && ene.IsEnemy && ene.IsVisible))
+                    {
+                        hpi.unit = enemy;
+                        hpi.drawDmg(GetComboDamage(enemy), Color.Yellow);
+                    }
+                }
+            }
+            catch (Exception ex) { }
+        }
+    
         private static void Game_OnGameUpdate(EventArgs args)
         {         
         	target = SimpleTs.GetTarget(Q.Range+25, SimpleTs.DamageType.Magical);
@@ -556,35 +584,6 @@ namespace LightningRyze
             foreach (var enemy in ObjectManager.Get<Obj_AI_Hero>().Where(enemy => myHero.Distance3D(enemy,true) <= range*range && enemy.IsEnemy && enemy.IsVisible && !enemy.IsDead))
         		count = count + 1 ;
             return count;
-        }
-
-
-        private static void OnEndScene(EventArgs args)
-        {
-            if (Config.Item("drawDamage").GetValue<bool>())
-            {
-                foreach (var enemy in ObjectManager.Get<Obj_AI_Hero>().Where(ene => !ene.IsDead && ene.IsEnemy && ene.IsVisible))
-                {
-                        hpi.unit = enemy;
-                        hpi.drawDmg(GetComboDamage(enemy), Color.Yellow);
-                }
-            }
-        }
-
-        private static void OnDraw(EventArgs args)
-        {
-            try
-            {
-                if(Config.Item("drawDamage").GetValue<bool>())
-                {
-                    foreach (var enemy in ObjectManager.Get<Obj_AI_Hero>().Where(ene => !ene.IsDead && ene.IsEnemy && ene.IsVisible))
-                    {
-                        hpi.unit = enemy;
-                        hpi.drawDmg(GetComboDamage(enemy), Color.Yellow);
-                    }
-                }
-            }
-            catch (Exception ex) { }
         }
 
 
