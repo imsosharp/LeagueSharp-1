@@ -219,7 +219,7 @@ namespace LightningRyze
             {
                 foreach (var minion in allMinions)
                 {
-                    if (120 >= minion.Health && myHero.Distance(target) >= 400)
+                    if (120 >= minion.Health)
                     {
                         Q.CastOnUnit(minion, UsePacket);
                         Thread.Sleep(25);
