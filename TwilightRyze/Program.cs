@@ -151,21 +151,27 @@ namespace LightningRyze
                 {
                     var ts = target;
                     var wts = Drawing.WorldToScreen(target.Position);
-
+                    Drawing.DrawText(wts[0] - 40, wts[1] + 40, Color.OrangeRed, "Total damage: " + GetComboDamage(target) + "!");
                     if (GetComboDamage(target) >= ts.Health)
-                        Drawing.DrawText(wts[0] - 40, wts[1] + 40, Color.OrangeRed, "Killable");
+                    {
+                        
+                        Drawing.DrawText(wts[0] - 40, wts[1] + 70, Color.OrangeRed, "Status: Killable");
+                    }
                     else if (GetComboDamage(target) < ts.Health)
-                        Drawing.DrawText(wts[0] - 40, wts[1] + 40, Color.OrangeRed, "Need more harras!");
+                    {
+                        Drawing.DrawText(wts[0] - 40, wts[1] + 70, Color.OrangeRed, "Status: Needs harass!");
+                    }
 
                 }
             }
         }
         private static void AutoPoke()
         {
-            if (target == null) return;
-            Game.PrintChat("AutoPoke active!");
-            var UsePacket = Config.Item("UsePacket").GetValue<bool>();
-            if (Q.IsKillable(target) && Q.IsReady()) Q.CastOnUnit(target, UsePacket);
+            if (target != null && !target.IsDead && !myHero.IsDead)
+            {
+                var UsePacket = Config.Item("UsePacket").GetValue<bool>();
+                if (Q.IsKillable(target) && Q.IsReady()) Q.CastOnUnit(target, UsePacket);
+            }
         }
         // Q+W
         private static void TearExploit()
