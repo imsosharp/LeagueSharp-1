@@ -19,6 +19,7 @@ namespace LightningRyze
         private static float LastFlashTime;
         private static Obj_AI_Hero target;
         private static Obj_AI_Hero myHero;
+        private static Obj_AI_Minion myMinion;
         private static bool UseShield;
        	private static Spell Q;
 		private static Spell W;
@@ -182,8 +183,7 @@ namespace LightningRyze
             {
                 foreach (var minion in allMinions)
                 {
-
-                    if(120 >= minion.Health )
+                    if (120 >= minion.Health && myHero.Distance(target) >= 400)
                     {
                         Q.CastOnUnit(minion, UsePacket);
                         Thread.Sleep(25);
