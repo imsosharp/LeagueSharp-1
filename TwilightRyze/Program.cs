@@ -168,11 +168,14 @@ namespace LightningRyze
         }
         private static void AutoPoke()
         {
-            if (target != null && !target.IsDead && !myHero.IsDead)
-            {
-                var UsePacket = Config.Item("UsePacket").GetValue<bool>();
-                if (Q.IsKillable(target) && Q.IsReady()) Q.CastOnUnit(target, UsePacket);
-            }
+            var UsePacket = Config.Item("UsePacket").GetValue<bool>(); 
+            var eTarget = SimpleTs.GetTarget(Q.Range, SimpleTs.DamageType.Magical);
+            if (eTarget == null) 
+                return;
+
+
+            if (eTarget.IsValidTarget(Q.Range) && Q.IsReady()) 
+                Q.CastOnUnit(eTarget, UsePacket);
         }
         // Q+W
         private static void TearExploit()
