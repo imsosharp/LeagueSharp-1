@@ -222,8 +222,9 @@ namespace LightningRyze
                     if (120 >= minion.Health)
                     {
                         Q.CastOnUnit(minion, UsePacket);
-                        Thread.Sleep(25);
-                        W.CastOnUnit(minion, UsePacket);
+                        Utility.DelayAction.Add(25, () => W.CastOnUnit(minion, UsePacket));
+                        //Thread.Sleep(25);
+                        //W.CastOnUnit(minion, UsePacket);
                     }
                     break;
                 }
