@@ -96,7 +96,7 @@ namespace LightningRyze
             Config.SubMenu("Extra").AddItem(new MenuItem("UseSera", "Use Seraphs Embrace").SetValue(true));
             Config.SubMenu("Extra").AddItem(new MenuItem("HP", "When % HP").SetValue(new Slider(20, 100, 0)));
             Config.SubMenu("Extra").AddItem(new MenuItem("UseWGap", "Use W GapCloser").SetValue(true));
-            Config.SubMenu("Extra").AddItem(new MenuItem("AutoPoke", "Auto harass with Q (Toggle)").SetValue(new KeyBind("C".ToCharArray()[0], KeyBindType.Toggle)));
+            Config.SubMenu("Extra").AddItem(new MenuItem("AutoPoke", "Auto harass (Toggle)").SetValue(new KeyBind("C".ToCharArray()[0], KeyBindType.Toggle)));
                       
 			Config.AddSubMenu(new Menu("Drawings", "Drawings"));
 			Config.SubMenu("Drawings").AddItem(new MenuItem("QRange", "Q range").SetValue(new Circle(true, Color.FromArgb(255, 255, 255, 255))));
