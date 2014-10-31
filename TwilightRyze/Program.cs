@@ -21,7 +21,6 @@ namespace LightningRyze
         private static float LastFlashTime;
         private static Obj_AI_Hero target;
         private static Obj_AI_Hero myHero;
-        private static Obj_AI_Minion myMinion;
         private static bool UseShield;
        	private static Spell Q;
 		private static Spell W;
@@ -100,9 +99,11 @@ namespace LightningRyze
             Config.SubMenu("Extra").AddItem(new MenuItem("UseSera", "Use Seraphs Embrace").SetValue(true));
             Config.SubMenu("Extra").AddItem(new MenuItem("HP", "When % HP").SetValue(new Slider(20, 100, 0)));
             Config.SubMenu("Extra").AddItem(new MenuItem("UseWGap", "Use W GapCloser").SetValue(true));
-            Config.SubMenu("Extra").AddItem(new MenuItem("AutoPoke", "Auto harass (Toggle)").SetValue(new KeyBind("C".ToCharArray()[0], KeyBindType.Toggle)));
-                      
-			Config.AddSubMenu(new Menu("Drawings", "Drawings"));
+            Config.SubMenu("Extra").AddItem(new MenuItem("AutoPoke", "AutoHarass (Toggle)").SetValue(new KeyBind("C".ToCharArray()[0], KeyBindType.Toggle)));
+            Config.SubMenu("Extra").AddItem(new MenuItem("ManaFreeze", "MinMana % Harass").SetValue(new Slider(40, 1, 100)));
+            Config.SubMenu("Extra").AddItem(new MenuItem("WInterruptSpell", "Interrupt spells W").SetValue(true));
+
+            Config.AddSubMenu(new Menu("Drawings", "Drawings"));
 			Config.SubMenu("Drawings").AddItem(new MenuItem("QRange", "Q range").SetValue(new Circle(true, Color.FromArgb(255, 255, 255, 255))));
 			Config.SubMenu("Drawings").AddItem(new MenuItem("WERange", "W+E range").SetValue(new Circle(false, Color.FromArgb(255, 255, 255, 255))));
             Config.SubMenu("Drawings").AddItem(new MenuItem("drawDamage", "Calculate damage to target").SetValue(true));
@@ -117,7 +118,8 @@ namespace LightningRyze
 			Obj_AI_Base.OnProcessSpellCast += Obj_AI_Hero_OnProcessSpellCast;
             AntiGapcloser.OnEnemyGapcloser += AntiGapcloser_OnEnemyGapcloser;
             Drawing.OnDraw += onDraw;
-            Drawing.OnEndScene += OnEndScene;	
+            Drawing.OnEndScene += OnEndScene;
+            Interrupter.OnPossibleToInterrupt += Interrupter_OnPossibleToInterrupt;
         }
 
         private static void OnEndScene(EventArgs args)
@@ -145,7 +147,9 @@ namespace LightningRyze
                     }
                 }
             }
-            catch (Exception ex) { }
+            catch (Exception ex) {
+                Game.PrintChat("Failed to draw HP bar damage! => "+ex);
+            }
         }
     
         private static void Game_OnGameUpdate(EventArgs args)
@@ -165,7 +169,6 @@ namespace LightningRyze
             if (Config.Item("tearStack").GetValue<KeyBind>().Active) TearExploit();
             if (Config.Item("AutoPoke").GetValue<KeyBind>().Active) AutoPoke();
         }
-        
         private static void Drawing_OnDraw(EventArgs args)
         {
         	var drawQ = Config.Item("QRange").GetValue<Circle>();
@@ -199,15 +202,19 @@ namespace LightningRyze
                 }
             }
         }
+        public static float GetManaPerc(Obj_AI_Base unit)
+        {
+            return (unit.Mana / unit.MaxMana) * 100;
+        }
         private static void AutoPoke()
         {
             var UsePacket = Config.Item("UsePacket").GetValue<bool>(); 
             var eTarget = SimpleTs.GetTarget(Q.Range, SimpleTs.DamageType.Magical);
+            var ManaFreeze = Config.Item("ManaFreeze").GetValue<Slider>().Value;
             if (eTarget == null) 
                 return;
 
-
-            if (eTarget.IsValidTarget(Q.Range) && Q.IsReady()) 
+            if (eTarget.IsValidTarget(Q.Range) && Q.IsReady() && GetManaPerc(myHero) > ManaFreeze) 
                 Q.CastOnUnit(eTarget, UsePacket);
         }
         // Q+W
@@ -594,6 +601,16 @@ namespace LightningRyze
             return count;
         }
 
+        private static void Interrupter_OnPossibleToInterrupt(Obj_AI_Base unit, InterruptableSpell spell)
+        {
+            var packetCast = Config.Item("PacketCast").GetValue<bool>();
+            var WInterruptSpell = Config.Item("WInterruptSpell").GetValue<bool>();
+
+            if (WInterruptSpell && W.IsReady() && unit.IsValidTarget(W.Range))
+            {
+                W.CastOnUnit(unit, packetCast);
+            }
+        }
 
 
     }
