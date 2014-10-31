@@ -603,7 +603,7 @@ namespace LightningRyze
 
         private static void Interrupter_OnPossibleToInterrupt(Obj_AI_Base unit, InterruptableSpell spell)
         {
-            var packetCast = Config.Item("PacketCast").GetValue<bool>();
+            var packetCast = Config.Item("UsePacket").GetValue<bool>();
             var WInterruptSpell = Config.Item("WInterruptSpell").GetValue<bool>();
 
             if (WInterruptSpell && W.IsReady() && unit.IsValidTarget(W.Range))
