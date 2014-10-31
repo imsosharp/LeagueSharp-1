@@ -1,2 +1,0 @@
-C:\Users\Harold\Documents\GitHub\LeagueSharp\TwilightRyze\bin\Debug\LightningRyze.exe.config
-C:\Users\Harold\Documents\GitHub\LeagueSharp\TwilightRyze\obj\Debug\TwilightRyze.csprojResolveAssemblyReference.cache

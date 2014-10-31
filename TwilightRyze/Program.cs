@@ -52,7 +52,7 @@ namespace LightningRyze
 			R = new Spell(SpellSlot.R);
 			IgniteSlot = myHero.GetSpellSlot("SummonerDot");  
 			
-			Config = new Menu("Lightning Ryze", "Lightning Ryze", true);
+			Config = new Menu("Lightning Ryze", "Twilight Ryze", true);
 			var targetSelectorMenu = new Menu("Target Selector", "Target Selector");
 			SimpleTs.AddToMenu(targetSelectorMenu);
 			Config.AddSubMenu(targetSelectorMenu);
@@ -68,7 +68,7 @@ namespace LightningRyze
             Config.SubMenu("Combo").AddItem(new MenuItem("UseIgnite", "Use Ignite").SetValue(true));
             
             Config.AddSubMenu(new Menu("Harass", "Harass"));
-            Config.SubMenu("Harass").AddItem(new MenuItem("HarassActive", "Harass!").SetValue(new KeyBind("C".ToCharArray()[0], KeyBindType.Press)));
+            Config.SubMenu("Harass").AddItem(new MenuItem("HarassActive", "Harass!").SetValue(new KeyBind("N".ToCharArray()[0], KeyBindType.Press)));
 			Config.SubMenu("Harass").AddItem(new MenuItem("HQ", "Use Q").SetValue(true));
 			Config.SubMenu("Harass").AddItem(new MenuItem("HW", "Use W").SetValue(true));
             Config.SubMenu("Harass").AddItem(new MenuItem("HE", "Use E").SetValue(true));
@@ -215,16 +215,23 @@ namespace LightningRyze
         {
             var UsePacket = Config.Item("UsePacket").GetValue<bool>();
             var allMinions = MinionManager.GetMinions(myHero.ServerPosition, Q.Range, MinionTypes.All, MinionTeam.Enemy, MinionOrderTypes.Health);
+            var eTarget = SimpleTs.GetTarget(Q.Range, SimpleTs.DamageType.Magical);
+
             if (Q.IsReady() && W.IsReady())
             {
+                double delay;
+                int myPing = Game.Ping;
+
                 foreach (var minion in allMinions)
                 {
-                    if (120 >= minion.Health)
+                    if (myHero.GetSpellDamage(minion, SpellSlot.Q) >= minion.Health)
                     {
+                        // Q Range = 625
+                        // Q speed = Distance/~60
+                        delay = (minion.Distance(myHero)*60)/625;
+                        //Game.PrintChat("Distance: " + minion.Distance(myHero) + " Delay:" + Convert.ToInt32(delay));
                         Q.CastOnUnit(minion, UsePacket);
-                        Utility.DelayAction.Add(25, () => W.CastOnUnit(minion, UsePacket));
-                        //Thread.Sleep(25);
-                        //W.CastOnUnit(minion, UsePacket);
+                        Utility.DelayAction.Add(Convert.ToInt32(delay), () => W.CastOnUnit(minion, UsePacket));
                     }
                     break;
                 }
