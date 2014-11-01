@@ -1,1 +1,16 @@
 c:\users\harold\documents\visual studio 2013\Projects\Windup Detector\Windup Detector\bin\x86\Debug\Windup Detector.exe.config
+C:\Users\Harold\Documents\GitHub\LeagueSharp\Windup Detector\Windup Detector\bin\x86\Debug\Windup Detector.exe.config
+C:\Users\Harold\Documents\GitHub\LeagueSharp\Windup Detector\Windup Detector\bin\x86\Debug\Windup Detector.exe
+C:\Users\Harold\Documents\GitHub\LeagueSharp\Windup Detector\Windup Detector\bin\x86\Debug\Windup Detector.pdb
+C:\Users\Harold\Documents\GitHub\LeagueSharp\Windup Detector\Windup Detector\bin\x86\Debug\LeagueSharp.Common.dll
+C:\Users\Harold\Documents\GitHub\LeagueSharp\Windup Detector\Windup Detector\bin\x86\Debug\LeagueSharp.dll
+C:\Users\Harold\Documents\GitHub\LeagueSharp\Windup Detector\Windup Detector\bin\x86\Debug\SharpDX.Direct3D9.dll
+C:\Users\Harold\Documents\GitHub\LeagueSharp\Windup Detector\Windup Detector\bin\x86\Debug\SharpDX.dll
+C:\Users\Harold\Documents\GitHub\LeagueSharp\Windup Detector\Windup Detector\bin\x86\Debug\SharpDX.Toolkit.dll
+C:\Users\Harold\Documents\GitHub\LeagueSharp\Windup Detector\Windup Detector\bin\x86\Debug\SharpDX.Toolkit.Graphics.dll
+C:\Users\Harold\Documents\GitHub\LeagueSharp\Windup Detector\Windup Detector\bin\x86\Debug\LeagueSharp.xml
+C:\Users\Harold\Documents\GitHub\LeagueSharp\Windup Detector\Windup Detector\bin\x86\Debug\SharpDX.Toolkit.xml
+C:\Users\Harold\Documents\GitHub\LeagueSharp\Windup Detector\Windup Detector\bin\x86\Debug\SharpDX.Toolkit.Graphics.xml
+C:\Users\Harold\Documents\GitHub\LeagueSharp\Windup Detector\Windup Detector\obj\x86\Debug\Windup Detector.csprojResolveAssemblyReference.cache
+C:\Users\Harold\Documents\GitHub\LeagueSharp\Windup Detector\Windup Detector\obj\x86\Debug\Windup Detector.exe
+C:\Users\Harold\Documents\GitHub\LeagueSharp\Windup Detector\Windup Detector\obj\x86\Debug\Windup Detector.pdb

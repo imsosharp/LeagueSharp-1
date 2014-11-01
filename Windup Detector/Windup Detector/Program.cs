@@ -13,19 +13,18 @@ namespace Windup_Detector
         {
             Game.PrintChat("============================");
             Game.PrintChat("TwiligtLoL - Windup Detector");
-            Game.PrintChat("----");
-            Game.PrintChat("Your champion windup should be set to: " + detectWindup());
+            Game.PrintChat("Windup should be: " + detectWindup());
             Game.PrintChat("============================");
         }
         private static int detectWindup()
         {
             var additional = 0;
             if (Game.Ping >= 100)
-                additional = Game.Ping / 100 * 10;
+                additional = Game.Ping / 10;
             else if (Game.Ping > 40 && Game.Ping < 100)
                 additional = Game.Ping / 100 * 20;
             else if (Game.Ping <= 40)
-                additional = +20;
+                additional += 20;
             var windUp = Game.Ping + additional;
             if (windUp < 40)
                 windUp = 40;
