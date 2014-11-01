@@ -105,6 +105,10 @@ namespace LightningRyze
             Config.SubMenu("Extra").AddItem(new MenuItem("WInterruptSpell", "Interrupt spells W").SetValue(true));
             Config.SubMenu("Extra").AddItem(new MenuItem("MapHack", "Show last enemy position").SetValue(true));
 
+            Config.AddSubMenu(new Menu("MapHack", "MapHack"));
+            Config.SubMenu("MapHack").AddItem(new MenuItem("TextColorMH", "Text Color").SetValue(new Circle(true, Color.FromArgb(255, 255, 255, 0))));
+            Config.SubMenu("MapHack").AddItem(new MenuItem("OutlineColorMH", "Outline Color").SetValue(new Circle(true, Color.FromArgb(255, 0, 0, 0))));
+
             Config.AddSubMenu(new Menu("Drawings", "Drawings"));
 			Config.SubMenu("Drawings").AddItem(new MenuItem("QRange", "Q range").SetValue(new Circle(true, Color.FromArgb(255, 255, 255, 255))));
 			Config.SubMenu("Drawings").AddItem(new MenuItem("WERange", "W+E range").SetValue(new Circle(false, Color.FromArgb(255, 255, 255, 255))));
@@ -244,9 +248,16 @@ namespace LightningRyze
                         if (!hero.Dead && !hero.Visible)
                         {
                             Vector2 pos = Drawing.WorldToMinimap(hero.LastPosition);
-                            Drawing.DrawText(pos.X - Convert.ToInt32(hero.Name.Substring(0, 3).Length * 5), pos.Y - 5,
-                                System.Drawing.Color.Red,
-                                hero.Name.Substring(0, 3));
+
+                            var OutlineColor = Config.Item("OutlineColorMH").GetValue<Circle>();
+                            var TextColor = Config.Item("TextColorMH").GetValue<Circle>();
+
+                            Drawing.DrawText(pos.X - Convert.ToInt32(hero.Name.Substring(0, 3).Length * 5 - 1), pos.Y - 6, OutlineColor.Color, hero.Name.Substring(0, 3));
+                            Drawing.DrawText(pos.X - Convert.ToInt32(hero.Name.Substring(0, 3).Length * 5 + 1), pos.Y - 8, OutlineColor.Color, hero.Name.Substring(0, 3));
+                            Drawing.DrawText(pos.X - Convert.ToInt32(hero.Name.Substring(0, 3).Length * 5 + 1), pos.Y - 6, OutlineColor.Color, hero.Name.Substring(0, 3));
+                            Drawing.DrawText(pos.X - Convert.ToInt32(hero.Name.Substring(0, 3).Length * 5 - 1), pos.Y - 8, OutlineColor.Color, hero.Name.Substring(0, 3));
+
+                            Drawing.DrawText(pos.X - Convert.ToInt32(hero.Name.Substring(0, 3).Length * 5), pos.Y - 7, TextColor.Color, hero.Name.Substring(0, 3));
                         }
                     }
                 }
