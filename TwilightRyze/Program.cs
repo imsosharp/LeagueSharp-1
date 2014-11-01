@@ -28,6 +28,7 @@ namespace LightningRyze
 		private static Spell R;
 		private static SpellSlot IgniteSlot;
         public static HpBarIndicator hpi = new HpBarIndicator();
+        private static readonly List<Hero> _heroes = new List<Hero>();
 		
         private static void Main(string[] args)
         {
@@ -102,6 +103,7 @@ namespace LightningRyze
             Config.SubMenu("Extra").AddItem(new MenuItem("AutoPoke", "AutoHarass (Toggle)").SetValue(new KeyBind("C".ToCharArray()[0], KeyBindType.Toggle)));
             Config.SubMenu("Extra").AddItem(new MenuItem("ManaFreeze", "MinMana % Harass").SetValue(new Slider(40, 1, 100)));
             Config.SubMenu("Extra").AddItem(new MenuItem("WInterruptSpell", "Interrupt spells W").SetValue(true));
+            Config.SubMenu("Extra").AddItem(new MenuItem("MapHack", "Show last enemy position").SetValue(true));
 
             Config.AddSubMenu(new Menu("Drawings", "Drawings"));
 			Config.SubMenu("Drawings").AddItem(new MenuItem("QRange", "Q range").SetValue(new Circle(true, Color.FromArgb(255, 255, 255, 255))));
@@ -111,6 +113,7 @@ namespace LightningRyze
 
             Game.PrintChat("TwilightRyze loaded!");
             Game.PrintChat("============================");
+
 
 			Game.OnGameUpdate += Game_OnGameUpdate;
 			LXOrbwalker.BeforeAttack += LXOrbwalker_BeforeAttack;
@@ -150,6 +153,8 @@ namespace LightningRyze
             catch (Exception ex) {
                 Game.PrintChat("Failed to draw HP bar damage! => "+ex);
             }
+
+
         }
     
         private static void Game_OnGameUpdate(EventArgs args)
@@ -168,6 +173,35 @@ namespace LightningRyze
             if (Config.Item("UseSera").GetValue<bool>()) UseItems();
             if (Config.Item("tearStack").GetValue<KeyBind>().Active) TearExploit();
             if (Config.Item("AutoPoke").GetValue<KeyBind>().Active) AutoPoke();
+
+            try
+            {
+                foreach (
+                    Obj_AI_Hero hero in ObjectManager.Get<Obj_AI_Hero>().Where(hero => hero.IsValid && hero.IsEnemy))
+                {
+                    if (_heroes.All(t => t.Name != hero.BaseSkinName))
+                    {
+                        _heroes.Add(new Hero
+                        {
+                            Name = hero.BaseSkinName,
+                            Visible = true,
+                            Dead = hero.IsDead,
+                            LastPosition = hero.Position
+                        });
+                    }
+                    Hero h = _heroes.FirstOrDefault(heroes => heroes.Name == hero.BaseSkinName);
+                    if (h != null)
+                    {
+                        h.Visible = hero.IsVisible;
+                        h.Dead = hero.IsDead;
+                        h.LastPosition = hero.IsVisible ? hero.Position : h.LastPosition;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
         private static void Drawing_OnDraw(EventArgs args)
         {
@@ -199,6 +233,26 @@ namespace LightningRyze
                         Drawing.DrawText(wts[0] - 40, wts[1] + 70, Color.OrangeRed, "Status: Needs harass!");
                     }
 
+                }
+            }
+            if (Config.Item("MapHack").GetValue<bool>())
+            {
+                try
+                {
+                    foreach (Hero hero in _heroes)
+                    {
+                        if (!hero.Dead && !hero.Visible)
+                        {
+                            Vector2 pos = Drawing.WorldToMinimap(hero.LastPosition);
+                            Drawing.DrawText(pos.X - Convert.ToInt32(hero.Name.Substring(0, 3).Length * 5), pos.Y - 5,
+                                System.Drawing.Color.Red,
+                                hero.Name.Substring(0, 3));
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
                 }
             }
         }
