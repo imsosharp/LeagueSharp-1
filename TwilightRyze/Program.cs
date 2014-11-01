@@ -103,11 +103,11 @@ namespace LightningRyze
             Config.SubMenu("Extra").AddItem(new MenuItem("AutoPoke", "AutoHarass (Toggle)").SetValue(new KeyBind("C".ToCharArray()[0], KeyBindType.Toggle)));
             Config.SubMenu("Extra").AddItem(new MenuItem("ManaFreeze", "MinMana % Harass").SetValue(new Slider(40, 1, 100)));
             Config.SubMenu("Extra").AddItem(new MenuItem("WInterruptSpell", "Interrupt spells W").SetValue(true));
-            Config.SubMenu("Extra").AddItem(new MenuItem("MapHack", "Show last enemy position").SetValue(true));
-
+            
             Config.AddSubMenu(new Menu("MapHack", "MapHack"));
             Config.SubMenu("MapHack").AddItem(new MenuItem("TextColorMH", "Text Color").SetValue(new Circle(true, Color.FromArgb(255, 255, 255, 0))));
             Config.SubMenu("MapHack").AddItem(new MenuItem("OutlineColorMH", "Outline Color").SetValue(new Circle(true, Color.FromArgb(255, 0, 0, 0))));
+            Config.SubMenu("MapHack").AddItem(new MenuItem("MapHack", "Enabled").SetValue(true));
 
             Config.AddSubMenu(new Menu("Drawings", "Drawings"));
 			Config.SubMenu("Drawings").AddItem(new MenuItem("QRange", "Q range").SetValue(new Circle(true, Color.FromArgb(255, 255, 255, 255))));
@@ -124,7 +124,6 @@ namespace LightningRyze
 			Drawing.OnDraw += Drawing_OnDraw;
 			Obj_AI_Base.OnProcessSpellCast += Obj_AI_Hero_OnProcessSpellCast;
             AntiGapcloser.OnEnemyGapcloser += AntiGapcloser_OnEnemyGapcloser;
-            Drawing.OnDraw += onDraw;
             Drawing.OnEndScene += OnEndScene;
             Interrupter.OnPossibleToInterrupt += Interrupter_OnPossibleToInterrupt;
         }
@@ -139,26 +138,6 @@ namespace LightningRyze
                     hpi.drawDmg(GetComboDamage(enemy), Color.Yellow);
                 }
             }
-        }
-
-        private static void onDraw(EventArgs args)
-        {
-            try
-            {
-                if (Config.Item("drawDamage").GetValue<bool>())
-                {
-                    foreach (var enemy in ObjectManager.Get<Obj_AI_Hero>().Where(ene => !ene.IsDead && ene.IsEnemy && ene.IsVisible))
-                    {
-                        hpi.unit = enemy;
-                        hpi.drawDmg(GetComboDamage(enemy), Color.Yellow);
-                    }
-                }
-            }
-            catch (Exception ex) {
-                Game.PrintChat("Failed to draw HP bar damage! => "+ex);
-            }
-
-
         }
     
         private static void Game_OnGameUpdate(EventArgs args)
@@ -220,25 +199,44 @@ namespace LightningRyze
             {
                 Utility.DrawCircle(myHero.Position, W.Range, drawWE.Color);
             }
-            if (Config.Item("drawDamage").GetValue<bool>())
+            try
             {
-                if (target != null && !target.IsDead && !myHero.IsDead)
+                if (Config.Item("drawDamage").GetValue<bool>())
                 {
-                    var ts = target;
-                    var wts = Drawing.WorldToScreen(target.Position);
-                    Drawing.DrawText(wts[0] - 40, wts[1] + 40, Color.OrangeRed, "Total damage: " + GetComboDamage(target) + "!");
-                    if (GetComboDamage(target) >= ts.Health)
+                    if (target != null && !target.IsDead && !myHero.IsDead)
                     {
-                        
-                        Drawing.DrawText(wts[0] - 40, wts[1] + 70, Color.OrangeRed, "Status: Killable");
-                    }
-                    else if (GetComboDamage(target) < ts.Health)
-                    {
-                        Drawing.DrawText(wts[0] - 40, wts[1] + 70, Color.OrangeRed, "Status: Needs harass!");
-                    }
+                        var ts = target;
+                        var wts = Drawing.WorldToScreen(target.Position);
+                        Drawing.DrawText(wts[0] - 40, wts[1] + 40, Color.OrangeRed, "Total damage: " + GetComboDamage(target) + "!");
+                        if (GetComboDamage(target) >= ts.Health)
+                        {
+                            Drawing.DrawText(wts[0] - 40, wts[1] + 70, Color.OrangeRed, "Status: Killable");
+                        }
+                        else if (GetComboDamage(target) < ts.Health)
+                        {
+                            Drawing.DrawText(wts[0] - 40, wts[1] + 70, Color.OrangeRed, "Status: Needs harass!");
+                        }
 
+                    }
+                    foreach (var enemy in ObjectManager.Get<Obj_AI_Hero>().Where(ene => !ene.IsDead && ene.IsEnemy && ene.IsVisible))
+                    {
+                        hpi.unit = enemy;
+                        if (GetComboDamage(enemy) >= enemy.Health)
+                        {
+                            hpi.drawDmg(GetComboDamage(enemy), Color.Red);
+                        }
+                        else
+                        {
+                            hpi.drawDmg(GetComboDamage(enemy), Color.Yellow);
+                        }
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                Game.PrintChat("Failed to draw HP bar damage! => " + ex);
+            }
+
             if (Config.Item("MapHack").GetValue<bool>())
             {
                 try
