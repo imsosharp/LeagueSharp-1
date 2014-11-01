@@ -1,0 +1,1 @@
+c:\users\harold\documents\visual studio 2013\Projects\Windup Detector\Windup Detector\bin\x86\Debug\Windup Detector.exe.config
