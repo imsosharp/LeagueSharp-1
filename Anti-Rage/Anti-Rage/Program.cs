@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using LeagueSharp;
 using LeagueSharp.Common;
 using SharpDX;
-using System.Windows.Forms.SendKeys;
 
 namespace Anti_Rage
 {
@@ -17,7 +16,6 @@ namespace Anti_Rage
         static void Main(string[] args)
         {
             CustomEvents.Game.OnGameLoad += OnLoad;
-            CustomEvents.Game.OnGameLoad += DoStuff;
             Game.OnGameInput += onInput;
         }
         private static void OnLoad(EventArgs args)
@@ -39,17 +37,15 @@ namespace Anti_Rage
                     args.Process = false;
                 }
             }
-        }
-        private static void DoStuff(EventArgs args)
-        {
-            if (Config.Item("key").GetValue<KeyBind>().Active)
+            if (Config.Item("canRun").GetValue<bool>())
             {
-                if (Config.Item("clearChar").GetValue<KeyBind>().Active)
-                {
-                    for (int i = 0; i < 15; i++)
+                args.Process = false;
+            }
+
+            if (Config.Item("clearChar").GetValue<KeyBind>().Active)
+            {
+                for (int i = 0; i < 15; i++)
                     Game.PrintChat("Don't Rage - It won't help you to win.");
-                }            
             }
         }
-    }
 }

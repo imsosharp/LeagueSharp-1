@@ -1,1 +1,2 @@
 C:\Users\Harold\documents\visual studio 2013\Projects\Anti-Rage\Anti-Rage\bin\x86\Release\Anti-Rage.exe.config
+C:\Users\Harold\Documents\GitHub\LeagueSharp\Anti-Rage\Anti-Rage\bin\x86\Release\Anti-Rage.exe.config
