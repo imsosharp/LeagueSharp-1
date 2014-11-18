@@ -20,12 +20,12 @@ namespace Anti_Rage
         }
         private static void OnLoad(EventArgs args)
         {
-            Config = new Menu("anti-rage", "Anti-Rage",true);
+            Config = new Menu("anti-rage", "Anti-Rage", true);
             Config.AddItem(new MenuItem("canRun", "Prevent chatting").SetValue(true));
             Config.AddItem(new MenuItem("clearChar", "Auto-Clear chat").SetValue(true));
             Config.AddItem(new MenuItem("clearRage", "Prevent flaming").SetValue(true));
             Config.AddItem(new MenuItem("key", "Do NOT touch.").SetValue(new KeyBind("ENTER".ToCharArray()[0], KeyBindType.Press)));
-            Config.AddItem(new MenuItem("enabled","Enable").SetValue(true));
+            Config.AddItem(new MenuItem("enabled", "Enable").SetValue(true));
             Game.PrintChat("[TwilightLoL] Anti-Rage enabled");
         }
         private static void onInput(GameInputEventArgs args)
@@ -48,4 +48,5 @@ namespace Anti_Rage
                     Game.PrintChat("Don't Rage - It won't help you to win.");
             }
         }
+    }
 }
