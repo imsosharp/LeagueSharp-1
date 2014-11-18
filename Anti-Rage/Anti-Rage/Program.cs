@@ -26,6 +26,7 @@ namespace Anti_Rage
             Config.AddItem(new MenuItem("clearRage", "Prevent flaming").SetValue(true));
             Config.AddItem(new MenuItem("key", "Do NOT touch.").SetValue(new KeyBind("ENTER".ToCharArray()[0], KeyBindType.Press)));
             Config.AddItem(new MenuItem("enabled", "Enable").SetValue(true));
+            Config.AddToMainMenu();
             Game.PrintChat("[TwilightLoL] Anti-Rage enabled");
         }
         private static void onInput(GameInputEventArgs args)
