@@ -80,6 +80,7 @@ namespace Twilight_s_Auto_Carry___Kalista
             Config.SubMenu("Drawings").AddItem(new MenuItem("WRange", "W range").SetValue(new Circle(true, Color.FromArgb(255, 255, 255, 255))));
             Config.SubMenu("Drawings").AddItem(new MenuItem("ERange", "E range").SetValue(new Circle(true, Color.FromArgb(255, 255, 255, 255))));
             Config.SubMenu("Drawings").AddItem(new MenuItem("RRange", "R range").SetValue(new Circle(true, Color.FromArgb(255, 255, 255, 255))));
+            Config.SubMenu("Drawings").AddItem(new MenuItem("drawText", "Draw text").SetValue(true)));
             Config.AddToMainMenu();
 
             Config.AddItem(new MenuItem("Packets", "Packet Casting").SetValue(true));
@@ -170,8 +171,28 @@ namespace Twilight_s_Auto_Carry___Kalista
                 }
             }
         }
+        private static int getTotalAttacksE(Obj_AI_Hero target)
+        {
+            int first = (int)(target.Health/myHero.GetAutoAttackDamage(target));
+            int second = (int)(target.Health - (E.GetDamage(target)*first));
+
+            return first;
+        }
         private static void Drawing_OnDraw(EventArgs args)
         {
+            if(Config.Item("drawText").GetValue<bool>())
+            {
+                if (target != null && !target.IsDead && !myHero.IsDead)
+                {
+                    var wts = Drawing.WorldToScreen(target.Position);
+                    int tan = getTotalAttacksE(target);
+
+                    Drawing.DrawText(wts[0] - 40, wts[1] + 70, Color.OrangeRed, "Combo "+getTotalAttacksE(target)+" AA + E");
+                }
+
+            }
+
+
 
             var drawQ = Config.Item("QRange").GetValue<Circle>();
             if (drawQ.Active && !myHero.IsDead)
