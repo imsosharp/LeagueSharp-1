@@ -83,7 +83,7 @@ namespace Twilight_s_Auto_Carry___Kalista
             Config.SubMenu("Drawings").AddItem(new MenuItem("WRange", "W range").SetValue(new Circle(true, Color.FromArgb(255, 255, 255, 255))));
             Config.SubMenu("Drawings").AddItem(new MenuItem("ERange", "E range").SetValue(new Circle(true, Color.FromArgb(255, 255, 255, 255))));
             Config.SubMenu("Drawings").AddItem(new MenuItem("RRange", "R range").SetValue(new Circle(true, Color.FromArgb(255, 255, 255, 255))));
-            Config.SubMenu("Drawings").AddItem(new MenuItem("drawText", "Draw text").SetValue(true)));
+            Config.SubMenu("Drawings").AddItem(new MenuItem("drawText", "Draw text").SetValue(true));
             Config.AddToMainMenu();
 
             Config.AddItem(new MenuItem("Packets", "Packet Casting").SetValue(true));
