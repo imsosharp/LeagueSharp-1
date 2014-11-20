@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using LeagueSharp;
 using LeagueSharp.Common;
-using LX_Orbwalker;
 using SharpDX;
 using SharpDX.Direct3D9;
 using Color = System.Drawing.Color;
 using System.Globalization;
 using System.Threading;
+using xSLx_Orbwalker;
 
 namespace Twilight_s_Auto_Carry___Kalista
 {
@@ -51,8 +51,8 @@ namespace Twilight_s_Auto_Carry___Kalista
             SimpleTs.AddToMenu(targetSelectorMenu);
             Config.AddSubMenu(targetSelectorMenu);
 
-            var orbwalkerMenu = new Menu("LX-Orbwalker", "Orbwalker");
-            LXOrbwalker.AddToMenu(orbwalkerMenu);
+            var orbwalkerMenu = new Menu("xSLx Orbwalker", "xSLx_Orbwalker");
+            xSLxOrbwalker.AddToMenu(orbwalkerMenu);
             Config.AddSubMenu(orbwalkerMenu);
             
             Config.AddSubMenu(new Menu("AutoCarry options", "ac"));
@@ -131,12 +131,12 @@ namespace Twilight_s_Auto_Carry___Kalista
             if (myHero.IsDead) return;
             if (Config.Item("whk").GetValue<bool>()) WallHop();
             levelUpManager.Update();
-            switch (LXOrbwalker.CurrentMode)
+            switch (xSLxOrbwalker.CurrentMode)
             {
-                case LXOrbwalker.Mode.Combo:
+                case xSLxOrbwalker.Mode.Combo:
                     Combo();
                     break;
-                case LXOrbwalker.Mode.Harass:
+                case xSLxOrbwalker.Mode.Harass:
                     Harass();
                     break;
             }
@@ -156,11 +156,11 @@ namespace Twilight_s_Auto_Carry___Kalista
             var ManaQ = Config.Item("QManaMinAC").GetValue<Slider>().Value;
             var ManaE = Config.Item("EManaMinAC").GetValue<Slider>().Value;
             var distance = GetRealDistance(target);
-            if (Q.IsReady() && distance > Q.Range && getPerValue(true) >= ManaQ)
+            if (Q.IsReady() && distance < Q.Range && getPerValue(true) >= ManaQ)
             {
                 Q.Cast(target, packetCast());
             }
-            if (E.IsReady() && distance > E.Range && target.Health >= getDamageToTarget(target) && getPerValue(true) >= ManaE)
+            if (E.IsReady() && distance <= E.Range && target.Health >= getDamageToTarget(target) && getPerValue(true) >= ManaE)
             {
                 E.Cast(target, packetCast());
             }
@@ -194,7 +194,7 @@ namespace Twilight_s_Auto_Carry___Kalista
         {
             if (Config.Item("drawDamage").GetValue<bool>())
             {
-                foreach (var enemy in ObjectManager.Get<Obj_AI_Hero>().Where(ene => !ene.IsDead && ene.IsEnemy && ene.IsVisible))
+                foreach (var enemy in ObjectManager.Get<Obj_AI_Hero>().Where(enemy => !enemy.IsDead && enemy.IsEnemy && enemy.IsVisible))
                 {
                     hpi.unit = enemy;
                     hpi.drawDmg(CalculateRendDamage(enemy), Color.Yellow);
@@ -248,7 +248,7 @@ namespace Twilight_s_Auto_Carry___Kalista
             }
             try
             {
-                foreach (var enemy in ObjectManager.Get<Obj_AI_Hero>().Where(ene => !ene.IsDead && ene.IsEnemy && ene.IsVisible))
+                foreach (var enemy in ObjectManager.Get<Obj_AI_Hero>().Where(ene => !target.IsDead && target.IsEnemy && target.IsVisible))
                 {
                     hpi.unit = enemy;
                     if (CalculateRendDamage(enemy) >= enemy.Health)
