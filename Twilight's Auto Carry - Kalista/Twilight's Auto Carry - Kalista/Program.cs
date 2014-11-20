@@ -40,6 +40,12 @@ namespace Twilight_s_Auto_Carry___Kalista
         public static void Load(EventArgs args)
         {
             Config = new Menu("TAC: Kalista", "Kalista", true);
+            Config.AddItem(new MenuItem("", "Version: 1.0.5"));
+            Config.AddItem(new MenuItem("", "============"));
+            Config.AddItem(new MenuItem("", "Not working:"));
+            Config.AddItem(new MenuItem("", "WallHop options/draw"));
+            Config.AddItem(new MenuItem("", "============"));
+
             var targetSelectorMenu = new Menu("Target Selector", "Target Selector");
             SimpleTs.AddToMenu(targetSelectorMenu);
             Config.AddSubMenu(targetSelectorMenu);
@@ -47,7 +53,7 @@ namespace Twilight_s_Auto_Carry___Kalista
             var orbwalkerMenu = new Menu("LX-Orbwalker", "Orbwalker");
             LXOrbwalker.AddToMenu(orbwalkerMenu);
             Config.AddSubMenu(orbwalkerMenu);
-            /*
+            
             Config.AddSubMenu(new Menu("AutoCarry options", "ac"));
             Config.SubMenu("ac").AddItem(new MenuItem("UseQAC", "Use Q").SetValue(true));
             Config.SubMenu("ac").AddItem(new MenuItem("UseEAC", "Use E").SetValue(true));
@@ -57,14 +63,14 @@ namespace Twilight_s_Auto_Carry___Kalista
             Config.SubMenu("ac").AddItem(new MenuItem("EManaMinAC", "Min E Mana %").SetValue(new Slider(35, 1, 100)));
 
             Config.AddSubMenu(new Menu("Harass options", "harass"));
-            Config.SubMenu("harass").AddItem(new MenuItem("QManaMinHS", "Min Q Mana %").SetValue(new Slider(35, 1, 100)));
+            Config.SubMenu("harass").AddItem(new MenuItem("stackE", "E stacks to cast").SetValue(new Slider(1, 1, 10)));
             Config.SubMenu("harass").AddItem(new MenuItem("EManaMinHS", "Min E Mana %").SetValue(new Slider(35, 1, 100)));
 
 
             Config.AddSubMenu(new Menu("Wall Hop options", "wh"));
             Config.SubMenu("wh").AddItem(new MenuItem("drawSpot", "Draw WallHop spots").SetValue(true));
             Config.SubMenu("wh").AddItem(new MenuItem("whk", "WallHop key").SetValue(new KeyBind("T".ToCharArray()[0], KeyBindType.Press)));
-            */
+            
             var extras = new Menu("Extras", "Extras");
             new PotionManager(extras);
             Config.AddSubMenu(extras);
@@ -82,7 +88,75 @@ namespace Twilight_s_Auto_Carry___Kalista
 
 
             Drawing.OnDraw += Drawing_OnDraw;
+            Game.OnGameUpdate += OnGameUpdate;
             Drawing.OnEndScene += OnEndScene;
+        }
+        public static float getPerValue(bool mana)
+        {
+            if (mana) return (myHero.Mana / myHero.MaxMana) * 100;
+            return (myHero.Health / myHero.MaxHealth) * 100;
+        }
+        public static void OnGameUpdate(EventArgs args)
+        {
+            if (myHero.IsDead) return;
+            if (Config.Item("whk").GetValue<bool>()) WallHop();
+            switch (LXOrbwalker.CurrentMode)
+            {
+                case LXOrbwalker.Mode.Combo:
+                    Combo();
+                    break;
+                case LXOrbwalker.Mode.Harass:
+                    Harass();
+                    break;
+            }
+
+        }
+        public static void WallHop()
+        {
+
+        }
+        private static float GetRealDistance(GameObject target)
+        {
+            return ObjectManager.Player.Position.Distance(target.Position) + ObjectManager.Player.BoundingRadius +
+            target.BoundingRadius;
+        }
+        public static void Combo()
+        {
+            var ManaQ = Config.Item("QManaMinAC").GetValue<Slider>().Value;
+            var ManaE = Config.Item("EManaMinAC").GetValue<Slider>().Value;
+            var distance = GetRealDistance(target);
+            if (Q.IsReady() && distance > Q.Range && getPerValue(true) >= ManaQ)
+            {
+                Q.Cast(target, packetCast());
+            }
+            if (E.IsReady() && distance > E.Range && target.Health >= getDamageToTarget(target) && getPerValue(true) >= ManaE)
+            {
+                E.Cast(target, packetCast());
+            }
+        }
+        private static bool packetCast()
+        {
+            return Config.Item("Packets").GetValue<bool>();
+        }
+        public static void Harass()
+        {
+            //var minList = MinionManager.GetMinions(myHero.Position, 550f).Where(min => min.Health < Q.GetDamage(min));
+            
+            var ManaE = Config.Item("EManaMinHS").GetValue<Slider>().Value;
+            foreach (var buff in target.Buffs.Where(buff => buff.DisplayName.ToLower() == "kalistarend").Where(buff => buff.Count == Config.Item("stackE").GetValue<Slider>().Value))
+            {
+                if (E.IsReady() && getPerValue(true) >= ManaE)
+                    E.Cast(target, packetCast());
+            }
+
+        }
+        public static int getDamageToTarget(Obj_AI_Hero target)
+        {
+            foreach (var buff in target.Buffs.Where(buff => buff.DisplayName.ToLower() == "kalistarend").Where(buff => buff.Count == 6))
+            {
+                return (int)target.GetSpellDamage(myHero, SpellSlot.E) * buff.Count;
+            }
+            return 0;
         }
 
         private static void OnEndScene(EventArgs args)
