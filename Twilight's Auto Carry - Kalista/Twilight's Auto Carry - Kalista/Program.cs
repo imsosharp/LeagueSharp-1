@@ -23,7 +23,8 @@ namespace Twilight_s_Auto_Carry___Kalista
         private static Spell Q = new Spell(SpellSlot.Q,1450);
         private static Spell W = new Spell(SpellSlot.W,5500);
         private static Spell E = new Spell(SpellSlot.E,1050);
-        private static Spell R = new Spell(SpellSlot.R,1200);
+        private static Spell R = new Spell(SpellSlot.R, 1200);
+        public static LevelUpManager levelUpManager;
         
         static void Main(string[] args)
         {
@@ -74,6 +75,8 @@ namespace Twilight_s_Auto_Carry___Kalista
             var extras = new Menu("Extras", "Extras");
             new PotionManager(extras);
             Config.AddSubMenu(extras);
+            
+            levelUpManager.AddToMenu(ref Config);
 
             Config.AddSubMenu(new Menu("Drawings", "Drawings"));
             Config.SubMenu("Drawings").AddItem(new MenuItem("QRange", "Q range").SetValue(new Circle(true, Color.FromArgb(255, 255, 255, 255))));
@@ -87,10 +90,36 @@ namespace Twilight_s_Auto_Carry___Kalista
 
             Config.AddItem(new MenuItem("debug", "Debug").SetValue(true));
 
-
+            
+            InitializeLevelUpManager();
             Drawing.OnDraw += Drawing_OnDraw;
             Game.OnGameUpdate += OnGameUpdate;
             Drawing.OnEndScene += OnEndScene;
+        }
+        private static void InitializeLevelUpManager()
+        {
+            var priority1 = new int[] { 
+                1, // level 1
+                3, // level 2
+                1, // level 3
+                2, // level 4
+                1, // level 5
+                4, // level 6
+                1, // level 7
+                3, // level 8
+                1, // level 9
+                3, // level 10
+                4, // level 11
+                3, // level 12
+                3, // level 13
+                2, // level 14
+                2, // level 15
+                4, // level 16
+                2, // level 17
+                2  // level 18
+            };
+            levelUpManager = new LevelUpManager();
+            levelUpManager.Add("R > Q > E > W", priority1);
         }
         public static float getPerValue(bool mana)
         {
@@ -101,6 +130,7 @@ namespace Twilight_s_Auto_Carry___Kalista
         {
             if (myHero.IsDead) return;
             if (Config.Item("whk").GetValue<bool>()) WallHop();
+            levelUpManager.Update();
             switch (LXOrbwalker.CurrentMode)
             {
                 case LXOrbwalker.Mode.Combo:
@@ -362,5 +392,63 @@ namespace Twilight_s_Auto_Carry___Kalista
             dxLine.End();
         }
 
+    }
+    public class LevelUpManager
+    {
+        private int[] spellPriorityList;
+        private int lastLevel;
+
+        private Dictionary<string, int[]> SpellPriorityList;
+        private Menu Menu;
+        private int SelectedPriority;
+
+        public LevelUpManager()
+        {
+            lastLevel = 0;
+            SpellPriorityList = new Dictionary<string, int[]>();
+        }
+
+        public void AddToMenu(ref Menu menu)
+        {
+            Menu = menu;
+            if (SpellPriorityList.Count > 0)
+            {
+                Menu.AddSubMenu(new Menu("Spell Level Up", "LevelUp"));
+                Menu.SubMenu("LevelUp").AddItem(new MenuItem("LevelUp_" + ObjectManager.Player.ChampionName + "_enabled", "Enable").SetValue(true));
+                Menu.SubMenu("LevelUp").AddItem(new MenuItem("LevelUp_" + ObjectManager.Player.ChampionName + "_select", "").SetValue(new StringList(SpellPriorityList.Keys.ToArray())));
+                SelectedPriority = Menu.Item("LevelUp_" + ObjectManager.Player.ChampionName + "_select").GetValue<StringList>().SelectedIndex;
+            }
+        }
+
+        public void Add(string spellPriorityDesc, int[] spellPriority)
+        {
+            SpellPriorityList.Add(spellPriorityDesc, spellPriority);
+        }
+
+
+        public void Update()
+        {
+            if (SpellPriorityList.Count == 0 || !Menu.Item("LevelUp_" + ObjectManager.Player.ChampionName + "_enabled").GetValue<bool>() || this.lastLevel == ObjectManager.Player.Level)
+                return;
+
+            this.spellPriorityList = SpellPriorityList.Values.ElementAt(SelectedPriority);
+
+            int qL = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.Q).Level;
+            int wL = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.W).Level;
+            int eL = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.E).Level;
+            int rL = ObjectManager.Player.Spellbook.GetSpell(SpellSlot.R).Level;
+
+            if (qL + wL + eL + rL < ObjectManager.Player.Level)
+            {
+                int[] level = new int[] { 0, 0, 0, 0 };
+                for (int i = 0; i < ObjectManager.Player.Level; i++)
+                    level[this.spellPriorityList[i] - 1] = level[this.spellPriorityList[i] - 1] + 1;
+
+                if (qL < level[0]) ObjectManager.Player.Spellbook.LevelUpSpell(SpellSlot.Q);
+                if (wL < level[1]) ObjectManager.Player.Spellbook.LevelUpSpell(SpellSlot.W);
+                if (eL < level[2]) ObjectManager.Player.Spellbook.LevelUpSpell(SpellSlot.E);
+                if (rL < level[3]) ObjectManager.Player.Spellbook.LevelUpSpell(SpellSlot.R);
+            }
+        }
     }
 }
