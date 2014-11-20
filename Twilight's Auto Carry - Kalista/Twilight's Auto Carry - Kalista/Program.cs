@@ -47,6 +47,27 @@ namespace Twilight_s_Auto_Carry___Kalista
             var orbwalkerMenu = new Menu("LX-Orbwalker", "Orbwalker");
             LXOrbwalker.AddToMenu(orbwalkerMenu);
             Config.AddSubMenu(orbwalkerMenu);
+            /*
+            Config.AddSubMenu(new Menu("AutoCarry options", "ac"));
+            Config.SubMenu("ac").AddItem(new MenuItem("UseQAC", "Use Q").SetValue(true));
+            Config.SubMenu("ac").AddItem(new MenuItem("UseEAC", "Use E").SetValue(true));
+            Config.SubMenu("ac").AddItem(new MenuItem("Detonate", "Use E at").SetValue(new Slider(1, 1, 40)));
+            Config.SubMenu("ac").AddItem(new MenuItem("DetonateAuto", "Auto E").SetValue(true));
+            Config.SubMenu("ac").AddItem(new MenuItem("QManaMinAC", "Min Q Mana %").SetValue(new Slider(35, 1, 100)));
+            Config.SubMenu("ac").AddItem(new MenuItem("EManaMinAC", "Min E Mana %").SetValue(new Slider(35, 1, 100)));
+
+            Config.AddSubMenu(new Menu("Harass options", "harass"));
+            Config.SubMenu("harass").AddItem(new MenuItem("QManaMinHS", "Min Q Mana %").SetValue(new Slider(35, 1, 100)));
+            Config.SubMenu("harass").AddItem(new MenuItem("EManaMinHS", "Min E Mana %").SetValue(new Slider(35, 1, 100)));
+
+
+            Config.AddSubMenu(new Menu("Wall Hop options", "wh"));
+            Config.SubMenu("wh").AddItem(new MenuItem("drawSpot", "Draw WallHop spots").SetValue(true));
+            Config.SubMenu("wh").AddItem(new MenuItem("whk", "WallHop key").SetValue(new KeyBind("T".ToCharArray()[0], KeyBindType.Press)));
+            */
+            var extras = new Menu("Extras", "Extras");
+            new PotionManager(extras);
+            Config.AddSubMenu(extras);
 
             Config.AddSubMenu(new Menu("Drawings", "Drawings"));
             Config.SubMenu("Drawings").AddItem(new MenuItem("QRange", "Q range").SetValue(new Circle(true, Color.FromArgb(255, 255, 255, 255))));
@@ -54,6 +75,8 @@ namespace Twilight_s_Auto_Carry___Kalista
             Config.SubMenu("Drawings").AddItem(new MenuItem("ERange", "E range").SetValue(new Circle(true, Color.FromArgb(255, 255, 255, 255))));
             Config.SubMenu("Drawings").AddItem(new MenuItem("RRange", "R range").SetValue(new Circle(true, Color.FromArgb(255, 255, 255, 255))));
             Config.AddToMainMenu();
+
+            Config.AddItem(new MenuItem("Packets", "Packet Casting").SetValue(true));
 
             Config.AddItem(new MenuItem("debug", "Debug").SetValue(true));
 
