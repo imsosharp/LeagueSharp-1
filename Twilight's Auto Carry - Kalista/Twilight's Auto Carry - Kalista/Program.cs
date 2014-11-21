@@ -40,6 +40,7 @@ namespace Twilight_s_Auto_Carry___Kalista
         }
         public static void Load(EventArgs args)
         {
+            
             if (myHero.ChampionName != "Kalista") return;
             Game.PrintChat("=========================");
             Game.PrintChat("| Twilight Auto Carry   |");
@@ -66,10 +67,10 @@ namespace Twilight_s_Auto_Carry___Kalista
             Config.SubMenu("ac").AddItem(new MenuItem("UseEAC", "Use E").SetValue(true));
 //            Config.SubMenu("ac").AddItem(new MenuItem("QManaMinAC", "Min Q Mana %").SetValue(new Slider(35, 1, 100)));
 //            Config.SubMenu("ac").AddItem(new MenuItem("EManaMinAC", "Min E Mana %").SetValue(new Slider(35, 1, 100)));
-
+            
             Config.AddSubMenu(new Menu("Harass options", "harass"));
             Config.SubMenu("harass").AddItem(new MenuItem("stackE", "E stacks to cast").SetValue(new Slider(1, 1, 10)));
-            Config.SubMenu("Harass").AddItem(new MenuItem("manaPercent", "Mana %").SetValue(new Slider(40, 1, 100)));
+            Config.SubMenu("harass").AddItem(new MenuItem("manaPercent", "Mana %").SetValue(new Slider(40, 1, 100)));
 //            Config.SubMenu("harass").AddItem(new MenuItem("EManaMinHS", "Min E Mana %").SetValue(new Slider(35, 1, 100)));
 
 
@@ -148,6 +149,7 @@ namespace Twilight_s_Auto_Carry___Kalista
 
         public static void OnGameUpdate(EventArgs args)
         {
+            
             drawings = Config.Item("enableDrawings").GetValue<bool>();
             debug = Config.Item("debug").GetValue<bool>();
             packetCast = Config.Item("Packets").GetValue<bool>();
