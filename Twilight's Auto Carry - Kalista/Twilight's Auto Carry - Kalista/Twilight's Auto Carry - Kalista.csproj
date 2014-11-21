@@ -86,7 +86,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="hpBarIndicator.cs" />
     <Compile Include="OrbWalker.cs" />
     <Compile Include="PotionManager.cs" />
     <Compile Include="Program.cs" />

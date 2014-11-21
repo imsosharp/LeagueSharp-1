@@ -18,7 +18,6 @@ namespace Twilight_s_Auto_Carry___Kalista
         private static Menu Config;
         private static Obj_AI_Hero myHero = ObjectManager.Player;
         public static Orbwalking.Orbwalker Orbwalker;
-        public static HpBarIndicator hpi = new HpBarIndicator();
         private static Spell Q = new Spell(SpellSlot.Q, 1450);
         private static Spell W = new Spell(SpellSlot.W, 5500);
         private static Spell E = new Spell(SpellSlot.E, 1200);
@@ -114,7 +113,7 @@ namespace Twilight_s_Auto_Carry___Kalista
 //            InitializeLevelUpManager();
             Drawing.OnDraw += Drawing_OnDraw;
             Game.OnGameUpdate += OnGameUpdate;
-            Drawing.OnEndScene += OnEndScene;
+            Obj_AI_Hero.OnProcessSpellCast += Obj_AI_Hero_OnProcessSpellCast;
         }
 
         public static Obj_AI_Minion GetNearest(Vector3 pos)
@@ -140,21 +139,6 @@ namespace Twilight_s_Auto_Carry___Kalista
         {
             if (mana) return (myHero.Mana / myHero.MaxMana) * 100;
             return (myHero.Health / myHero.MaxHealth) * 100;
-        }
-        private static void OnEndScene(EventArgs args)
-        {
-            if (Config.Item("drawHp").GetValue<bool>())
-            {
-                foreach (
-                    var enemy in
-                        ObjectManager.Get<Obj_AI_Hero>()
-                            .Where(ene => !ene.IsDead && ene.IsEnemy && ene.IsVisible))
-                {
-                    hpi.unit = enemy;
-                    hpi.drawDmg(getDamageToTarget(enemy), Color.Yellow);
-
-                }
-            }
         }
         public static int KalistaMarkerCountMinion
         {
@@ -294,25 +278,33 @@ namespace Twilight_s_Auto_Carry___Kalista
             var useQ = Config.Item("UseQAC").GetValue<bool>();
             var useE = Config.Item("UseEAC").GetValue<bool>();
 
-            Obj_AI_Hero target;
-            if (Orbwalking.CanMove(100))
+            Obj_AI_Hero target = SimpleTs.GetTarget(Q.Range, SimpleTs.DamageType.Physical);
+            if (Orbwalking.CanMove(100) && target != null)
             {
-                if (Q.IsReady() && useQ)// && getPerValue(true) >= ManaQ)
+                if (Q.IsReady() && useQ)
                 {
-                    target = SimpleTs.GetTarget(Q.Range, SimpleTs.DamageType.Physical);
-                    if (target != null)
+                    Q.Cast(target, packetCast);
+                }
+                if (E.IsReady() && useE)
+                {
+                    if (target.Health < getDamageToTarget(target))
                     {
-                        Q.Cast(target, packetCast);
+                        Game.PrintChat("Casting E");
+                        E.Cast();
                     }
                 }
-                if (E.IsReady() && useE)// && getPerValue(true) >= ManaE)
-                {
-                    target = SimpleTs.GetTarget(E.Range, SimpleTs.DamageType.Physical);
-                    if (target.Health <= (E.GetDamage(target) + getDamageToTarget(target)))
-                    {
-                        E.Cast(target, packetCast);
-                    }
-                }
+            }
+            else
+            {
+                Game.PrintChat("Target not found!");
+            }
+        }
+        internal static void Obj_AI_Hero_OnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
+        {
+            if (sender.IsMe)
+            {
+                if (args.SData.Name == "KalistaExpungeWrapper")
+                    Utility.DelayAction.Add(250, Orbwalking.ResetAutoAttackTimer);
             }
         }
         public static void Harass()
@@ -326,7 +318,7 @@ namespace Twilight_s_Auto_Carry___Kalista
             }
 
         }
-        public static int getDamageToTarget(Obj_AI_Hero target)
+        public static float getDamageToTarget(Obj_AI_Hero target)
         {
             int levelSkill = E.Level;
             var stacks = KalistaMarkerCount;
@@ -334,10 +326,8 @@ namespace Twilight_s_Auto_Carry___Kalista
             double baseDamagePerStack = new double[] { 5, 9, 14, 20, 27 }[levelSkill];
             double scalingDamagePerStack = new double[] { 0.15, 0.18, 0.21, 0.24, 0.27 }[levelSkill];
             double baseDamage = new double[] { 20, 30, 40, 50, 60 }[levelSkill];
-            double totalDamageToTarget = baseDamage + (baseDamagePerStack + scalingDamagePerStack * AD) * target.Buffs.FirstOrDefault(b => b.DisplayName.ToLower() == "kalistaexpungemarker").Count; //stacks
-            if (debug)
-                Game.PrintChat("Target: "+target.ChampionName+" Stacks:"+target.Buffs.FirstOrDefault(b => b.DisplayName.ToLower() == "kalistaexpungemarker").Count);
-            return (int)totalDamageToTarget;
+            double totalDamageToTarget = (baseDamage + baseDamagePerStack + scalingDamagePerStack * AD) * target.Buffs.FirstOrDefault(b => b.DisplayName.ToLower() == "kalistaexpungemarker").Count; //stacks
+            return (float)totalDamageToTarget;
         }
         public static int getDamageToMinion(Obj_AI_Base target)
         {
@@ -347,7 +337,7 @@ namespace Twilight_s_Auto_Carry___Kalista
             double baseDamagePerStack = new double[] { 5, 9, 14, 20, 27 }[levelSkill];
             double scalingDamagePerStack = new double[] { 0.15, 0.18, 0.21, 0.24, 0.27 }[levelSkill];
             double baseDamage = new double[] { 20, 30, 40, 50, 60 }[levelSkill];
-            double totalDamageToTarget = baseDamage + (baseDamagePerStack + scalingDamagePerStack * AD) * target.Buffs.FirstOrDefault(b => b.DisplayName.ToLower() == "kalistaexpungemarker").Count; //stacks
+            double totalDamageToTarget = (baseDamage + baseDamagePerStack + scalingDamagePerStack * AD) * target.Buffs.FirstOrDefault(b => b.DisplayName.ToLower() == "kalistaexpungemarker").Count; //stacks
             return (int)totalDamageToTarget;
         }
         public static int simulateDamage(int stacks)
@@ -365,7 +355,7 @@ namespace Twilight_s_Auto_Carry___Kalista
 
         private static int getTotalAttacks(Obj_AI_Hero target, int stage)
         {
-            int totalDamageToTarget = getDamageToTarget(target);
+            float totalDamageToTarget = getDamageToTarget(target);
             float targetHealth = target.Health;
             float skillQdamage = Q.GetDamage(target);
             float baseADDamage = (float)myHero.GetAutoAttackDamage(target);
@@ -407,27 +397,12 @@ namespace Twilight_s_Auto_Carry___Kalista
                 }
 
             }
-
-            try
+            Config.Item("drawHp").ValueChanged += (object sender, OnValueChangeEventArgs e) => { Utility.HpBarDamageIndicator.Enabled = e.GetNewValue<bool>(); };
+            if (Config.Item("drawHp").GetValue<bool>())
             {
-                if (Config.Item("drawHp").GetValue<bool>())
-                {
-                    foreach (
-                        var enemy in
-                            ObjectManager.Get<Obj_AI_Hero>()
-                                .Where(ene => !ene.IsDead && ene.IsEnemy && ene.IsVisible))
-                    {
-                        hpi.unit = enemy;
-                        hpi.drawDmg(getDamageToTarget(enemy), Color.Yellow);
-
-                    }
-                }
+                Utility.HpBarDamageIndicator.DamageToUnit = getDamageToTarget;
+                Utility.HpBarDamageIndicator.Enabled = true;
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
 
             var drawQ = Config.Item("QRange").GetValue<Circle>();
             if (drawQ.Active && !myHero.IsDead)
