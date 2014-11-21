@@ -72,6 +72,8 @@ namespace Twilight_s_Auto_Carry___Kalista
 
 
             Config.AddSubMenu(new Menu("Smite options", "smite"));
+            Config.SubMenu("smite").AddItem(new MenuItem("", "Can cause a bugsplat!"));
+            Config.SubMenu("smite").AddItem(new MenuItem("", "not 100% working yet"));
             Config.SubMenu("smite").AddItem(new MenuItem("SRU_Baron", "Baron Enabled").SetValue(true));
             Config.SubMenu("smite").AddItem(new MenuItem("SRU_Dragon", "Dragon Enabled").SetValue(true));
             Config.SubMenu("smite").AddItem(new MenuItem("smite", "Auto-Smite enabled").SetValue(true));
@@ -213,14 +215,17 @@ namespace Twilight_s_Auto_Carry___Kalista
             if(Config.Item("showPos").GetValue<KeyBind>().Active)
             {
                 Game.PrintChat("Positino on server: "+myHero.ServerPosition);
-            }
+            } 
 
-            Obj_AI_Base mob = GetNearest(myHero.ServerPosition);
-            if (mob != null && Config.Item(mob.SkinName).GetValue<bool>())
+            if (Config.Item("smite").GetValue<bool>())
             {
-                if (mob.Health < getDamageToMinion(mob))
+                Obj_AI_Base mob = GetNearest(myHero.ServerPosition);
+                if (mob != null && Config.Item(mob.SkinName).GetValue<bool>())
                 {
-                    E.Cast();
+                    if (mob.Health < getDamageToMinion(mob))
+                    {
+                        E.Cast();
+                    }
                 }
             }
         }
