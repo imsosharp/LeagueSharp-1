@@ -33,7 +33,7 @@ namespace Twilight_s_Auto_Carry___Kalista
         public static bool ComboActive;
         public static bool HarassActive;
         public static bool drawings;
-
+        private static readonly string[] MinionNames = {"TT_Spiderboss", "TTNGolem", "TTNWolf", "TTNWraith", "SRU_Blue", "SRU_Gromp", "SRU_Murkwolf", "SRU_Razorbeak", "SRU_Red", "SRU_Krug", "SRU_Dragon", "SRU_Baron", "Sru_Crab"};
         static void Main(string[] args)
         {
             CustomEvents.Game.OnGameLoad += Load;
@@ -65,13 +65,16 @@ namespace Twilight_s_Auto_Carry___Kalista
             Config.AddSubMenu(new Menu("AutoCarry options", "ac"));
             Config.SubMenu("ac").AddItem(new MenuItem("UseQAC", "Use Q").SetValue(true));
             Config.SubMenu("ac").AddItem(new MenuItem("UseEAC", "Use E").SetValue(true));
-//            Config.SubMenu("ac").AddItem(new MenuItem("QManaMinAC", "Min Q Mana %").SetValue(new Slider(35, 1, 100)));
-//            Config.SubMenu("ac").AddItem(new MenuItem("EManaMinAC", "Min E Mana %").SetValue(new Slider(35, 1, 100)));
             
             Config.AddSubMenu(new Menu("Harass options", "harass"));
             Config.SubMenu("harass").AddItem(new MenuItem("stackE", "E stacks to cast").SetValue(new Slider(1, 1, 10)));
             Config.SubMenu("harass").AddItem(new MenuItem("manaPercent", "Mana %").SetValue(new Slider(40, 1, 100)));
-//            Config.SubMenu("harass").AddItem(new MenuItem("EManaMinHS", "Min E Mana %").SetValue(new Slider(35, 1, 100)));
+
+
+            Config.AddSubMenu(new Menu("Smite options", "smite"));
+            Config.SubMenu("smite").AddItem(new MenuItem("SRU_Baron", "Baron Enabled").SetValue(true));
+            Config.SubMenu("smite").AddItem(new MenuItem("SRU_Dragon", "Dragon Enabled").SetValue(true));
+            Config.SubMenu("smite").AddItem(new MenuItem("smite", "Auto-Smite enabled").SetValue(true));
 
 
             Config.AddSubMenu(new Menu("Wall Hop options", "wh"));
@@ -109,6 +112,25 @@ namespace Twilight_s_Auto_Carry___Kalista
             Drawing.OnEndScene += OnEndScene;
         }
 
+        public static Obj_AI_Minion GetNearest(Vector3 pos)
+        {
+            var minions =
+            ObjectManager.Get<Obj_AI_Minion>()
+            .Where(minion => minion.IsValid && MinionNames.Any(name => minion.Name.StartsWith(name)) && !MinionNames.Any(name => minion.Name.Contains("Mini")));
+            var objAiMinions = minions as Obj_AI_Minion[] ?? minions.ToArray();
+            Obj_AI_Minion sMinion = objAiMinions.FirstOrDefault();
+            double? nearest = null;
+            foreach (Obj_AI_Minion minion in objAiMinions)
+            {
+                double distance = Vector3.Distance(pos, minion.Position);
+                if (nearest == null || nearest > distance)
+                {
+                    nearest = distance;
+                    sMinion = minion;
+                }
+            }
+            return sMinion;
+        }
         public static float getPerValue(bool mana)
         {
             if (mana) return (myHero.Mana / myHero.MaxMana) * 100;
@@ -146,6 +168,23 @@ namespace Twilight_s_Auto_Carry___Kalista
                 return xbuffCount;
             }
         }
+        public static int KalistaMarkerCountMinion
+        {
+            get
+            {
+                var xbuffCount = 0;
+                foreach (
+                    var buff in from enemy in ObjectManager.Get<Obj_AI_Base>().Where(tx => tx.IsEnemy && !tx.IsDead)
+                                where ObjectManager.Player.Distance(enemy) < E.Range
+                                from buff in enemy.Buffs
+                                where buff.Name.Contains("kalistaexpungemarker")
+                                select buff)
+                {
+                    xbuffCount = buff.Count;
+                }
+                return xbuffCount;
+            }
+        }
 
         public static void OnGameUpdate(EventArgs args)
         {
@@ -171,6 +210,14 @@ namespace Twilight_s_Auto_Carry___Kalista
             }
             drawConnection();
 
+            Obj_AI_Base mob = GetNearest(myHero.ServerPosition);
+            if (mob != null && Config.Item(mob.SkinName).GetValue<bool>())
+            {
+                if (mob.Health < getDamageToMinion(mob))
+                {
+                    E.Cast();
+                }
+            }
         }
         public static void drawConnection()
         {
@@ -282,8 +329,17 @@ namespace Twilight_s_Auto_Carry___Kalista
             double scalingDamagePerStack = new double[] { 0.15, 0.18, 0.21, 0.24, 0.27 }[levelSkill];
             double baseDamage = new double[] { 20, 30, 40, 50, 60 }[levelSkill];
             double totalDamageToTarget = baseDamage + (baseDamagePerStack + scalingDamagePerStack * AD) * stacks;
-
-            //            return (int)myHero.GetSpellDamage(target, SpellSlot.E,1) * KalistaMarkerCount;
+            return (int)totalDamageToTarget;
+        }
+        public static int getDamageToMinion(Obj_AI_Base target)
+        {
+            int levelSkill = E.Level;
+            int stacks = KalistaMarkerCountMinion;
+            double AD = myHero.FlatPhysicalDamageMod;
+            double baseDamagePerStack = new double[] { 5, 9, 14, 20, 27 }[levelSkill];
+            double scalingDamagePerStack = new double[] { 0.15, 0.18, 0.21, 0.24, 0.27 }[levelSkill];
+            double baseDamage = new double[] { 20, 30, 40, 50, 60 }[levelSkill];
+            double totalDamageToTarget = baseDamage + (baseDamagePerStack + scalingDamagePerStack * AD) * stacks;
             return (int)totalDamageToTarget;
         }
         public static int simulateDamage(int stacks)
