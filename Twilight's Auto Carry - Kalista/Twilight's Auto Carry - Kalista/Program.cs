@@ -23,6 +23,7 @@ namespace Twilight_s_Auto_Carry___Kalista
         private static Spell W = new Spell(SpellSlot.W, 5500);
         private static Spell E = new Spell(SpellSlot.E, 1200);
         private static Spell R = new Spell(SpellSlot.R, 1200);
+        public static int minRange = 100;
 
         public static Obj_AI_Hero CoopStrikeAlly;
         public static float CoopStrikeAllyRange = 1250f;
@@ -34,6 +35,8 @@ namespace Twilight_s_Auto_Carry___Kalista
         public static bool HarassActive;
         public static bool drawings;
         private static readonly string[] MinionNames = {"TT_Spiderboss", "TTNGolem", "TTNWolf", "TTNWraith", "SRU_Blue", "SRU_Gromp", "SRU_Murkwolf", "SRU_Razorbeak", "SRU_Red", "SRU_Krug", "SRU_Dragon", "SRU_Baron", "Sru_Crab"};
+
+        public static readonly Vector3[] wallhops = new[] { new Vector3(794, 5914, 50), new Vector3(792, 6208, -71), new Vector3(10906, 7498, 52), new Vector3(10872, 7208, 51), new Vector3(11900, 4870, 51), new Vector3(11684, 4694, -71), new Vector3(12046, 5376, 54), new Vector3(12284, 5382, 51), new Vector3(11598, 8676, 62), new Vector3(11776, 8890, 50), new Vector3(8646, 9584, 50), new Vector3(8822, 9406, 51), new Vector3(6606, 11756, 53), new Vector3(6494, 12056, 56), new Vector3(5164, 12090, 56), new Vector3(5146, 11754, 56), new Vector3(5780, 10650, 55), new Vector3(5480, 10620, -71), new Vector3(3174, 9856, 52), new Vector3(3398, 10080, -65), new Vector3(2858, 9448, 51), new Vector3(2542, 9466, 52), new Vector3(3700, 7416, 51), new Vector3(3702, 7702, 52), new Vector3(3224, 6308, 52), new Vector3(3024, 6312, 57), new Vector3(4724, 5608, 50), new Vector3(4610, 5868, 51), new Vector3(6124, 5308, 48), new Vector3(6010, 5522, 51), new Vector3(9322, 4514, -71), new Vector3(9022, 4508, 52), new Vector3(6826, 8628, -71), new Vector3(7046, 8750, 52), };
         static void Main(string[] args)
         {
             CustomEvents.Game.OnGameLoad += Load;
@@ -72,17 +75,16 @@ namespace Twilight_s_Auto_Carry___Kalista
 
 
             Config.AddSubMenu(new Menu("Smite options", "smite"));
-            Config.SubMenu("smite").AddItem(new MenuItem("", "Can cause a bugsplat!"));
-            Config.SubMenu("smite").AddItem(new MenuItem("", "not 100% working yet"));
+            Config.SubMenu("smite").AddItem(new MenuItem("1", "Cause bugsplat"));
+            Config.SubMenu("smite").AddItem(new MenuItem("2", "not working yet"));
             Config.SubMenu("smite").AddItem(new MenuItem("SRU_Baron", "Baron Enabled").SetValue(true));
             Config.SubMenu("smite").AddItem(new MenuItem("SRU_Dragon", "Dragon Enabled").SetValue(true));
             Config.SubMenu("smite").AddItem(new MenuItem("smite", "Auto-Smite enabled").SetValue(true));
 
 
             Config.AddSubMenu(new Menu("Wall Hop options", "wh"));
-            Config.SubMenu("wh").AddItem(new MenuItem("", "Not working yet"));
             Config.SubMenu("wh").AddItem(new MenuItem("drawSpot", "Draw WallHop spots").SetValue(true));
-            Config.SubMenu("wh").AddItem(new MenuItem("whk", "WallHop key").SetValue(new KeyBind("T".ToCharArray()[0], KeyBindType.Press)));
+            Config.SubMenu("wh").AddItem(new MenuItem("dh", "Draw range").SetValue(new Slider(1000,200,10000)));
             
             var extras = new Menu("Extras", "Extras");
             new PotionManager(extras);
@@ -388,6 +390,15 @@ namespace Twilight_s_Auto_Carry___Kalista
 
         private static void Drawing_OnDraw(EventArgs args)
         {
+            if(Config.Item("drawSpot").GetValue<bool>())
+            {
+                foreach (Vector3 pos in wallhops)
+                {
+                    if(myHero.Distance(pos) <= Config.Item("dh").GetValue<Slider>().Value)
+                        Utility.DrawCircle(pos, minRange, Color.Green);
+                }
+            }
+
             if(Config.Item("drawText").GetValue<bool>())
             {
                 var target = SimpleTs.GetTarget(Q.Range, SimpleTs.DamageType.Physical);
