@@ -156,6 +156,23 @@ namespace Twilight_s_Auto_Carry___Kalista
                 }
             }
         }
+        public static int KalistaMarkerCount
+        {
+            get
+            {
+                var xbuffCount = 0;
+                foreach (
+                    var buff in from enemy in ObjectManager.Get<Obj_AI_Hero>().Where(tx => tx.IsEnemy && !tx.IsDead)
+                                where ObjectManager.Player.Distance(enemy) < E.Range
+                                from buff in enemy.Buffs
+                                where buff.Name.Contains("kalistaexpungemarker")
+                                select buff)
+                {
+                    xbuffCount = buff.Count;
+                }
+                return xbuffCount;
+            }
+        }
         public static int KalistaMarkerCountMinion
         {
             get
@@ -264,27 +281,14 @@ namespace Twilight_s_Auto_Carry___Kalista
                 }
             }
         }
+        public static void WallHop()
+        {
+
+        }
         private static float GetRealDistance(GameObject target)
         {
             return ObjectManager.Player.Position.Distance(target.Position) + ObjectManager.Player.BoundingRadius +
             target.BoundingRadius;
-        }
-        public static int KalistaMarkerCount
-        {
-            get
-            {
-                var xbuffCount = 0;
-                foreach (
-                    var buff in from enemy in ObjectManager.Get<Obj_AI_Hero>().Where(tx => tx.IsEnemy && !tx.IsDead)
-                                where ObjectManager.Player.Distance(enemy) < E.Range
-                                from buff in enemy.Buffs
-                                where buff.Name.Contains("kalistaexpungemarker")
-                                select buff)
-                {
-                    xbuffCount = buff.Count;
-                }
-                return xbuffCount;
-            }
         }
         public static void Combo()
         {
@@ -308,11 +312,11 @@ namespace Twilight_s_Auto_Carry___Kalista
                 if (E.IsReady() && useE)// && getPerValue(true) >= ManaE)
                 {
                     target = SimpleTs.GetTarget(E.Range, SimpleTs.DamageType.Physical);
-                    if (debug)
-                        Game.PrintChat("Stacks: "+KalistaMarkerCount);
                     if (target.Health <= (E.GetDamage(target) + getDamageToTarget(target)))
                     {
-                        E.Cast(target, packetCast);
+                        if(debug)
+                            Game.PrintChat("Casting E");
+                        E.Cast();
                     }
                 }
             }
@@ -324,30 +328,30 @@ namespace Twilight_s_Auto_Carry___Kalista
             int minPercentMana = Config.SubMenu("Harass").Item("manaPercent").GetValue<Slider>().Value;
             if (E.IsReady() && KalistaMarkerCount >= Config.Item("stackE").GetValue<Slider>().Value && percentManaAfterE >= minPercentMana)// && getPerValue(true) >= ManaE)
             {
-                E.Cast(target,packetCast);
+                E.Cast();
             }
 
         }
         public static int getDamageToTarget(Obj_AI_Hero target)
         {
             int levelSkill = E.Level;
-            var stacks = KalistaMarkerCount;
+            int stacks = KalistaMarkerCount;
             double AD = myHero.FlatPhysicalDamageMod;
             double baseDamagePerStack = new double[] { 5, 9, 14, 20, 27 }[levelSkill];
             double scalingDamagePerStack = new double[] { 0.15, 0.18, 0.21, 0.24, 0.27 }[levelSkill];
             double baseDamage = new double[] { 20, 30, 40, 50, 60 }[levelSkill];
-            double totalDamageToTarget = baseDamage + (baseDamagePerStack + scalingDamagePerStack * AD) * target.Buffs.FirstOrDefault(b => b.DisplayName.ToLower() == "kalistaexpungemarker").Count; //stacks
+            double totalDamageToTarget = baseDamage + (baseDamagePerStack + scalingDamagePerStack * AD) * stacks;
             return (int)totalDamageToTarget;
         }
         public static int getDamageToMinion(Obj_AI_Base target)
         {
             int levelSkill = E.Level;
-            var stacks = KalistaMarkerCountMinion;
+            int stacks = KalistaMarkerCountMinion;
             double AD = myHero.FlatPhysicalDamageMod;
             double baseDamagePerStack = new double[] { 5, 9, 14, 20, 27 }[levelSkill];
             double scalingDamagePerStack = new double[] { 0.15, 0.18, 0.21, 0.24, 0.27 }[levelSkill];
             double baseDamage = new double[] { 20, 30, 40, 50, 60 }[levelSkill];
-            double totalDamageToTarget = baseDamage + (baseDamagePerStack + scalingDamagePerStack * AD) * target.Buffs.FirstOrDefault(b => b.DisplayName.ToLower() == "kalistaexpungemarker").Count; //stacks
+            double totalDamageToTarget = baseDamage + (baseDamagePerStack + scalingDamagePerStack * AD) * stacks;
             return (int)totalDamageToTarget;
         }
         public static int simulateDamage(int stacks)
