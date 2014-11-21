@@ -97,7 +97,7 @@ namespace Twilight_s_Auto_Carry___Kalista
             Config.SubMenu("Drawings").AddItem(new MenuItem("DrawConnSignal", "Draw connection signal").SetValue(true));
             Config.SubMenu("Drawings").AddItem(new MenuItem("drawText", "Draw damage text").SetValue(true));
             Config.SubMenu("Drawings").AddItem(new MenuItem("drawHp", "Draw damage HP bar")).SetValue(true);
-            Config.SubMenu("Drawings").AddItem(new MenuItem("enableDrawings", "Enable all drawings").SetValue(true));
+//            Config.SubMenu("Drawings").AddItem(new MenuItem("enableDrawings", "Enable all drawings").SetValue(true));
 
 
 
@@ -108,11 +108,8 @@ namespace Twilight_s_Auto_Carry___Kalista
             
 //            InitializeLevelUpManager();
             Game.OnGameUpdate += OnGameUpdate;
-            if (drawings)
-            {
                 Drawing.OnDraw += Drawing_OnDraw;
                 Drawing.OnEndScene += OnEndScene;
-            }
         }
         
         public static float getPerValue(bool mana)
@@ -191,7 +188,7 @@ namespace Twilight_s_Auto_Carry___Kalista
 
         public static void OnGameUpdate(EventArgs args)
         {
-            drawings = Config.Item("enableDrawings").GetValue<bool>();
+//            drawings = Config.Item("enableDrawings").GetValue<bool>();
             debug = Config.Item("debug").GetValue<bool>();
             packetCast = Config.Item("Packets").GetValue<bool>();
 //            if (myHero.IsDead) return;
