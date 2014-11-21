@@ -210,6 +210,7 @@ namespace Twilight_s_Auto_Carry___Kalista
                 Harass();
             }
             drawConnection();
+            /*
             Obj_AI_Base mob = GetNearest(ObjectManager.Player.ServerPosition);
             if (mob != null && Config.Item(mob.SkinName).GetValue<bool>())
             {
@@ -217,7 +218,7 @@ namespace Twilight_s_Auto_Carry___Kalista
                 {
                     E.Cast();
                 }
-            }
+            }*/
             if(Config.Item("curPost").GetValue<KeyBind>().Active)
             {
                 Vector3 pos = myHero.ServerPosition;
