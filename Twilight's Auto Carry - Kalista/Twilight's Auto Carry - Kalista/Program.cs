@@ -20,7 +20,7 @@ namespace Twilight_s_Auto_Carry___Kalista
         public static Orbwalking.Orbwalker Orbwalker;
         private static Spell Q = new Spell(SpellSlot.Q, 1450);
         private static Spell W = new Spell(SpellSlot.W, 5500);
-        private static Spell E = new Spell(SpellSlot.E, 1200);
+        private static Spell E = new Spell(SpellSlot.E, 950);
         private static Spell R = new Spell(SpellSlot.R, 1200);
         public static int minRange = 100;
 
@@ -183,7 +183,7 @@ namespace Twilight_s_Auto_Carry___Kalista
             drawConnection();
             if(Config.Item("showPos").GetValue<KeyBind>().Active)
             {
-                Game.PrintChat("Positino on server: "+myHero.ServerPosition);
+                Game.PrintChat("Position on server: "+myHero.ServerPosition);
             } 
 
             if (Config.Item("smite").GetValue<bool>())
@@ -193,7 +193,7 @@ namespace Twilight_s_Auto_Carry___Kalista
                 {
                     if (mob.Health < getDamageToMinion(mob))
                     {
-                        E.Cast();
+                        E.Cast(packetCast);
                     }
                 }
             }
@@ -289,14 +289,14 @@ namespace Twilight_s_Auto_Carry___Kalista
                 {
                     if (target.Health < getDamageToTarget(target))
                     {
-                        Game.PrintChat("Casting E");
+                        //Game.PrintChat("Casting E");
                         E.Cast();
                     }
                 }
             }
             else
             {
-                Game.PrintChat("Target not found!");
+                //Game.PrintChat("Target not found!");
             }
         }
         internal static void Obj_AI_Hero_OnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
