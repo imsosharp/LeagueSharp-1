@@ -34,6 +34,7 @@ namespace Twilight_s_Auto_Carry___Kalista
     class Program
     {
         private static Menu Config;
+        public static Menu QuickSilverMenu;
         private static Obj_AI_Hero myHero = ObjectManager.Player;
         public static Orbwalking.Orbwalker Orbwalker;
         private static Spell Q = new Spell(SpellSlot.Q, 1450);
@@ -52,7 +53,10 @@ namespace Twilight_s_Auto_Carry___Kalista
         public static bool HarassActive;
         public static bool drawings;
 
-        public static int[] Items = { 3153, 3142, 3140, 3131 };
+        public static Activator AAC = new Activator();
+        public static double ActivatorTime;
+
+        public static Items.Item items = new Items.Item(3128, 750);
         private static readonly string[] MinionNames = {"TT_Spiderboss", "TTNGolem", "TTNWolf", "TTNWraith", "SRU_Blue", "SRU_Gromp", "SRU_Murkwolf", "SRU_Razorbeak", "SRU_Red", "SRU_Krug", "SRU_Dragon", "SRU_Baron", "Sru_Crab"};
 
         public static readonly Vector3[] wallhops = new[] { new Vector3(794, 5914, 50), new Vector3(792, 6208, -71), new Vector3(10906, 7498, 52), new Vector3(10872, 7208, 51), new Vector3(11900, 4870, 51), new Vector3(11684, 4694, -71), new Vector3(12046, 5376, 54), new Vector3(12284, 5382, 51), new Vector3(11598, 8676, 62), new Vector3(11776, 8890, 50), new Vector3(8646, 9584, 50), new Vector3(8822, 9406, 51), new Vector3(6606, 11756, 53), new Vector3(6494, 12056, 56), new Vector3(5164, 12090, 56), new Vector3(5146, 11754, 56), new Vector3(5780, 10650, 55), new Vector3(5480, 10620, -71), new Vector3(3174, 9856, 52), new Vector3(3398, 10080, -65), new Vector3(2858, 9448, 51), new Vector3(2542, 9466, 52), new Vector3(3700, 7416, 51), new Vector3(3702, 7702, 52), new Vector3(3224, 6308, 52), new Vector3(3024, 6312, 57), new Vector3(4724, 5608, 50), new Vector3(4610, 5868, 51), new Vector3(6124, 5308, 48), new Vector3(6010, 5522, 51), new Vector3(9322, 4514, -71), new Vector3(9022, 4508, 52), new Vector3(6826, 8628, -71), new Vector3(7046, 8750, 52), };
@@ -104,13 +108,30 @@ namespace Twilight_s_Auto_Carry___Kalista
             Config.AddSubMenu(new Menu("Wall Hop options", "wh"));
             Config.SubMenu("wh").AddItem(new MenuItem("drawSpot", "Draw WallHop spots").SetValue(true));
             Config.SubMenu("wh").AddItem(new MenuItem("dh", "Draw range").SetValue(new Slider(1000,200,10000)));
-            
+
+            var items = Config.AddSubMenu(new Menu("Items", "Items"));
+            items.AddItem(new MenuItem("BOTRK", "BOTRK").SetValue(true));
+            items.AddItem(new MenuItem("GHOSTBLADE", "Ghostblade").SetValue(true));
+            items.AddItem(new MenuItem("SWORD", "Sword of the Divine").SetValue(true));
+
+            QuickSilverMenu = new Menu("QSS", "QuickSilverSash");
+            items.AddSubMenu(QuickSilverMenu);
+            QuickSilverMenu.AddItem(new MenuItem("AnyStun", "Any Stun").SetValue(true));
+            QuickSilverMenu.AddItem(new MenuItem("AnySnare", "Any Snare").SetValue(true));
+            QuickSilverMenu.AddItem(new MenuItem("AnyTaunt", "Any Taunt").SetValue(true));
+            foreach (var t in AAC.BuffList)
+            {
+                foreach (var enemy in ObjectManager.Get<Obj_AI_Hero>().Where(enemy => enemy.IsEnemy))
+                {
+                    if (t.ChampionName == enemy.ChampionName)
+                        QuickSilverMenu.AddItem(new MenuItem(t.BuffName, t.DisplayName).SetValue(t.DefaultValue));
+                }
+            }
+            items.AddItem(
+            new MenuItem("UseItemsMode", "Use items on").SetValue(
+            new StringList(new[] { "No", "Mixed mode", "Combo mode", "Both" }, 2)));
             var extras = new Menu("Extras", "Extras");
             new PotionManager(extras);
-//            Config.SubMenu("Extras").AddItem(new MenuItem("3", "Only for Auto-Carry").SetValue(true));
-//            Config.SubMenu("Extras").AddItem(new MenuItem("botrk", "Blade of the Ruined King").SetValue(true));
-//            Config.SubMenu("Extras").AddItem(new MenuItem("ghost", "Youmuu's Ghostblade").SetValue(true));
-//            Config.SubMenu("Extras").AddItem(new MenuItem("divine", "Sword of the Divine").SetValue(true));
             Config.AddSubMenu(extras);
             
 //            levelUpManager.AddToMenu(ref Config);
@@ -139,7 +160,60 @@ namespace Twilight_s_Auto_Carry___Kalista
             Game.OnGameUpdate += OnGameUpdate;
             Obj_AI_Hero.OnProcessSpellCast += Obj_AI_Hero_OnProcessSpellCast;
         }
+        private static void CheckChampionBuff()
+        {
+            foreach (var t1 in ObjectManager.Player.Buffs)
+            {
+                foreach (var t in QuickSilverMenu.Items)
+                {
+                    if (QuickSilverMenu.Item(t.Name).GetValue<bool>())
+                    {
+                        if (t1.Name.ToLower().Contains(t.Name.ToLower()))
+                        {
+                            foreach (var bx in AAC.BuffList.Where(bx => bx.BuffName == t1.Name))
+                            {
+                                if (bx.Delay > 0)
+                                {
+                                    if (ActivatorTime + bx.Delay < (int)Game.Time)
+                                        ActivatorTime = (int)Game.Time;
 
+                                    if (ActivatorTime + bx.Delay <= (int)Game.Time)
+                                    {
+                                        if (Items.HasItem(3139)) Items.UseItem(3139);
+                                        if (Items.HasItem(3140)) Items.UseItem(3140);
+                                        ActivatorTime = (int)Game.Time;
+                                    }
+                                }
+                                else
+                                {
+                                    if (Items.HasItem(3139)) Items.UseItem(3139);
+                                    if (Items.HasItem(3140)) Items.UseItem(3140);
+                                }
+                            }
+                        }
+                    }
+
+                    if (QuickSilverMenu.Item("AnySnare").GetValue<bool>() &&
+                        ObjectManager.Player.HasBuffOfType(BuffType.Snare))
+                    {
+                        if (Items.HasItem(3139)) Items.UseItem(3139);
+                        if (Items.HasItem(3140)) Items.UseItem(3140);
+                    }
+                    if (QuickSilverMenu.Item("AnyStun").GetValue<bool>() &&
+                        ObjectManager.Player.HasBuffOfType(BuffType.Stun))
+                    {
+                        if (Items.HasItem(3139)) Items.UseItem(3139);
+                        if (Items.HasItem(3140)) Items.UseItem(3140);
+                    }
+                    if (QuickSilverMenu.Item("AnyTaunt").GetValue<bool>() &&
+                        ObjectManager.Player.HasBuffOfType(BuffType.Taunt))
+                    {
+                        if (Items.HasItem(3139)) Items.UseItem(3139);
+                        if (Items.HasItem(3140)) Items.UseItem(3140);
+                    }
+                }
+            }
+        }
         public static Obj_AI_Minion GetNearest(Vector3 pos)
         {
             var minions =
@@ -185,7 +259,12 @@ namespace Twilight_s_Auto_Carry___Kalista
 
         public static void OnGameUpdate(EventArgs args)
         {
-            
+
+            var botrk = Config.Item("BOTRK").GetValue<bool>();
+            var ghostblade = Config.Item("GHOSTBLADE").GetValue<bool>();
+            var sword = Config.Item("SWORD").GetValue<bool>();
+            var target = Orbwalker.GetTarget();
+            var igniteSlot = ObjectManager.Player.GetSpellSlot("SummonerDot");
             drawings = Config.Item("enableDrawings").GetValue<bool>();
             debug = Config.Item("debug").GetValue<bool>();
             packetCast = Config.Item("Packets").GetValue<bool>();
@@ -202,7 +281,39 @@ namespace Twilight_s_Auto_Carry___Kalista
                     }
                 }
             }
-
+            if (botrk)
+            {
+                if (target != null && target.Type == ObjectManager.Player.Type &&
+                target.ServerPosition.Distance(ObjectManager.Player.ServerPosition) < 450)
+                {
+                    var hasCutGlass = Items.HasItem(3144);
+                    var hasBotrk = Items.HasItem(3153);
+                    if (hasBotrk || hasCutGlass)
+                    {
+                        var itemId = hasCutGlass ? 3144 : 3153;
+                        var damage = ObjectManager.Player.GetItemDamage(target, Damage.DamageItems.Botrk);
+                        if (hasCutGlass || ObjectManager.Player.Health + damage < ObjectManager.Player.MaxHealth)
+                            Items.UseItem(itemId, target);
+                    }
+                }
+            }
+            if (ghostblade && target != null && target.Type == ObjectManager.Player.Type &&
+            !ObjectManager.Player.HasBuff("ItemSoTD", true) /*if Sword of the divine is not active */
+            && Orbwalking.InAutoAttackRange(target))
+                Items.UseItem(3142);
+            if (sword && target != null && target.Type == ObjectManager.Player.Type &&
+            !ObjectManager.Player.HasBuff("spectralfury", true) /*if ghostblade is not active*/
+            && Orbwalking.InAutoAttackRange(target))
+                Items.UseItem(3131);
+            if (target != null && igniteSlot != SpellSlot.Unknown &&
+            ObjectManager.Player.SummonerSpellbook.CanUseSpell(igniteSlot) == SpellState.Ready)
+            {
+                if (ObjectManager.Player.Distance(target) < 650 &&
+                ObjectManager.Player.GetSummonerSpellDamage(target, Damage.SummonerSpell.Ignite) >= target.Health)
+                {
+                    ObjectManager.Player.SummonerSpellbook.CastSpell(igniteSlot, target);
+                }
+            }
             ComboActive = Config.Item("Orbwalk").GetValue<KeyBind>().Active;
             HarassActive = Config.Item("Farm").GetValue<KeyBind>().Active;
             LaneClearActive = Config.Item("LaneClear").GetValue<KeyBind>().Active;
