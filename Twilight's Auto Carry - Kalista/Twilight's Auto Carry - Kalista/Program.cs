@@ -33,9 +33,6 @@ namespace Twilight_s_Auto_Carry___Kalista
         public static bool ComboActive;
         public static bool HarassActive;
         public static bool drawings;
-        
-        private static readonly string[] MinionNames = { "SRU_Dragon", "SRU_Baron" };
-
 
         static void Main(string[] args)
         {
@@ -72,10 +69,6 @@ namespace Twilight_s_Auto_Carry___Kalista
             Config.SubMenu("harass").AddItem(new MenuItem("stackE", "E stacks to cast").SetValue(new Slider(1, 1, 10)));
             Config.SubMenu("Harass").AddItem(new MenuItem("manaPercent", "Min Mana %").SetValue(new Slider(40, 1, 100)));
 
-            Config.AddSubMenu(new Menu("Smite(E) options", "smite"));
-            Config.SubMenu("smite").AddItem(new MenuItem("SRU_Baron", "Auto smite baron").SetValue(true));
-            Config.SubMenu("smite").AddItem(new MenuItem("SRU_Dragon", "Auto smite dragon").SetValue(true));
-
 
             Config.AddSubMenu(new Menu("Wall Hop options", "wh"));
             Config.SubMenu("wh").AddItem(new MenuItem("", "Not working yet"));
@@ -97,44 +90,25 @@ namespace Twilight_s_Auto_Carry___Kalista
             Config.SubMenu("Drawings").AddItem(new MenuItem("DrawConnSignal", "Draw connection signal").SetValue(true));
             Config.SubMenu("Drawings").AddItem(new MenuItem("drawText", "Draw damage text").SetValue(true));
             Config.SubMenu("Drawings").AddItem(new MenuItem("drawHp", "Draw damage HP bar")).SetValue(true);
-//            Config.SubMenu("Drawings").AddItem(new MenuItem("enableDrawings", "Enable all drawings").SetValue(true));
+            Config.SubMenu("Drawings").AddItem(new MenuItem("enableDrawings", "Enable all drawings").SetValue(true));
 
-
+            
 
             Config.AddItem(new MenuItem("Packets", "Packet Casting").SetValue(true));
+
             Config.AddItem(new MenuItem("debug", "Debug").SetValue(true));
-            Config.AddItem(new MenuItem("curpos", "Current position vector").SetValue(new KeyBind("N".ToCharArray()[0], KeyBindType.Press)));
             Config.AddToMainMenu();
             
 //            InitializeLevelUpManager();
+            Drawing.OnDraw += Drawing_OnDraw;
             Game.OnGameUpdate += OnGameUpdate;
-                Drawing.OnDraw += Drawing_OnDraw;
-                Drawing.OnEndScene += OnEndScene;
+            Drawing.OnEndScene += OnEndScene;
         }
-        
+
         public static float getPerValue(bool mana)
         {
             if (mana) return (myHero.Mana / myHero.MaxMana) * 100;
             return (myHero.Health / myHero.MaxHealth) * 100;
-        }
-        public static Obj_AI_Minion GetNearest(Vector3 pos)
-        {
-            var minions =
-            ObjectManager.Get<Obj_AI_Minion>()
-            .Where(minion => minion.IsValid && MinionNames.Any(name => minion.Name.StartsWith(name)) && !MinionNames.Any(name => minion.Name.Contains("Mini")));
-            var objAiMinions = minions as Obj_AI_Minion[] ?? minions.ToArray();
-            Obj_AI_Minion sMinion = objAiMinions.FirstOrDefault();
-            double? nearest = null;
-            foreach (Obj_AI_Minion minion in objAiMinions)
-            {
-                double distance = Vector3.Distance(pos, minion.Position);
-                if (nearest == null || nearest > distance)
-                {
-                    nearest = distance;
-                    sMinion = minion;
-                }
-            }
-            return sMinion;
         }
         private static void OnEndScene(EventArgs args)
         {
@@ -168,33 +142,14 @@ namespace Twilight_s_Auto_Carry___Kalista
                 return xbuffCount;
             }
         }
-        public static int KalistaMarkerCountMinion
-        {
-            get
-            {
-                var xbuffCount = 0;
-                foreach (
-                    var buff in from enemy in ObjectManager.Get<Obj_AI_Base>().Where(tx => tx.IsEnemy && !tx.IsDead)
-                                where ObjectManager.Player.Distance(enemy) < E.Range
-                                from buff in enemy.Buffs
-                                where buff.Name.Contains("kalistaexpungemarker")
-                                select buff)
-                {
-                    xbuffCount = buff.Count;
-                }
-                return xbuffCount;
-            }
-        }
 
         public static void OnGameUpdate(EventArgs args)
         {
-//            drawings = Config.Item("enableDrawings").GetValue<bool>();
+            drawings = Config.Item("enableDrawings").GetValue<bool>();
             debug = Config.Item("debug").GetValue<bool>();
             packetCast = Config.Item("Packets").GetValue<bool>();
 //            if (myHero.IsDead) return;
 //            if (Config.Item("whk").GetValue<bool>()) WallHop();
-
-
 
 
             ComboActive = Config.Item("Orbwalk").GetValue<KeyBind>().Active;
@@ -210,20 +165,7 @@ namespace Twilight_s_Auto_Carry___Kalista
                 Harass();
             }
             drawConnection();
-            /*
-            Obj_AI_Base mob = GetNearest(ObjectManager.Player.ServerPosition);
-            if (mob != null && Config.Item(mob.SkinName).GetValue<bool>())
-            {
-                if (getDamageToMinion(mob) < mob.Health)
-                {
-                    E.Cast();
-                }
-            }*/
-            if(Config.Item("curPost").GetValue<KeyBind>().Active)
-            {
-                Vector3 pos = myHero.ServerPosition;
-                Game.PrintChat("Current position in server: "+pos.ToString());
-            }
+
         }
         public static void drawConnection()
         {
@@ -331,19 +273,6 @@ namespace Twilight_s_Auto_Carry___Kalista
         {
             int levelSkill = E.Level;
             int stacks = KalistaMarkerCount;
-            double AD = myHero.FlatPhysicalDamageMod;
-            double baseDamagePerStack = new double[] { 5, 9, 14, 20, 27 }[levelSkill];
-            double scalingDamagePerStack = new double[] { 0.15, 0.18, 0.21, 0.24, 0.27 }[levelSkill];
-            double baseDamage = new double[] { 20, 30, 40, 50, 60 }[levelSkill];
-            double totalDamageToTarget = baseDamage + (baseDamagePerStack + scalingDamagePerStack * AD) * stacks;
-
-            //            return (int)myHero.GetSpellDamage(target, SpellSlot.E,1) * KalistaMarkerCount;
-            return (int)totalDamageToTarget;
-        }
-        public static int getDamageToMinion(Obj_AI_Base target)
-        {
-            int levelSkill = E.Level;
-            int stacks = KalistaMarkerCountMinion;
             double AD = myHero.FlatPhysicalDamageMod;
             double baseDamagePerStack = new double[] { 5, 9, 14, 20, 27 }[levelSkill];
             double scalingDamagePerStack = new double[] { 0.15, 0.18, 0.21, 0.24, 0.27 }[levelSkill];
