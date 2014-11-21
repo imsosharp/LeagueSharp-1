@@ -16,36 +16,28 @@ namespace Twilight_s_Auto_Carry___Kalista
 {
     class Program
     {
-        public static HpBarIndicator hpi = new HpBarIndicator();
+//        public static HpBarIndicator hpi = new HpBarIndicator();
         private static Menu Config;
         private static Obj_AI_Hero target;
-        private static Obj_AI_Hero myHero;
+        private static Obj_AI_Hero myHero = ObjectManager.Player;
         private static Spell Q = new Spell(SpellSlot.Q, 1450);
         private static Spell W = new Spell(SpellSlot.W, 5500);
         private static Spell E = new Spell(SpellSlot.E, 1200);
         private static Spell R = new Spell(SpellSlot.R, 1200);
-        public static LevelUpManager levelUpManager;
+//        public static LevelUpManager levelUpManager;
         
         static void Main(string[] args)
         {
-            if (myHero.ChampionName != "Kalista")
-                return;
+            CustomEvents.Game.OnGameLoad += Load;
+        }
+        public static void Load(EventArgs args)
+        {
+            if (myHero.ChampionName != "Kalista") return;
             Game.PrintChat("=========================");
             Game.PrintChat("| Twilight Auto Carry   |");
             Game.PrintChat("=========================");
             Game.PrintChat("Loading kalista plugin!");
-            CustomEvents.Game.OnGameLoad += Load;
-            Game.PrintChat("Kalista loaded!");
-            Game.PrintChat("=========================");
-        }
-        public static void Load(EventArgs args)
-        {
             Config = new Menu("TAC: Kalista", "Kalista", true);
-            Config.AddItem(new MenuItem("", "Version: 1.0.5"));
-            Config.AddItem(new MenuItem("", "============"));
-            Config.AddItem(new MenuItem("", "Not working:"));
-            Config.AddItem(new MenuItem("", "WallHop options/draw"));
-            Config.AddItem(new MenuItem("", "============"));
 
             var targetSelectorMenu = new Menu("Target Selector", "Target Selector");
             SimpleTs.AddToMenu(targetSelectorMenu);
@@ -76,7 +68,7 @@ namespace Twilight_s_Auto_Carry___Kalista
             new PotionManager(extras);
             Config.AddSubMenu(extras);
             
-            levelUpManager.AddToMenu(ref Config);
+//            levelUpManager.AddToMenu(ref Config);
 
             Config.AddSubMenu(new Menu("Drawings", "Drawings"));
             Config.SubMenu("Drawings").AddItem(new MenuItem("QRange", "Q range").SetValue(new Circle(true, Color.FromArgb(255, 255, 255, 255))));
@@ -84,19 +76,22 @@ namespace Twilight_s_Auto_Carry___Kalista
             Config.SubMenu("Drawings").AddItem(new MenuItem("ERange", "E range").SetValue(new Circle(true, Color.FromArgb(255, 255, 255, 255))));
             Config.SubMenu("Drawings").AddItem(new MenuItem("RRange", "R range").SetValue(new Circle(true, Color.FromArgb(255, 255, 255, 255))));
             Config.SubMenu("Drawings").AddItem(new MenuItem("drawText", "Draw text").SetValue(true));
-            Config.AddToMainMenu();
+            
 
             Config.AddItem(new MenuItem("Packets", "Packet Casting").SetValue(true));
 
             Config.AddItem(new MenuItem("debug", "Debug").SetValue(true));
+            Config.AddToMainMenu();
+            Game.PrintChat("Kalista loaded!");
+            Game.PrintChat("=========================");
 
             
-            InitializeLevelUpManager();
+//            InitializeLevelUpManager();
             Drawing.OnDraw += Drawing_OnDraw;
             Game.OnGameUpdate += OnGameUpdate;
             Drawing.OnEndScene += OnEndScene;
         }
-        private static void InitializeLevelUpManager()
+        /*private static void InitializeLevelUpManager()
         {
             var priority1 = new int[] { 
                 1, // level 1
@@ -120,7 +115,7 @@ namespace Twilight_s_Auto_Carry___Kalista
             };
             levelUpManager = new LevelUpManager();
             levelUpManager.Add("R > Q > E > W", priority1);
-        }
+        }*/
         public static float getPerValue(bool mana)
         {
             if (mana) return (myHero.Mana / myHero.MaxMana) * 100;
@@ -130,7 +125,7 @@ namespace Twilight_s_Auto_Carry___Kalista
         {
             if (myHero.IsDead) return;
             if (Config.Item("whk").GetValue<bool>()) WallHop();
-            levelUpManager.Update();
+            //levelUpManager.Update();
             switch (xSLxOrbwalker.CurrentMode)
             {
                 case xSLxOrbwalker.Mode.Combo:
@@ -192,6 +187,7 @@ namespace Twilight_s_Auto_Carry___Kalista
 
         private static void OnEndScene(EventArgs args)
         {
+            /*
             if (Config.Item("drawDamage").GetValue<bool>())
             {
                 foreach (var enemy in ObjectManager.Get<Obj_AI_Hero>().Where(enemy => !enemy.IsDead && enemy.IsEnemy && enemy.IsVisible))
@@ -199,7 +195,7 @@ namespace Twilight_s_Auto_Carry___Kalista
                     hpi.unit = enemy;
                     hpi.drawDmg(CalculateRendDamage(enemy), Color.Yellow);
                 }
-            }
+            }*/
         }
         private static int getTotalAttacksE(Obj_AI_Hero target)
         {
@@ -246,6 +242,7 @@ namespace Twilight_s_Auto_Carry___Kalista
             {
                 Utility.DrawCircle(myHero.Position, R.Range, drawR.Color);
             }
+            /*
             try
             {
                 foreach (var enemy in ObjectManager.Get<Obj_AI_Hero>().Where(ene => !target.IsDead && target.IsEnemy && target.IsVisible))
@@ -264,7 +261,7 @@ namespace Twilight_s_Auto_Carry___Kalista
             catch (Exception ex)
             {
                 Game.PrintChat("Failed to draw HP bar damage! => " + ex);
-            }
+            }*/
         }
 
         public static float CalculateRendDamage(Obj_AI_Hero eTarget)
@@ -286,6 +283,7 @@ namespace Twilight_s_Auto_Carry___Kalista
             return (float)0;
         }
     }
+    /*
     class HpBarIndicator
     {
 
@@ -450,5 +448,5 @@ namespace Twilight_s_Auto_Carry___Kalista
                 if (rL < level[3]) ObjectManager.Player.Spellbook.LevelUpSpell(SpellSlot.R);
             }
         }
-    }
+    }*/
 }
