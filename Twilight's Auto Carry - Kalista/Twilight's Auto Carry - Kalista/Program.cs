@@ -159,6 +159,9 @@ namespace Twilight_s_Auto_Carry___Kalista
             }
             return sMinion;
         }
+        /**
+         * @author xSLx (Lexxes)
+         */
         private static void Cast_Q(Obj_AI_Hero target)
         {
             if (!Q.IsReady() || target == null)
@@ -292,6 +295,9 @@ namespace Twilight_s_Auto_Carry___Kalista
                 }
                 if (E.IsReady() && useE)
                 {
+                    /**
+                     * @author xSLx (Lexxes)
+                     */
                     if (ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(E.Range) && hero.Health < getDamageToTarget(target)))
                     {
                         E.Cast(packetCast);
