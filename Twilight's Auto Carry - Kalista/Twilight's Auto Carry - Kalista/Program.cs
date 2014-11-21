@@ -94,10 +94,14 @@ namespace Twilight_s_Auto_Carry___Kalista
             Config.SubMenu("ac").AddItem(new MenuItem("E4K", "E only for kill").SetValue(true));
             Config.SubMenu("harass").AddItem(new MenuItem("55", "^ false ? then"));
             Config.SubMenu("harass").AddItem(new MenuItem("minE", "Min stacks to E").SetValue(new Slider(1, 1, 20)));
-            
+
             Config.AddSubMenu(new Menu("Harass options", "harass"));
             Config.SubMenu("harass").AddItem(new MenuItem("stackE", "E stacks to cast").SetValue(new Slider(1, 1, 10)));
             Config.SubMenu("harass").AddItem(new MenuItem("manaPercent", "Mana %").SetValue(new Slider(40, 1, 100)));
+
+            Config.AddSubMenu(new Menu("Wave Clear options", "wc"));
+            Config.SubMenu("wc").AddItem(new MenuItem("useEwc", "Use E to clear").SetValue(true));
+            Config.SubMenu("wc").AddItem(new MenuItem("enableClear", "WaveClear enabled?").SetValue(false));
 
 
             Config.AddSubMenu(new Menu("Smite options", "smite"));
@@ -297,6 +301,10 @@ namespace Twilight_s_Auto_Carry___Kalista
             {
                 Harass();
             }
+            else if (LaneClearActive)
+            {
+                LaneClear();
+            }
             if (Config.Item("showPos").GetValue<KeyBind>().Active)
             {
                 Game.PrintChat("Position on server: " + myHero.ServerPosition);
@@ -340,6 +348,20 @@ namespace Twilight_s_Auto_Carry___Kalista
                 ObjectManager.Player.GetSummonerSpellDamage(target, Damage.SummonerSpell.Ignite) >= target.Health)
                 {
                     ObjectManager.Player.SummonerSpellbook.CastSpell(igniteSlot, target);
+                }
+            }
+        }
+        public static void LaneClear()
+        {
+            if(Config.Item("useEwc").GetValue<bool>() && E.IsReady())
+            {
+                var minions = MinionManager.GetMinions(myHero.Position, E.Range);
+                foreach ( var data in minions )
+                {
+                    if(getDamageToTarget(data) > data.Health)
+                    {
+                        E.Cast();
+                    }
                 }
             }
         }
