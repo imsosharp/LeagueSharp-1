@@ -20,7 +20,7 @@ namespace Twilight_s_Auto_Carry___Kalista
         public static Orbwalking.Orbwalker Orbwalker;
         private static Spell Q = new Spell(SpellSlot.Q, 1450);
         private static Spell W = new Spell(SpellSlot.W, 5500);
-        private static Spell E = new Spell(SpellSlot.E, 950);
+        private static Spell E = new Spell(SpellSlot.E, 1000);
         private static Spell R = new Spell(SpellSlot.R, 1200);
         public static int minRange = 100;
 
@@ -253,23 +253,6 @@ namespace Twilight_s_Auto_Carry___Kalista
             return ObjectManager.Player.Position.Distance(target.Position) + ObjectManager.Player.BoundingRadius +
             target.BoundingRadius;
         }
-        public static int KalistaMarkerCount
-        {
-            get
-            {
-                var xbuffCount = 0;
-                foreach (
-                    var buff in from enemy in ObjectManager.Get<Obj_AI_Hero>().Where(tx => tx.IsEnemy && !tx.IsDead)
-                                where ObjectManager.Player.Distance(enemy) < E.Range
-                                from buff in enemy.Buffs
-                                where buff.Name.Contains("kalistaexpungemarker")
-                                select buff)
-                {
-                    xbuffCount = buff.Count;
-                }
-                return xbuffCount;
-            }
-        }
         public static void Combo()
         {
             if (myHero.HasBuff("Recall")) return;
@@ -279,6 +262,7 @@ namespace Twilight_s_Auto_Carry___Kalista
             var useE = Config.Item("UseEAC").GetValue<bool>();
 
             Obj_AI_Hero target = SimpleTs.GetTarget(Q.Range, SimpleTs.DamageType.Physical);
+            Obj_AI_Hero targetE = SimpleTs.GetTarget(E.Range, SimpleTs.DamageType.Physical);
             if (Orbwalking.CanMove(100) && target != null)
             {
                 if (Q.IsReady() && useQ)
@@ -287,17 +271,18 @@ namespace Twilight_s_Auto_Carry___Kalista
                 }
                 if (E.IsReady() && useE)
                 {
-//                    Game.PrintChat("current target: "+target.ChampionName+" damage:"+getDamageToTarget(target));
-                    if (target.Health < getDamageToTarget(target))
+
+                    //if (targetE.Health < getDamageToTarget(targetE))
+                    if (ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(E.Range) && hero.Health < getDamageToTarget(target)))
                     {
-                        E.Cast();
+                        E.Cast(packetCast);
                     }
                 }
             }
-            else
-            {
+            //else
+            //{
                 //Game.PrintChat("Target not found!");
-            }
+           // }
         }
         internal static void Obj_AI_Hero_OnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
@@ -312,7 +297,7 @@ namespace Twilight_s_Auto_Carry___Kalista
             var target = SimpleTs.GetTarget(E.Range, SimpleTs.DamageType.Physical);
             float percentManaAfterE = 100 * ((myHero.Mana - E.Instance.ManaCost) / myHero.MaxMana);
             int minPercentMana = Config.SubMenu("Harass").Item("manaPercent").GetValue<Slider>().Value;
-            if (E.IsReady() && KalistaMarkerCount >= Config.Item("stackE").GetValue<Slider>().Value && percentManaAfterE >= minPercentMana)// && getPerValue(true) >= ManaE)
+            if (E.IsReady() && target.Buffs.FirstOrDefault(b => b.Name.ToLower() == "kalistaexpungemarker").Count >= Config.Item("stackE").GetValue<Slider>().Value && percentManaAfterE >= minPercentMana)// && getPerValue(true) >= ManaE)
             {
                 E.Cast(target,packetCast);
             }
@@ -321,12 +306,13 @@ namespace Twilight_s_Auto_Carry___Kalista
         public static float getDamageToTarget(Obj_AI_Hero target)
         {
             int levelSkill = E.Level;
-            var stacks = KalistaMarkerCount;
+            int stacks = target.Buffs.FirstOrDefault(b => b.Name.ToLower() == "kalistaexpungemarker").Count;
+            if (stacks < 1) return 0;
             double AD = myHero.FlatPhysicalDamageMod;
-            double baseDamagePerStack = new double[] { 0, 5, 9, 14, 20, 27 }[levelSkill];
-            double scalingDamagePerStack = new double[] { 0.15, 0.18, 0.21, 0.24, 0.27 }[levelSkill];
-            double baseDamage = new double[] { 20, 30, 40, 50, 60 }[levelSkill];
-            double totalDamageToTarget = (baseDamage + baseDamagePerStack + scalingDamagePerStack * AD) * target.Buffs.FirstOrDefault(b => b.DisplayName.ToLower() == "kalistaexpungemarker").Count; //stacks
+            double baseDamagePerStack = new double[] { 5, 9, 14, 20, 27 }[levelSkill-1];
+            double scalingDamagePerStack = new double[] { 0.15, 0.18, 0.21, 0.24, 0.27 }[levelSkill-1];
+            double baseDamage = new double[] { 20, 30, 40, 50, 60 }[levelSkill-1]+(0.6*AD);
+            double totalDamageToTarget = baseDamage + (stacks > 2 ? (baseDamagePerStack + scalingDamagePerStack*AD)*stacks : 0);
 
             double totalRealDamageToTarget = myHero.CalcDamage(target, Damage.DamageType.Physical, totalDamageToTarget);
             return (float)totalRealDamageToTarget;
@@ -336,12 +322,13 @@ namespace Twilight_s_Auto_Carry___Kalista
         public static int getDamageToMinion(Obj_AI_Base target)
         {
             int levelSkill = E.Level;
-            var stacks = KalistaMarkerCountMinion;
+            int stacks = target.Buffs.FirstOrDefault(b => b.Name.ToLower() == "kalistaexpungemarker").Count;
+            if (stacks < 1) return 0;
             double AD = myHero.FlatPhysicalDamageMod;
-            double baseDamagePerStack = new double[] { 0, 5, 9, 14, 20, 27 }[levelSkill];
-            double scalingDamagePerStack = new double[] { 0.15, 0.18, 0.21, 0.24, 0.27 }[levelSkill];
-            double baseDamage = new double[] { 20, 30, 40, 50, 60 }[levelSkill];
-            double totalDamageToTarget = (baseDamage + baseDamagePerStack + scalingDamagePerStack * AD) * target.Buffs.FirstOrDefault(b => b.DisplayName.ToLower() == "kalistaexpungemarker").Count; //stacks
+            double baseDamagePerStack = new double[] { 5, 9, 14, 20, 27 }[levelSkill-1];
+            double scalingDamagePerStack = new double[] { 0.15, 0.18, 0.21, 0.24, 0.27 }[levelSkill-1];
+            double baseDamage = new double[] { 20, 30, 40, 50, 60 }[levelSkill - 1] + (0.6 * AD);
+            double totalDamageToTarget = baseDamage + (stacks > 2 ? (baseDamagePerStack + scalingDamagePerStack * AD) * stacks : 0);
 
             double totalRealDamageToTarget = myHero.CalcDamage(target, Damage.DamageType.Physical, totalDamageToTarget);
             return (int)totalRealDamageToTarget;
@@ -349,11 +336,12 @@ namespace Twilight_s_Auto_Carry___Kalista
         public static int simulateDamage(int stacks, Obj_AI_Hero target)
         {
             int levelSkill = E.Level;
+            if (stacks < 1) return 0;
             double AD = myHero.FlatPhysicalDamageMod;
-            double baseDamagePerStack = new double[] { 0, 5, 9, 14, 20, 27 }[levelSkill];
+            double baseDamagePerStack = new double[] { 5, 9, 14, 20, 27 }[levelSkill];
             double scalingDamagePerStack = new double[] { 0.15, 0.18, 0.21, 0.24, 0.27 }[levelSkill];
-            double baseDamage = new double[] { 20, 30, 40, 50, 60 }[levelSkill];
-            double totalDamageToTarget = (baseDamage + baseDamagePerStack + scalingDamagePerStack * AD) * target.Buffs.FirstOrDefault(b => b.DisplayName.ToLower() == "kalistaexpungemarker").Count; //stacks
+            double baseDamage = new double[] { 20, 30, 40, 50, 60 }[levelSkill] + (0.6 * AD);
+            double totalDamageToTarget = baseDamage + (baseDamagePerStack + scalingDamagePerStack * AD) * stacks;
 
             double totalRealDamageToTarget = myHero.CalcDamage(target, Damage.DamageType.Physical, totalDamageToTarget);
             return (int)totalRealDamageToTarget;
