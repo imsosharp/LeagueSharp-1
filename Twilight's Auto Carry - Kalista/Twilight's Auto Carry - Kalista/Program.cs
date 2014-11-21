@@ -284,29 +284,15 @@ namespace Twilight_s_Auto_Carry___Kalista
             var useQ = Config.Item("UseQAC").GetValue<bool>();
             var useE = Config.Item("UseEAC").GetValue<bool>();
 
-            Obj_AI_Hero target = SimpleTs.GetTarget(Q.Range, SimpleTs.DamageType.Physical);
-            Obj_AI_Hero targetE = SimpleTs.GetTarget(E.Range, SimpleTs.DamageType.Physical);
-            if (Orbwalking.CanMove(100) && target != null)
-            {
-                if (Q.IsReady() && useQ)
-                {
-                    //Q.Cast(target, packetCast);
-                    Cast_Q(target);
-                }
-                if (E.IsReady() && useE)
-                {
-                    /**
-                     * @author xSLx (Lexxes)
-                     */
-                         //Game.PrintChat("TargetHealth : " +targetE.Health);
-     //Game.PrintChat("Mydmg : " +getDamageToTarget(targetE));
-     //Game.PrintChat("ismore: " + (targetE.Health < getDamageToTarget(targetE)));
-                    if (ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(E.Range) && hero.Health < getDamageToTarget(target)))
-                    {
-                        E.Cast(packetCast);
-                    }
-                }
-            }
+
+            if (useQ) 
+                Cast_Q(SimpleTs.GetTarget(Q.Range, SimpleTs.DamageType.Physical));
+
+            if (E.IsReady() 
+                    && useE 
+                        && ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(E.Range) 
+                            && hero.Health < getDamageToTarget(hero)))
+                E.Cast(packetCast);
         }
         internal static void Obj_AI_Hero_OnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
