@@ -64,10 +64,13 @@ namespace Twilight_s_Auto_Carry___Kalista
             Config.AddSubMenu(new Menu("AutoCarry options", "ac"));
             Config.SubMenu("ac").AddItem(new MenuItem("UseQAC", "Use Q").SetValue(true));
             Config.SubMenu("ac").AddItem(new MenuItem("UseEAC", "Use E").SetValue(true));
+//            Config.SubMenu("ac").AddItem(new MenuItem("QManaMinAC", "Min Q Mana %").SetValue(new Slider(35, 1, 100)));
+//            Config.SubMenu("ac").AddItem(new MenuItem("EManaMinAC", "Min E Mana %").SetValue(new Slider(35, 1, 100)));
 
             Config.AddSubMenu(new Menu("Harass options", "harass"));
             Config.SubMenu("harass").AddItem(new MenuItem("stackE", "E stacks to cast").SetValue(new Slider(1, 1, 10)));
-            Config.SubMenu("Harass").AddItem(new MenuItem("manaPercent", "Min Mana %").SetValue(new Slider(40, 1, 100)));
+            Config.SubMenu("Harass").AddItem(new MenuItem("manaPercent", "Mana %").SetValue(new Slider(40, 1, 100)));
+//            Config.SubMenu("harass").AddItem(new MenuItem("EManaMinHS", "Min E Mana %").SetValue(new Slider(35, 1, 100)));
 
 
             Config.AddSubMenu(new Menu("Wall Hop options", "wh"));
@@ -260,10 +263,8 @@ namespace Twilight_s_Auto_Carry___Kalista
         public static void Harass()
         {
             var target = SimpleTs.GetTarget(E.Range, SimpleTs.DamageType.Physical);
-            float percentManaAfterE = 100 * ((myHero.Mana - E.Instance.ManaCost) / myHero.MaxMana);
-            int minPercentMana = Config.SubMenu("Harass").Item("manaPercent").GetValue<Slider>().Value;
-
-            if (E.IsReady() && KalistaMarkerCount >= Config.Item("stackE").GetValue<Slider>().Value && percentManaAfterE >= minPercentMana)// && getPerValue(true) >= ManaE)
+            var ManaE = Config.Item("EManaMinHS").GetValue<Slider>().Value;
+            if (E.IsReady() && KalistaMarkerCount >= Config.Item("stackE").GetValue<Slider>().Value)// && getPerValue(true) >= ManaE)
             {
                 E.Cast();
             }
