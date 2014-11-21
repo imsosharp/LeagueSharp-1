@@ -18,6 +18,7 @@ namespace Twilight_s_Auto_Carry___Kalista
         private static Menu Config;
         private static Obj_AI_Hero myHero = ObjectManager.Player;
         public static Orbwalking.Orbwalker Orbwalker;
+        public static HpBarIndicator hpi = new HpBarIndicator();
         private static Spell Q = new Spell(SpellSlot.Q, 1450);
         private static Spell W = new Spell(SpellSlot.W, 5500);
         private static Spell E = new Spell(SpellSlot.E, 1200);
@@ -72,7 +73,7 @@ namespace Twilight_s_Auto_Carry___Kalista
 
 
             Config.AddSubMenu(new Menu("Wall Hop options", "wh"));
-            Config.SubMenu("ac").AddItem(new MenuItem("", "Not working yet"));
+            Config.SubMenu("wh").AddItem(new MenuItem("", "Not working yet"));
             Config.SubMenu("wh").AddItem(new MenuItem("drawSpot", "Draw WallHop spots").SetValue(true));
             Config.SubMenu("wh").AddItem(new MenuItem("whk", "WallHop key").SetValue(new KeyBind("T".ToCharArray()[0], KeyBindType.Press)));
             
@@ -90,6 +91,7 @@ namespace Twilight_s_Auto_Carry___Kalista
             Config.SubMenu("Drawings").AddItem(new MenuItem("DrawConnText", "Draw connection Text").SetValue(new Circle(true, Color.FromArgb(255, 255, 255, 0))));
             Config.SubMenu("Drawings").AddItem(new MenuItem("DrawConnSignal", "Draw connection signal").SetValue(true));
             Config.SubMenu("Drawings").AddItem(new MenuItem("drawText", "Draw damage text").SetValue(true));
+            Config.SubMenu("Drawings").AddItem(new MenuItem("drawHp", "Draw damage HP bar")).SetValue(true);
             Config.SubMenu("Drawings").AddItem(new MenuItem("enableDrawings", "Enable all drawings").SetValue(true));
 
             
@@ -102,12 +104,28 @@ namespace Twilight_s_Auto_Carry___Kalista
 //            InitializeLevelUpManager();
             Drawing.OnDraw += Drawing_OnDraw;
             Game.OnGameUpdate += OnGameUpdate;
+            Drawing.OnEndScene += OnEndScene;
         }
 
         public static float getPerValue(bool mana)
         {
             if (mana) return (myHero.Mana / myHero.MaxMana) * 100;
             return (myHero.Health / myHero.MaxHealth) * 100;
+        }
+        private static void OnEndScene(EventArgs args)
+        {
+            if (Config.Item("drawHp").GetValue<bool>())
+            {
+                foreach (
+                    var enemy in
+                        ObjectManager.Get<Obj_AI_Hero>()
+                            .Where(ene => !ene.IsDead && ene.IsEnemy && ene.IsVisible))
+                {
+                    hpi.unit = enemy;
+                    hpi.drawDmg(getDamageToTarget(enemy), Color.Yellow);
+
+                }
+            }
         }
         public static int KalistaMarkerCount
         {
@@ -299,6 +317,25 @@ namespace Twilight_s_Auto_Carry___Kalista
 
             }
 
+            try
+            {
+                if (Config.Item("drawHp").GetValue<bool>())
+                {
+                    foreach (
+                        var enemy in
+                            ObjectManager.Get<Obj_AI_Hero>()
+                                .Where(ene => !ene.IsDead && ene.IsEnemy && ene.IsVisible))
+                    {
+                        hpi.unit = enemy;
+                        hpi.drawDmg(getDamageToTarget(enemy), Color.Yellow);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
 
 
             var drawQ = Config.Item("QRange").GetValue<Circle>();
