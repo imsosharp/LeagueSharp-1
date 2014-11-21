@@ -64,12 +64,10 @@ namespace Twilight_s_Auto_Carry___Kalista
             Config.AddSubMenu(new Menu("AutoCarry options", "ac"));
             Config.SubMenu("ac").AddItem(new MenuItem("UseQAC", "Use Q").SetValue(true));
             Config.SubMenu("ac").AddItem(new MenuItem("UseEAC", "Use E").SetValue(true));
-//            Config.SubMenu("ac").AddItem(new MenuItem("QManaMinAC", "Min Q Mana %").SetValue(new Slider(35, 1, 100)));
-//            Config.SubMenu("ac").AddItem(new MenuItem("EManaMinAC", "Min E Mana %").SetValue(new Slider(35, 1, 100)));
 
             Config.AddSubMenu(new Menu("Harass options", "harass"));
             Config.SubMenu("harass").AddItem(new MenuItem("stackE", "E stacks to cast").SetValue(new Slider(1, 1, 10)));
-//            Config.SubMenu("harass").AddItem(new MenuItem("EManaMinHS", "Min E Mana %").SetValue(new Slider(35, 1, 100)));
+            Config.SubMenu("Harass").AddItem(new MenuItem("manaPercent", "Min Mana %").SetValue(new Slider(40, 1, 100)));
 
 
             Config.AddSubMenu(new Menu("Wall Hop options", "wh"));
@@ -239,14 +237,6 @@ namespace Twilight_s_Auto_Carry___Kalista
             Obj_AI_Hero target;
             if (Orbwalking.CanMove(100))
             {
-                if (debug)
-            {
-                    target = SimpleTs.GetTarget(E.Range, SimpleTs.DamageType.Physical);
-                    var wts = Drawing.WorldToScreen(target.Position);
-
-                    Drawing.DrawText(wts[0] - 50, wts[1] + 80, Color.OrangeRed, "Health: " + target.Health + " Stacks" + KalistaMarkerCount + " Damage: " + (E.GetDamage(target) + getDamageToTarget(target)));
-                    Game.PrintChat("Health: " + target.Health + " Stacks" + KalistaMarkerCount + " Damage: " + (E.GetDamage(target) + getDamageToTarget(target)));
-                }
                 if (Q.IsReady() && useQ)// && getPerValue(true) >= ManaQ)
                 {
                     target = SimpleTs.GetTarget(Q.Range, SimpleTs.DamageType.Physical);
@@ -270,8 +260,10 @@ namespace Twilight_s_Auto_Carry___Kalista
         public static void Harass()
         {
             var target = SimpleTs.GetTarget(E.Range, SimpleTs.DamageType.Physical);
-            var ManaE = Config.Item("EManaMinHS").GetValue<Slider>().Value;
-            if (E.IsReady() && KalistaMarkerCount >= Config.Item("stackE").GetValue<Slider>().Value)// && getPerValue(true) >= ManaE)
+            float percentManaAfterE = 100 * ((myHero.Mana - E.Instance.ManaCost) / myHero.MaxMana);
+            int minPercentMana = Config.SubMenu("Harass").Item("manaPercent").GetValue<Slider>().Value;
+
+            if (E.IsReady() && KalistaMarkerCount >= Config.Item("stackE").GetValue<Slider>().Value && percentManaAfterE >= minPercentMana)// && getPerValue(true) >= ManaE)
             {
                 E.Cast();
             }
@@ -285,19 +277,45 @@ namespace Twilight_s_Auto_Carry___Kalista
             double baseDamagePerStack = new double[] { 5, 9, 14, 20, 27 }[levelSkill];
             double scalingDamagePerStack = new double[] { 0.15, 0.18, 0.21, 0.24, 0.27 }[levelSkill];
             double baseDamage = new double[] { 20, 30, 40, 50, 60 }[levelSkill];
-            double totalDamageToTarget = baseDamage + (baseDamagePerStack + scalingDamagePerStack*AD)*stacks;
+            double totalDamageToTarget = baseDamage + (baseDamagePerStack + scalingDamagePerStack * AD) * stacks;
 
-//            return (int)myHero.GetSpellDamage(target, SpellSlot.E,1) * KalistaMarkerCount;
+            //            return (int)myHero.GetSpellDamage(target, SpellSlot.E,1) * KalistaMarkerCount;
+            return (int)totalDamageToTarget;
+        }
+        public static int simulateDamage(int stacks)
+        {
+            int levelSkill = E.Level;
+            double AD = myHero.FlatPhysicalDamageMod;
+            double baseDamagePerStack = new double[] { 5, 9, 14, 20, 27 }[levelSkill];
+            double scalingDamagePerStack = new double[] { 0.15, 0.18, 0.21, 0.24, 0.27 }[levelSkill];
+            double baseDamage = new double[] { 20, 30, 40, 50, 60 }[levelSkill];
+            double totalDamageToTarget = baseDamage + (baseDamagePerStack + scalingDamagePerStack * AD) * stacks;
+
+            //            return (int)myHero.GetSpellDamage(target, SpellSlot.E,1) * KalistaMarkerCount;
             return (int)totalDamageToTarget;
         }
 
-        private static int getTotalAttacksE(Obj_AI_Hero target)
+        private static int getTotalAttacks(Obj_AI_Hero target, int stage)
         {
-            int first = (int)(target.Health/myHero.GetAutoAttackDamage(target));
-            int second = (int)(target.Health - (E.GetDamage(target)*first));
+            int totalDamageToTarget = getDamageToTarget(target);
+            float targetHealth = target.Health;
+            float skillQdamage = Q.GetDamage(target);
+            float baseADDamage = (float)myHero.GetAutoAttackDamage(target);
+            float AANeeded = 0;
+            if (stage == 1)
+            {
+                AANeeded = (targetHealth - skillQdamage - E.GetDamage(target)) / baseADDamage;
+            }
+            else
+            {
+                AANeeded = (targetHealth - E.GetDamage(target)) / baseADDamage;
+            }
 
-            return first;
+//            int sex = ((int)targetHealth - (int)skillQdamage) - simulateDamage((int)AANeeded);
+
+            return (int)AANeeded;
         }
+
         private static void Drawing_OnDraw(EventArgs args)
         {
             if(Config.Item("drawText").GetValue<bool>())
@@ -306,9 +324,9 @@ namespace Twilight_s_Auto_Carry___Kalista
                 if (target != null && !target.IsDead && !myHero.IsDead)
                 {
                     var wts = Drawing.WorldToScreen(target.Position);
-                    int tan = getTotalAttacksE(target);
 
-                    Drawing.DrawText(wts[0] - 40, wts[1] + 70, Color.OrangeRed, "Combo "+getTotalAttacksE(target)+" AA + E");
+                    Drawing.DrawText(wts[0] - 40, wts[1] + 70, Color.OrangeRed, "Combo " + getTotalAttacks(target, 1) + " AA + Q + E");
+                    Drawing.DrawText(wts[0] - 50, wts[1] + 80, Color.OrangeRed, "Combo " + getTotalAttacks(target, 2) + " AA + E");
                 }
 
             }
