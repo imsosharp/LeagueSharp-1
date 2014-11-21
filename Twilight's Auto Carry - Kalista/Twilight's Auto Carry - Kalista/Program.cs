@@ -10,22 +10,25 @@ using SharpDX.Direct3D9;
 using Color = System.Drawing.Color;
 using System.Globalization;
 using System.Threading;
-using xSLx_Orbwalker;
 
 namespace Twilight_s_Auto_Carry___Kalista
 {
     class Program
     {
-//        public static HpBarIndicator hpi = new HpBarIndicator();
         private static Menu Config;
-        private static Obj_AI_Hero target;
         private static Obj_AI_Hero myHero = ObjectManager.Player;
+        public static Orbwalking.Orbwalker Orbwalker;
         private static Spell Q = new Spell(SpellSlot.Q, 1450);
         private static Spell W = new Spell(SpellSlot.W, 5500);
         private static Spell E = new Spell(SpellSlot.E, 1200);
         private static Spell R = new Spell(SpellSlot.R, 1200);
-//        public static LevelUpManager levelUpManager;
-        
+
+        public static bool packetCast = true;
+        public static bool debug = true;
+        public static bool LaneClearActive;
+        public static bool ComboActive;
+        public static bool HarassActive;
+
         static void Main(string[] args)
         {
             CustomEvents.Game.OnGameLoad += Load;
@@ -37,21 +40,21 @@ namespace Twilight_s_Auto_Carry___Kalista
             Game.PrintChat("| Twilight Auto Carry   |");
             Game.PrintChat("=========================");
             Game.PrintChat("Loading kalista plugin!");
+            Game.PrintChat("Kalista loaded!");
+            Game.PrintChat("=========================");
             Config = new Menu("TAC: Kalista", "Kalista", true);
 
             var targetSelectorMenu = new Menu("Target Selector", "Target Selector");
             SimpleTs.AddToMenu(targetSelectorMenu);
             Config.AddSubMenu(targetSelectorMenu);
 
-            var orbwalkerMenu = new Menu("xSLx Orbwalker", "xSLx_Orbwalker");
-            xSLxOrbwalker.AddToMenu(orbwalkerMenu);
-            Config.AddSubMenu(orbwalkerMenu);
+
+            var orbwalking = Config.AddSubMenu(new Menu("Orbwalking", "Orbwalking"));
+            Orbwalker = new Orbwalking.Orbwalker(orbwalking);
             
             Config.AddSubMenu(new Menu("AutoCarry options", "ac"));
             Config.SubMenu("ac").AddItem(new MenuItem("UseQAC", "Use Q").SetValue(true));
             Config.SubMenu("ac").AddItem(new MenuItem("UseEAC", "Use E").SetValue(true));
-            Config.SubMenu("ac").AddItem(new MenuItem("Detonate", "Use E at").SetValue(new Slider(1, 1, 40)));
-            Config.SubMenu("ac").AddItem(new MenuItem("DetonateAuto", "Auto E").SetValue(true));
             Config.SubMenu("ac").AddItem(new MenuItem("QManaMinAC", "Min Q Mana %").SetValue(new Slider(35, 1, 100)));
             Config.SubMenu("ac").AddItem(new MenuItem("EManaMinAC", "Min E Mana %").SetValue(new Slider(35, 1, 100)));
 
@@ -82,59 +85,54 @@ namespace Twilight_s_Auto_Carry___Kalista
 
             Config.AddItem(new MenuItem("debug", "Debug").SetValue(true));
             Config.AddToMainMenu();
-            Game.PrintChat("Kalista loaded!");
-            Game.PrintChat("=========================");
-
             
 //            InitializeLevelUpManager();
             Drawing.OnDraw += Drawing_OnDraw;
             Game.OnGameUpdate += OnGameUpdate;
             Drawing.OnEndScene += OnEndScene;
         }
-        /*private static void InitializeLevelUpManager()
-        {
-            var priority1 = new int[] { 
-                1, // level 1
-                3, // level 2
-                1, // level 3
-                2, // level 4
-                1, // level 5
-                4, // level 6
-                1, // level 7
-                3, // level 8
-                1, // level 9
-                3, // level 10
-                4, // level 11
-                3, // level 12
-                3, // level 13
-                2, // level 14
-                2, // level 15
-                4, // level 16
-                2, // level 17
-                2  // level 18
-            };
-            levelUpManager = new LevelUpManager();
-            levelUpManager.Add("R > Q > E > W", priority1);
-        }*/
+
         public static float getPerValue(bool mana)
         {
             if (mana) return (myHero.Mana / myHero.MaxMana) * 100;
             return (myHero.Health / myHero.MaxHealth) * 100;
         }
+        public static int KalistaMarkerCount
+        {
+            get
+            {
+                var xbuffCount = 0;
+                foreach (
+                    var buff in from enemy in ObjectManager.Get<Obj_AI_Hero>().Where(tx => tx.IsEnemy && !tx.IsDead)
+                                where ObjectManager.Player.Distance(enemy) < E.Range
+                                from buff in enemy.Buffs
+                                where buff.Name.Contains("kalistaexpungemarker")
+                                select buff)
+                {
+                    xbuffCount = buff.Count;
+                }
+                return xbuffCount;
+            }
+        }
+
         public static void OnGameUpdate(EventArgs args)
         {
-            if (myHero.IsDead) return;
-            if (Config.Item("whk").GetValue<bool>()) WallHop();
-            //levelUpManager.Update();
-            switch (xSLxOrbwalker.CurrentMode)
+            debug = Config.Item("debug").GetValue<bool>();
+            packetCast = Config.Item("Packets").GetValue<bool>();
+//            if (myHero.IsDead) return;
+//            if (Config.Item("whk").GetValue<bool>()) WallHop();
+
+
+            ComboActive = Config.Item("Orbwalk").GetValue<KeyBind>().Active;
+            HarassActive = Config.Item("Farm").GetValue<KeyBind>().Active;
+            LaneClearActive = Config.Item("LaneClear").GetValue<KeyBind>().Active;
+
+            if (ComboActive)
             {
-                case xSLxOrbwalker.Mode.Combo:
-                    Combo();
-                    break;
-                case xSLxOrbwalker.Mode.Harass:
-                    Harass();
-                    break;
+                Combo();
             }
+            if (HarassActive) Harass();
+
 
         }
         public static void WallHop()
@@ -150,39 +148,44 @@ namespace Twilight_s_Auto_Carry___Kalista
         {
             var ManaQ = Config.Item("QManaMinAC").GetValue<Slider>().Value;
             var ManaE = Config.Item("EManaMinAC").GetValue<Slider>().Value;
-            var distance = GetRealDistance(target);
-            if (Q.IsReady() && distance < Q.Range && getPerValue(true) >= ManaQ)
+            var useQ = Config.Item("UseQAC").GetValue<bool>();
+            var useE = Config.Item("UseEAC").GetValue<bool>();
+            
+            Obj_AI_Hero target;
+            if (Orbwalking.CanMove(100))
             {
-                Q.Cast(target, packetCast());
+                if (Q.IsReady() && useQ && getPerValue(true) >= ManaQ)
+                {
+                    target = SimpleTs.GetTarget(Q.Range, SimpleTs.DamageType.Physical);
+                    if (target != null)
+                        Q.Cast(target, packetCast);
+                }
+                if (E.IsReady() && useE && getPerValue(true) >= ManaE)
+                {
+                    target = SimpleTs.GetTarget(E.Range, SimpleTs.DamageType.Physical);
+                    Game.PrintChat("Target health: " + target.Health + " Stacks: " + KalistaMarkerCount + " Total dmg: " + (E.GetDamage(target) + getDamageToTarget(target)));
+                    if (target.Health <= (E.GetDamage(target) + getDamageToTarget(target)))
+                        Game.PrintChat("Casting E");
+                        E.Cast();
+                }
             }
-            if (E.IsReady() && distance <= E.Range && target.Health >= getDamageToTarget(target) && getPerValue(true) >= ManaE)
-            {
-                E.Cast(target, packetCast());
-            }
-        }
-        private static bool packetCast()
-        {
-            return Config.Item("Packets").GetValue<bool>();
         }
         public static void Harass()
         {
             //var minList = MinionManager.GetMinions(myHero.Position, 550f).Where(min => min.Health < Q.GetDamage(min));
-            
+
+            var target = SimpleTs.GetTarget(E.Range, SimpleTs.DamageType.Physical);
             var ManaE = Config.Item("EManaMinHS").GetValue<Slider>().Value;
-            foreach (var buff in target.Buffs.Where(buff => buff.DisplayName.ToLower() == "kalistarend").Where(buff => buff.Count == Config.Item("stackE").GetValue<Slider>().Value))
+            foreach (var buff in target.Buffs.Where(buff => buff.DisplayName.ToLower() == "kalistaexpungemarker").Where(buff => buff.Count == Config.Item("stackE").GetValue<Slider>().Value))
             {
                 if (E.IsReady() && getPerValue(true) >= ManaE)
-                    E.Cast(target, packetCast());
+                    E.Cast(target, packetCast);
             }
 
         }
         public static int getDamageToTarget(Obj_AI_Hero target)
         {
-            foreach (var buff in target.Buffs.Where(buff => buff.DisplayName.ToLower() == "kalistarend").Where(buff => buff.Count == 6))
-            {
-                return (int)target.GetSpellDamage(myHero, SpellSlot.E) * buff.Count;
-            }
-            return 0;
+            return (int)myHero.GetSpellDamage(target, SpellSlot.E) * KalistaMarkerCount;
         }
 
         private static void OnEndScene(EventArgs args)
@@ -208,6 +211,7 @@ namespace Twilight_s_Auto_Carry___Kalista
         {
             if(Config.Item("drawText").GetValue<bool>())
             {
+                var target = SimpleTs.GetTarget(Q.Range, SimpleTs.DamageType.Physical);
                 if (target != null && !target.IsDead && !myHero.IsDead)
                 {
                     var wts = Drawing.WorldToScreen(target.Position);
@@ -268,10 +272,9 @@ namespace Twilight_s_Auto_Carry___Kalista
         {
             if (E.IsReady())
             {
-//                var eTarget = SimpleTs.GetTarget(E.Range, SimpleTs.DamageType.Physical);
                 if (eTarget.IsValidTarget(E.Range))
                 {
-                    foreach (var buff in eTarget.Buffs.Where(buff => buff.DisplayName.ToLower() == "kalistarend").Where(buff => buff.Count == 6))
+                    foreach (var buff in eTarget.Buffs.Where(buff => buff.DisplayName.ToLower() == "kalistaexpungemarker").Where(buff => buff.Count == 6))
                     {
                         Game.PrintChat("Total stacks on target " + eTarget.ChampionName + " Count: " + buff.Count + " Total Damage: " + eTarget.GetSpellDamage(myHero,SpellSlot.E)*buff.Count);
                         return (float)eTarget.GetSpellDamage(myHero, SpellSlot.E) * buff.Count;
