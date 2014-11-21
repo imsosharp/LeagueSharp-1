@@ -1,4 +1,22 @@
-﻿using System;
+﻿/*
+ * 
+ * LeagueSharp Kalista assembly
+ * Copyright (C) 2014 Harold Schneider
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,6 +51,8 @@ namespace Twilight_s_Auto_Carry___Kalista
         public static bool ComboActive;
         public static bool HarassActive;
         public static bool drawings;
+
+        public static int[] Items = { 3153, 3142, 3140, 3131 };
         private static readonly string[] MinionNames = {"TT_Spiderboss", "TTNGolem", "TTNWolf", "TTNWraith", "SRU_Blue", "SRU_Gromp", "SRU_Murkwolf", "SRU_Razorbeak", "SRU_Red", "SRU_Krug", "SRU_Dragon", "SRU_Baron", "Sru_Crab"};
 
         public static readonly Vector3[] wallhops = new[] { new Vector3(794, 5914, 50), new Vector3(792, 6208, -71), new Vector3(10906, 7498, 52), new Vector3(10872, 7208, 51), new Vector3(11900, 4870, 51), new Vector3(11684, 4694, -71), new Vector3(12046, 5376, 54), new Vector3(12284, 5382, 51), new Vector3(11598, 8676, 62), new Vector3(11776, 8890, 50), new Vector3(8646, 9584, 50), new Vector3(8822, 9406, 51), new Vector3(6606, 11756, 53), new Vector3(6494, 12056, 56), new Vector3(5164, 12090, 56), new Vector3(5146, 11754, 56), new Vector3(5780, 10650, 55), new Vector3(5480, 10620, -71), new Vector3(3174, 9856, 52), new Vector3(3398, 10080, -65), new Vector3(2858, 9448, 51), new Vector3(2542, 9466, 52), new Vector3(3700, 7416, 51), new Vector3(3702, 7702, 52), new Vector3(3224, 6308, 52), new Vector3(3024, 6312, 57), new Vector3(4724, 5608, 50), new Vector3(4610, 5868, 51), new Vector3(6124, 5308, 48), new Vector3(6010, 5522, 51), new Vector3(9322, 4514, -71), new Vector3(9022, 4508, 52), new Vector3(6826, 8628, -71), new Vector3(7046, 8750, 52), };
@@ -87,6 +107,10 @@ namespace Twilight_s_Auto_Carry___Kalista
             
             var extras = new Menu("Extras", "Extras");
             new PotionManager(extras);
+//            Config.SubMenu("Extras").AddItem(new MenuItem("3", "Only for Auto-Carry").SetValue(true));
+//            Config.SubMenu("Extras").AddItem(new MenuItem("botrk", "Blade of the Ruined King").SetValue(true));
+//            Config.SubMenu("Extras").AddItem(new MenuItem("ghost", "Youmuu's Ghostblade").SetValue(true));
+//            Config.SubMenu("Extras").AddItem(new MenuItem("divine", "Sword of the Divine").SetValue(true));
             Config.AddSubMenu(extras);
             
 //            levelUpManager.AddToMenu(ref Config);
@@ -135,27 +159,25 @@ namespace Twilight_s_Auto_Carry___Kalista
             }
             return sMinion;
         }
+        private static void Cast_Q(Obj_AI_Hero target)
+        {
+            if (!Q.IsReady())
+                return;
+//            var target = SimpleTs.GetTarget(Q.Range, SimpleTs.DamageType.Physical);
+            var qPred = Q.GetPrediction(target);
+            if (qPred.Hitchance >= HitChance.Medium)
+                Q.Cast(target, packetCast);
+            if (qPred.Hitchance != HitChance.Collision)
+                return;
+            var coll = qPred.CollisionObjects;
+            var goal = coll.FirstOrDefault(obj => Q.GetPrediction(obj).Hitchance >= HitChance.Medium && Q.GetDamage(target) > obj.Health);
+            if (goal != null)
+                Q.Cast(goal, packetCast);
+        }
         public static float getPerValue(bool mana)
         {
             if (mana) return (myHero.Mana / myHero.MaxMana) * 100;
             return (myHero.Health / myHero.MaxHealth) * 100;
-        }
-        public static int KalistaMarkerCountMinion
-        {
-            get
-            {
-                var xbuffCount = 0;
-                foreach (
-                    var buff in from enemy in ObjectManager.Get<Obj_AI_Base>().Where(tx => tx.IsEnemy && !tx.IsDead)
-                                where ObjectManager.Player.Distance(enemy) < E.Range
-                                from buff in enemy.Buffs
-                                where buff.Name.Contains("kalistaexpungemarker")
-                                select buff)
-                {
-                    xbuffCount = buff.Count;
-                }
-                return xbuffCount;
-            }
         }
 
         public static void OnGameUpdate(EventArgs args)
@@ -265,7 +287,8 @@ namespace Twilight_s_Auto_Carry___Kalista
             {
                 if (Q.IsReady() && useQ)
                 {
-                    Q.Cast(target, packetCast);
+                    //Q.Cast(target, packetCast);
+                    Cast_Q(target);
                 }
                 if (E.IsReady() && useE)
                 {
