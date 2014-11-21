@@ -308,8 +308,6 @@ namespace Twilight_s_Auto_Carry___Kalista
                 if (E.IsReady() && useE)// && getPerValue(true) >= ManaE)
                 {
                     target = SimpleTs.GetTarget(E.Range, SimpleTs.DamageType.Physical);
-                    if (debug)
-                        Game.PrintChat("Stacks: "+KalistaMarkerCount);
                     if (target.Health <= (E.GetDamage(target) + getDamageToTarget(target)))
                     {
                         E.Cast(target, packetCast);
@@ -337,6 +335,8 @@ namespace Twilight_s_Auto_Carry___Kalista
             double scalingDamagePerStack = new double[] { 0.15, 0.18, 0.21, 0.24, 0.27 }[levelSkill];
             double baseDamage = new double[] { 20, 30, 40, 50, 60 }[levelSkill];
             double totalDamageToTarget = baseDamage + (baseDamagePerStack + scalingDamagePerStack * AD) * target.Buffs.FirstOrDefault(b => b.DisplayName.ToLower() == "kalistaexpungemarker").Count; //stacks
+            if (debug)
+                Game.PrintChat("Target: "+target.ChampionName+" Stacks:"+target.Buffs.FirstOrDefault(b => b.DisplayName.ToLower() == "kalistaexpungemarker").Count);
             return (int)totalDamageToTarget;
         }
         public static int getDamageToMinion(Obj_AI_Base target)
