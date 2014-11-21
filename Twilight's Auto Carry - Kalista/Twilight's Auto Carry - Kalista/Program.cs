@@ -161,7 +161,7 @@ namespace Twilight_s_Auto_Carry___Kalista
         }
         private static void Cast_Q(Obj_AI_Hero target)
         {
-            if (!Q.IsReady())
+            if (!Q.IsReady() || target == null)
                 return;
 //            var target = SimpleTs.GetTarget(Q.Range, SimpleTs.DamageType.Physical);
             var qPred = Q.GetPrediction(target);
