@@ -91,6 +91,9 @@ namespace Twilight_s_Auto_Carry___Kalista
             Config.AddSubMenu(new Menu("AutoCarry options", "ac"));
             Config.SubMenu("ac").AddItem(new MenuItem("UseQAC", "Use Q").SetValue(true));
             Config.SubMenu("ac").AddItem(new MenuItem("UseEAC", "Use E").SetValue(true));
+            Config.SubMenu("ac").AddItem(new MenuItem("E4K", "E only for kill").SetValue(true));
+            Config.SubMenu("harass").AddItem(new MenuItem("55", "^ false ? then"));
+            Config.SubMenu("harass").AddItem(new MenuItem("minE", "Min stacks to E").SetValue(new Slider(1, 1, 20)));
             
             Config.AddSubMenu(new Menu("Harass options", "harass"));
             Config.SubMenu("harass").AddItem(new MenuItem("stackE", "E stacks to cast").SetValue(new Slider(1, 1, 10)));
@@ -397,8 +400,12 @@ namespace Twilight_s_Auto_Carry___Kalista
             if (useQ) 
                 Cast_Q(SimpleTs.GetTarget(Q.Range, SimpleTs.DamageType.Physical));
 
+            if (E.IsReady() && Config.Item("E4K").GetValue<bool>() == false && SimpleTs.GetTarget(E.Range, SimpleTs.DamageType.Physical).Buffs.FirstOrDefault(b => b.Name.ToLower() == "kalistaexpungemarker").Count >= Config.Item("minE").GetValue<Slider>().Value)
+            {
+                E.Cast(packetCast);
+            }
             if (E.IsReady() 
-                    && useE 
+                    && useE && Config.Item("E4K").GetValue<bool>()
                         && ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(E.Range) 
                             && hero.Health < getDamageToTarget(hero)))
                 E.Cast(packetCast);
@@ -414,8 +421,19 @@ namespace Twilight_s_Auto_Carry___Kalista
         public static void Harass()
         {
             var target = SimpleTs.GetTarget(E.Range, SimpleTs.DamageType.Physical);
+            float percentManaAfterQ = 100 * ((myHero.Mana - Q.Instance.ManaCost) / myHero.MaxMana);
             float percentManaAfterE = 100 * ((myHero.Mana - E.Instance.ManaCost) / myHero.MaxMana);
             int minPercentMana = Config.SubMenu("Harass").Item("manaPercent").GetValue<Slider>().Value;
+
+
+            var first = Q.GetPrediction(target).CollisionObjects[0];
+            var second = Q.GetPrediction(target).CollisionObjects[1];
+
+            if (first == target || first.IsMinion && first.IsEnemy && first.Health < Q.GetDamage(first) && second == target && percentManaAfterQ >= minPercentMana)
+            {
+                Q.Cast(target,packetCast);
+            }
+            
             if (E.IsReady() && target.Buffs.FirstOrDefault(b => b.Name.ToLower() == "kalistaexpungemarker").Count >= Config.Item("stackE").GetValue<Slider>().Value && percentManaAfterE >= minPercentMana)// && getPerValue(true) >= ManaE)
             {
                 E.Cast(packetCast);
