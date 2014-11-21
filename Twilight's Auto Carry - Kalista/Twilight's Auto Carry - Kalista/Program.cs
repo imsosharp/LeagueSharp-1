@@ -23,6 +23,9 @@ namespace Twilight_s_Auto_Carry___Kalista
         private static Spell E = new Spell(SpellSlot.E, 1200);
         private static Spell R = new Spell(SpellSlot.R, 1200);
 
+        public static Obj_AI_Hero CoopStrikeAlly;
+        public static float CoopStrikeAllyRange = 1250f;
+
         public static bool packetCast = true;
         public static bool debug = true;
         public static bool LaneClearActive;
@@ -43,6 +46,10 @@ namespace Twilight_s_Auto_Carry___Kalista
             Game.PrintChat("Kalista loaded!");
             Game.PrintChat("=========================");
             Config = new Menu("TAC: Kalista", "Kalista", true);
+
+            Q.SetSkillshot(0.25f, 60f, 2000f, true, SkillshotType.SkillshotLine);
+            W.SetSkillshot(0.25f, 80f, 1600f, false, SkillshotType.SkillshotLine);
+            R.SetSkillshot(1f, 160f, 2000f, false, SkillshotType.SkillshotLine);
 
             var targetSelectorMenu = new Menu("Target Selector", "Target Selector");
             SimpleTs.AddToMenu(targetSelectorMenu);
@@ -78,7 +85,9 @@ namespace Twilight_s_Auto_Carry___Kalista
             Config.SubMenu("Drawings").AddItem(new MenuItem("WRange", "W range").SetValue(new Circle(true, Color.FromArgb(255, 255, 255, 255))));
             Config.SubMenu("Drawings").AddItem(new MenuItem("ERange", "E range").SetValue(new Circle(true, Color.FromArgb(255, 255, 255, 255))));
             Config.SubMenu("Drawings").AddItem(new MenuItem("RRange", "R range").SetValue(new Circle(true, Color.FromArgb(255, 255, 255, 255))));
-            Config.SubMenu("Drawings").AddItem(new MenuItem("drawText", "Draw text").SetValue(true));
+            Config.SubMenu("Drawings").AddItem(new MenuItem("DrawConnText", "Draw connection Text").SetValue(new Circle(true, Color.FromArgb(255, 255, 255, 0))));
+            Config.SubMenu("Drawings").AddItem(new MenuItem("DrawConnSignal", "Draw connection signal").SetValue(true));
+            Config.SubMenu("Drawings").AddItem(new MenuItem("drawText", "Draw damage text").SetValue(true));
             
 
             Config.AddItem(new MenuItem("Packets", "Packet Casting").SetValue(true));
@@ -117,6 +126,7 @@ namespace Twilight_s_Auto_Carry___Kalista
 
         public static void OnGameUpdate(EventArgs args)
         {
+            drawConnection();
             debug = Config.Item("debug").GetValue<bool>();
             packetCast = Config.Item("Packets").GetValue<bool>();
 //            if (myHero.IsDead) return;
@@ -135,6 +145,56 @@ namespace Twilight_s_Auto_Carry___Kalista
 
 
         }
+        public static void drawConnection()
+        {
+            if (CoopStrikeAlly == null)
+            {
+                foreach (
+                var ally in
+                from ally in ObjectManager.Get<Obj_AI_Hero>().Where(tx => tx.IsAlly && !tx.IsDead && !tx.IsMe)
+                where ObjectManager.Player.Distance(ally) <= CoopStrikeAllyRange
+                from buff in ally.Buffs
+                where buff.Name.Contains("kalistacoopstrikeally")
+                select ally)
+                {
+                    CoopStrikeAlly = ally;
+                }
+            }
+            if (CoopStrikeAlly == null)
+            {
+                Drawing.DrawText(Drawing.Width * 0.44f, Drawing.Height * 0.80f, Color.Red,
+                "Searching Your Friend...");
+            }
+            else
+            {
+                var drawConnText = Config.Item("DrawConnText").GetValue<Circle>();
+                if (drawConnText.Active)
+                {
+                    Drawing.DrawText(Drawing.Width * 0.44f, Drawing.Height * 0.80f, drawConnText.Color,
+                    "You Connected with " + CoopStrikeAlly.ChampionName);
+                }
+                var drawConnSignal = Config.Item("DrawConnSignal").GetValue<bool>();
+                if (drawConnSignal)
+                {
+                    if (ObjectManager.Player.Distance(CoopStrikeAlly) > 800 &&
+                    ObjectManager.Player.Distance(CoopStrikeAlly) < CoopStrikeAllyRange)
+                    {
+                        Drawing.DrawText(Drawing.Width * 0.45f, Drawing.Height * 0.82f, Color.Gold,
+                        "Connection Signal: Low");
+                    }
+                    else if (ObjectManager.Player.Distance(CoopStrikeAlly) < 800)
+                    {
+                        Drawing.DrawText(Drawing.Width * 0.45f, Drawing.Height * 0.82f, Color.GreenYellow,
+                        "Connection Signal: Good");
+                    }
+                    else if (ObjectManager.Player.Distance(CoopStrikeAlly) > CoopStrikeAllyRange)
+                    {
+                        Drawing.DrawText(Drawing.Width * 0.45f, Drawing.Height * 0.82f, Color.Red,
+                        "Connection Signal: None");
+                    }
+                }
+            }
+        }
         public static void WallHop()
         {
 
@@ -146,6 +206,7 @@ namespace Twilight_s_Auto_Carry___Kalista
         }
         public static void Combo()
         {
+            if (myHero.HasBuff("Recall")) return;
             var ManaQ = Config.Item("QManaMinAC").GetValue<Slider>().Value;
             var ManaE = Config.Item("EManaMinAC").GetValue<Slider>().Value;
             var useQ = Config.Item("UseQAC").GetValue<bool>();
@@ -154,19 +215,33 @@ namespace Twilight_s_Auto_Carry___Kalista
             Obj_AI_Hero target;
             if (Orbwalking.CanMove(100))
             {
-                if (Q.IsReady() && useQ && getPerValue(true) >= ManaQ)
+                target = SimpleTs.GetTarget(E.Range, SimpleTs.DamageType.Physical);
+                var wts = Drawing.WorldToScreen(target.Position);
+
+                Drawing.DrawText(wts[0] - 50, wts[1] + 80, Color.OrangeRed, "Health: " + target.Health + " Stacks" + KalistaMarkerCount + " Damage: " + (E.GetDamage(target) + getDamageToTarget(target)));
+                Game.PrintChat("Health: " + target.Health + " Stacks" + KalistaMarkerCount + " Damage: " + (E.GetDamage(target) + getDamageToTarget(target)));
+
+                if (Q.IsReady() && useQ)// && getPerValue(true) >= ManaQ)
                 {
                     target = SimpleTs.GetTarget(Q.Range, SimpleTs.DamageType.Physical);
                     if (target != null)
+                    {
                         Q.Cast(target, packetCast);
+                    }
                 }
-                if (E.IsReady() && useE && getPerValue(true) >= ManaE)
+                if (E.IsReady() && useE)// && getPerValue(true) >= ManaE)
                 {
                     target = SimpleTs.GetTarget(E.Range, SimpleTs.DamageType.Physical);
-                    Game.PrintChat("Target health: " + target.Health + " Stacks: " + KalistaMarkerCount + " Total dmg: " + (E.GetDamage(target) + getDamageToTarget(target)));
+                    //var wts = Drawing.WorldToScreen(target.Position);
+                    //Drawing.DrawText(wts[0] - 50, wts[1] + 80, Color.OrangeRed, "Health: " + target.Health + " Stacks" + KalistaMarkerCount + " Damage: " + (E.GetDamage(target) + getDamageToTarget(target)));
+                    //Game.PrintChat("Health: " + target.Health + " Stacks" + KalistaMarkerCount + " Damage: " + (E.GetDamage(target) + getDamageToTarget(target)));
+
+
                     if (target.Health <= (E.GetDamage(target) + getDamageToTarget(target)))
+                    {
                         Game.PrintChat("Casting E");
                         E.Cast();
+                    }
                 }
             }
         }
@@ -185,7 +260,7 @@ namespace Twilight_s_Auto_Carry___Kalista
         }
         public static int getDamageToTarget(Obj_AI_Hero target)
         {
-            return (int)myHero.GetSpellDamage(target, SpellSlot.E) * KalistaMarkerCount;
+            return (int)myHero.GetSpellDamage(target, SpellSlot.E,1) * KalistaMarkerCount;
         }
 
         private static void OnEndScene(EventArgs args)
