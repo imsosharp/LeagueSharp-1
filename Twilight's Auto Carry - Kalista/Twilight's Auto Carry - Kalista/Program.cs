@@ -141,8 +141,10 @@ namespace Twilight_s_Auto_Carry___Kalista
             {
                 Combo();
             }
-            if (HarassActive) Harass();
-
+            if (HarassActive)
+            {
+                Harass();
+            }
 
         }
         public static void drawConnection()
@@ -251,15 +253,19 @@ namespace Twilight_s_Auto_Carry___Kalista
 
             var target = SimpleTs.GetTarget(E.Range, SimpleTs.DamageType.Physical);
             var ManaE = Config.Item("EManaMinHS").GetValue<Slider>().Value;
-            foreach (var buff in target.Buffs.Where(buff => buff.DisplayName.ToLower() == "kalistaexpungemarker").Where(buff => buff.Count == Config.Item("stackE").GetValue<Slider>().Value))
+//            foreach (var buff in target.Buffs.Where(buff => buff.DisplayName.ToLower() == "kalistaexpungemarker").Where(buff => buff.Count == Config.Item("stackE").GetValue<Slider>().Value))
+//            {
+//            Game.PrintChat("Stacks: "+KalistaMarkerCount+" Configured: "+Config.Item("stackE").GetValue<Slider>().Value);
+            if (E.IsReady() && KalistaMarkerCount >= Config.Item("stackE").GetValue<Slider>().Value)// && getPerValue(true) >= ManaE)
             {
-                if (E.IsReady() && getPerValue(true) >= ManaE)
-                    E.Cast(target, packetCast);
+                E.Cast();
             }
+//            }
 
         }
         public static int getDamageToTarget(Obj_AI_Hero target)
         {
+            Game.PrintChat("Spell base damage: " + myHero.GetSpellDamage(target, SpellSlot.E, 1));
             return (int)myHero.GetSpellDamage(target, SpellSlot.E,1) * KalistaMarkerCount;
         }
 
