@@ -298,6 +298,9 @@ namespace Twilight_s_Auto_Carry___Kalista
                     /**
                      * @author xSLx (Lexxes)
                      */
+                         //Game.PrintChat("TargetHealth : " +targetE.Health);
+     //Game.PrintChat("Mydmg : " +getDamageToTarget(targetE));
+     //Game.PrintChat("ismore: " + (targetE.Health < getDamageToTarget(targetE)));
                     if (ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(E.Range) && hero.Health < getDamageToTarget(target)))
                     {
                         E.Cast(packetCast);
@@ -330,9 +333,9 @@ namespace Twilight_s_Auto_Carry___Kalista
             int stacks = target.Buffs.FirstOrDefault(b => b.Name.ToLower() == "kalistaexpungemarker").Count;
             if (stacks < 1) return 0;
             double AD = myHero.FlatPhysicalDamageMod;
-            double baseDamagePerStack = new double[] { 5, 9, 14, 20, 27 }[levelSkill-1];
-            double scalingDamagePerStack = new double[] { 0.15, 0.18, 0.21, 0.24, 0.27 }[levelSkill-1];
-            double baseDamage = new double[] { 20, 30, 40, 50, 60 }[levelSkill-1]+(0.6*AD);
+            double baseDamagePerStack = new double[] { 5, 9, 14, 20, 27 }[levelSkill];
+            double scalingDamagePerStack = new double[] { 0.15, 0.18, 0.21, 0.24, 0.27 }[levelSkill];
+            double baseDamage = new double[] { 20, 30, 40, 50, 60 }[levelSkill]+(0.6*AD);
             double totalDamageToTarget = baseDamage + (stacks > 2 ? (baseDamagePerStack + scalingDamagePerStack*AD)*stacks : 0);
 
             double totalRealDamageToTarget = myHero.CalcDamage(target, Damage.DamageType.Physical, totalDamageToTarget);
@@ -346,9 +349,9 @@ namespace Twilight_s_Auto_Carry___Kalista
             int stacks = target.Buffs.FirstOrDefault(b => b.Name.ToLower() == "kalistaexpungemarker").Count;
             if (stacks < 1) return 0;
             double AD = myHero.FlatPhysicalDamageMod;
-            double baseDamagePerStack = new double[] { 5, 9, 14, 20, 27 }[levelSkill-1];
-            double scalingDamagePerStack = new double[] { 0.15, 0.18, 0.21, 0.24, 0.27 }[levelSkill-1];
-            double baseDamage = new double[] { 20, 30, 40, 50, 60 }[levelSkill - 1] + (0.6 * AD);
+            double baseDamagePerStack = new double[] { 5, 9, 14, 20, 27 }[levelSkill];
+            double scalingDamagePerStack = new double[] { 0.15, 0.18, 0.21, 0.24, 0.27 }[levelSkill];
+            double baseDamage = new double[] { 20, 30, 40, 50, 60 }[levelSkill] + (0.6 * AD);
             double totalDamageToTarget = baseDamage + (stacks > 2 ? (baseDamagePerStack + scalingDamagePerStack * AD) * stacks : 0);
 
             double totalRealDamageToTarget = myHero.CalcDamage(target, Damage.DamageType.Physical, totalDamageToTarget);
