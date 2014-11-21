@@ -231,7 +231,6 @@ namespace Twilight_s_Auto_Carry___Kalista
         public static void Combo()
         {
             if (myHero.HasBuff("Recall")) return;
-//            Game.PrintChat("Combo active2"); 
             //var ManaQ = Config.Item("QManaMinAC").GetValue<Slider>().Value;
             //var ManaE = Config.Item("EManaMinAC").GetValue<Slider>().Value;
             var useQ = Config.Item("UseQAC").GetValue<bool>();
@@ -259,11 +258,6 @@ namespace Twilight_s_Auto_Carry___Kalista
                 if (E.IsReady() && useE)// && getPerValue(true) >= ManaE)
                 {
                     target = SimpleTs.GetTarget(E.Range, SimpleTs.DamageType.Physical);
-                    //var wts = Drawing.WorldToScreen(target.Position);
-                    //Drawing.DrawText(wts[0] - 50, wts[1] + 80, Color.OrangeRed, "Health: " + target.Health + " Stacks" + KalistaMarkerCount + " Damage: " + (E.GetDamage(target) + getDamageToTarget(target)));
-                    //Game.PrintChat("Health: " + target.Health + " Stacks" + KalistaMarkerCount + " Damage: " + (E.GetDamage(target) + getDamageToTarget(target)));
-
-
                     if (target.Health <= (E.GetDamage(target) + getDamageToTarget(target)))
                     {
                         if(debug)
@@ -275,25 +269,26 @@ namespace Twilight_s_Auto_Carry___Kalista
         }
         public static void Harass()
         {
-            //var minList = MinionManager.GetMinions(myHero.Position, 550f).Where(min => min.Health < Q.GetDamage(min));
-
             var target = SimpleTs.GetTarget(E.Range, SimpleTs.DamageType.Physical);
             var ManaE = Config.Item("EManaMinHS").GetValue<Slider>().Value;
-//            foreach (var buff in target.Buffs.Where(buff => buff.DisplayName.ToLower() == "kalistaexpungemarker").Where(buff => buff.Count == Config.Item("stackE").GetValue<Slider>().Value))
-//            {
-//            Game.PrintChat("Stacks: "+KalistaMarkerCount+" Configured: "+Config.Item("stackE").GetValue<Slider>().Value);
             if (E.IsReady() && KalistaMarkerCount >= Config.Item("stackE").GetValue<Slider>().Value)// && getPerValue(true) >= ManaE)
             {
                 E.Cast();
             }
-//            }
 
         }
         public static int getDamageToTarget(Obj_AI_Hero target)
         {
-           // if(debug)
-               // Game.PrintChat("Spell base damage: " + myHero.GetSpellDamage(target, SpellSlot.E, 1));
-            return (int)myHero.GetSpellDamage(target, SpellSlot.E,1) * KalistaMarkerCount;
+            int levelSkill = E.Level;
+            int stacks = KalistaMarkerCount;
+            double AD = myHero.FlatPhysicalDamageMod;
+            double baseDamagePerStack = new double[] { 5, 9, 14, 20, 27 }[levelSkill];
+            double scalingDamagePerStack = new double[] { 0.15, 0.18, 0.21, 0.24, 0.27 }[levelSkill];
+            double baseDamage = new double[] { 20, 30, 40, 50, 60 }[levelSkill];
+            double totalDamageToTarget = baseDamage + (baseDamagePerStack + scalingDamagePerStack*AD)*stacks;
+
+//            return (int)myHero.GetSpellDamage(target, SpellSlot.E,1) * KalistaMarkerCount;
+            return (int)totalDamageToTarget;
         }
 
         private static int getTotalAttacksE(Obj_AI_Hero target)
