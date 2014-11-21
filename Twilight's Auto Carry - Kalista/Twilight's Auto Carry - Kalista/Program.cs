@@ -265,8 +265,9 @@ namespace Twilight_s_Auto_Carry___Kalista
         public static void Harass()
         {
             var target = SimpleTs.GetTarget(E.Range, SimpleTs.DamageType.Physical);
-            var ManaE = Config.Item("EManaMinHS").GetValue<Slider>().Value;
-            if (E.IsReady() && KalistaMarkerCount >= Config.Item("stackE").GetValue<Slider>().Value)// && getPerValue(true) >= ManaE)
+            float percentManaAfterE = 100 * ((myHero.Mana - E.Instance.ManaCost) / myHero.MaxMana);
+            int minPercentMana = Config.SubMenu("Harass").Item("manaPercent").GetValue<Slider>().Value;
+            if (E.IsReady() && KalistaMarkerCount >= Config.Item("stackE").GetValue<Slider>().Value && percentManaAfterE >= minPercentMana)// && getPerValue(true) >= ManaE)
             {
                 E.Cast();
             }
