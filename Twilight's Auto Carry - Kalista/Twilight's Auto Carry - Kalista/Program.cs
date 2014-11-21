@@ -287,9 +287,9 @@ namespace Twilight_s_Auto_Carry___Kalista
                 }
                 if (E.IsReady() && useE)
                 {
+//                    Game.PrintChat("current target: "+target.ChampionName+" damage:"+getDamageToTarget(target));
                     if (target.Health < getDamageToTarget(target))
                     {
-                        //Game.PrintChat("Casting E");
                         E.Cast();
                     }
                 }
