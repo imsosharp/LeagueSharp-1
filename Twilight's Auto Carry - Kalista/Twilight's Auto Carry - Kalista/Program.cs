@@ -323,34 +323,40 @@ namespace Twilight_s_Auto_Carry___Kalista
             int levelSkill = E.Level;
             var stacks = KalistaMarkerCount;
             double AD = myHero.FlatPhysicalDamageMod;
-            double baseDamagePerStack = new double[] { 5, 9, 14, 20, 27 }[levelSkill];
+            double baseDamagePerStack = new double[] { 0, 5, 9, 14, 20, 27 }[levelSkill];
             double scalingDamagePerStack = new double[] { 0.15, 0.18, 0.21, 0.24, 0.27 }[levelSkill];
             double baseDamage = new double[] { 20, 30, 40, 50, 60 }[levelSkill];
             double totalDamageToTarget = (baseDamage + baseDamagePerStack + scalingDamagePerStack * AD) * target.Buffs.FirstOrDefault(b => b.DisplayName.ToLower() == "kalistaexpungemarker").Count; //stacks
-            return (float)totalDamageToTarget;
+
+            double totalRealDamageToTarget = myHero.CalcDamage(target, Damage.DamageType.Physical, totalDamageToTarget);
+            return (float)totalRealDamageToTarget;
         }
+
+
         public static int getDamageToMinion(Obj_AI_Base target)
         {
             int levelSkill = E.Level;
             var stacks = KalistaMarkerCountMinion;
             double AD = myHero.FlatPhysicalDamageMod;
-            double baseDamagePerStack = new double[] { 5, 9, 14, 20, 27 }[levelSkill];
+            double baseDamagePerStack = new double[] { 0, 5, 9, 14, 20, 27 }[levelSkill];
             double scalingDamagePerStack = new double[] { 0.15, 0.18, 0.21, 0.24, 0.27 }[levelSkill];
             double baseDamage = new double[] { 20, 30, 40, 50, 60 }[levelSkill];
             double totalDamageToTarget = (baseDamage + baseDamagePerStack + scalingDamagePerStack * AD) * target.Buffs.FirstOrDefault(b => b.DisplayName.ToLower() == "kalistaexpungemarker").Count; //stacks
-            return (int)totalDamageToTarget;
+
+            double totalRealDamageToTarget = myHero.CalcDamage(target, Damage.DamageType.Physical, totalDamageToTarget);
+            return (int)totalRealDamageToTarget;
         }
-        public static int simulateDamage(int stacks)
+        public static int simulateDamage(int stacks, Obj_AI_Hero target)
         {
             int levelSkill = E.Level;
             double AD = myHero.FlatPhysicalDamageMod;
-            double baseDamagePerStack = new double[] { 5, 9, 14, 20, 27 }[levelSkill];
+            double baseDamagePerStack = new double[] { 0, 5, 9, 14, 20, 27 }[levelSkill];
             double scalingDamagePerStack = new double[] { 0.15, 0.18, 0.21, 0.24, 0.27 }[levelSkill];
             double baseDamage = new double[] { 20, 30, 40, 50, 60 }[levelSkill];
-            double totalDamageToTarget = baseDamage + (baseDamagePerStack + scalingDamagePerStack * AD) * stacks;
+            double totalDamageToTarget = (baseDamage + baseDamagePerStack + scalingDamagePerStack * AD) * target.Buffs.FirstOrDefault(b => b.DisplayName.ToLower() == "kalistaexpungemarker").Count; //stacks
 
-            //            return (int)myHero.GetSpellDamage(target, SpellSlot.E,1) * KalistaMarkerCount;
-            return (int)totalDamageToTarget;
+            double totalRealDamageToTarget = myHero.CalcDamage(target, Damage.DamageType.Physical, totalDamageToTarget);
+            return (int)totalRealDamageToTarget;
         }
 
         private static int getTotalAttacks(Obj_AI_Hero target, int stage)
