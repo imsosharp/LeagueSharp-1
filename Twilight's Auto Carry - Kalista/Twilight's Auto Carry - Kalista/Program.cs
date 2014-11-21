@@ -104,6 +104,7 @@ namespace Twilight_s_Auto_Carry___Kalista
             Config.AddItem(new MenuItem("Packets", "Packet Casting").SetValue(true));
 
             Config.AddItem(new MenuItem("debug", "Debug").SetValue(true));
+            Config.AddItem(new MenuItem("showPos", "Server Position").SetValue(new KeyBind("N".ToCharArray()[0], KeyBindType.Press)));
             Config.AddToMainMenu();
             
 //            InitializeLevelUpManager();
@@ -209,6 +210,10 @@ namespace Twilight_s_Auto_Carry___Kalista
                 Harass();
             }
             drawConnection();
+            if(Config.Item("showPos").GetValue<KeyBind>().Active)
+            {
+                Game.PrintChat("Positino on server: "+myHero.ServerPosition);
+            }
 
             Obj_AI_Base mob = GetNearest(myHero.ServerPosition);
             if (mob != null && Config.Item(mob.SkinName).GetValue<bool>())
