@@ -284,6 +284,31 @@ namespace Twilight_s_Auto_Carry___Kalista
                     }
                 }
             }
+            
+            ComboActive = Config.Item("Orbwalk").GetValue<KeyBind>().Active;
+            HarassActive = Config.Item("Farm").GetValue<KeyBind>().Active;
+            LaneClearActive = Config.Item("LaneClear").GetValue<KeyBind>().Active;
+
+            if (ComboActive)
+            {
+                Combo();
+            }
+            else if (HarassActive)
+            {
+                Harass();
+            }
+            if (Config.Item("showPos").GetValue<KeyBind>().Active)
+            {
+                Game.PrintChat("Position on server: " + myHero.ServerPosition);
+            }
+            var useItemModes = Config.Item("UseItemsMode").GetValue<StringList>().SelectedIndex;
+            if (
+ !((Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo &&
+ (useItemModes == 2 || useItemModes == 3))
+ ||
+ (Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Mixed &&
+ (useItemModes == 1 || useItemModes == 3))))
+                return;
             if (botrk)
             {
                 if (target != null && target.Type == ObjectManager.Player.Type &&
@@ -317,23 +342,6 @@ namespace Twilight_s_Auto_Carry___Kalista
                     ObjectManager.Player.SummonerSpellbook.CastSpell(igniteSlot, target);
                 }
             }
-            ComboActive = Config.Item("Orbwalk").GetValue<KeyBind>().Active;
-            HarassActive = Config.Item("Farm").GetValue<KeyBind>().Active;
-            LaneClearActive = Config.Item("LaneClear").GetValue<KeyBind>().Active;
-
-            if (ComboActive)
-            {
-                Combo();
-            }
-            else if (HarassActive)
-            {
-                Harass();
-            }
-
-            if (Config.Item("showPos").GetValue<KeyBind>().Active)
-            {
-                Game.PrintChat("Position on server: " + myHero.ServerPosition);
-            } 
         }
         public static void drawConnection()
         {
