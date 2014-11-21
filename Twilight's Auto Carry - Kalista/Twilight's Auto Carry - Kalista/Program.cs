@@ -148,7 +148,6 @@ namespace Twilight_s_Auto_Carry___Kalista
         public static void OnGameUpdate(EventArgs args)
         {
             drawings = Config.Item("enableDrawings").GetValue<bool>();
-            drawConnection();
             debug = Config.Item("debug").GetValue<bool>();
             packetCast = Config.Item("Packets").GetValue<bool>();
 //            if (myHero.IsDead) return;
@@ -167,6 +166,7 @@ namespace Twilight_s_Auto_Carry___Kalista
             {
                 Harass();
             }
+            drawConnection();
 
         }
         public static void drawConnection()
@@ -231,16 +231,17 @@ namespace Twilight_s_Auto_Carry___Kalista
         public static void Combo()
         {
             if (myHero.HasBuff("Recall")) return;
-            var ManaQ = Config.Item("QManaMinAC").GetValue<Slider>().Value;
-            var ManaE = Config.Item("EManaMinAC").GetValue<Slider>().Value;
+//            Game.PrintChat("Combo active2"); 
+            //var ManaQ = Config.Item("QManaMinAC").GetValue<Slider>().Value;
+            //var ManaE = Config.Item("EManaMinAC").GetValue<Slider>().Value;
             var useQ = Config.Item("UseQAC").GetValue<bool>();
             var useE = Config.Item("UseEAC").GetValue<bool>();
-            
+
             Obj_AI_Hero target;
             if (Orbwalking.CanMove(100))
             {
                 if (debug)
-                {
+            {
                     target = SimpleTs.GetTarget(E.Range, SimpleTs.DamageType.Physical);
                     var wts = Drawing.WorldToScreen(target.Position);
 
@@ -290,8 +291,8 @@ namespace Twilight_s_Auto_Carry___Kalista
         }
         public static int getDamageToTarget(Obj_AI_Hero target)
         {
-            if(debug)
-                Game.PrintChat("Spell base damage: " + myHero.GetSpellDamage(target, SpellSlot.E, 1));
+           // if(debug)
+               // Game.PrintChat("Spell base damage: " + myHero.GetSpellDamage(target, SpellSlot.E, 1));
             return (int)myHero.GetSpellDamage(target, SpellSlot.E,1) * KalistaMarkerCount;
         }
 
