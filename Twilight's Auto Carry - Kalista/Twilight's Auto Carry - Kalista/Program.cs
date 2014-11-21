@@ -256,8 +256,6 @@ namespace Twilight_s_Auto_Carry___Kalista
         public static void Combo()
         {
             if (myHero.HasBuff("Recall")) return;
-            //var ManaQ = Config.Item("QManaMinAC").GetValue<Slider>().Value;
-            //var ManaE = Config.Item("EManaMinAC").GetValue<Slider>().Value;
             var useQ = Config.Item("UseQAC").GetValue<bool>();
             var useE = Config.Item("UseEAC").GetValue<bool>();
 
@@ -271,18 +269,12 @@ namespace Twilight_s_Auto_Carry___Kalista
                 }
                 if (E.IsReady() && useE)
                 {
-
-                    //if (targetE.Health < getDamageToTarget(targetE))
                     if (ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(E.Range) && hero.Health < getDamageToTarget(target)))
                     {
                         E.Cast(packetCast);
                     }
                 }
             }
-            //else
-            //{
-                //Game.PrintChat("Target not found!");
-           // }
         }
         internal static void Obj_AI_Hero_OnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
@@ -299,7 +291,7 @@ namespace Twilight_s_Auto_Carry___Kalista
             int minPercentMana = Config.SubMenu("Harass").Item("manaPercent").GetValue<Slider>().Value;
             if (E.IsReady() && target.Buffs.FirstOrDefault(b => b.Name.ToLower() == "kalistaexpungemarker").Count >= Config.Item("stackE").GetValue<Slider>().Value && percentManaAfterE >= minPercentMana)// && getPerValue(true) >= ManaE)
             {
-                E.Cast(target,packetCast);
+                E.Cast(packetCast);
             }
 
         }
