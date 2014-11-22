@@ -444,7 +444,8 @@ namespace Twilight_s_Auto_Carry___Kalista
                 {
                     if(E.Cast())
                     {
-                        Game.PrintChat("Target dead.");
+                        if(debug)
+                            Game.PrintChat("Target dead.");
                     }
                 }
             }
