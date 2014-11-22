@@ -92,8 +92,8 @@ namespace Twilight_s_Auto_Carry___Kalista
             Config.SubMenu("ac").AddItem(new MenuItem("UseQAC", "Use Q").SetValue(true));
             Config.SubMenu("ac").AddItem(new MenuItem("UseEAC", "Use E").SetValue(true));
             Config.SubMenu("ac").AddItem(new MenuItem("E4K", "E only for kill").SetValue(true));
-            Config.SubMenu("harass").AddItem(new MenuItem("55", "^ false ? then"));
-            Config.SubMenu("harass").AddItem(new MenuItem("minE", "Min stacks to E").SetValue(new Slider(1, 1, 20)));
+            Config.SubMenu("ac").AddItem(new MenuItem("55", "^ false ? then"));
+            Config.SubMenu("ac").AddItem(new MenuItem("minE", "Min stacks to E").SetValue(new Slider(1, 1, 20)));
 
             Config.AddSubMenu(new Menu("Harass options", "harass"));
             Config.SubMenu("harass").AddItem(new MenuItem("stackE", "E stacks to cast").SetValue(new Slider(1, 1, 10)));
