@@ -104,8 +104,6 @@ namespace Twilight_s_Auto_Carry___Kalista
 
 
             Config.AddSubMenu(new Menu("Smite options", "smite"));
-            Config.SubMenu("smite").AddItem(new MenuItem("1", "Cause bugsplat"));
-            Config.SubMenu("smite").AddItem(new MenuItem("2", "not working yet"));
             Config.SubMenu("smite").AddItem(new MenuItem("SRU_Baron", "Baron Enabled").SetValue(true));
             Config.SubMenu("smite").AddItem(new MenuItem("SRU_Dragon", "Dragon Enabled").SetValue(true));
             Config.SubMenu("smite").AddItem(new MenuItem("smite", "Auto-Smite enabled").SetValue(true));
