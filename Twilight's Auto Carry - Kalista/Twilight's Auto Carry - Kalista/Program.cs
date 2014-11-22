@@ -519,58 +519,60 @@ namespace Twilight_s_Auto_Carry___Kalista
 
         private static void Drawing_OnDraw(EventArgs args)
         {
-
-            drawConnection();
-
-            if(Config.Item("drawSpot").GetValue<bool>())
+            if (drawings)
             {
-                foreach (Vector3 pos in wallhops)
-                {
-                    if(myHero.Distance(pos) <= Config.Item("dh").GetValue<Slider>().Value)
-                        Utility.DrawCircle(pos, minRange, Color.Green);
-                }
-            }
+                drawConnection();
 
-            if(Config.Item("drawText").GetValue<bool>())
-            {
-                var target = SimpleTs.GetTarget(Q.Range, SimpleTs.DamageType.Physical);
-                if (target != null && !target.IsDead && !myHero.IsDead)
+                if (Config.Item("drawSpot").GetValue<bool>())
                 {
-                    var wts = Drawing.WorldToScreen(target.Position);
-
-                    Drawing.DrawText(wts[0] - 40, wts[1] + 70, Color.OrangeRed, "Combo " + getTotalAttacks(target, 1) + " AA + Q + E");
-                    Drawing.DrawText(wts[0] - 50, wts[1] + 80, Color.OrangeRed, "Combo " + getTotalAttacks(target, 2) + " AA + E");
+                    foreach (Vector3 pos in wallhops)
+                    {
+                        if (myHero.Distance(pos) <= Config.Item("dh").GetValue<Slider>().Value)
+                            Utility.DrawCircle(pos, minRange, Color.Green);
+                    }
                 }
 
-            }
-            Config.Item("drawHp").ValueChanged += (object sender, OnValueChangeEventArgs e) => { Utility.HpBarDamageIndicator.Enabled = e.GetNewValue<bool>(); };
-            if (Config.Item("drawHp").GetValue<bool>())
-            {
-                Utility.HpBarDamageIndicator.DamageToUnit = getDamageToTarget;
-                Utility.HpBarDamageIndicator.Enabled = true;
-            }
+                if (Config.Item("drawText").GetValue<bool>())
+                {
+                    var target = SimpleTs.GetTarget(Q.Range, SimpleTs.DamageType.Physical);
+                    if (target != null && !target.IsDead && !myHero.IsDead)
+                    {
+                        var wts = Drawing.WorldToScreen(target.Position);
 
-            var drawQ = Config.Item("QRange").GetValue<Circle>();
-            if (drawQ.Active && !myHero.IsDead)
-            {
-                Utility.DrawCircle(myHero.Position, Q.Range, drawQ.Color);
-            }
+                        Drawing.DrawText(wts[0] - 40, wts[1] + 70, Color.OrangeRed, "Combo " + getTotalAttacks(target, 1) + " AA + Q + E");
+                        Drawing.DrawText(wts[0] - 50, wts[1] + 80, Color.OrangeRed, "Combo " + getTotalAttacks(target, 2) + " AA + E");
+                    }
 
-            var drawW = Config.Item("WRange").GetValue<Circle>();
-            if (drawW.Active && !myHero.IsDead)
-            {
-                Utility.DrawCircle(myHero.Position, W.Range, drawW.Color);
-            }
-            var drawE = Config.Item("ERange").GetValue<Circle>();
-            if (drawE.Active && !myHero.IsDead)
-            {
-                Utility.DrawCircle(myHero.Position, E.Range, drawE.Color);
-            }
+                }
+                Config.Item("drawHp").ValueChanged += (object sender, OnValueChangeEventArgs e) => { Utility.HpBarDamageIndicator.Enabled = e.GetNewValue<bool>(); };
+                if (Config.Item("drawHp").GetValue<bool>())
+                {
+                    Utility.HpBarDamageIndicator.DamageToUnit = getDamageToTarget;
+                    Utility.HpBarDamageIndicator.Enabled = true;
+                }
 
-            var drawR = Config.Item("RRange").GetValue<Circle>();
-            if (drawR.Active && !myHero.IsDead)
-            {
-                Utility.DrawCircle(myHero.Position, R.Range, drawR.Color);
+                var drawQ = Config.Item("QRange").GetValue<Circle>();
+                if (drawQ.Active && !myHero.IsDead)
+                {
+                    Utility.DrawCircle(myHero.Position, Q.Range, drawQ.Color);
+                }
+
+                var drawW = Config.Item("WRange").GetValue<Circle>();
+                if (drawW.Active && !myHero.IsDead)
+                {
+                    Utility.DrawCircle(myHero.Position, W.Range, drawW.Color);
+                }
+                var drawE = Config.Item("ERange").GetValue<Circle>();
+                if (drawE.Active && !myHero.IsDead)
+                {
+                    Utility.DrawCircle(myHero.Position, E.Range, drawE.Color);
+                }
+
+                var drawR = Config.Item("RRange").GetValue<Circle>();
+                if (drawR.Active && !myHero.IsDead)
+                {
+                    Utility.DrawCircle(myHero.Position, R.Range, drawR.Color);
+                }
             }
         }
 
