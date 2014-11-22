@@ -40,6 +40,8 @@ namespace Twilight_s_Auto_Carry___Kalista
         private static Spell Q, W, E, R;
         public static int minRange = 100;
 
+        public static HpBarIndicator hpi = new HpBarIndicator();
+
         public static Obj_AI_Hero CoopStrikeAlly;
         public static float CoopStrikeAllyRange = 1250f;
 
@@ -107,7 +109,7 @@ namespace Twilight_s_Auto_Carry___Kalista
             Config.SubMenu("smite").AddItem(new MenuItem("SRU_Baron", "Baron Enabled").SetValue(true));
             Config.SubMenu("smite").AddItem(new MenuItem("SRU_Dragon", "Dragon Enabled").SetValue(true));
             Config.SubMenu("smite").AddItem(new MenuItem("smite", "Auto-Smite enabled").SetValue(true));
-
+            
 
             Config.AddSubMenu(new Menu("Wall Hop options", "wh"));
             Config.SubMenu("wh").AddItem(new MenuItem("drawSpot", "Draw WallHop spots").SetValue(true));
@@ -155,14 +157,30 @@ namespace Twilight_s_Auto_Carry___Kalista
 
             Config.AddItem(new MenuItem("Packets", "Packet Casting").SetValue(true));
 
-            Config.AddItem(new MenuItem("debug", "Debug").SetValue(true));
+            Config.AddItem(new MenuItem("debug", "Debug").SetValue(false));
             Config.AddItem(new MenuItem("showPos", "Server Position").SetValue(new KeyBind("N".ToCharArray()[0], KeyBindType.Press)));
             Config.AddToMainMenu();
             
 //            InitializeLevelUpManager();
             Drawing.OnDraw += Drawing_OnDraw;
+            Drawing.OnEndScene += OnEndScene;
             Game.OnGameUpdate += OnGameUpdate;
             Obj_AI_Hero.OnProcessSpellCast += Obj_AI_Hero_OnProcessSpellCast;
+        }
+        private static void OnEndScene(EventArgs args)
+        {
+            if (Config.Item("drawHp").GetValue<bool>())
+            {
+                foreach (
+                    var enemy in
+                        ObjectManager.Get<Obj_AI_Hero>()
+                            .Where(ene => !ene.IsDead && ene.IsEnemy && ene.IsVisible))
+                {
+                    hpi.unit = enemy;
+                    hpi.drawDmg(getDamageToTarget(enemy), Color.Yellow);
+
+                }
+            }
         }
         private static void CheckChampionBuff()
         {
@@ -509,6 +527,18 @@ namespace Twilight_s_Auto_Carry___Kalista
             {
                 drawConnection();
 
+                if (Config.Item("drawHp").GetValue<bool>())
+                {
+                    foreach (
+                        var enemy in
+                            ObjectManager.Get<Obj_AI_Hero>()
+                                .Where(ene => !ene.IsDead && ene.IsEnemy && ene.IsVisible))
+                    {
+                        hpi.unit = enemy;
+                        hpi.drawDmg(getDamageToTarget(enemy), Color.Yellow);
+
+                    }
+                }
                 if (Config.Item("drawSpot").GetValue<bool>())
                 {
                     foreach (Vector3 pos in wallhops)
@@ -560,6 +590,15 @@ namespace Twilight_s_Auto_Carry___Kalista
                     Utility.DrawCircle(myHero.Position, R.Range, drawR.Color);
                 }
             }
+        }
+        public static float getDamageToTarget(Obj_AI_Base target)
+        {
+            double damage = myHero.GetAutoAttackDamage(target);
+            if (Q.IsReady())
+                damage += myHero.GetSpellDamage(target, SpellSlot.Q);
+            if (E.IsReady())
+                damage += GetRendDamage(target);
+            return (float)damage;
         }
         /**
          * @credits Hellsing
