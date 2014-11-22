@@ -37,10 +37,7 @@ namespace Twilight_s_Auto_Carry___Kalista
         public static Menu QuickSilverMenu;
         private static Obj_AI_Hero myHero = ObjectManager.Player;
         public static Orbwalking.Orbwalker Orbwalker;
-        private static Spell Q = new Spell(SpellSlot.Q, 1450);
-        private static Spell W = new Spell(SpellSlot.W, 5500);
-        private static Spell E = new Spell(SpellSlot.E, 1000);
-        private static Spell R = new Spell(SpellSlot.R, 1200);
+        private static Spell Q, W, E, R;
         public static int minRange = 100;
 
         public static Obj_AI_Hero CoopStrikeAlly;
@@ -75,10 +72,12 @@ namespace Twilight_s_Auto_Carry___Kalista
             Game.PrintChat("Kalista loaded!");
             Game.PrintChat("=========================");
             Config = new Menu("TAC: Kalista", "Kalista", true);
-
+            
+            Q = new Spell(SpellSlot.Q, 1450);
+            W = new Spell(SpellSlot.W, 5500);
+            E = new Spell(SpellSlot.E, 1000);
+            R = new Spell(SpellSlot.R, 1200);
             Q.SetSkillshot(0.25f, 60f, 2000f, true, SkillshotType.SkillshotLine);
-            W.SetSkillshot(0.25f, 80f, 1600f, false, SkillshotType.SkillshotLine);
-            R.SetSkillshot(1f, 160f, 2000f, false, SkillshotType.SkillshotLine);
 
             var targetSelectorMenu = new Menu("Target Selector", "Target Selector");
             SimpleTs.AddToMenu(targetSelectorMenu);
@@ -266,28 +265,9 @@ namespace Twilight_s_Auto_Carry___Kalista
 
         public static void OnGameUpdate(EventArgs args)
         {
-
-            var botrk = Config.Item("BOTRK").GetValue<bool>();
-            var ghostblade = Config.Item("GHOSTBLADE").GetValue<bool>();
-            var sword = Config.Item("SWORD").GetValue<bool>();
-            var target = Orbwalker.GetTarget();
-            var igniteSlot = ObjectManager.Player.GetSpellSlot("SummonerDot");
             drawings = Config.Item("enableDrawings").GetValue<bool>();
             debug = Config.Item("debug").GetValue<bool>();
             packetCast = Config.Item("Packets").GetValue<bool>();
-
-            if (Config.Item("smite").GetValue<bool>())
-            {
-                var mob = GetNearest(myHero.ServerPosition);
-                if (mob != null && Config.Item(mob.SkinName).GetValue<bool>())
-                {
-
-                    if (mob.Health < getDamageToTarget(mob))
-                    {
-                        E.Cast(packetCast);
-                    }
-                }
-            }
             
             ComboActive = Config.Item("Orbwalk").GetValue<KeyBind>().Active;
             HarassActive = Config.Item("Farm").GetValue<KeyBind>().Active;
@@ -295,6 +275,7 @@ namespace Twilight_s_Auto_Carry___Kalista
 
             if (ComboActive)
             {
+
                 Combo();
             }
             else if (HarassActive)
@@ -305,9 +286,27 @@ namespace Twilight_s_Auto_Carry___Kalista
             {
                 LaneClear();
             }
+
+            var botrk = Config.Item("BOTRK").GetValue<bool>();
+            var ghostblade = Config.Item("GHOSTBLADE").GetValue<bool>();
+            var sword = Config.Item("SWORD").GetValue<bool>();
+            var target = Orbwalker.GetTarget();
+            var igniteSlot = ObjectManager.Player.GetSpellSlot("SummonerDot");
             if (Config.Item("showPos").GetValue<KeyBind>().Active)
             {
                 Game.PrintChat("Position on server: " + myHero.ServerPosition);
+            }
+            if (Config.Item("smite").GetValue<bool>())
+            {
+                var mob = GetNearest(myHero.ServerPosition);
+                if (mob != null && Config.Item(mob.SkinName).GetValue<bool>())
+                {
+
+                    if (mob.Health < GetRendDamage(mob))
+                    {
+                        E.Cast(packetCast);
+                    }
+                }
             }
             var useItemModes = Config.Item("UseItemsMode").GetValue<StringList>().SelectedIndex;
             if (
@@ -358,7 +357,7 @@ namespace Twilight_s_Auto_Carry___Kalista
                 var minions = MinionManager.GetMinions(myHero.Position, E.Range);
                 foreach ( var data in minions )
                 {
-                    if(getDamageToTarget(data) > data.Health)
+                    if (GetRendDamage(data) > data.Health)
                     {
                         E.Cast();
                     }
@@ -425,20 +424,36 @@ namespace Twilight_s_Auto_Carry___Kalista
             if (myHero.HasBuff("Recall")) return;
             var useQ = Config.Item("UseQAC").GetValue<bool>();
             var useE = Config.Item("UseEAC").GetValue<bool>();
-
-
-            if (useQ) 
+            if (useQ)
+            {
                 Cast_Q(SimpleTs.GetTarget(Q.Range, SimpleTs.DamageType.Physical));
+            }
+            /*
+            foreach (var enemy in ObjectManager.Get<Obj_AI_Hero>().Where(h => h.IsValidTarget(E.Range)))
+            {
+                if (GetRendDamage(enemy) > enemy.Health)
+                {
+                    E.Cast();
+                    break;
+                }
+            }*/
+            
+            if (E.IsReady() && useE && Config.Item("E4K").GetValue<bool>())
+            {
+                if (ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(E.Range) && hero.Health < GetRendDamage(hero)))
+                {
+                    if(E.Cast())
+                    {
+                        Game.PrintChat("Target dead.");
+                    }
+                }
+            }
 
             if (E.IsReady() && Config.Item("E4K").GetValue<bool>() == false && SimpleTs.GetTarget(E.Range, SimpleTs.DamageType.Physical).Buffs.FirstOrDefault(b => b.Name.ToLower() == "kalistaexpungemarker").Count >= Config.Item("minE").GetValue<Slider>().Value)
             {
+                Game.PrintChat("fuck me");
                 E.Cast(packetCast);
             }
-            if (E.IsReady() 
-                    && useE && Config.Item("E4K").GetValue<bool>()
-                        && ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(E.Range) 
-                            && hero.Health < getDamageToTarget(hero)))
-                E.Cast(packetCast);
         }
         internal static void Obj_AI_Hero_OnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
@@ -470,41 +485,13 @@ namespace Twilight_s_Auto_Carry___Kalista
             }
 
         }
-        public static float getDamageToTarget(Obj_AI_Base target)
-        {
-            int levelSkill = E.Level;
-            int stacks = target.Buffs.FirstOrDefault(b => b.Name.ToLower() == "kalistaexpungemarker").Count;
-            if (stacks < 1) return 0;
-            double AD = myHero.FlatPhysicalDamageMod;
-            double baseDamagePerStack = new double[] { 5, 9, 14, 20, 27 }[levelSkill];
-            double scalingDamagePerStack = new double[] { 0.15, 0.18, 0.21, 0.24, 0.27 }[levelSkill];
-            double baseDamage = new double[] { 20, 30, 40, 50, 60 }[levelSkill]+(0.6*AD);
-            double totalDamageToTarget = baseDamage + (stacks > 2 ? (baseDamagePerStack + scalingDamagePerStack*AD)*stacks : 0);
-
-            double totalRealDamageToTarget = myHero.CalcDamage(target, Damage.DamageType.Physical, totalDamageToTarget);
-            return (float)totalRealDamageToTarget;
-        }
-        public static int simulateDamage(int stacks, Obj_AI_Hero target)
-        {
-            int levelSkill = E.Level;
-            if (stacks < 1) return 0;
-            double AD = myHero.FlatPhysicalDamageMod;
-            double baseDamagePerStack = new double[] { 5, 9, 14, 20, 27 }[levelSkill];
-            double scalingDamagePerStack = new double[] { 0.15, 0.18, 0.21, 0.24, 0.27 }[levelSkill];
-            double baseDamage = new double[] { 20, 30, 40, 50, 60 }[levelSkill] + (0.6 * AD);
-            double totalDamageToTarget = baseDamage + (baseDamagePerStack + scalingDamagePerStack * AD) * stacks;
-
-            double totalRealDamageToTarget = myHero.CalcDamage(target, Damage.DamageType.Physical, totalDamageToTarget);
-            return (int)totalRealDamageToTarget;
-        }
-
         private static int getTotalAttacks(Obj_AI_Hero target, int stage)
         {
-            float totalDamageToTarget = getDamageToTarget(target);
-            float targetHealth = target.Health;
-            float skillQdamage = Q.GetDamage(target);
-            float baseADDamage = (float)myHero.GetAutoAttackDamage(target);
-            float AANeeded = 0;
+            double totalDamageToTarget = GetRendDamage(target);
+            double targetHealth = target.Health;
+            double skillQdamage = Q.GetDamage(target);
+            double baseADDamage = myHero.GetAutoAttackDamage(target);
+            double AANeeded = 0;
             if (stage == 1)
             {
                 AANeeded = (targetHealth - skillQdamage - E.GetDamage(target)) / baseADDamage;
@@ -544,11 +531,11 @@ namespace Twilight_s_Auto_Carry___Kalista
                     }
 
                 }
-                Config.Item("drawHp").ValueChanged += (object sender, OnValueChangeEventArgs e) => { Utility.HpBarDamageIndicator.Enabled = e.GetNewValue<bool>(); };
+                //Config.Item("drawHp").ValueChanged += (object sender, OnValueChangeEventArgs e) => { Utility.HpBarDamageIndicator.Enabled = e.GetNewValue<bool>(); };
                 if (Config.Item("drawHp").GetValue<bool>())
                 {
-                    Utility.HpBarDamageIndicator.DamageToUnit = getDamageToTarget;
-                    Utility.HpBarDamageIndicator.Enabled = true;
+                    //Utility.HpBarDamageIndicator.DamageToUnit = getDamageToTarget;
+                    //Utility.HpBarDamageIndicator.Enabled = true;
                 }
 
                 var drawQ = Config.Item("QRange").GetValue<Circle>();
@@ -575,24 +562,20 @@ namespace Twilight_s_Auto_Carry___Kalista
                 }
             }
         }
-
-        public static float CalculateRendDamage(Obj_AI_Hero eTarget)
+        /**
+         * @credits Hellsing
+         */
+        public static double GetRendDamage(Obj_AI_Base target)
         {
-            if (E.IsReady())
+            var buff = target.Buffs.FirstOrDefault(b => b.DisplayName.ToLower() == "kalistaexpungemarker");
+            if (buff != null)
             {
-                if (eTarget.IsValidTarget(E.Range))
-                {
-                    foreach (var buff in eTarget.Buffs.Where(buff => buff.DisplayName.ToLower() == "kalistaexpungemarker").Where(buff => buff.Count == 6))
-                    {
-                        if(debug)
-                            Game.PrintChat("Total stacks on target " + eTarget.ChampionName + " Count: " + buff.Count + " Total Damage: " + eTarget.GetSpellDamage(myHero,SpellSlot.E)*buff.Count);
-                        return (float)eTarget.GetSpellDamage(myHero, SpellSlot.E) * buff.Count;
-//                        E.Cast();
-                    }
-                }
-
+                double damage = (10 + 10 * myHero.Spellbook.GetSpell(SpellSlot.E).Level) + 0.6 * myHero.FlatPhysicalDamageMod;
+                damage += buff.Count * (new double[] { 0, 5, 9, 14, 20, 27 }[myHero.Spellbook.GetSpell(SpellSlot.E).Level] + (0.12 + 0.03 * myHero.Spellbook.GetSpell(SpellSlot.E).Level) * myHero.FlatPhysicalDamageMod);
+                double dmg = myHero.CalcDamage(target, Damage.DamageType.Physical, damage);
+                return dmg;
             }
-            return (float)0;
+            return 0;
         }
     }
 }
