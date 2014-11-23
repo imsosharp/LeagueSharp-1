@@ -3,7 +3,10 @@ using System.Linq;
 using LeagueSharp;
 using LeagueSharp.Common;
 using System.Collections.Generic;
-
+/**
+ * Code was written by Esk0r (xQx)
+ * I redesigned the code for my needs.
+ */
 namespace TAC_Kalista
 {
     public class BuffList

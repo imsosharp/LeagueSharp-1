@@ -81,6 +81,9 @@ namespace TAC_Kalista
             xSLxOrbwalker.ForcedTarget = null;
         }
          */
+        /**
+         * @author Hellsing 
+         */
         public static void OnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
             if (sender.IsMe)
@@ -89,6 +92,10 @@ namespace TAC_Kalista
                     Utility.DelayAction.Add(250, Orbwalking.ResetAutoAttackTimer);
             }
         }
+        /**
+         * @author Lexxes 
+         * @modify_author TwilightLoL
+         */
         public static void customQCast(Obj_AI_Hero target)
         {
             if (!SkillHandler.Q.IsReady() || target == null) return;
@@ -102,7 +109,9 @@ namespace TAC_Kalista
             var goal = coll.FirstOrDefault(obj => SkillHandler.Q.GetPrediction(obj).Hitchance >= HitChance.Medium && SkillHandler.Q.GetDamage(target) > obj.Health);
             if (goal != null) SkillHandler.Q.Cast(goal, Kalista.packetCast);
         }
-        
+        /**
+         * @author Hellsing
+         */
         public static void OnFlee()
         {
             Obj_AI_Base dashObject = DrawingHandler.GetDashObject();
