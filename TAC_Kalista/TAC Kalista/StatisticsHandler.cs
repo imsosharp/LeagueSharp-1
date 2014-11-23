@@ -17,7 +17,7 @@ namespace TAC_Kalista
         public static WebClient client = new WebClient { Proxy = null };
         public static void init()
         {
-            Game.PrintChat("[Auth] Welcome "+ObjectManager.Player.ChampionName+"! There are "+getGames()+" games with this script in total! ");
+            Game.PrintChat("[Auth] Welcome "+ObjectManager.Player.ChampionName+"! There are "+getGames()+" games played with this script in total! (Counting from 9:34PM GMT+2 11/23/2014");
             if (gameId == 0)
             {
                 Game.PrintChat("[Auth] Your game is now being recorded, have fun!");
