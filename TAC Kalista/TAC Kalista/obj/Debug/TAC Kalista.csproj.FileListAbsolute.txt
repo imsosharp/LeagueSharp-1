@@ -1,0 +1,2 @@
+c:\users\harold\documents\visual studio 2013\Projects\TAC Kalista\TAC Kalista\bin\Debug\TAC Kalista.exe.config
+c:\users\harold\documents\visual studio 2013\Projects\TAC Kalista\TAC Kalista\obj\Debug\TAC Kalista.csprojResolveAssemblyReference.cache
