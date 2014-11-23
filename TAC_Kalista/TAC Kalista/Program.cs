@@ -26,7 +26,7 @@ namespace TAC_Kalista
                 return;
             }
             SkillHandler.init();
-            ItemHandler.init();
+//            ItemHandler.init();
             MenuHandler.init();
             SmiteHandler.Init();
             DrawingHandler.init();

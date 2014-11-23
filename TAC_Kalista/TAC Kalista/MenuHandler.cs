@@ -51,7 +51,7 @@ namespace TAC_Kalista
             Config.SubMenu("smite").AddItem(new MenuItem("Sru_Crab", "Crab Enabled").SetValue(false));
 
             Config.SubMenu("smite").AddItem(new MenuItem("smite", "Auto-Smite enabled").SetValue(new KeyBind("G".ToCharArray()[0], KeyBindType.Press)));
-
+            /*
             Config.AddSubMenu(new Menu("Item options", "Items"));
             Config.SubMenu("Items").AddItem(new MenuItem("BOTRK", "BOTRK").SetValue(true));
             Config.SubMenu("Items").AddItem(new MenuItem("GHOSTBLADE", "Ghostblade").SetValue(true));
@@ -81,7 +81,7 @@ namespace TAC_Kalista
             Config.SubMenu("PotionManager").AddSubMenu(new Menu("Mana", "Mana"));
             Config.SubMenu("PotionManager").SubMenu("Mana").AddItem(new MenuItem("ManaPotion", "Use Mana Potion").SetValue(true));
             Config.SubMenu("PotionManager").SubMenu("Mana").AddItem(new MenuItem("ManaPercent", "MP Trigger Percent").SetValue(new Slider(30,15,100)));
-
+            */
             Config.AddSubMenu(new Menu("Wall Hop options", "wh"));
             Config.SubMenu("wh").AddItem(new MenuItem("drawSpot", "Draw WallHop spots").SetValue(true));
             Config.SubMenu("wh").AddItem(new MenuItem("whKey", "Jump key").SetValue(new KeyBind("T".ToCharArray()[0], KeyBindType.Press)));
