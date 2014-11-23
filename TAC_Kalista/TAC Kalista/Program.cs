@@ -13,6 +13,7 @@ namespace TAC_Kalista
         public static bool packetCast;
         public static bool debug;
         public static bool drawings;
+        public static Orbwalking.Orbwalker orb;
         static void Main(string[] args)
         {
             Game.PrintChat("Loading Twilights Kalista!");
@@ -45,6 +46,28 @@ namespace TAC_Kalista
             if (ObjectManager.Player.HasBuff("Recall"))
             {
                 int useItemModes = MenuHandler.Config.Item("UseItemsMode").GetValue<StringList>().SelectedIndex;
+
+                if (MenuHandler.Config.Item("Orbwalk").GetValue<KeyBind>().Active)
+                {
+                    FightHandler.OnCombo();
+                    if (useItemModes == 3 || useItemModes == 5) ItemHandler.useItem();
+                }
+                else if (MenuHandler.Config.Item("fleeActive").GetValue<KeyBind>().Active)
+                {
+                    FightHandler.OnCombo();
+                    if (useItemModes == 4 || useItemModes == 5) ItemHandler.useItem();
+                }
+                else if (MenuHandler.Config.Item("Farm").GetValue<KeyBind>().Active)
+                {
+                    FightHandler.OnHarass();
+                    if (useItemModes == 1 || useItemModes == 5) ItemHandler.useItem();
+                }
+                else if (MenuHandler.Config.Item("LaneClear").GetValue<KeyBind>().Active)
+                {
+                    FightHandler.OnLaneClear();
+                }
+                /*
+                 * xslx orbwalker not working
                 switch (xSLxOrbwalker.CurrentMode)
                 {
                     case xSLxOrbwalker.Mode.Combo:
@@ -62,9 +85,9 @@ namespace TAC_Kalista
                     case xSLxOrbwalker.Mode.LaneClear:
                         FightHandler.OnLaneClear();
                         break;
-                }
+                }*/
             }
-            FightHandler.OnPassive();
+//            FightHandler.OnPassive();
             ItemHandler.PotionHandler();
             if (MenuHandler.Config.Item("showPos").GetValue<KeyBind>().Active)
                 Game.PrintChat("Position on server: " + ObjectManager.Player.ServerPosition);

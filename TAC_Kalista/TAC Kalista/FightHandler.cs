@@ -65,6 +65,8 @@ namespace TAC_Kalista
                 }
             }
         }
+        /*
+         * xslx orbwalk not working wtf
         public static void OnPassive()
         {
             if (xSLxOrbwalker.CurrentMode != xSLxOrbwalker.Mode.Combo)
@@ -78,6 +80,7 @@ namespace TAC_Kalista
             }
             xSLxOrbwalker.ForcedTarget = null;
         }
+         */
         public static void OnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
             if (sender.IsMe)
@@ -103,7 +106,8 @@ namespace TAC_Kalista
         public static void OnFlee()
         {
             Obj_AI_Base dashObject = DrawingHandler.GetDashObject();
-            xSLxOrbwalker.Orbwalk(Game.CursorPos, dashObject != null ? dashObject : null);
+            //xSLxOrbwalker.Orbwalk(Game.CursorPos, dashObject != null ? dashObject : null);
+            Orbwalking.Orbwalk(dashObject != null ? dashObject : null, Game.CursorPos);
         }
     }
 }

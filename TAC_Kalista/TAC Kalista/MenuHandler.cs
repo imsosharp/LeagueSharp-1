@@ -15,9 +15,14 @@ namespace TAC_Kalista
         public static void init()
         {
             Config = new Menu("Twilight Kalista Rework", "Kalista", true);
-            var orbwalkerMenu = new Menu("xSLx Orbwalker", "Orbwalkert1");
+            /*
+             * xslx orbwalk not working
+             * var orbwalkerMenu = new Menu("xSLx Orbwalker", "Orbwalkert1");
             xSLxOrbwalker.AddToMenu(orbwalkerMenu);
-            Config.AddSubMenu(orbwalkerMenu);
+            Config.AddSubMenu(orbwalkerMenu);*/
+
+            var orbwalking = Config.AddSubMenu(new Menu("Orbwalking", "Orbwalking"));
+            Kalista.orb = new Orbwalking.Orbwalker(orbwalking);
 
             var targetselectormenu = new Menu("Target Selector", "Common_TargetSelector");
             SimpleTs.AddToMenu(targetselectormenu);
