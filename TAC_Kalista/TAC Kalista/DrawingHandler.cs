@@ -45,6 +45,9 @@ namespace TAC_Kalista
         {
             if(Kalista.drawings && !MenuHandler.Config.Item("enableDrawingsPanic").GetValue<KeyBind>().Active)
             {
+                /**
+                 * Created by xQx
+                 */
                 if (MenuHandler.Config.Item("drawSpot").GetValue<KeyBind>().Active) DrawingHandler.fillPositions();
                 foreach (var spell in SkillHandler.spellList)
                 {
@@ -54,6 +57,9 @@ namespace TAC_Kalista
                 }
                 if (MenuHandler.Config.Item("drawEstacks").GetValue<Circle>().Active)
                 {
+                    /**
+                    * Created by xQx
+                    */
                     xEnemyMarker.Clear();
                     foreach (
                     var xEnemy in
@@ -101,6 +107,9 @@ namespace TAC_Kalista
                 }
                 if (MenuHandler.Config.Item("drawSpot").GetValue<bool>())
                 {
+                    /**
+                    * Created by xQx
+                    */
                         foreach (KeyValuePair<Vector3, Vector3> pos in jumpPos)
                         {
                             if (ObjectManager.Player.Distance(pos.Key) <= 500f ||
@@ -133,6 +142,9 @@ namespace TAC_Kalista
                 drawConnection();
             }
         }
+        /**
+            * Created by xQx
+            */
         public static void fillPositions()
         {
             jumpPos = new Dictionary<Vector3, Vector3>();
@@ -425,6 +437,9 @@ namespace TAC_Kalista
                                     },new ColorBGRA(255,255,00,90));
             dxLine.End();
         }
+        /**
+                 * Created by xQx
+                 */
         public static void drawConnection()
         {
             if (CoopStrikeAlly == null)
