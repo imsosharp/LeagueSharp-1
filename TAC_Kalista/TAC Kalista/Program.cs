@@ -41,7 +41,6 @@ namespace TAC_Kalista
             packetCast = MenuHandler.Config.Item("Packets").GetValue<bool>();
             
             if (MenuHandler.Config.Item("whKey").GetValue<KeyBind>().Active) SkillHandler.JumpTo();
-            if (MenuHandler.Config.Item("drawSpot").GetValue<KeyBind>().Active) DrawingHandler.fillPositions();
 
             if (ObjectManager.Player.HasBuff("Recall"))
             {

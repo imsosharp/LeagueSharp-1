@@ -45,6 +45,7 @@ namespace TAC_Kalista
         {
             if(Kalista.drawings && !MenuHandler.Config.Item("enableDrawingsPanic").GetValue<KeyBind>().Active)
             {
+                if (MenuHandler.Config.Item("drawSpot").GetValue<KeyBind>().Active) DrawingHandler.fillPositions();
                 foreach (var spell in SkillHandler.spellList)
                 {
                     var menuItem = MenuHandler.Config.Item(spell.Slot + "Range").GetValue<Circle>();
