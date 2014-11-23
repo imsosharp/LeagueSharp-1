@@ -30,3 +30,6 @@ C:\Users\Harold\Documents\GitHub\LeagueSharp\TAC Kalista\TAC Kalista\bin\x86\Deb
 C:\Users\Harold\Documents\GitHub\LeagueSharp\TAC Kalista\TAC Kalista\bin\x86\Debug\LeagueSharp.xml
 C:\Users\Harold\Documents\GitHub\LeagueSharp\TAC Kalista\TAC Kalista\bin\x86\Debug\SharpDX.Toolkit.xml
 C:\Users\Harold\Documents\GitHub\LeagueSharp\TAC Kalista\TAC Kalista\bin\x86\Debug\SharpDX.Toolkit.Graphics.xml
+C:\Users\Harold\Documents\GitHub\LeagueSharp\TAC_Kalista\TAC Kalista\bin\x86\Debug\TAC Kalista.exe.config
+C:\Users\Harold\Documents\GitHub\LeagueSharp\TAC_Kalista\TAC Kalista\obj\x86\Debug\TAC Kalista.exe
+C:\Users\Harold\Documents\GitHub\LeagueSharp\TAC_Kalista\TAC Kalista\obj\x86\Debug\TAC Kalista.pdb
