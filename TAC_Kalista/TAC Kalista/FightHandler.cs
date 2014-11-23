@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LeagueSharp;
 using LeagueSharp.Common;
+using xSLx_Orbwalker;
 
 namespace TAC_Kalista
 {
@@ -65,8 +66,6 @@ namespace TAC_Kalista
                 }
             }
         }
-        /*
-         * xslx orbwalk not working wtf
         public static void OnPassive()
         {
             if (xSLxOrbwalker.CurrentMode != xSLxOrbwalker.Mode.Combo)
@@ -80,7 +79,7 @@ namespace TAC_Kalista
             }
             xSLxOrbwalker.ForcedTarget = null;
         }
-         */
+         
         /**
          * @author Hellsing 
          */
@@ -89,7 +88,7 @@ namespace TAC_Kalista
             if (sender.IsMe)
             {
                 if (args.SData.Name == "KalistaExpungeWrapper")
-                    Utility.DelayAction.Add(250, Orbwalking.ResetAutoAttackTimer);
+                    Utility.DelayAction.Add(250,xSLxOrbwalker.ResetAutoAttackTimer);
             }
         }
         /**
@@ -109,14 +108,10 @@ namespace TAC_Kalista
             var goal = coll.FirstOrDefault(obj => SkillHandler.Q.GetPrediction(obj).Hitchance >= HitChance.Medium && SkillHandler.Q.GetDamage(target) > obj.Health);
             if (goal != null) SkillHandler.Q.Cast(goal, Kalista.packetCast);
         }
-        /**
-         * @author Hellsing
-         */
         public static void OnFlee()
         {
             Obj_AI_Base dashObject = DrawingHandler.GetDashObject();
-            //xSLxOrbwalker.Orbwalk(Game.CursorPos, dashObject != null ? dashObject : null);
-            Orbwalking.Orbwalk(dashObject != null ? dashObject : null, Game.CursorPos);
+            xSLxOrbwalker.Orbwalk(Game.CursorPos, dashObject != null ? dashObject : null);
         }
     }
 }

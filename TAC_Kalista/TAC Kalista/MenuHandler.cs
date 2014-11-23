@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using LeagueSharp;
 using LeagueSharp.Common;
 using Color = System.Drawing.Color;
+using xSLx_Orbwalker;
 
 namespace TAC_Kalista
 {
@@ -15,25 +16,21 @@ namespace TAC_Kalista
         public static void init()
         {
             Config = new Menu("Twilight Kalista Rework", "Kalista", true);
-            /*
-             * xslx orbwalk not working
-             * var orbwalkerMenu = new Menu("xSLx Orbwalker", "Orbwalkert1");
-            xSLxOrbwalker.AddToMenu(orbwalkerMenu);
-            Config.AddSubMenu(orbwalkerMenu);*/
 
-            var orbwalking = Config.AddSubMenu(new Menu("Orbwalking", "Orbwalking"));
-            Kalista.orb = new Orbwalking.Orbwalker(orbwalking);
+            Config.AddSubMenu(new Menu("Orbwalking", "Orbwalking"));
+            xSLxOrbwalker.AddToMenu(Config.SubMenu("Orbwalking"));
 
             var targetselectormenu = new Menu("Target Selector", "Common_TargetSelector");
             SimpleTs.AddToMenu(targetselectormenu);
             Config.AddSubMenu(targetselectormenu);
             
             Config.AddSubMenu(new Menu("AutoCarry options", "ac"));
+            Config.SubMenu("ac").AddItem(new MenuItem("Focus_Target", "Force Selected Target").SetValue(true));
             Config.SubMenu("ac").AddItem(new MenuItem("UseQAC", "Use Q").SetValue(true));
             Config.SubMenu("ac").AddItem(new MenuItem("UseQACM", "Q Prediction").SetValue(new StringList(new[] { "Low", "Medium", "High" }, 2)));
             Config.SubMenu("ac").AddItem(new MenuItem("UseEAC", "Use E").SetValue(true));
             Config.SubMenu("ac").AddItem(new MenuItem("E4K", "E only for kill").SetValue(true));
-            Config.SubMenu("ac").AddItem(new MenuItem("sex1", "-----------").SetValue(true));
+            Config.SubMenu("ac").AddItem(new MenuItem("sex1", "-----------"));
             Config.SubMenu("ac").AddItem(new MenuItem("minE", "Min stacks to E").SetValue(new Slider(1, 1, 20)));
             Config.SubMenu("ac").AddItem(new MenuItem("minEE", "Min stacks enabled?").SetValue(false));
             
@@ -44,7 +41,6 @@ namespace TAC_Kalista
             Config.AddSubMenu(new Menu("Wave Clear options", "wc"));
             Config.SubMenu("wc").AddItem(new MenuItem("useEwc", "Use E to clear").SetValue(true));
             Config.SubMenu("wc").AddItem(new MenuItem("enableClear", "WaveClear enabled?").SetValue(false));
-            
 
             Config.AddSubMenu(new Menu("Smite options", "smite"));
             Config.SubMenu("smite").AddItem(new MenuItem("SRU_Baron", "Baron Enabled").SetValue(true));
@@ -55,7 +51,7 @@ namespace TAC_Kalista
             Config.SubMenu("smite").AddItem(new MenuItem("SRU_Razorbeak", "Razorbeak Enabled").SetValue(false));
             Config.SubMenu("smite").AddItem(new MenuItem("Sru_Crab", "Crab Enabled").SetValue(false));
 
-            Config.SubMenu("smite").AddItem(new MenuItem("smite", "Auto-Smite enabled").SetValue(new KeyBind("G".ToCharArray()[0], KeyBindType.Press)));
+            Config.SubMenu("smite").AddItem(new MenuItem("smite", "Auto-Smite enabled").SetValue(new KeyBind("G".ToCharArray()[0], KeyBindType.Press,false)));
             
             Config.AddSubMenu(new Menu("Item options", "Items"));
             Config.SubMenu("Items").AddItem(new MenuItem("BOTRK", "BOTRK").SetValue(true));

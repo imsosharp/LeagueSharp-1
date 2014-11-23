@@ -8,6 +8,7 @@ using LeagueSharp.Common;
 using SharpDX;
 using SharpDX.Direct3D9;
 using Color = System.Drawing.Color;
+using xSLx_Orbwalker;
 
 namespace TAC_Kalista
 {
@@ -490,7 +491,7 @@ namespace TAC_Kalista
 
         public static Obj_AI_Base GetDashObject()
         {
-            float realAArange = Orbwalking.GetRealAutoAttackRange(ObjectManager.Player);
+            float realAArange = xSLxOrbwalker.GetAutoAttackRange(ObjectManager.Player);
             var objects = ObjectManager.Get<Obj_AI_Base>().Where(o => o.IsValidTarget(realAArange));
             Vector2 apexPoint = ObjectManager.Player.ServerPosition.To2D() + (ObjectManager.Player.ServerPosition.To2D() - Game.CursorPos.To2D()).Normalized() * realAArange;
             Obj_AI_Base target = null;

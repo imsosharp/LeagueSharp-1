@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LeagueSharp;
 using LeagueSharp.Common;
+using xSLx_Orbwalker;
 
 namespace TAC_Kalista
 {
@@ -13,7 +14,6 @@ namespace TAC_Kalista
         public static bool packetCast;
         public static bool debug;
         public static bool drawings;
-        public static Orbwalking.Orbwalker orb;
         static void Main(string[] args)
         {
             Game.PrintChat("Loading Twilights Kalista!");
@@ -43,51 +43,29 @@ namespace TAC_Kalista
             
             if (MenuHandler.Config.Item("whKey").GetValue<KeyBind>().Active) SkillHandler.JumpTo();
 
-            if (ObjectManager.Player.HasBuff("Recall"))
-            {
-                int useItemModes = MenuHandler.Config.Item("UseItemsMode").GetValue<StringList>().SelectedIndex;
+            if (ObjectManager.Player.HasBuff("Recall")) return;
+            
+            int useItemModes = MenuHandler.Config.Item("UseItemsMode").GetValue<StringList>().SelectedIndex;
 
-                if (MenuHandler.Config.Item("Orbwalk").GetValue<KeyBind>().Active)
-                {
-                    FightHandler.OnCombo();
+            switch (xSLxOrbwalker.CurrentMode)
+            {
+                case xSLxOrbwalker.Mode.Combo:
                     if (useItemModes == 3 || useItemModes == 5) ItemHandler.useItem();
-                }
-                else if (MenuHandler.Config.Item("fleeActive").GetValue<KeyBind>().Active)
-                {
                     FightHandler.OnCombo();
+                    break;
+                case xSLxOrbwalker.Mode.Flee:
                     if (useItemModes == 4 || useItemModes == 5) ItemHandler.useItem();
-                }
-                else if (MenuHandler.Config.Item("Farm").GetValue<KeyBind>().Active)
-                {
-                    FightHandler.OnHarass();
+                    FightHandler.OnFlee();
+                    break;
+                case xSLxOrbwalker.Mode.Harass:
                     if (useItemModes == 1 || useItemModes == 5) ItemHandler.useItem();
-                }
-                else if (MenuHandler.Config.Item("LaneClear").GetValue<KeyBind>().Active)
-                {
+                    FightHandler.OnHarass();
+                    break;
+                case xSLxOrbwalker.Mode.LaneClear:
                     FightHandler.OnLaneClear();
-                }
-                /*
-                 * xslx orbwalker not working
-                switch (xSLxOrbwalker.CurrentMode)
-                {
-                    case xSLxOrbwalker.Mode.Combo:
-                        if (useItemModes == 3 || useItemModes == 5) ItemHandler.useItem();
-                        FightHandler.OnCombo();
-                        break;
-                    case xSLxOrbwalker.Mode.Flee:
-                        if (useItemModes == 4 || useItemModes == 5) ItemHandler.useItem();
-                        FightHandler.OnFlee();
-                        break;
-                    case xSLxOrbwalker.Mode.Harass:
-                        if (useItemModes == 1 || useItemModes == 5) ItemHandler.useItem();
-                        FightHandler.OnHarass();
-                        break;
-                    case xSLxOrbwalker.Mode.LaneClear:
-                        FightHandler.OnLaneClear();
-                        break;
-                }*/
+                    break;
             }
-//            FightHandler.OnPassive();
+            FightHandler.OnPassive();
             ItemHandler.PotionHandler();
             if (MenuHandler.Config.Item("showPos").GetValue<KeyBind>().Active)
                 Game.PrintChat("Position on server: " + ObjectManager.Player.ServerPosition);

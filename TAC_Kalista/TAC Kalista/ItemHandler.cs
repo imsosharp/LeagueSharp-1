@@ -3,6 +3,7 @@ using System.Linq;
 using LeagueSharp;
 using LeagueSharp.Common;
 using System.Collections.Generic;
+using xSLx_Orbwalker;
 /**
  * Code was written by Esk0r (xQx)
  * I redesigned the code for my needs.
@@ -100,8 +101,7 @@ namespace TAC_Kalista
         }
         public static void useItem()
         {
-            Obj_AI_Hero target = SimpleTs.GetTarget(Orbwalking.GetRealAutoAttackRange(ObjectManager.Player), SimpleTs.DamageType.Physical);
-            //Obj_AI_Hero target = SimpleTs.GetTarget(xSLxOrbwalker.GetAutoAttackRange(ObjectManager.Player), SimpleTs.DamageType.Physical);
+            Obj_AI_Hero target = SimpleTs.GetTarget(xSLxOrbwalker.GetAutoAttackRange(ObjectManager.Player), SimpleTs.DamageType.Physical);
             if (MenuHandler.Config.Item("BOTRK").GetValue<bool>())
             {
                 if (target != null
