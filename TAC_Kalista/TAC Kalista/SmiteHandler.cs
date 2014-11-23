@@ -36,7 +36,7 @@ namespace TAC_Kalista
         }
         public static void Init()
         {
-            if (MenuHandler.Config.Item("smite").GetValue<bool>())
+            if (MenuHandler.Config.Item("smite").GetValue<KeyBind>().Active)
             {
                 var mob = GetNearest(ObjectManager.Player.ServerPosition);
                 if (mob != null && MenuHandler.Config.Item(mob.SkinName).GetValue<bool>())

@@ -73,7 +73,7 @@ namespace TAC_Kalista
             Config.SubMenu("Items").SubMenu("QuickSilverSash").AddItem(new MenuItem("UseItemsMode", "Items usage").SetValue(new StringList(new[] { "No", "Harass mode", "Combo mode", "Flee mode", "All" }, 2)));
 
 
-            ItemHandler.potions = ItemHandler.potions.OrderBy(x => x.Priority).ToList();
+            var potions = ItemHandler.potions.OrderBy(x => x.Priority).ToList();
             Config.AddSubMenu(new Menu("Potion Manager", "PotionManager"));
             Config.SubMenu("PotionManager").AddSubMenu(new Menu("Health", "Health"));
             Config.SubMenu("PotionManager").SubMenu("Health").AddItem(new MenuItem("HealthPotion", "Use Health Potion").SetValue(true));
