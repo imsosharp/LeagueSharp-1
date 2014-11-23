@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using LeagueSharp;
 using LeagueSharp.Common;
 using SharpDX;
+using SharpDX.Direct3D;
+using Color = System.Drawing.Color;
 
 namespace Anti_Rage
 {
@@ -21,9 +23,36 @@ namespace Anti_Rage
         }
         private static void OnLoad(EventArgs args)
         {
+            Game.PrintChat("Anti motherfucker loaded.");
             Config = new Menu("anti-rage", "Anti-Rage", true);
             Config.AddItem(new MenuItem("restrict","Restrict chat usage").SetValue(true));
+            Config.AddItem(new MenuItem("filter","Restrict chat if i flame").SetValue(true));
             Config.AddToMainMenu();
+            Game.OnGameInput += chatrestrict;
+        }
+        private static void chatrestrict(GameInputEventArgs args)
+        {
+            //Drawing.DrawText(Drawing.Width/2 - 50,Drawing.Height/2 - 20,Color.Red,"If you will rage, better quit it.");
+
+            if (Config.Item("restrict").GetValue<bool>())
+            {
+                for (int i = 0; i <= 15; i++)
+                {
+                    Game.PrintChat(".");
+                }
+                args.Process = false;
+            }
+            if (Config.Item("filter").GetValue<bool>())
+            {
+                Game.PrintChat("Invalid input. Don't flame pls");
+                /*foreach (data in wordlist.Any())
+                {
+                }*/
+                if (wordlist.Any(word => args.Input.Contains(word)))
+                {
+                    args.Process = false;
+                }
+            }
         }
     }
 }
