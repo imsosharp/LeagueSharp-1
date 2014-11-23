@@ -26,11 +26,11 @@ namespace TAC_Kalista
                 return;
             }
             SkillHandler.init();
-//            ItemHandler.init();
+            ItemHandler.init();
             MenuHandler.init();
             SmiteHandler.Init();
             DrawingHandler.init();
-            Game.PrintChat("<span color='red'>Twilights AutoCarry</span>: Kalista has loaded!");
+            Game.PrintChat("Twilights AutoCarry: Kalista has loaded!");
             Game.OnGameUpdate += OnGameUpdateModes;
             Obj_AI_Hero.OnProcessSpellCast += FightHandler.OnProcessSpellCast;
         }

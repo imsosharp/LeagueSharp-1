@@ -22,7 +22,7 @@ namespace TAC_Kalista
             var targetselectormenu = new Menu("Target Selector", "Common_TargetSelector");
             SimpleTs.AddToMenu(targetselectormenu);
             Config.AddSubMenu(targetselectormenu);
-
+            
             Config.AddSubMenu(new Menu("AutoCarry options", "ac"));
             Config.SubMenu("ac").AddItem(new MenuItem("UseQAC", "Use Q").SetValue(true));
             Config.SubMenu("ac").AddItem(new MenuItem("UseQACM", "Q Prediction").SetValue(new StringList(new[] { "Low", "Medium", "High" }, 2)));
@@ -31,7 +31,7 @@ namespace TAC_Kalista
             Config.SubMenu("ac").AddItem(new MenuItem("sex1", "-----------").SetValue(true));
             Config.SubMenu("ac").AddItem(new MenuItem("minE", "Min stacks to E").SetValue(new Slider(1, 1, 20)));
             Config.SubMenu("ac").AddItem(new MenuItem("minEE", "Min stacks enabled?").SetValue(false));
-
+            
             Config.AddSubMenu(new Menu("Harass options", "harass")); 
             Config.SubMenu("harass").AddItem(new MenuItem("stackE", "E stacks to cast").SetValue(new Slider(1, 1, 10)));
             Config.SubMenu("harass").AddItem(new MenuItem("manaPercent", "Mana %").SetValue(new Slider(40, 1, 100)));
@@ -39,7 +39,7 @@ namespace TAC_Kalista
             Config.AddSubMenu(new Menu("Wave Clear options", "wc"));
             Config.SubMenu("wc").AddItem(new MenuItem("useEwc", "Use E to clear").SetValue(true));
             Config.SubMenu("wc").AddItem(new MenuItem("enableClear", "WaveClear enabled?").SetValue(false));
-
+            
 
             Config.AddSubMenu(new Menu("Smite options", "smite"));
             Config.SubMenu("smite").AddItem(new MenuItem("SRU_Baron", "Baron Enabled").SetValue(true));
@@ -57,7 +57,7 @@ namespace TAC_Kalista
             Config.SubMenu("Items").AddItem(new MenuItem("GHOSTBLADE", "Ghostblade").SetValue(true));
             Config.SubMenu("Items").AddItem(new MenuItem("SWORD", "Sword of the Divine").SetValue(true));
             Config.SubMenu("Items").AddItem(new MenuItem("IGNITE", "Ignite").SetValue(true));
-
+            
             Config.SubMenu("Items").AddSubMenu(new Menu("QSS", "QuickSilverSash"));
             Config.SubMenu("Items").SubMenu("QuickSilverSash").AddItem(new MenuItem("AnyStun", "Any Stun").SetValue(true));
             Config.SubMenu("Items").SubMenu("QuickSilverSash").AddItem(new MenuItem("AnySnare", "Any Snare").SetValue(true));
@@ -71,7 +71,7 @@ namespace TAC_Kalista
                 }
             }
             Config.SubMenu("Items").SubMenu("QuickSilverSash").AddItem(new MenuItem("UseItemsMode", "Items usage").SetValue(new StringList(new[] { "No", "Harass mode", "Combo mode", "Flee mode", "All" }, 2)));
-
+            
 
             var potions = ItemHandler.potions.OrderBy(x => x.Priority).ToList();
             Config.AddSubMenu(new Menu("Potion Manager", "PotionManager"));
@@ -104,6 +104,7 @@ namespace TAC_Kalista
 
             Config.AddItem(new MenuItem("debug", "Debug").SetValue(false));
             Config.AddItem(new MenuItem("showPos", "Server Position").SetValue(new KeyBind("N".ToCharArray()[0], KeyBindType.Press)));
+            
             Config.AddToMainMenu();
 
         }
