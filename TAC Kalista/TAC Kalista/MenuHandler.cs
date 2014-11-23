@@ -44,7 +44,13 @@ namespace TAC_Kalista
             Config.AddSubMenu(new Menu("Smite options", "smite"));
             Config.SubMenu("smite").AddItem(new MenuItem("SRU_Baron", "Baron Enabled").SetValue(true));
             Config.SubMenu("smite").AddItem(new MenuItem("SRU_Dragon", "Dragon Enabled").SetValue(true));
-            Config.SubMenu("smite").AddItem(new MenuItem("smite", "Auto-Smite enabled").SetValue(true));
+            Config.SubMenu("smite").AddItem(new MenuItem("SRU_Gromp", "Gromp Enabled").SetValue(false));
+            Config.SubMenu("smite").AddItem(new MenuItem("SRU_Murkwolf", "Murkwolf Enabled").SetValue(false));
+            Config.SubMenu("smite").AddItem(new MenuItem("SRU_Krug", "Krug Enabled").SetValue(false));
+            Config.SubMenu("smite").AddItem(new MenuItem("SRU_Razorbeak", "Razorbeak Enabled").SetValue(false));
+            Config.SubMenu("smite").AddItem(new MenuItem("Sru_Crab", "Crab Enabled").SetValue(false));
+
+            Config.SubMenu("smite").AddItem(new MenuItem("smite", "Auto-Smite enabled").SetValue(new KeyBind("G".ToCharArray()[0], KeyBindType.Press)));
 
             Config.AddSubMenu(new Menu("Item options", "Items"));
             Config.SubMenu("Items").AddItem(new MenuItem("BOTRK", "BOTRK").SetValue(true));
