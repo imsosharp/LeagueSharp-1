@@ -70,7 +70,7 @@ namespace TAC_Kalista
                             stacks = enemy.Buffs.FirstOrDefault(b => b.Name.ToLower() == "kalistaexpungemarker").Count;
                             if (stacks > 0)
                             {
-                                Drawing.DrawText(enemy.HPBarPosition.X, enemy.HPBarPosition.Y-5, Color.Red, "E:" + stacks, enemy);
+                                Drawing.DrawText(enemy.HPBarPosition.X, enemy.HPBarPosition.Y-5, Color.Red, "E:" + stacks + "H:"+(int)enemy.Health+"/D:"+(int)ObjectManager.Player.GetSpellDamage(enemy,SpellSlot.E),enemy);
                             }
                         }
                     }
