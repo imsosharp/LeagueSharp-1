@@ -12,34 +12,30 @@ namespace TAC_Kalista
     {
         public static void OnCombo()
         {
-            if(MenuHandler.Config.Item("UseQAC").GetValue<bool>()) customQCast(SimpleTs.GetTarget(SkillHandler.Q.Range, SimpleTs.DamageType.Physical));
-
-            if (
-                // E at stacks
-                    (SkillHandler.E.IsReady() && ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(SkillHandler.E.Range)
-                        && hero.IsEnemy
-                         && hero.Buffs.FirstOrDefault(b => b.Name.ToLower() == "kalistaexpungemarker").Count >= MenuHandler.Config.Item("minE").GetValue<Slider>().Value
+            if (SkillHandler.E.IsReady() && (( ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(SkillHandler.E.Range)
+                && hero.Buffs.FirstOrDefault(b => b.Name.ToLower() == "kalistaexpungemarker").Count >= MenuHandler.Config.Item("minE").GetValue<Slider>().Value
                             ) && MenuHandler.Config.Item("minEE").GetValue<bool>()) 
-                // Auto E
-                || (SkillHandler.E.IsReady() && MenuHandler.Config.Item("UseEAC").GetValue<bool>() 
+                            // auto e
+                            || (MenuHandler.Config.Item("UseEAC").GetValue<bool>()
                     && ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(SkillHandler.E.Range)
-                         && hero.IsEnemy 
-                            && hero.Health < ObjectManager.Player.GetSpellDamage(hero, SpellSlot.E)))
-                /*// Auto slow
-                || (MenuHandler.Config.Item("UseEACSlow").GetValue<bool>()
-                    && ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(SkillHandler.E.Range) 
-                        && hero.IsEnemy
-                            && ObjectManager.Player.Distance(hero) > (SkillHandler.E.Range - useEacSlowRange)
+                        && hero.Health < ObjectManager.Player.GetSpellDamage(hero, SpellSlot.E)))
+
+                            || (MenuHandler.Config.Item("UseEACSlow").GetValue<bool>()
+                        && ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(SkillHandler.E.Range) 
+                            && ObjectManager.Player.Distance(hero) > (SkillHandler.E.Range - 110)
                                 && ObjectManager.Player.Distance(hero) < SkillHandler.E.Range
                                     && hero.CountEnemysInRange((int)SkillHandler.E.Range) < 2
-                        )
-                )*/
-                
-                )
-            {
-                Game.PrintChat("Casting E");
+                            )
+                        
+                        ))){
                 SkillHandler.E.Cast();
             }
+
+            if(MenuHandler.Config.Item("UseQAC").GetValue<bool>()) customQCast(SimpleTs.GetTarget(SkillHandler.Q.Range, SimpleTs.DamageType.Physical));
+
+                /*// Auto slow
+                
+                )*/
         
         }
         public static void OnHarass()

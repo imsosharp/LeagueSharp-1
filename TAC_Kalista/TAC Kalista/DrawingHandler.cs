@@ -49,7 +49,7 @@ namespace TAC_Kalista
                 }
                 if(MenuHandler.Config.Item("drawESlow").GetValue<bool>())
                 {
-                    Utility.DrawCircle(ObjectManager.Player.Position, SkillHandler.E.Range - 100, Color.Pink);
+                    Utility.DrawCircle(ObjectManager.Player.Position, SkillHandler.E.Range - 110, Color.Pink);
                 }
                 bool drawHp = MenuHandler.Config.Item("drawHp").GetValue<bool>();
                 bool drawStacks = MenuHandler.Config.Item("drawStacks").GetValue<bool>();
