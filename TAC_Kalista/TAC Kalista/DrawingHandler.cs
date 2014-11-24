@@ -37,18 +37,17 @@ namespace TAC_Kalista
             dxLine = new Line(dxDevice) { Width = 9 };
             Drawing.OnDraw += OnDraw;
             Drawing.OnEndScene += OnEndScene;
+            /*
             Drawing.OnPreReset += DrawingOnOnPreReset;
             Drawing.OnPostReset += DrawingOnOnPostReset;
             AppDomain.CurrentDomain.DomainUnload += CurrentDomainOnDomainUnload;
-            AppDomain.CurrentDomain.ProcessExit += CurrentDomainOnDomainUnload;
+            AppDomain.CurrentDomain.ProcessExit += CurrentDomainOnDomainUnload;*/
         }
         public static void OnDraw(EventArgs args)
         {
-            if(Kalista.drawings && !MenuHandler.Config.Item("enableDrawingsPanic").GetValue<KeyBind>().Active)
+            if(Kalista.drawings)// && !MenuHandler.Config.Item("enableDrawingsPanic").GetValue<KeyBind>().Active)
             {
-                /**
-                 * Created by xQx
-                 */
+
                 if (MenuHandler.Config.Item("drawSpot").GetValue<KeyBind>().Active) DrawingHandler.fillPositions();
                 foreach (var spell in SkillHandler.spellList)
                 {
@@ -56,11 +55,9 @@ namespace TAC_Kalista
                     if (menuItem.Active && spell.Level > 0)
                         Utility.DrawCircle(ObjectManager.Player.Position, spell.Range, menuItem.Color);
                 }
+                /*
                 if (MenuHandler.Config.Item("drawEstacks").GetValue<Circle>().Active)
                 {
-                    /**
-                    * Created by xQx
-                    */
                     xEnemyMarker.Clear();
                     foreach (
                     var xEnemy in
@@ -93,7 +90,7 @@ namespace TAC_Kalista
                             }
                         }
                     }
-                }
+                }*/
                 if (MenuHandler.Config.Item("drawHp").GetValue<bool>())
                 {
                     foreach (
@@ -106,11 +103,9 @@ namespace TAC_Kalista
 
                     }
                 }
+                /*
                 if (MenuHandler.Config.Item("drawSpot").GetValue<bool>())
                 {
-                    /**
-                    * Created by xQx
-                    */
                         foreach (KeyValuePair<Vector3, Vector3> pos in jumpPos)
                         {
                             if (ObjectManager.Player.Distance(pos.Key) <= 500f ||
@@ -141,6 +136,7 @@ namespace TAC_Kalista
 
                 }
                 drawConnection();
+                 */
             }
         }
         /**

@@ -37,11 +37,11 @@ namespace TAC_Kalista
             Config.AddSubMenu(new Menu("Harass options", "harass")); 
             Config.SubMenu("harass").AddItem(new MenuItem("stackE", "E stacks to cast").SetValue(new Slider(1, 1, 10)));
             Config.SubMenu("harass").AddItem(new MenuItem("manaPercent", "Mana %").SetValue(new Slider(40, 1, 100)));
-
+            /*
             Config.AddSubMenu(new Menu("Wave Clear options", "wc"));
             Config.SubMenu("wc").AddItem(new MenuItem("useEwc", "Use E to clear").SetValue(true));
             Config.SubMenu("wc").AddItem(new MenuItem("enableClear", "WaveClear enabled?").SetValue(false));
-
+            
             Config.AddSubMenu(new Menu("Smite options", "smite"));
             Config.SubMenu("smite").AddItem(new MenuItem("SRU_Baron", "Baron Enabled").SetValue(true));
             Config.SubMenu("smite").AddItem(new MenuItem("SRU_Dragon", "Dragon Enabled").SetValue(true));
@@ -86,20 +86,18 @@ namespace TAC_Kalista
             Config.AddSubMenu(new Menu("Wall Hop options", "wh"));
             Config.SubMenu("wh").AddItem(new MenuItem("drawSpot", "Draw WallHop spots").SetValue(true));
             Config.SubMenu("wh").AddItem(new MenuItem("whKey", "Jump key").SetValue(new KeyBind("T".ToCharArray()[0], KeyBindType.Press)));
-
+            */
             Config.AddSubMenu(new Menu("Drawings", "Drawings"));
             Config.SubMenu("Drawings").AddItem(new MenuItem("QRange", "Q range").SetValue(new Circle(true, Color.FromArgb(255, 255, 255, 255))));
             Config.SubMenu("Drawings").AddItem(new MenuItem("WRange", "W range").SetValue(new Circle(true, Color.FromArgb(255, 255, 255, 255))));
             Config.SubMenu("Drawings").AddItem(new MenuItem("ERange", "E range").SetValue(new Circle(true, Color.FromArgb(255, 255, 255, 255))));
             Config.SubMenu("Drawings").AddItem(new MenuItem("RRange", "R range").SetValue(new Circle(true, Color.FromArgb(255, 255, 255, 255))));
-            Config.SubMenu("Drawings").AddItem(new MenuItem("DrawConnText", "Draw connection Text").SetValue(new Circle(false, Color.FromArgb(255, 255, 255, 0))));
+            /*Config.SubMenu("Drawings").AddItem(new MenuItem("DrawConnText", "Draw connection Text").SetValue(new Circle(false, Color.FromArgb(255, 255, 255, 0))));
             Config.SubMenu("Drawings").AddItem(new MenuItem("DrawConnSignal", "Draw connection signal").SetValue(false));
             Config.SubMenu("Drawings").AddItem(new MenuItem("drawText", "Draw damage text").SetValue(false));
-            Config.SubMenu("Drawings").AddItem(new MenuItem("drawHp", "Draw damage HP bar")).SetValue(true);
-            Config.SubMenu("Drawings").AddItem(new MenuItem("drawEstacks", "Draw E stacks")).SetValue(new Circle(false, Color.Firebrick));
-            Config.SubMenu("Drawings").AddItem(new MenuItem("enableDrawings", "Enable all drawings").SetValue(true));
-            Config.SubMenu("Drawings").AddItem(new MenuItem("enableDrawingsPanic", "Panic key").SetValue(new KeyBind("U".ToCharArray()[0], KeyBindType.Press,false)));
-
+            */
+            Config.SubMenu("Drawings").AddItem(new MenuItem("drawHp", "Draw damage HP bar")).SetValue(true);         
+            Config.SubMenu("Drawings").AddItem(new MenuItem("enableDrawings", "Enable all drawings").SetValue(true));          
 
             Config.AddItem(new MenuItem("Packets", "Packet Casting").SetValue(true));
 
