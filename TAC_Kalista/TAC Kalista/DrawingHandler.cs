@@ -35,11 +35,6 @@ namespace TAC_Kalista
             dxLine = new Line(dxDevice) { Width = 9 };
             Drawing.OnDraw += OnDraw;
             Drawing.OnEndScene += OnEndScene;
-            /*
-            Drawing.OnPreReset += DrawingOnOnPreReset;
-            Drawing.OnPostReset += DrawingOnOnPostReset;
-            AppDomain.CurrentDomain.DomainUnload += CurrentDomainOnDomainUnload;
-            AppDomain.CurrentDomain.ProcessExit += CurrentDomainOnDomainUnload;*/
         }
         public static void OnDraw(EventArgs args)
         {

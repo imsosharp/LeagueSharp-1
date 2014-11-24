@@ -51,13 +51,13 @@ namespace TAC_Kalista
         }
         public static void OnLaneClear()
         {
-            if (MenuHandler.Config.Item("useEwc").GetValue<bool>() && SkillHandler.E.IsReady())
+            if (MenuHandler.Config.Item("enableClear").GetValue<bool>() && MenuHandler.Config.Item("useEwc").GetValue<bool>() && SkillHandler.E.IsReady())
             {
-                var minions = MinionManager.GetMinions(ObjectManager.Player.Position, SkillHandler.E.Range);
+                List<Obj_AI_Base> minions = MinionManager.GetMinions(ObjectManager.Player.Position, xSLxOrbwalker.GetAutoAttackRange(ObjectManager.Player),MinionTypes.All,MinionTeam.Enemy,MinionOrderTypes.Health);
                 foreach (var data in minions)
                 {
-                    if (ObjectManager.Player.GetSpellDamage(data, SpellSlot.E) > data.Health)
-                        SkillHandler.E.Cast(Kalista.packetCast);
+                    if (ObjectManager.Player.GetSpellDamage(data, SpellSlot.E) >= data.Health)
+                        SkillHandler.E.Cast();
                 }
             }
         }
