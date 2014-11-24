@@ -16,9 +16,9 @@ namespace TAC_Kalista
         public static bool drawings;
         static void Main(string[] args)
         {
-            Game.PrintChat("[2.7.2.1] Loading Twilights Kalista! If you dont see more text please press F5!");
-            Game.PrintChat("[Twilight] WallHop, Smite, Item handlers have been temporary removed, because they caused many bugsplats.");
-            Game.PrintChat("Fixed Q, W, E, R drawings, added E stack + HP/DMG draw.");
+            Game.PrintChat("[2.7.3] Loading Twilights Kalista! If you dont see more text please press F5!");
+            Game.PrintChat("[Twilight] Smite, Item handlers have been temporary removed, because they caused many bugsplats.");
+            Game.PrintChat("Fixed wallhops. Continueing rework.");
             CustomEvents.Game.OnGameLoad += Load;
         }
         public static void Load(EventArgs args)
@@ -42,8 +42,8 @@ namespace TAC_Kalista
             drawings = MenuHandler.Config.Item("enableDrawings").GetValue<bool>();
             debug = MenuHandler.Config.Item("debug").GetValue<bool>();
             packetCast = MenuHandler.Config.Item("Packets").GetValue<bool>();
-            
-            //if (MenuHandler.Config.Item("whKey").GetValue<KeyBind>().Active) SkillHandler.JumpTo();
+            if (MenuHandler.Config.Item("DrawJumpPos").GetValue<Circle>().Active) DrawingHandler.fillPositions();
+            if (MenuHandler.Config.Item("JumpTo").GetValue<KeyBind>().Active) SkillHandler.JumpTo();
 
             if (ObjectManager.Player.HasBuff("Recall")) return;
             

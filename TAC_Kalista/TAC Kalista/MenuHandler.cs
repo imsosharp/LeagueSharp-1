@@ -82,18 +82,22 @@ namespace TAC_Kalista
             Config.SubMenu("PotionManager").AddSubMenu(new Menu("Mana", "Mana"));
             Config.SubMenu("PotionManager").SubMenu("Mana").AddItem(new MenuItem("ManaPotion", "Use Mana Potion").SetValue(true));
             Config.SubMenu("PotionManager").SubMenu("Mana").AddItem(new MenuItem("ManaPercent", "MP Trigger Percent").SetValue(new Slider(30,15,100)));
-            
-            Config.AddSubMenu(new Menu("Wall Hop options", "wh"));
-            Config.SubMenu("wh").AddItem(new MenuItem("drawSpot", "Draw WallHop spots").SetValue(true));
-            Config.SubMenu("wh").AddItem(new MenuItem("whKey", "Jump key").SetValue(new KeyBind("T".ToCharArray()[0], KeyBindType.Press)));
             */
+            Config.AddSubMenu(new Menu("Wall Hop options", "wh"));
+            Config.SubMenu("wh").AddItem(new MenuItem("JumpTo", "Jump key").SetValue(new KeyBind("T".ToCharArray()[0], KeyBindType.Press)));
+            
             Config.AddSubMenu(new Menu("Drawings", "Drawings"));
             Config.SubMenu("Drawings").AddItem(new MenuItem("QRange", "Q range").SetValue(new Circle(true, Color.FromArgb(100, Color.Red))));
             Config.SubMenu("Drawings").AddItem(new MenuItem("WRange", "W range").SetValue(new Circle(false, Color.FromArgb(100, Color.Coral))));
             Config.SubMenu("Drawings").AddItem(new MenuItem("ERange", "E range").SetValue(new Circle(true, Color.FromArgb(100, Color.BlueViolet))));
             Config.SubMenu("Drawings").AddItem(new MenuItem("RRange", "R range").SetValue(new Circle(false, Color.FromArgb(100, Color.Blue))));
+            Config.SubMenu("Drawings").AddItem(new MenuItem("DrawJumpPos", "Draw wallhop spots")).SetValue(new Circle(false, Color.HotPink));
+            Config.SubMenu("Drawings").AddItem(new MenuItem("test1", "Spot draw range by skill:"));
+            Config.SubMenu("Drawings").AddItem(new MenuItem("DrawJumpPosRange", "----------->").SetValue(new StringList(new[] { "Q", "E", "R" }, 2)));
             Config.SubMenu("Drawings").AddItem(new MenuItem("drawHp", "Draw damage on HP bar")).SetValue(true);
-            Config.SubMenu("Drawings").AddItem(new MenuItem("drawStacks", "Draw total stacks")).SetValue(true);         
+            Config.SubMenu("Drawings").AddItem(new MenuItem("drawStacks", "Draw total stacks")).SetValue(true);
+
+            Config.SubMenu("Drawings").AddItem(new MenuItem("test2", "----------------")); 
             Config.SubMenu("Drawings").AddItem(new MenuItem("enableDrawings", "Enable all drawings").SetValue(true));          
 
             Config.AddItem(new MenuItem("Packets", "Packet Casting").SetValue(true));
