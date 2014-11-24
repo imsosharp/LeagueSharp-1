@@ -27,8 +27,6 @@ namespace TAC_Kalista
         public static float hight = 9;
         public static readonly Vector3[] wallhops = new[] { new Vector3(794, 5914, 50), new Vector3(792, 6208, -71), new Vector3(10906, 7498, 52), new Vector3(10872, 7208, 51), new Vector3(11900, 4870, 51), new Vector3(11684, 4694, -71), new Vector3(12046, 5376, 54), new Vector3(12284, 5382, 51), new Vector3(11598, 8676, 62), new Vector3(11776, 8890, 50), new Vector3(8646, 9584, 50), new Vector3(8822, 9406, 51), new Vector3(6606, 11756, 53), new Vector3(6494, 12056, 56), new Vector3(5164, 12090, 56), new Vector3(5146, 11754, 56), new Vector3(5780, 10650, 55), new Vector3(5480, 10620, -71), new Vector3(3174, 9856, 52), new Vector3(3398, 10080, -65), new Vector3(2858, 9448, 51), new Vector3(2542, 9466, 52), new Vector3(3700, 7416, 51), new Vector3(3702, 7702, 52), new Vector3(3224, 6308, 52), new Vector3(3024, 6312, 57), new Vector3(4724, 5608, 50), new Vector3(4610, 5868, 51), new Vector3(6124, 5308, 48), new Vector3(6010, 5522, 51), new Vector3(9322, 4514, -71), new Vector3(9022, 4508, 52), new Vector3(6826, 8628, -71), new Vector3(7046, 8750, 52), };
         public static int minRange = 100;
-        public static Obj_AI_Hero CoopStrikeAlly;
-        public static float CoopStrikeAllyRange = 1250f;
         public static Dictionary<Vector3, Vector3> jumpPos;
         public static readonly List<EnemyMarker> xEnemyMarker = new List<EnemyMarker>();
 
@@ -48,49 +46,12 @@ namespace TAC_Kalista
             if(Kalista.drawings)// && !MenuHandler.Config.Item("enableDrawingsPanic").GetValue<KeyBind>().Active)
             {
 
-                if (MenuHandler.Config.Item("drawSpot").GetValue<KeyBind>().Active) DrawingHandler.fillPositions();
+//                if (MenuHandler.Config.Item("drawSpot").GetValue<KeyBind>().Active) DrawingHandler.fillPositions();
                 foreach (var spell in SkillHandler.spellList)
                 {
-                    var menuItem = MenuHandler.Config.Item(spell.Slot + "Range").GetValue<Circle>();
-                    if (menuItem.Active && spell.Level > 0)
-                        Utility.DrawCircle(ObjectManager.Player.Position, spell.Range, menuItem.Color);
+                    if (MenuHandler.Config.Item(spell.Slot.ToString() + "Range").GetValue<Circle>().Active && spell.Level > 0)
+                        Utility.DrawCircle(ObjectManager.Player.Position, spell.Range, MenuHandler.Config.Item(spell.Slot.ToString() + "Range").GetValue<Circle>().Color);
                 }
-                /*
-                if (MenuHandler.Config.Item("drawEstacks").GetValue<Circle>().Active)
-                {
-                    xEnemyMarker.Clear();
-                    foreach (
-                    var xEnemy in
-                    ObjectManager.Get<Obj_AI_Hero>()
-                    .Where(tx => tx.IsEnemy && !tx.IsDead && ObjectManager.Player.Distance(tx) < SkillHandler.E.Range))
-                    {
-                        foreach (var buff in xEnemy.Buffs.Where(buff => buff.Name.Contains("kalistaexpungemarker")))
-                        {
-                            xEnemyMarker.Add(new EnemyMarker
-                            {
-                                ChampionName = xEnemy.ChampionName,
-                                ExpireTime = Game.Time + 4,
-                                BuffCount = buff.Count
-                            });
-                        }
-                    }
-                    foreach (var markedEnemies in xEnemyMarker)
-                    {
-                        foreach (var enemy in ObjectManager.Get<Obj_AI_Hero>())
-                        {
-                            if (enemy.IsEnemy && !enemy.IsDead && ObjectManager.Player.Distance(enemy) <= SkillHandler.E.Range &&
-                            enemy.ChampionName == markedEnemies.ChampionName)
-                            {
-                                if (!(markedEnemies.ExpireTime > Game.Time)) continue;
-                                var xCoolDown = TimeSpan.FromSeconds(markedEnemies.ExpireTime - Game.Time);
-                                var display = string.Format("Stacks: {0}", markedEnemies.BuffCount);
-                                Drawing.DrawText(enemy.HPBarPosition.X + 145, enemy.HPBarPosition.Y + 20,
-                                MenuHandler.Config.Item("drawEstacks").GetValue<Circle>().Color,
-                                display);
-                            }
-                        }
-                    }
-                }*/
                 if (MenuHandler.Config.Item("drawHp").GetValue<bool>())
                 {
                     foreach (
@@ -122,20 +83,6 @@ namespace TAC_Kalista
                             }
                     }
                 }
-
-                if (MenuHandler.Config.Item("drawText").GetValue<bool>())
-                {
-                    var target = SimpleTs.GetTarget(SkillHandler.Q.Range, SimpleTs.DamageType.Physical);
-                    if (target != null && !target.IsDead && !ObjectManager.Player.IsDead)
-                    {
-                        var wts = Drawing.WorldToScreen(target.Position);
-
-                        Drawing.DrawText(wts[0] - 40, wts[1] + 70, Color.OrangeRed, "Combo " + MathHandler.getTotalAttacks(target, 1) + " AA + Q + E");
-                        Drawing.DrawText(wts[0] - 40, wts[1] + 85, Color.OrangeRed, "Combo " + MathHandler.getTotalAttacks(target, 2) + " AA + E");
-                    }
-
-                }
-                drawConnection();
                  */
             }
         }
@@ -433,56 +380,6 @@ namespace TAC_Kalista
                                         new Vector2( (int)to.X, (int)to.Y + 4f)
                                     },new ColorBGRA(255,255,00,90));
             dxLine.End();
-        }
-        /**
-                 * Created by xQx
-                 */
-        public static void drawConnection()
-        {
-            if (CoopStrikeAlly == null)
-            {
-                foreach (
-                var ally in
-                from ally in ObjectManager.Get<Obj_AI_Hero>().Where(tx => tx.IsAlly && !tx.IsDead && !tx.IsMe)
-                where ObjectManager.Player.Distance(ally) <= CoopStrikeAllyRange
-                from buff in ally.Buffs
-                where buff.Name.Contains("kalistacoopstrikeally")
-                select ally)
-                {
-                    CoopStrikeAlly = ally;
-                }
-                if (SkillHandler.W.Level != 0)
-                    Drawing.DrawText(Drawing.Width * 0.44f, Drawing.Height * 0.80f, Color.Red, "Searching Your Friend...");
-            }
-            else
-            {
-                var drawConnText = MenuHandler.Config.Item("DrawConnText").GetValue<Circle>();
-                if (drawConnText.Active)
-                {
-                    Drawing.DrawText(Drawing.Width * 0.44f, Drawing.Height * 0.80f, drawConnText.Color,
-                    "You Connected with " + CoopStrikeAlly.ChampionName);
-                }
-                var drawConnSignal = MenuHandler.Config.Item("DrawConnSignal").GetValue<bool>();
-                if (drawConnSignal)
-                {
-                    if (ObjectManager.Player.Distance(CoopStrikeAlly) > 800 &&
-                    ObjectManager.Player.Distance(CoopStrikeAlly) < CoopStrikeAllyRange)
-                    {
-                        Drawing.DrawText(Drawing.Width * 0.45f, Drawing.Height * 0.82f, Color.Gold,
-                        "Connection Signal: Low");
-                    }
-                    else if (ObjectManager.Player.Distance(CoopStrikeAlly) < 800)
-                    {
-                        Drawing.DrawText(Drawing.Width * 0.45f, Drawing.Height * 0.82f, Color.GreenYellow,
-                        "Connection Signal: Good");
-                    }
-                    else if (ObjectManager.Player.Distance(CoopStrikeAlly) > CoopStrikeAllyRange)
-                    {
-                        Drawing.DrawText(Drawing.Width * 0.45f, Drawing.Height * 0.82f, Color.Red,
-                        "Connection Signal: None");
-                    }
-                }
-            }
         }
 
         public static Obj_AI_Base GetDashObject()

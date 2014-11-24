@@ -19,6 +19,8 @@ namespace TAC_Kalista
             Game.PrintChat("Loading Twilights Kalista!");
             Game.PrintChat("[Twilight] WallHop, Smite, Item handlers have been temporary removed, because they caused many bugsplats.");
             Game.PrintChat("Will try to fix in next version.");
+            Game.PrintChat("Version: 2.7.1");
+            Game.PrintChat("Fixed drawings");
             CustomEvents.Game.OnGameLoad += Load;
         }
         public static void Load(EventArgs args)
