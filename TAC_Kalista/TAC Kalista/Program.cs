@@ -14,11 +14,12 @@ namespace TAC_Kalista
         public static bool packetCast;
         public static bool debug;
         public static bool drawings;
+        public static bool canexport = true;
         static void Main(string[] args)
         {
-            Game.PrintChat("[2.7.3] Loading Twilights Kalista! If you dont see more text please press F5!");
+            Game.PrintChat("[2.7.4] Loading Twilights Kalista! If you dont see more text please press F5!");
             Game.PrintChat("[Twilight] Smite, Item handlers have been temporary removed, because they caused many bugsplats.");
-            Game.PrintChat("Fixed wallhops. Continueing rework.");
+            Game.PrintChat("Added all available wallhops");
             CustomEvents.Game.OnGameLoad += Load;
         }
         public static void Load(EventArgs args)
@@ -39,13 +40,38 @@ namespace TAC_Kalista
         }
         public static void OnGameUpdateModes(EventArgs args)
         {
+            /*
+            if (MenuHandler.Config.Item("exportjump1").GetValue<KeyBind>().Active && canexport)
+            {
+                using (var file = new System.IO.StreamWriter(@"C:\work\KalistaSpot.txt",true))
+                {
+                    file.Write("jumpPos.Add(new Vector3(" + ObjectManager.Player.ServerPosition.X + "f, " + ObjectManager.Player.ServerPosition.Y + "f, " + ObjectManager.Player.ServerPosition.Z + "f),");
+                    file.Close();
+                }
+                Game.PrintChat("Debug: Position1 exported!");
+                canexport = false;
+                MenuHandler.Config.Item("exportjump1").SetValue<KeyBind>(new KeyBind(117, KeyBindType.Press,false));
+            }
+            else { canexport = true; }
+            if (MenuHandler.Config.Item("exportjump2").GetValue<KeyBind>().Active && canexport)
+            {
+                using (var file = new System.IO.StreamWriter(@"C:\work\KalistaSpot.txt",true))
+                {
+                    file.WriteLine("new Vector3(" + ObjectManager.Player.ServerPosition.X + "f, " + ObjectManager.Player.ServerPosition.Y + "f, " + ObjectManager.Player.ServerPosition.Z + "f));");
+                    file.Close();
+                }
+                Game.PrintChat("Debug: Position2 exported.");
+                canexport = false;
+            }
+            else { canexport = true; }*/
             drawings = MenuHandler.Config.Item("enableDrawings").GetValue<bool>();
             debug = MenuHandler.Config.Item("debug").GetValue<bool>();
             packetCast = MenuHandler.Config.Item("Packets").GetValue<bool>();
+            if (ObjectManager.Player.HasBuff("Recall")) return;
+
             if (MenuHandler.Config.Item("DrawJumpPos").GetValue<Circle>().Active) DrawingHandler.fillPositions();
             if (MenuHandler.Config.Item("JumpTo").GetValue<KeyBind>().Active) SkillHandler.JumpTo();
 
-            if (ObjectManager.Player.HasBuff("Recall")) return;
             
 //            int useItemModes = MenuHandler.Config.Item("UseItemsMode").GetValue<StringList>().SelectedIndex;
 
@@ -53,8 +79,6 @@ namespace TAC_Kalista
             {
                 case xSLxOrbwalker.Mode.Combo:
 //                    if (useItemModes == 3 || useItemModes == 5) ItemHandler.useItem();
-                    if (debug)
-                        Game.PrintChat("using combo");
                     FightHandler.OnCombo();
                     break;
                 case xSLxOrbwalker.Mode.Flee:
@@ -71,8 +95,7 @@ namespace TAC_Kalista
             }
             FightHandler.OnPassive();
 //            ItemHandler.PotionHandler();
-            if (MenuHandler.Config.Item("showPos").GetValue<KeyBind>().Active)
-                Game.PrintChat("Position on server: " + ObjectManager.Player.ServerPosition);
+
         }
     }
 }

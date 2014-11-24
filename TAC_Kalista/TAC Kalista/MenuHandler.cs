@@ -30,6 +30,7 @@ namespace TAC_Kalista
             Config.SubMenu("ac").AddItem(new MenuItem("UseQACM", "Q Prediction").SetValue(new StringList(new[] { "Low", "Medium", "High" }, 2)));
             Config.SubMenu("ac").AddItem(new MenuItem("UseEAC", "Use E").SetValue(true));
             Config.SubMenu("ac").AddItem(new MenuItem("E4K", "E only for kill").SetValue(true));
+//            Config.SubMenu("ac").AddItem(new MenuItem("UseEACSlow","E:Slow if no mob/hero").SetValue(true));
             Config.SubMenu("ac").AddItem(new MenuItem("sex1", "-----------"));
             Config.SubMenu("ac").AddItem(new MenuItem("minE", "Min stacks to E").SetValue(new Slider(1, 1, 20)));
             Config.SubMenu("ac").AddItem(new MenuItem("minEE", "Min stacks enabled?").SetValue(false));
@@ -103,7 +104,8 @@ namespace TAC_Kalista
             Config.AddItem(new MenuItem("Packets", "Packet Casting").SetValue(true));
 
             Config.AddItem(new MenuItem("debug", "Debug").SetValue(false));
-            Config.AddItem(new MenuItem("showPos", "Server Position").SetValue(new KeyBind("N".ToCharArray()[0], KeyBindType.Press)));
+            //Config.AddItem(new MenuItem("exportjump1", "Export Position1")).SetValue(new KeyBind(117, KeyBindType.Press));
+            //Config.AddItem(new MenuItem("exportjump2", "Export Position2")).SetValue(new KeyBind(118, KeyBindType.Press));
             
             Config.AddToMainMenu();
 

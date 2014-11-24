@@ -7,5 +7,6 @@ C:\Users\Harold\Documents\GitHub\LeagueSharp\TAC_Kalista\TAC Kalista\bin\x86\Deb
 C:\Users\Harold\Documents\GitHub\LeagueSharp\TAC_Kalista\TAC Kalista\bin\x86\Debug\SharpDX.dll
 C:\Users\Harold\Documents\GitHub\LeagueSharp\TAC_Kalista\TAC Kalista\bin\x86\Debug\xSLx-Orbwalker.dll
 C:\Users\Harold\Documents\GitHub\LeagueSharp\TAC_Kalista\TAC Kalista\bin\x86\Debug\LeagueSharp.xml
+C:\Users\Harold\Documents\GitHub\LeagueSharp\TAC_Kalista\TAC Kalista\obj\x86\Debug\TAC Kalista.csprojResolveAssemblyReference.cache
 C:\Users\Harold\Documents\GitHub\LeagueSharp\TAC_Kalista\TAC Kalista\obj\x86\Debug\TAC Kalista.exe
 C:\Users\Harold\Documents\GitHub\LeagueSharp\TAC_Kalista\TAC Kalista\obj\x86\Debug\TAC Kalista.pdb
