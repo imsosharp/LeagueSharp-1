@@ -12,6 +12,7 @@ namespace TAC_Kalista
     {
         public static void OnCombo()
         {
+            var useEacSlowRange = MenuHandler.Config.Item("UseEACSlowRange").GetValue<Slider>().Value;
             if(MenuHandler.Config.Item("UseQAC").GetValue<bool>()) customQCast(SimpleTs.GetTarget(SkillHandler.Q.Range, SimpleTs.DamageType.Physical));
             if (SkillHandler.E.IsReady()
                 // E at stacks
@@ -24,15 +25,17 @@ namespace TAC_Kalista
                     && ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(SkillHandler.E.Range)
                          && hero.IsEnemy 
                             && hero.Health < ObjectManager.Player.GetSpellDamage(hero, SpellSlot.E)))
-                /*// Auto slow
+                // Auto slow
                 || (MenuHandler.Config.Item("UseEACSlow").GetValue<bool>()
                     && ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(SkillHandler.E.Range) 
                         && hero.IsEnemy
-                            && SkillHandler.E.InRange(hero.Position)
-                        
+                            && ObjectManager.Player.Distance(hero) > (SkillHandler.E.Range - useEacSlowRange)
+                                && ObjectManager.Player.Distance(hero) < SkillHandler.E.Range
+                                    && hero.CountEnemysInRange((int)SkillHandler.E.Range) < 2
                         )
+                )
                 
-                )*/))
+                ))
             {
                 SkillHandler.E.Cast();
             }

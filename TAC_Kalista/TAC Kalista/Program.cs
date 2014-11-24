@@ -16,9 +16,9 @@ namespace TAC_Kalista
         public static bool canexport = true;
         static void Main(string[] args)
         {
-            Game.PrintChat("[2.7.6] Loading Twilights Kalista! If you dont see more text please press F5!");
+            Game.PrintChat("[2.8] Loading Twilights Kalista! If you dont see more text please press F5!");
             Game.PrintChat("[Twilight] Smite, Item handlers have been temporary removed, because they caused many bugsplats.");
-            Game.PrintChat("Common orbwalker");
+            Game.PrintChat("Added auto-slow target, configure it as you want!:)");
             CustomEvents.Game.OnGameLoad += Load;
         }
         public static void Load(EventArgs args)

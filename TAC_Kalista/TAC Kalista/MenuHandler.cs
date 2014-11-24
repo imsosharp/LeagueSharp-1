@@ -31,7 +31,10 @@ namespace TAC_Kalista
             Config.SubMenu("ac").AddItem(new MenuItem("UseQACM", "Q Prediction").SetValue(new StringList(new[] { "Low", "Medium", "High" }, 2)));
             Config.SubMenu("ac").AddItem(new MenuItem("UseEAC", "Use E").SetValue(true));
             Config.SubMenu("ac").AddItem(new MenuItem("E4K", "E only for kill").SetValue(true));
-//            Config.SubMenu("ac").AddItem(new MenuItem("UseEACSlow","E:Slow if no mob/hero").SetValue(true));
+            Config.SubMenu("ac").AddItem(new MenuItem("sex2", "-----------"));
+            Config.SubMenu("ac").AddItem(new MenuItem("UseEACSlow", "E:Slow if no mob/hero").SetValue(true));
+            Config.SubMenu("ac").AddItem(new MenuItem("UseEACSlowRange", "^ E Range - x").SetValue(new Slider(100, 50, 200)));
+
             Config.SubMenu("ac").AddItem(new MenuItem("sex1", "-----------"));
             Config.SubMenu("ac").AddItem(new MenuItem("minE", "Min stacks to E").SetValue(new Slider(1, 1, 20)));
             Config.SubMenu("ac").AddItem(new MenuItem("minEE", "Min stacks enabled?").SetValue(false));
