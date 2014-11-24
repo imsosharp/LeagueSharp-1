@@ -16,11 +16,9 @@ namespace TAC_Kalista
         public static bool drawings;
         static void Main(string[] args)
         {
-            Game.PrintChat("Loading Twilights Kalista!");
+            Game.PrintChat("[2.7.2] Loading Twilights Kalista! If you dont see more text please press F5!");
             Game.PrintChat("[Twilight] WallHop, Smite, Item handlers have been temporary removed, because they caused many bugsplats.");
-            Game.PrintChat("Will try to fix in next version.");
-            Game.PrintChat("Version: 2.7.1");
-            Game.PrintChat("Fixed drawings");
+            Game.PrintChat("Fixed Q, W, E, R drawings, added E stack draw.");
             CustomEvents.Game.OnGameLoad += Load;
         }
         public static void Load(EventArgs args)

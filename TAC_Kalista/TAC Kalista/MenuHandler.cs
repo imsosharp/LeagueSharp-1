@@ -92,7 +92,8 @@ namespace TAC_Kalista
             Config.SubMenu("Drawings").AddItem(new MenuItem("WRange", "W range").SetValue(new Circle(false, Color.FromArgb(100, Color.Coral))));
             Config.SubMenu("Drawings").AddItem(new MenuItem("ERange", "E range").SetValue(new Circle(true, Color.FromArgb(100, Color.BlueViolet))));
             Config.SubMenu("Drawings").AddItem(new MenuItem("RRange", "R range").SetValue(new Circle(false, Color.FromArgb(100, Color.Blue))));
-            Config.SubMenu("Drawings").AddItem(new MenuItem("drawHp", "Draw damage HP bar")).SetValue(true);         
+            Config.SubMenu("Drawings").AddItem(new MenuItem("drawHp", "Draw damage on HP bar")).SetValue(true);
+            Config.SubMenu("Drawings").AddItem(new MenuItem("drawStacks", "Draw total stacks")).SetValue(true);         
             Config.SubMenu("Drawings").AddItem(new MenuItem("enableDrawings", "Enable all drawings").SetValue(true));          
 
             Config.AddItem(new MenuItem("Packets", "Packet Casting").SetValue(true));
