@@ -6,23 +6,24 @@ using System.Threading.Tasks;
 using LeagueSharp;
 using LeagueSharp.Common;
 using Color = System.Drawing.Color;
-using xSLx_Orbwalker;
 
 namespace TAC_Kalista
 {
     class MenuHandler
     {
         public static Menu Config;
+        internal static Orbwalking.Orbwalker orb;
         public static void init()
         {
             Config = new Menu("Twilight Kalista Rework", "Kalista", true);
 
-            Config.AddSubMenu(new Menu("Orbwalking", "Orbwalking"));
-            xSLxOrbwalker.AddToMenu(Config.SubMenu("Orbwalking"));
-
             var targetselectormenu = new Menu("Target Selector", "Common_TargetSelector");
             SimpleTs.AddToMenu(targetselectormenu);
             Config.AddSubMenu(targetselectormenu);
+
+            Menu orbwalker = new Menu("Orbwalker", "orbwalker");
+            orb = new Orbwalking.Orbwalker(orbwalker);
+            Config.AddSubMenu(orbwalker);
             
             Config.AddSubMenu(new Menu("AutoCarry options", "ac"));
             Config.SubMenu("ac").AddItem(new MenuItem("Focus_Target", "Force Selected Target").SetValue(true));

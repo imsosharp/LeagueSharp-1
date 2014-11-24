@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using LeagueSharp;
 using LeagueSharp.Common;
-using xSLx_Orbwalker;
 
 namespace TAC_Kalista
 {
@@ -17,9 +16,9 @@ namespace TAC_Kalista
         public static bool canexport = true;
         static void Main(string[] args)
         {
-            Game.PrintChat("[2.7.5] Loading Twilights Kalista! If you dont see more text please press F5!");
+            Game.PrintChat("[2.7.6] Loading Twilights Kalista! If you dont see more text please press F5!");
             Game.PrintChat("[Twilight] Smite, Item handlers have been temporary removed, because they caused many bugsplats.");
-            Game.PrintChat("Lane-clear fixed.");
+            Game.PrintChat("Common orbwalker");
             CustomEvents.Game.OnGameLoad += Load;
         }
         public static void Load(EventArgs args)
@@ -74,26 +73,25 @@ namespace TAC_Kalista
 
             
 //            int useItemModes = MenuHandler.Config.Item("UseItemsMode").GetValue<StringList>().SelectedIndex;
-
-            switch (xSLxOrbwalker.CurrentMode)
+            if (MenuHandler.Config.Item("comboActive").GetValue<KeyBind>().Active)
             {
-                case xSLxOrbwalker.Mode.Combo:
-//                    if (useItemModes == 3 || useItemModes == 5) ItemHandler.useItem();
-                    FightHandler.OnCombo();
-                    break;
-                case xSLxOrbwalker.Mode.Flee:
-//                    if (useItemModes == 4 || useItemModes == 5) ItemHandler.useItem();
-                    FightHandler.OnFlee();
-                    break;
-                case xSLxOrbwalker.Mode.Harass:
-//                    if (useItemModes == 1 || useItemModes == 5) ItemHandler.useItem();
-                    FightHandler.OnHarass() ;
-                    break;
-                case xSLxOrbwalker.Mode.LaneClear:
-                    FightHandler.OnLaneClear();
-                    break;
+                //                    if (useItemModes == 3 || useItemModes == 5) ItemHandler.useItem();
+                FightHandler.OnCombo();
             }
-            FightHandler.OnPassive();
+            else if (MenuHandler.Config.Item("harassActive").GetValue<KeyBind>().Active)
+            {
+                //                    if (useItemModes == 1 || useItemModes == 5) ItemHandler.useItem();
+                FightHandler.OnHarass();
+            }
+            else if (MenuHandler.Config.Item("waveClear").GetValue<KeyBind>().Active)
+            {
+                FightHandler.OnLaneClear();
+            }
+            else if (MenuHandler.Config.Item("flee").GetValue<KeyBind>().Active)
+            {
+                //                    if (useItemModes == 4 || useItemModes == 5) ItemHandler.useItem();
+                FightHandler.OnFlee();
+            }
 //            ItemHandler.PotionHandler();
 
         }

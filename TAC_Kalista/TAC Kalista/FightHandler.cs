@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using LeagueSharp;
 using LeagueSharp.Common;
-using xSLx_Orbwalker;
 
 namespace TAC_Kalista
 {
@@ -14,14 +13,26 @@ namespace TAC_Kalista
         public static void OnCombo()
         {
             if(MenuHandler.Config.Item("UseQAC").GetValue<bool>()) customQCast(SimpleTs.GetTarget(SkillHandler.Q.Range, SimpleTs.DamageType.Physical));
-            if ((SkillHandler.E.IsReady() 
-                && ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(SkillHandler.E.Range) 
-                    && hero.Buffs.FirstOrDefault(b => b.Name.ToLower() == "kalistaexpungemarker").Count >= MenuHandler.Config.Item("minE").GetValue<Slider>().Value
+            if (SkillHandler.E.IsReady()
+                // E at stacks
+                    && ((ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(SkillHandler.E.Range)
+                        && hero.IsEnemy
+                         && hero.Buffs.FirstOrDefault(b => b.Name.ToLower() == "kalistaexpungemarker").Count >= MenuHandler.Config.Item("minE").GetValue<Slider>().Value
                             ) && MenuHandler.Config.Item("minEE").GetValue<bool>()) 
-                            // Auto E
-                            || (SkillHandler.E.IsReady() 
-                                && MenuHandler.Config.Item("UseEAC").GetValue<bool>() && ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(SkillHandler.E.Range) 
-                                    && hero.Health < ObjectManager.Player.GetSpellDamage(hero, SpellSlot.E))))
+                // Auto E
+                || ( MenuHandler.Config.Item("UseEAC").GetValue<bool>() 
+                    && ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(SkillHandler.E.Range)
+                         && hero.IsEnemy 
+                            && hero.Health < ObjectManager.Player.GetSpellDamage(hero, SpellSlot.E)))
+                /*// Auto slow
+                || (MenuHandler.Config.Item("UseEACSlow").GetValue<bool>()
+                    && ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(SkillHandler.E.Range) 
+                        && hero.IsEnemy
+                            && SkillHandler.E.InRange(hero.Position)
+                        
+                        )
+                
+                )*/))
             {
                 SkillHandler.E.Cast();
             }
@@ -53,7 +64,7 @@ namespace TAC_Kalista
         {
             if (MenuHandler.Config.Item("enableClear").GetValue<bool>() && MenuHandler.Config.Item("useEwc").GetValue<bool>() && SkillHandler.E.IsReady())
             {
-                List<Obj_AI_Base> minions = MinionManager.GetMinions(ObjectManager.Player.Position, xSLxOrbwalker.GetAutoAttackRange(ObjectManager.Player),MinionTypes.All,MinionTeam.Enemy,MinionOrderTypes.Health);
+                List<Obj_AI_Base> minions = MinionManager.GetMinions(ObjectManager.Player.Position, Orbwalking.GetRealAutoAttackRange(ObjectManager.Player),MinionTypes.All,MinionTeam.Enemy,MinionOrderTypes.Health);
                 foreach (var data in minions)
                 {
                     if (ObjectManager.Player.GetSpellDamage(data, SpellSlot.E) >= data.Health)
@@ -61,16 +72,11 @@ namespace TAC_Kalista
                 }
             }
         }
-        public static void OnPassive()
-        {
-            if (xSLxOrbwalker.CurrentMode != xSLxOrbwalker.Mode.Combo) return;
-            xSLxOrbwalker.ForcedTarget = MenuHandler.Config.Item("Focus_Target").GetValue<bool>() ? (SimpleTs.GetSelectedTarget() != null ? xSLxOrbwalker.ForcedTarget = SimpleTs.GetSelectedTarget() : null) : null;
-        }
 
         public static void OnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
             if (sender.IsMe && args.SData.Name == "KalistaExpungeWrapper") 
-                Utility.DelayAction.Add(250,xSLxOrbwalker.ResetAutoAttackTimer);
+                Utility.DelayAction.Add(250,Orbwalking.ResetAutoAttackTimer);
         }
 
         public static void customQCast(Obj_AI_Hero target)
@@ -99,7 +105,7 @@ namespace TAC_Kalista
         public static void OnFlee()
         {
             Obj_AI_Base dashObject = DrawingHandler.GetDashObject();
-            xSLxOrbwalker.Orbwalk(Game.CursorPos, dashObject != null ? dashObject : null);
+            Orbwalking.Orbwalk(dashObject != null ? dashObject : null, Game.CursorPos);
         }
     }
 }

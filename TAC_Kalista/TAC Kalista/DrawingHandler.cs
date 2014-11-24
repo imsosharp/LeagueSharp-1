@@ -8,7 +8,6 @@ using LeagueSharp.Common;
 using SharpDX;
 using SharpDX.Direct3D9;
 using Color = System.Drawing.Color;
-using xSLx_Orbwalker;
 
 namespace TAC_Kalista
 {
@@ -74,7 +73,7 @@ namespace TAC_Kalista
                 if (drawJumpPos.Active)
                 {
                     var drawJumpPosRange = MenuHandler.Config.Item("DrawJumpPosRange").GetValue<StringList>().SelectedIndex;
-                    var drawWhom = drawJumpPosRange == 1 ? SkillHandler.Q.Range : (drawJumpPosRange == 2 ? SkillHandler.E.Range : (drawJumpPosRange == 3 ? SkillHandler.R.Range : xSLxOrbwalker.GetAutoAttackRange()));
+                    var drawWhom = drawJumpPosRange == 1 ? SkillHandler.Q.Range : (drawJumpPosRange == 2 ? SkillHandler.E.Range : (drawJumpPosRange == 3 ? SkillHandler.R.Range : Orbwalking.GetRealAutoAttackRange(ObjectManager.Player)));
                     foreach (KeyValuePair<Vector3, Vector3> pos in jumpPos)
                     {
                         if (ObjectManager.Player.Distance(pos.Key) <= drawWhom)
@@ -162,7 +161,7 @@ namespace TAC_Kalista
 
         public static Obj_AI_Base GetDashObject()
         {
-            float realAArange = xSLxOrbwalker.GetAutoAttackRange(ObjectManager.Player);
+            float realAArange = Orbwalking.GetRealAutoAttackRange(ObjectManager.Player);
             var objects = ObjectManager.Get<Obj_AI_Base>().Where(o => o.IsValidTarget(realAArange));
             Vector2 apexPoint = ObjectManager.Player.ServerPosition.To2D() + (ObjectManager.Player.ServerPosition.To2D() - Game.CursorPos.To2D()).Normalized() * realAArange;
             Obj_AI_Base target = null;
