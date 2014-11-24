@@ -88,7 +88,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SkillHandler.cs" />
     <Compile Include="SmiteHandler.cs" />
-    <Compile Include="StatisticsHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

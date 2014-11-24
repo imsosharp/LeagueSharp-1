@@ -27,19 +27,13 @@ namespace TAC_Kalista
                 return;
             }
             SkillHandler.init();
-            StatisticsHandler.init();
             ItemHandler.init();
             MenuHandler.init();
             SmiteHandler.Init();
             DrawingHandler.init();
             Game.PrintChat("Twilights AutoCarry: Kalista has loaded!");
             Game.OnGameUpdate += OnGameUpdateModes;
-            Game.OnGameEnd += OnGameEnd;
             Obj_AI_Hero.OnProcessSpellCast += FightHandler.OnProcessSpellCast;
-        }
-        public static void OnGameEnd(EventArgs args)
-        {
-            StatisticsHandler.updateGame();
         }
         public static void OnGameUpdateModes(EventArgs args)
         {
