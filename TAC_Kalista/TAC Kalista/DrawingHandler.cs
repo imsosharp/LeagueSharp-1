@@ -47,6 +47,10 @@ namespace TAC_Kalista
                     if (menuItem.Active && spell.Level > 0)
                         Utility.DrawCircle(ObjectManager.Player.Position, spell.Range, menuItem.Color);
                 }
+                if(MenuHandler.Config.Item("drawESlow").GetValue<bool>())
+                {
+                    Utility.DrawCircle(ObjectManager.Player.Position, SkillHandler.E.Range - 100, Color.Pink);
+                }
                 bool drawHp = MenuHandler.Config.Item("drawHp").GetValue<bool>();
                 bool drawStacks = MenuHandler.Config.Item("drawStacks").GetValue<bool>();
                 if (drawHp || drawStacks)

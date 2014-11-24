@@ -24,22 +24,18 @@ namespace TAC_Kalista
             Menu orbwalker = new Menu("Orbwalker", "orbwalker");
             orb = new Orbwalking.Orbwalker(orbwalker);
             Config.AddSubMenu(orbwalker);
-            
+
             Config.AddSubMenu(new Menu("AutoCarry options", "ac"));
-            Config.SubMenu("ac").AddItem(new MenuItem("Focus_Target", "Force Selected Target").SetValue(true));
             Config.SubMenu("ac").AddItem(new MenuItem("UseQAC", "Use Q").SetValue(true));
             Config.SubMenu("ac").AddItem(new MenuItem("UseQACM", "Q Prediction").SetValue(new StringList(new[] { "Low", "Medium", "High" }, 2)));
             Config.SubMenu("ac").AddItem(new MenuItem("UseEAC", "Use E").SetValue(true));
             Config.SubMenu("ac").AddItem(new MenuItem("E4K", "E only for kill").SetValue(true));
-            Config.SubMenu("ac").AddItem(new MenuItem("sex2", "-----------"));
             Config.SubMenu("ac").AddItem(new MenuItem("UseEACSlow", "E:Slow if no mob/hero").SetValue(true));
-            Config.SubMenu("ac").AddItem(new MenuItem("UseEACSlowRange", "^ E Range - x").SetValue(new Slider(100, 50, 200)));
-
             Config.SubMenu("ac").AddItem(new MenuItem("sex1", "-----------"));
             Config.SubMenu("ac").AddItem(new MenuItem("minE", "Min stacks to E").SetValue(new Slider(1, 1, 20)));
             Config.SubMenu("ac").AddItem(new MenuItem("minEE", "Min stacks enabled?").SetValue(false));
-            
-            Config.AddSubMenu(new Menu("Harass options", "harass")); 
+
+            Config.AddSubMenu(new Menu("Harass options", "harass"));
             Config.SubMenu("harass").AddItem(new MenuItem("stackE", "E stacks to cast").SetValue(new Slider(1, 1, 10)));
             Config.SubMenu("harass").AddItem(new MenuItem("manaPercent", "Mana %").SetValue(new Slider(40, 1, 100)));
             
@@ -95,6 +91,7 @@ namespace TAC_Kalista
             Config.SubMenu("Drawings").AddItem(new MenuItem("QRange", "Q range").SetValue(new Circle(true, Color.FromArgb(100, Color.Red))));
             Config.SubMenu("Drawings").AddItem(new MenuItem("WRange", "W range").SetValue(new Circle(false, Color.FromArgb(100, Color.Coral))));
             Config.SubMenu("Drawings").AddItem(new MenuItem("ERange", "E range").SetValue(new Circle(true, Color.FromArgb(100, Color.BlueViolet))));
+            Config.SubMenu("Drawings").AddItem(new MenuItem("drawESlow", "E slow range").SetValue(true));
             Config.SubMenu("Drawings").AddItem(new MenuItem("RRange", "R range").SetValue(new Circle(false, Color.FromArgb(100, Color.Blue))));
             Config.SubMenu("Drawings").AddItem(new MenuItem("DrawJumpPos", "Draw wallhop spots")).SetValue(new Circle(false, Color.HotPink));
             Config.SubMenu("Drawings").AddItem(new MenuItem("test1", "Spot draw range by skill:"));

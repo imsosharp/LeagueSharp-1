@@ -12,20 +12,20 @@ namespace TAC_Kalista
     {
         public static void OnCombo()
         {
-            var useEacSlowRange = MenuHandler.Config.Item("UseEACSlowRange").GetValue<Slider>().Value;
             if(MenuHandler.Config.Item("UseQAC").GetValue<bool>()) customQCast(SimpleTs.GetTarget(SkillHandler.Q.Range, SimpleTs.DamageType.Physical));
-            if (SkillHandler.E.IsReady()
+
+            if (
                 // E at stacks
-                    && ((ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(SkillHandler.E.Range)
+                    (SkillHandler.E.IsReady() && ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(SkillHandler.E.Range)
                         && hero.IsEnemy
                          && hero.Buffs.FirstOrDefault(b => b.Name.ToLower() == "kalistaexpungemarker").Count >= MenuHandler.Config.Item("minE").GetValue<Slider>().Value
                             ) && MenuHandler.Config.Item("minEE").GetValue<bool>()) 
                 // Auto E
-                || ( MenuHandler.Config.Item("UseEAC").GetValue<bool>() 
+                || (SkillHandler.E.IsReady() && MenuHandler.Config.Item("UseEAC").GetValue<bool>() 
                     && ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(SkillHandler.E.Range)
                          && hero.IsEnemy 
                             && hero.Health < ObjectManager.Player.GetSpellDamage(hero, SpellSlot.E)))
-                // Auto slow
+                /*// Auto slow
                 || (MenuHandler.Config.Item("UseEACSlow").GetValue<bool>()
                     && ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(SkillHandler.E.Range) 
                         && hero.IsEnemy
@@ -33,10 +33,11 @@ namespace TAC_Kalista
                                 && ObjectManager.Player.Distance(hero) < SkillHandler.E.Range
                                     && hero.CountEnemysInRange((int)SkillHandler.E.Range) < 2
                         )
-                )
+                )*/
                 
-                ))
+                )
             {
+                Game.PrintChat("Casting E");
                 SkillHandler.E.Cast();
             }
         
