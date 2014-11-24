@@ -79,13 +79,13 @@ namespace TAC_Kalista
                 if (drawJumpPos.Active)
                 {
                     var drawJumpPosRange = MenuHandler.Config.Item("DrawJumpPosRange").GetValue<StringList>().SelectedIndex;
-                    var drawWhom = drawJumpPosRange == 1 ? SkillHandler.Q.Range : (drawJumpPosRange == 2 ? SkillHandler.E.Range : SkillHandler.R.Range);
+                    var drawWhom = drawJumpPosRange == 1 ? SkillHandler.Q.Range : (drawJumpPosRange == 2 ? SkillHandler.E.Range : (drawJumpPosRange == 3 ? SkillHandler.R.Range : xSLxOrbwalker.GetAutoAttackRange()));
                     foreach (KeyValuePair<Vector3, Vector3> pos in jumpPos)
                     {
                         if (ObjectManager.Player.Distance(pos.Key) <= drawWhom)
                         {
-                            Utility.DrawCircle(pos.Key, 70f, Color.GreenYellow);
-                            Utility.DrawCircle(pos.Value, 70f, Color.GreenYellow);
+                            Utility.DrawCircle(pos.Key, 20f, Color.GreenYellow);
+                            Utility.DrawCircle(pos.Value, 20f, Color.GreenYellow);
                         }
                     }
                 }
