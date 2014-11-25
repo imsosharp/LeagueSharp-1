@@ -43,7 +43,7 @@ namespace TAC_Kalista
             Config.SubMenu("ac").SubMenu("itemsAC").AddItem(new MenuItem("useItems", "Use Items").SetValue(new KeyBind("G".ToCharArray()[0], KeyBindType.Toggle)));
 
             Config.SubMenu("ac").SubMenu("itemsAC").AddItem(new MenuItem("allIn", "All in mode").SetValue(new KeyBind("U".ToCharArray()[0], KeyBindType.Toggle)));
-            Config.SubMenu("ac").SubMenu("itemsAC").AddItem(new MenuItem("allInAt", "Auto All in when X hero").SetValue(new Slider(2, 1, 5)));
+//            Config.SubMenu("ac").SubMenu("itemsAC").AddItem(new MenuItem("allInAt", "Auto All in when X hero").SetValue(new Slider(2, 1, 5)));
             
             Config.SubMenu("ac").SubMenu("itemsAC").AddItem(new MenuItem("BOTRK", "Use BOTRK").SetValue(true));
             Config.SubMenu("ac").SubMenu("itemsAC").AddItem(new MenuItem("GHOSTBLADE", "Use Ghostblade").SetValue(true));
@@ -85,18 +85,17 @@ namespace TAC_Kalista
             Config.SubMenu("wh").AddItem(new MenuItem("JumpTo", "Jump key").SetValue(new KeyBind("T".ToCharArray()[0], KeyBindType.Press)));
             
             Config.AddSubMenu(new Menu("Drawings", "Drawings"));
-            Config.SubMenu("Drawings").AddItem(new MenuItem("QRange", "Q range").SetValue(new Circle(true, Color.FromArgb(100, Color.Red))));
-            Config.SubMenu("Drawings").AddItem(new MenuItem("WRange", "W range").SetValue(new Circle(false, Color.FromArgb(100, Color.Coral))));
-            Config.SubMenu("Drawings").AddItem(new MenuItem("ERange", "E range").SetValue(new Circle(true, Color.FromArgb(100, Color.BlueViolet))));
-            Config.SubMenu("Drawings").AddItem(new MenuItem("drawESlow", "E slow range").SetValue(true));
-            Config.SubMenu("Drawings").AddItem(new MenuItem("RRange", "R range").SetValue(new Circle(false, Color.FromArgb(100, Color.Blue))));
+            Config.SubMenu("Drawings").AddSubMenu(new Menu("Ranges", "range"));
+
+            Config.SubMenu("Drawings").SubMenu("range").AddItem(new MenuItem("QRange", "Q range").SetValue(new Circle(true, Color.FromArgb(100, Color.Red))));
+            Config.SubMenu("Drawings").SubMenu("range").AddItem(new MenuItem("WRange", "W range").SetValue(new Circle(false, Color.FromArgb(100, Color.Coral))));
+            Config.SubMenu("Drawings").SubMenu("range").AddItem(new MenuItem("ERange", "E range").SetValue(new Circle(true, Color.FromArgb(100, Color.BlueViolet))));
+            Config.SubMenu("Drawings").SubMenu("range").AddItem(new MenuItem("drawESlow", "E slow range").SetValue(true));
+            Config.SubMenu("Drawings").SubMenu("range").AddItem(new MenuItem("RRange", "R range").SetValue(new Circle(false, Color.FromArgb(100, Color.Blue))));
             Config.SubMenu("Drawings").AddItem(new MenuItem("DrawJumpPos", "Draw wallhop spots")).SetValue(new Circle(false, Color.HotPink));
-            Config.SubMenu("Drawings").AddItem(new MenuItem("test1", "Spot draw range by skill:"));
-            Config.SubMenu("Drawings").AddItem(new MenuItem("DrawJumpPosRange", "----------->").SetValue(new StringList(new[] { "Q", "E", "R", "AA" }, 2)));
+            Config.SubMenu("Drawings").AddItem(new MenuItem("DrawJumpPosRange", "Spot range by skill:").SetValue(new StringList(new[] { "Q", "E", "R", "AA" }, 2)));
             Config.SubMenu("Drawings").AddItem(new MenuItem("drawHp", "Draw damage on HP bar")).SetValue(true);
             Config.SubMenu("Drawings").AddItem(new MenuItem("drawStacks", "Draw total stacks")).SetValue(true);
-
-            Config.SubMenu("Drawings").AddItem(new MenuItem("test2", "----------------")); 
             Config.SubMenu("Drawings").AddItem(new MenuItem("enableDrawings", "Enable all drawings").SetValue(true));          
 
             Config.AddItem(new MenuItem("Packets", "Packet Casting").SetValue(true));

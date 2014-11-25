@@ -64,14 +64,18 @@ namespace TAC_Kalista
             if (MenuHandler.Config.Item("GHOSTBLADE").GetValue<bool>()
                 && target != null
                     && target.Type == ObjectManager.Player.Type
-                        && Orbwalking.InAutoAttackRange(target))
+                        && Orbwalking.InAutoAttackRange(target)
+                            && MenuHandler.Config.Item("allIn").GetValue<KeyBind>().Active
+                )
             {
                 Items.UseItem(3142);
             }
             if (MenuHandler.Config.Item("SWORD").GetValue<bool>()
                     && target != null
                         && target.Type == ObjectManager.Player.Type
-                            && Orbwalking.InAutoAttackRange(target))
+                            && Orbwalking.InAutoAttackRange(target)
+                                && MenuHandler.Config.Item("allIn").GetValue<KeyBind>().Active
+            )
             {
                 Items.UseItem(3131);
             }
