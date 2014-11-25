@@ -16,9 +16,7 @@ namespace TAC_Kalista
         public static bool canexport = true;
         static void Main(string[] args)
         {
-            Game.PrintChat("[2.9.1] Loading Twilights Kalista! If you dont see more text please press F5!");
-            Game.PrintChat("[Twilight] Item handlers have been temporary removed, because they caused many bugsplats.");
-            Game.PrintChat("Smite handlers are reenabled.");
+            Game.PrintChat("[2.9.2] Loading Twilights Kalista! If you dont see more text please press F5!");
             CustomEvents.Game.OnGameLoad += Load;
         }
         public static void Load(EventArgs args)
@@ -28,6 +26,8 @@ namespace TAC_Kalista
                 Game.PrintChat("Kalista not found! Assembly failed to load!");
                 return;
             }
+            Game.PrintChat("[Twilight] Item handlers have been temporary removed, because they caused many bugsplats.");
+            Game.PrintChat("Fixed E damage calculation, @Hellsing you are terrible at math.");
             SkillHandler.init();
 //            ItemHandler.init();
             MenuHandler.init();
