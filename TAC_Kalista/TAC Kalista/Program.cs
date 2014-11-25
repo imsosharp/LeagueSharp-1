@@ -18,11 +18,9 @@ namespace TAC_Kalista
         {
             Game.PrintChat("---------------------------");
             Game.PrintChat("<font color='#7A6EFF'>Twilight's Auto Carry:</font> <font color='#86E5E1'>Kalista</font>");
-            Game.PrintChat("Version: <font color='#FF0000'>3.0</font>");
+            Game.PrintChat("Version: <font color='#FF0000'>3.1</font>");
             Game.PrintChat("[News]");
-            Game.PrintChat("1. User friendly menu rework");
-            Game.PrintChat("2. All in mode + Auto All in at X champions");
-            Game.PrintChat("3. Items usage FIXED");
+            Game.PrintChat("Added better QE logic, if target is killable and is in Q range, it will use Q to gap close and kill target with E.");
             CustomEvents.Game.OnGameLoad += Load;
         }
         public static void Load(EventArgs args)

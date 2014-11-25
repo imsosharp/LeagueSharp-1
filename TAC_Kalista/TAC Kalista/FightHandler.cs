@@ -12,6 +12,18 @@ namespace TAC_Kalista
     {
         public static void OnCombo()
         {
+            // Cast Q if out of range with E
+
+            if (MenuHandler.Config.Item("UseQAC").GetValue<bool>() || 
+                    (ObjectManager.Get<Obj_AI_Hero>().Any(
+                        hero => hero.IsValidTarget(SkillHandler.E.Range+400)
+                            && hero.Health < (MathHandler.getRealDamage(hero) - SkillHandler.Q.GetDamage(hero))
+                )))
+            {
+
+                customQCast(SimpleTs.GetTarget(SkillHandler.Q.Range, SimpleTs.DamageType.Physical));
+            }
+
             if (SkillHandler.E.IsReady() && (( ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(SkillHandler.E.Range)
                 && hero.Buffs.FirstOrDefault(b => b.Name.ToLower() == "kalistaexpungemarker").Count >= MenuHandler.Config.Item("minE").GetValue<Slider>().Value
                             ) && MenuHandler.Config.Item("minEE").GetValue<bool>()) 
@@ -19,8 +31,6 @@ namespace TAC_Kalista
                             || (MenuHandler.Config.Item("UseEAC").GetValue<bool>()
                     && ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(SkillHandler.E.Range)
                            && hero.Health < MathHandler.getRealDamage(hero)))
-                        // && hero.Health < ObjectManager.Player.GetSpellDamage(hero, SpellSlot.E)))
-
                             || (SkillHandler.Q.IsReady() && MenuHandler.Config.Item("UseEACSlow").GetValue<bool>()
                         && ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(SkillHandler.E.Range) 
                             && ObjectManager.Player.Distance(hero) > (SkillHandler.E.Range - 110)
@@ -31,12 +41,6 @@ namespace TAC_Kalista
                         )))
             {
                 SkillHandler.E.Cast();
-            }
-
-            if (MenuHandler.Config.Item("UseQAC").GetValue<bool>())
-            {
-
-                customQCast(SimpleTs.GetTarget(SkillHandler.Q.Range, SimpleTs.DamageType.Physical));
             }
 
             if (MenuHandler.Config.Item("useItems").GetValue<KeyBind>().Active

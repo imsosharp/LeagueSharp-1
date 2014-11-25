@@ -62,16 +62,16 @@ namespace TAC_Kalista
                 }
             }
 
-            
-            Config.AddSubMenu(new Menu("Harass options", "harass"));
+
+            Config.AddSubMenu(new Menu("Harass settings", "harass"));
             Config.SubMenu("harass").AddItem(new MenuItem("stackE", "E stacks to cast").SetValue(new Slider(1, 1, 10)));
             Config.SubMenu("harass").AddItem(new MenuItem("manaPercent", "Mana %").SetValue(new Slider(40, 1, 100)));
-            
-            Config.AddSubMenu(new Menu("Wave Clear options", "wc"));
+
+            Config.AddSubMenu(new Menu("Wave Clear settings", "wc"));
             Config.SubMenu("wc").AddItem(new MenuItem("useEwc", "Use E to clear").SetValue(true));
             Config.SubMenu("wc").AddItem(new MenuItem("enableClear", "WaveClear enabled?").SetValue(false));
             
-            Config.AddSubMenu(new Menu("Smite options", "smite"));
+            Config.AddSubMenu(new Menu("Smite settings", "smite"));
             Config.SubMenu("smite").AddItem(new MenuItem("SRU_Baron", "Baron Enabled").SetValue(true));
             Config.SubMenu("smite").AddItem(new MenuItem("SRU_Dragon", "Dragon Enabled").SetValue(true));
             Config.SubMenu("smite").AddItem(new MenuItem("SRU_Gromp", "Gromp Enabled").SetValue(false));
@@ -80,8 +80,8 @@ namespace TAC_Kalista
             Config.SubMenu("smite").AddItem(new MenuItem("SRU_Razorbeak", "Razorbeak Enabled").SetValue(false));
             Config.SubMenu("smite").AddItem(new MenuItem("Sru_Crab", "Crab Enabled").SetValue(false));
             Config.SubMenu("smite").AddItem(new MenuItem("smite", "Auto-Smite enabled").SetValue(new KeyBind("G".ToCharArray()[0], KeyBindType.Toggle)));
-            
-            Config.AddSubMenu(new Menu("Wall Hop options", "wh"));
+
+            Config.AddSubMenu(new Menu("Wall Hop settings", "wh"));
             Config.SubMenu("wh").AddItem(new MenuItem("JumpTo", "Jump key").SetValue(new KeyBind("T".ToCharArray()[0], KeyBindType.Press)));
             
             Config.AddSubMenu(new Menu("Drawings", "Drawings"));
