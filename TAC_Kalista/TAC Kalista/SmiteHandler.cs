@@ -42,7 +42,7 @@ namespace TAC_Kalista
                 var mob = GetNearest(ObjectManager.Player.ServerPosition);
                 if (mob != null && MenuHandler.Config.Item(mob.SkinName).GetValue<bool>())
                 {
-                    if (mob.Health < ObjectManager.Player.GetSpellDamage(mob, SpellSlot.E))
+                    if (mob.Health < MathHandler.getRealDamage(mob))
                     {
                         SkillHandler.E.Cast(Kalista.packetCast);
                     }

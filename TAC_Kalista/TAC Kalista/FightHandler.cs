@@ -17,7 +17,7 @@ namespace TAC_Kalista
             if (MenuHandler.Config.Item("UseQAC").GetValue<bool>() || 
                     (ObjectManager.Get<Obj_AI_Hero>().Any(
                         hero => hero.IsValidTarget(SkillHandler.E.Range+400)
-                            && hero.Health < (ObjectManager.Player.GetSpellDamage(hero, SpellSlot.E) - SkillHandler.Q.GetDamage(hero))
+                            && hero.Health < (MathHandler.getRealDamage(hero) - SkillHandler.Q.GetDamage(hero))
                 )))
             {
 
@@ -30,7 +30,7 @@ namespace TAC_Kalista
                             // auto e
                             || (MenuHandler.Config.Item("UseEAC").GetValue<bool>()
                     && ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(SkillHandler.E.Range)
-                           && hero.Health < ObjectManager.Player.GetSpellDamage(hero, SpellSlot.E)))
+                           && hero.Health < MathHandler.getRealDamage(hero)))
                             || (SkillHandler.Q.IsReady() && MenuHandler.Config.Item("UseEACSlow").GetValue<bool>()
                         && ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(SkillHandler.E.Range) 
                             && ObjectManager.Player.Distance(hero) > (SkillHandler.E.Range - 110)
@@ -80,7 +80,7 @@ namespace TAC_Kalista
                 List<Obj_AI_Base> minions = MinionManager.GetMinions(ObjectManager.Player.Position, Orbwalking.GetRealAutoAttackRange(ObjectManager.Player),MinionTypes.All,MinionTeam.Enemy,MinionOrderTypes.Health);
                 foreach (var data in minions)
                 {
-                    if (ObjectManager.Player.GetSpellDamage(data, SpellSlot.E) >= data.Health)
+                    if (MathHandler.getRealDamage(data) >= data.Health)
                         SkillHandler.E.Cast();
                 }
             }
