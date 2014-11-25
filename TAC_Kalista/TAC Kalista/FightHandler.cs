@@ -25,7 +25,7 @@ namespace TAC_Kalista
                         && ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(SkillHandler.E.Range) 
                             && ObjectManager.Player.Distance(hero) > (SkillHandler.E.Range - 110)
                                 && ObjectManager.Player.Distance(hero) < SkillHandler.E.Range
-                                    && hero.CountEnemysInRange((int)SkillHandler.E.Range) < 2
+                                    && hero.CountEnemysInRange((int)SkillHandler.E.Range) <= MenuHandler.Config.Item("UseEACSlowT").GetValue<Slider>().Value
                             )
 
                         )))
