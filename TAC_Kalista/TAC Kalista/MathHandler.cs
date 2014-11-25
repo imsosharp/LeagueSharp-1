@@ -52,6 +52,7 @@ namespace TAC_Kalista
          * and slowing their Movement Speed by 25/30/35/40/45% for 2 seconds. 
          * >>Each extra spear increases the damage by 25/30/35/40/45%<<
          * , but not the slow.
+         * http://ddragon.leagueoflegends.com/tool/euw/en
          **/
         public static double getRealDamage(Obj_AI_Base target)
         {
