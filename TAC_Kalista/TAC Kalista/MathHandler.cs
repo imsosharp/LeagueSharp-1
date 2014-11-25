@@ -54,20 +54,22 @@ namespace TAC_Kalista
          * , but not the slow.
          * http://ddragon.leagueoflegends.com/tool/euw/en
          **/
+        /*
+         * Bug: sometimes doesnt kill target ?
         public static double getRealDamage(Obj_AI_Base target)
         {
             int skillLevel = SkillHandler.E.Level;
-            int stacks = (from buff in target.Buffs where buff.DisplayName.ToLower() == "kalistaexpungemarker" select buff.Count).FirstOrDefault();
-            double basicDamagex = new double[]{0,20,30,40,50,60}[skillLevel];
+            int stacks = target.Buffs.FirstOrDefault(b => b.DisplayName == "KalistaExpungeMarker").Count;
+            double basicDamagex = new double[] { 0, 20, 30, 40, 50, 60 }[skillLevel];
             double basicDamage = new double[] { 0, 20, 30, 40, 50, 60 }[skillLevel] + (0.6 * (ObjectManager.Player.BaseAttackDamage + ObjectManager.Player.FlatPhysicalDamageMod));
-            double extraDamage = new double[]{0,0.25,0.30,0.35,0.40,0.45}[skillLevel];
-            double realDamage = ObjectManager.Player.CalcDamage(target,Damage.DamageType.Physical,basicDamage + (basicDamage * (extraDamage * stacks)));
+            double extraDamage = new double[] { 0, 0.25, 0.30, 0.35, 0.40, 0.45 }[skillLevel];
+            double realDamage = ObjectManager.Player.CalcDamage(target, Damage.DamageType.Physical, basicDamage + (basicDamage * (extraDamage * stacks)));
             //Game.PrintChat("Total: " + (int)ObjectManager.Player.CalcDamage(target, Damage.DamageType.Physical,realDamage) + " Basic: " + (int)basicDamage + " Stacks: " + stacks + " Extra: " + extraDamage + " Extra dmg: " + (int)(basicDamage * (extraDamage * stacks)));
             if (Kalista.debug)
             {
                 Game.PrintChat("Target: " + target.SkinName + " Total to target: " + (int)realDamage + " || Dealing " + basicDamagex + "(+" + (int)(0.6 * (ObjectManager.Player.BaseAttackDamage + ObjectManager.Player.FlatPhysicalDamageMod)) + ") + " + (basicDamage * (extraDamage * stacks)) + " (" + stacks + ")");
             }
             return realDamage;
-        }
+        }*/
     }
 }
