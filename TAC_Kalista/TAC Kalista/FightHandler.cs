@@ -18,7 +18,8 @@ namespace TAC_Kalista
                             // auto e
                             || (MenuHandler.Config.Item("UseEAC").GetValue<bool>()
                     && ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(SkillHandler.E.Range)
-                        && hero.Health < ObjectManager.Player.GetSpellDamage(hero, SpellSlot.E)))
+                           && hero.Health < MathHandler.getRealDamage(hero)))
+                        // && hero.Health < ObjectManager.Player.GetSpellDamage(hero, SpellSlot.E)))
 
                             || (MenuHandler.Config.Item("UseEACSlow").GetValue<bool>()
                         && ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(SkillHandler.E.Range) 
@@ -26,13 +27,17 @@ namespace TAC_Kalista
                                 && ObjectManager.Player.Distance(hero) < SkillHandler.E.Range
                                     && hero.CountEnemysInRange((int)SkillHandler.E.Range) < 2
                             )
-                        
-                        ))){
+
+                        )))
+            {
                 SkillHandler.E.Cast();
             }
 
-            if(MenuHandler.Config.Item("UseQAC").GetValue<bool>()) customQCast(SimpleTs.GetTarget(SkillHandler.Q.Range, SimpleTs.DamageType.Physical));
+            if (MenuHandler.Config.Item("UseQAC").GetValue<bool>())
+            {
 
+                customQCast(SimpleTs.GetTarget(SkillHandler.Q.Range, SimpleTs.DamageType.Physical));
+            }
                 /*// Auto slow
                 
                 )*/
@@ -67,7 +72,7 @@ namespace TAC_Kalista
                 List<Obj_AI_Base> minions = MinionManager.GetMinions(ObjectManager.Player.Position, Orbwalking.GetRealAutoAttackRange(ObjectManager.Player),MinionTypes.All,MinionTeam.Enemy,MinionOrderTypes.Health);
                 foreach (var data in minions)
                 {
-                    if (ObjectManager.Player.GetSpellDamage(data, SpellSlot.E) >= data.Health)
+                    if (MathHandler.getRealDamage(data) >= data.Health)
                         SkillHandler.E.Cast();
                 }
             }

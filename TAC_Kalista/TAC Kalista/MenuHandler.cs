@@ -51,9 +51,9 @@ namespace TAC_Kalista
             Config.SubMenu("smite").AddItem(new MenuItem("SRU_Krug", "Krug Enabled").SetValue(false));
             Config.SubMenu("smite").AddItem(new MenuItem("SRU_Razorbeak", "Razorbeak Enabled").SetValue(false));
             Config.SubMenu("smite").AddItem(new MenuItem("Sru_Crab", "Crab Enabled").SetValue(false));
-            /*
-            Config.SubMenu("smite").AddItem(new MenuItem("smite", "Auto-Smite enabled").SetValue(new KeyBind("G".ToCharArray()[0], KeyBindType.Press,false)));
             
+            Config.SubMenu("smite").AddItem(new MenuItem("smite", "Auto-Smite enabled").SetValue(new KeyBind("G".ToCharArray()[0], KeyBindType.Toggle)));
+            /*            
             Config.AddSubMenu(new Menu("Item options", "Items"));
             Config.SubMenu("Items").AddItem(new MenuItem("BOTRK", "BOTRK").SetValue(true));
             Config.SubMenu("Items").AddItem(new MenuItem("GHOSTBLADE", "Ghostblade").SetValue(true));
