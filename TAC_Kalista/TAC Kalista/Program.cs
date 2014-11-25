@@ -16,9 +16,9 @@ namespace TAC_Kalista
         public static bool canexport = true;
         static void Main(string[] args)
         {
-            Game.PrintChat("[2.9] Loading Twilights Kalista! If you dont see more text please press F5!");
-            Game.PrintChat("[Twilight] Smite, Item handlers have been temporary removed, because they caused many bugsplats.");
-            Game.PrintChat("Added auto-slow target");
+            Game.PrintChat("[2.9.1] Loading Twilights Kalista! If you dont see more text please press F5!");
+            Game.PrintChat("[Twilight] Item handlers have been temporary removed, because they caused many bugsplats.");
+            Game.PrintChat("Smite handlers are reenabled.");
             CustomEvents.Game.OnGameLoad += Load;
         }
         public static void Load(EventArgs args)
@@ -31,7 +31,6 @@ namespace TAC_Kalista
             SkillHandler.init();
 //            ItemHandler.init();
             MenuHandler.init();
-//            SmiteHandler.Init();
             DrawingHandler.init();
             Game.PrintChat("Twilights AutoCarry: Kalista has loaded!");
             Game.OnGameUpdate += OnGameUpdateModes;
@@ -64,6 +63,7 @@ namespace TAC_Kalista
                 FightHandler.OnLaneClear();
             }
             //FightHandler.OnFlee();
+            SmiteHandler.Init();
 
         }
     }

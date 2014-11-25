@@ -15,6 +15,7 @@ namespace TAC_Kalista
               "TT_Spiderboss", "TTNGolem", "TTNWolf", "TTNWraith", 
               "SRU_Blue", "SRU_Gromp", "SRU_Murkwolf", "SRU_Razorbeak", 
               "SRU_Red", "SRU_Krug", "SRU_Dragon", "SRU_Baron", "Sru_Crab" };
+
         public static Obj_AI_Minion GetNearest(Vector3 pos)
         {
             var minions =
@@ -41,7 +42,6 @@ namespace TAC_Kalista
                 var mob = GetNearest(ObjectManager.Player.ServerPosition);
                 if (mob != null && MenuHandler.Config.Item(mob.SkinName).GetValue<bool>())
                 {
-
                     if (mob.Health < ObjectManager.Player.GetSpellDamage(mob, SpellSlot.E))
                     {
                         SkillHandler.E.Cast(Kalista.packetCast);
