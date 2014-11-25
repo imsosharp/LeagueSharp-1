@@ -39,7 +39,6 @@ namespace TAC_Kalista
             BuffList.Add(new BuffList { ChampionName = "Warwick", DisplayName = "Warwick (R)", BuffName = "InfiniteDuress", DefaultValue = true, Delay = 0 });
             BuffList.Add(new BuffList { ChampionName = "Zilean", DisplayName = "Zilean (Q)", BuffName = "timebombenemybuff", DefaultValue = false, Delay = 0 });
             BuffList.Add(new BuffList { ChampionName = "Zed", DisplayName = "Zed (R)", BuffName = "zedulttargetmark", DefaultValue = true, Delay = 3 });
-            Game.PrintChat("Item handler loaded!");
         }
 
         public static void useItem()

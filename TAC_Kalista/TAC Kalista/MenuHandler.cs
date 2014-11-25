@@ -41,10 +41,10 @@ namespace TAC_Kalista
             
             Config.SubMenu("ac").AddSubMenu(new Menu("Item settings","itemsAC"));
             Config.SubMenu("ac").SubMenu("itemsAC").AddItem(new MenuItem("useItems", "Use Items").SetValue(new KeyBind("G".ToCharArray()[0], KeyBindType.Toggle)));
-            // todo add all ins
-//            Config.SubMenu("ac").SubMenu("itemsAC").AddItem(new MenuItem("allIn", "All in mode").SetValue(new KeyBind("U".ToCharArray()[0], KeyBindType.Toggle)));
-//            Config.SubMenu("ac").SubMenu("itemsAC").AddItem(new MenuItem("allInAt", "Auto All in when X hero").SetValue(new Slider(2, 1, 5)));
-            //
+
+            Config.SubMenu("ac").SubMenu("itemsAC").AddItem(new MenuItem("allIn", "All in mode").SetValue(new KeyBind("U".ToCharArray()[0], KeyBindType.Toggle)));
+            Config.SubMenu("ac").SubMenu("itemsAC").AddItem(new MenuItem("allInAt", "Auto All in when X hero").SetValue(new Slider(2, 1, 5)));
+            
             Config.SubMenu("ac").SubMenu("itemsAC").AddItem(new MenuItem("BOTRK", "Use BOTRK").SetValue(true));
             Config.SubMenu("ac").SubMenu("itemsAC").AddItem(new MenuItem("GHOSTBLADE", "Use Ghostblade").SetValue(true));
             Config.SubMenu("ac").SubMenu("itemsAC").AddItem(new MenuItem("SWORD", "Use SOTD").SetValue(true));

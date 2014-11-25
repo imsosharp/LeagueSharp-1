@@ -37,7 +37,17 @@ namespace TAC_Kalista
             {
 
                 customQCast(SimpleTs.GetTarget(SkillHandler.Q.Range, SimpleTs.DamageType.Physical));
-            }        
+            }
+
+            if (MenuHandler.Config.Item("allIn").GetValue<KeyBind>().Active // all in mode
+                // Use Items
+                    || MenuHandler.Config.Item("useItems").GetValue<KeyBind>().Active
+                // Auto all in at X champions    
+                    || ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(Orbwalking.GetRealAutoAttackRange(ObjectManager.Player))
+                            && hero.CountEnemysInRange((int)Orbwalking.GetRealAutoAttackRange(ObjectManager.Player)) <= MenuHandler.Config.Item("allInAt").GetValue<Slider>().Value))
+            {
+                ItemHandler.useItem();
+            }
         }
         public static void OnHarass()
         {
