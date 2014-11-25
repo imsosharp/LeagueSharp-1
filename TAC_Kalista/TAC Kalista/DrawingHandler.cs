@@ -57,14 +57,14 @@ namespace TAC_Kalista
                         if (drawHp)
                         {
                             unit = enemy;
-                            drawDmg(MathHandler.getDamageToTarget(enemy), enemy.Health < ObjectManager.Player.GetSpellDamage(enemy, SpellSlot.E) ? Color.Red : Color.Yellow);
+                            drawDmg(MathHandler.getDamageToTarget(enemy), enemy.Health < MathHandler.getRealDamage(enemy) ? Color.Red : Color.Yellow);
                         }
                         if (drawStacks)
                         {
                             stacks = enemy.Buffs.FirstOrDefault(b => b.Name.ToLower() == "kalistaexpungemarker").Count;
                             if (stacks > 0)
                             {
-                                Drawing.DrawText(enemy.HPBarPosition.X, enemy.HPBarPosition.Y-5, Color.Red, "E:" + stacks + "H:"+(int)enemy.Health+"/D:"+(int)ObjectManager.Player.GetSpellDamage(enemy,SpellSlot.E),enemy);
+                                Drawing.DrawText(enemy.HPBarPosition.X, enemy.HPBarPosition.Y - 5, Color.Red, "E:" + stacks + "H:" + (int)enemy.Health + "/D:" + (int)MathHandler.getRealDamage(enemy), enemy);
                             }
                         }
                     }
@@ -96,7 +96,7 @@ namespace TAC_Kalista
                 foreach (var enemy in ObjectManager.Get<Obj_AI_Hero>().Where(ene => !ene.IsDead && ene.IsEnemy && ene.IsVisible))
                 {
                     unit = enemy;
-                    drawDmg(MathHandler.getDamageToTarget(enemy), enemy.Health < ObjectManager.Player.GetSpellDamage(enemy, SpellSlot.E) ? Color.Red : Color.Yellow);
+                    drawDmg(MathHandler.getDamageToTarget(enemy), enemy.Health < MathHandler.getRealDamage(enemy) ? Color.Red : Color.Yellow);
                 }
             }
         }
