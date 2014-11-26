@@ -96,24 +96,36 @@ namespace TAC_Kalista
         {
             if (!SkillHandler.Q.IsReady() || target == null) return;
 
-            var qPred = SkillHandler.Q.GetPrediction(target);
+            PredictionOutput po = SkillHandler.Q.GetPrediction(target);
+            int canCast = 0;
             switch (MenuHandler.Config.Item("UseQACM").GetValue<StringList>().SelectedIndex)
             {
                 case 1:
-                    if (qPred.Hitchance >= HitChance.Low) SkillHandler.Q.Cast(target, Kalista.packetCast);
+                    if (po.Hitchance >= HitChance.Low) canCast = 1;
                     break;
                 case 2:
-                    if (qPred.Hitchance >= HitChance.Medium) SkillHandler.Q.Cast(target, Kalista.packetCast);
+                    if (po.Hitchance >= HitChance.Medium) canCast = 1;
                     break;
                 case 3:
-                    if (qPred.Hitchance >= HitChance.High) SkillHandler.Q.Cast(target, Kalista.packetCast);
+                    if (po.Hitchance >= HitChance.High) canCast = 1;
                     break;
             }
-            
-            if (qPred.Hitchance != HitChance.Collision) return;
-            var coll = qPred.CollisionObjects;
-            var goal = coll.FirstOrDefault(obj => SkillHandler.Q.GetPrediction(obj).Hitchance >= HitChance.Medium && SkillHandler.Q.GetDamage(target) > obj.Health);
-            if (goal != null) SkillHandler.Q.Cast(goal, Kalista.packetCast);
+            if (canCast > 0 && ObjectManager.Player.Distance(po.UnitPosition) < SkillHandler.Q.Range )
+            {
+                SkillHandler.Q.Cast(po.CastPosition, Kalista.packetCast);
+            } 
+            else if (po.Hitchance == HitChance.Collision)
+            {
+                var collisions = SkillHandler.Q.GetCollision(ObjectManager.Player.Position.To2D(), new List<SharpDX.Vector2> { po.CastPosition.To2D() });
+                foreach (var col in collisions.Where(x => x.IsMinion))
+                {
+                    if (col.Health > (float)Damage.GetSpellDamage(ObjectManager.Player, col, SpellSlot.Q) * 0.9f)
+                    {
+                        SkillHandler.Q.Cast(po.CastPosition,Kalista.packetCast);
+                        break;
+                    }
+                }
+            }
         }
         public static void OnFlee()
         {
