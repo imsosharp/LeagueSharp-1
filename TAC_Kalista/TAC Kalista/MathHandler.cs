@@ -55,6 +55,7 @@ namespace TAC_Kalista
          * >>Each extra spear increases the damage by 25/30/35/40/45%<<
          * , but not the slow.
          * http://ddragon.leagueoflegends.com/tool/euw/en
+         * Apperantly hellsing sucks at math, so i had to do this code on my own.
          **/
         public static double getRealDamage(Obj_AI_Base target)
         {
@@ -64,11 +65,10 @@ namespace TAC_Kalista
             double basicDamage = new double[] { 0, 20, 30, 40, 50, 60 }[skillLevel] + (0.6 * (ObjectManager.Player.BaseAttackDamage + ObjectManager.Player.FlatPhysicalDamageMod));
             double extraDamage = new double[] { 0, 0.25, 0.30, 0.35, 0.40, 0.45 }[skillLevel];
 
-            double realDamage = ObjectManager.Player.CalcDamage(target, Damage.DamageType.Physical, stacks > 1 ? basicDamage + (basicDamage * (extraDamage * stacks)) : basicDamage);
-            //Game.PrintChat("Total: " + (int)ObjectManager.Player.CalcDamage(target, Damage.DamageType.Physical,realDamage) + " Basic: " + (int)basicDamage + " Stacks: " + stacks + " Extra: " + extraDamage + " Extra dmg: " + (int)(basicDamage * (extraDamage * stacks)));
+            double realDamage = ObjectManager.Player.CalcDamage(target, Damage.DamageType.Physical, stacks > 1 ? basicDamage + (basicDamage * extraDamage)*stacks : basicDamage);
             if (Kalista.debug)
             {
-                Game.PrintChat("Target: " + target.SkinName + " Total to target: " + (int)realDamage + " || Dealing " + basicDamagex + "(+" + (int)(0.6 * (ObjectManager.Player.BaseAttackDamage + ObjectManager.Player.FlatPhysicalDamageMod)) + ") + " + (int)(basicDamage + (basicDamage * (extraDamage * stacks))) + " (" + stacks + ")");
+                Game.PrintChat("Target: " + target.SkinName + " Total to target: " + (int)realDamage + " || Dealing " + basicDamagex + "(+" + (int)(0.6 * (ObjectManager.Player.BaseAttackDamage + ObjectManager.Player.FlatPhysicalDamageMod)) + ") Will do: " + (int)basicDamage + (basicDamage * extraDamage)*stacks + " (" + stacks + ")");
             }
             return realDamage;
         }
