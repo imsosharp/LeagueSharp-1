@@ -18,9 +18,9 @@ namespace TAC_Kalista
         {
             Game.PrintChat("---------------------------");
             Game.PrintChat("<font color='#7A6EFF'>Twilight's Auto Carry:</font> <font color='#86E5E1'>Kalista</font>");
-            Game.PrintChat("Version: <font color='#FF0000'>3.2.2</font>");
+            Game.PrintChat("Version: <font color='#FF0000'>3.2.3</font>");
             Game.PrintChat("[News]");
-            Game.PrintChat("More tweaks in E calculation, now it is just like official.");
+            Game.PrintChat("Final tweak in E, should correclty calculate and kill target at perfect moment.");
             CustomEvents.Game.OnGameLoad += Load;
         }
         public static void Load(EventArgs args)
