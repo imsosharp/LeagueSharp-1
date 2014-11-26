@@ -68,7 +68,7 @@ namespace TAC_Kalista
             //Game.PrintChat("Total: " + (int)ObjectManager.Player.CalcDamage(target, Damage.DamageType.Physical,realDamage) + " Basic: " + (int)basicDamage + " Stacks: " + stacks + " Extra: " + extraDamage + " Extra dmg: " + (int)(basicDamage * (extraDamage * stacks)));
             if (Kalista.debug)
             {
-                Game.PrintChat("Target: " + target.SkinName + " Total to target: " + (int)realDamage + " || Dealing " + basicDamagex + "(+" + (int)(0.6 * (ObjectManager.Player.BaseAttackDamage + ObjectManager.Player.FlatPhysicalDamageMod)) + ") + " + (int)basicDamage + (basicDamage * (extraDamage * stacks)) + " (" + stacks + ")");
+                Game.PrintChat("Target: " + target.SkinName + " Total to target: " + (int)realDamage + " || Dealing " + basicDamagex + "(+" + (int)(0.6 * (ObjectManager.Player.BaseAttackDamage + ObjectManager.Player.FlatPhysicalDamageMod)) + ") + " + (int)(basicDamage + (basicDamage * (extraDamage * stacks))) + " (" + stacks + ")");
             }
             return realDamage;
         }
