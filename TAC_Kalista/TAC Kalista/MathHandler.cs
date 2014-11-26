@@ -58,18 +58,19 @@ namespace TAC_Kalista
          **/
         public static double getRealDamage(Obj_AI_Base target)
         {
+            int skillLevel = SkillHandler.E.Level;
+            int stacks = target.Buffs.FirstOrDefault(b => b.DisplayName == "KalistaExpungeMarker").Count;
+            double basicDamagex = new double[] { 0, 20, 30, 40, 50, 60 }[skillLevel];
+            double basicDamage = new double[] { 0, 20, 30, 40, 50, 60 }[skillLevel] + (0.6 * (ObjectManager.Player.BaseAttackDamage + ObjectManager.Player.FlatPhysicalDamageMod));
+            double extraDamage = new double[] { 0, 0.25, 0.30, 0.35, 0.40, 0.45 }[skillLevel];
 
-            return ObjectManager.Player.CalcDamage(target,
-                Damage.DamageType.Physical,
-                    target.Buffs.FirstOrDefault(b => 
-                        b.DisplayName == "KalistaExpungeMarker").Count > 1 ? 
-                            (new double[] { 0, 20, 30, 40, 50, 60 }[SkillHandler.E.Level] 
-                                + 
-                                    (0.6 * (ObjectManager.Player.BaseAttackDamage + ObjectManager.Player.FlatPhysicalDamageMod)) 
-                                        * new double[] { 0, 1.25, 1.30, 1.35, 1.40, 1.45 }[SkillHandler.E.Level]) 
-                                            * target.Buffs.FirstOrDefault(b => b.DisplayName == "KalistaExpungeMarker").Count 
-                        : new double[] { 0, 20, 30, 40, 50, 60 }[SkillHandler.E.Level] 
-                            + (0.6 * (ObjectManager.Player.BaseAttackDamage + ObjectManager.Player.FlatPhysicalDamageMod)));
+            double realDamage = ObjectManager.Player.CalcDamage(target, Damage.DamageType.Physical, stacks > 1 ? basicDamage + (basicDamage * (extraDamage * stacks)) : basicDamage);
+            //Game.PrintChat("Total: " + (int)ObjectManager.Player.CalcDamage(target, Damage.DamageType.Physical,realDamage) + " Basic: " + (int)basicDamage + " Stacks: " + stacks + " Extra: " + extraDamage + " Extra dmg: " + (int)(basicDamage * (extraDamage * stacks)));
+            if (Kalista.debug)
+            {
+                Game.PrintChat("Target: " + target.SkinName + " Total to target: " + (int)realDamage + " || Dealing " + basicDamagex + "(+" + (int)(0.6 * (ObjectManager.Player.BaseAttackDamage + ObjectManager.Player.FlatPhysicalDamageMod)) + ") + " + (int)basicDamage + (basicDamage * (extraDamage * stacks)) + " (" + stacks + ")");
+            }
+            return realDamage;
         }
     }
 }
