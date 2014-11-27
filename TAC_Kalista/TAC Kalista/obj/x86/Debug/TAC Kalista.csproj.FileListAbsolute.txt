@@ -1,1 +1,2 @@
 C:\Users\Harold\Documents\GitHub\LeagueSharp\TAC_Kalista\TAC Kalista\bin\x86\Debug\TAC Kalista.exe.config
+C:\Users\Harold\Documents\GitHub\LeagueSharp\TAC_Kalista\TAC Kalista\obj\x86\Debug\TAC Kalista.csprojResolveAssemblyReference.cache

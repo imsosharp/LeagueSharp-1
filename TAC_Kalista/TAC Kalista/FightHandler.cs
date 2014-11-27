@@ -127,10 +127,5 @@ namespace TAC_Kalista
                 }
             }
         }
-        public static void OnFlee()
-        {
-            Obj_AI_Base dashObject = DrawingHandler.GetDashObject();
-            Orbwalking.Orbwalk(dashObject != null ? dashObject : null, Game.CursorPos);
-        }
     }
 }

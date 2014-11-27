@@ -154,23 +154,6 @@ namespace TAC_Kalista
             dxLine.End();
         }
 
-        public static Obj_AI_Base GetDashObject()
-        {
-            float realAArange = Orbwalking.GetRealAutoAttackRange(ObjectManager.Player);
-            var objects = ObjectManager.Get<Obj_AI_Base>().Where(o => o.IsValidTarget(realAArange));
-            Vector2 apexPoint = ObjectManager.Player.ServerPosition.To2D() + (ObjectManager.Player.ServerPosition.To2D() - Game.CursorPos.To2D()).Normalized() * realAArange;
-            Obj_AI_Base target = null;
-            foreach (var obj in objects)
-            {
-                if (IsLyingInCone(obj.ServerPosition.To2D(), apexPoint, ObjectManager.Player.ServerPosition.To2D(), realAArange))
-                {
-                    if (target == null || target.Distance(apexPoint, true) > obj.Distance(apexPoint, true))
-                        target = obj;
-                }
-            }
-            return target;
-        }
-
         public static bool IsLyingInCone(Vector2 position, Vector2 apexPoint, Vector2 circleCenter, float aperture)
         {
             float halfAperture = aperture / 2.0f;
