@@ -18,9 +18,9 @@ namespace TAC_Kalista
         {
             Game.PrintChat("---------------------------");
             Game.PrintChat("<font color='#7A6EFF'>Twilight's Auto Carry:</font> <font color='#86E5E1'>Kalista</font>");
-            Game.PrintChat("Version: <font color='#FF0000'>3.3</font>");
+            Game.PrintChat("Version: <font color='#FF0000'>3.4</font>");
             Game.PrintChat("[News]");
-            Game.PrintChat("New Q prediction, hopefully it will be a lot better.");
+            Game.PrintChat("BETTER wallhopping. Now will draw EVERY single possible wallhop in the entire game. To use it hold keybind and hover over the circle to jump (circle hovering is a bit buggy)");
             CustomEvents.Game.OnGameLoad += Load;
         }
         public static void Load(EventArgs args)
@@ -39,9 +39,6 @@ namespace TAC_Kalista
             debug = MenuHandler.Config.Item("debug").GetValue<bool>();
             packetCast = MenuHandler.Config.Item("Packets").GetValue<bool>();
             if (ObjectManager.Player.HasBuff("Recall")) return;
-
-            if (MenuHandler.Config.Item("DrawJumpPos").GetValue<Circle>().Active) DrawingHandler.fillPositions();
-            if (MenuHandler.Config.Item("JumpTo").GetValue<KeyBind>().Active) SkillHandler.JumpTo();
 
             if (MenuHandler.Config.Item("Orbwalk").GetValue<KeyBind>().Active)
             {
