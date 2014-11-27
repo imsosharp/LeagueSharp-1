@@ -56,7 +56,6 @@ namespace TAC_Kalista
          * >>Damage per Additional Spear: 5 / 9 / 14 / 20 / 27 (+15 / 18 / 21 / 24 / 27% AD) <<
          * , but not the slow.
          * http://ddragon.leagueoflegends.com/tool/euw/en
-         * Apperantly hellsing sucks at math, so i had to do this code on my own.
          **/
         public static double getRealDamage(Obj_AI_Base target)
         {
