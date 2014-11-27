@@ -210,6 +210,7 @@ namespace TAC_Kalista
             }
             Vector3 playerPosition = ObjectManager.Player.Position;
             Drawing.DrawCircle(ObjectManager.Player.Position, size, Color.RoyalBlue);
+            Obj_AI_Hero target = SimpleTs.GetTarget(SkillHandler.Q.Range, SimpleTs.DamageType.Physical);
             for (int i = 1; i <= n; i++)
             {
                 x =  size * Math.Cos(2 * Math.PI * i / n);
@@ -217,10 +218,13 @@ namespace TAC_Kalista
                 drawWhere = new Vector3((int)(playerPosition.X + x), (float)(playerPosition.Y + y), playerPosition.Z);
                 if (!Utility.IsWall(drawWhere))
                 {
-                    //Game.PrintChat("Am i in circle: "+(Math.Pow(Game.CursorPos.X - drawWhere.X, 2) + Math.Pow(Game.CursorPos.Y - drawWhere.Y, 2) < Math.Pow(30, 2)));
                     if (SkillHandler.Q.IsReady() && Game.CursorPos.Distance(drawWhere) <= 80f)
                     {
-                        SkillHandler.Q.Cast(new Vector2(drawWhere.X, drawWhere.Y), true);
+                        if (target != null)
+                            FightHandler.customQCast(target);
+                        else
+                            SkillHandler.Q.Cast(new Vector2(drawWhere.X, drawWhere.Y), true);
+
                         Packet.C2S.Move.Encoded(new Packet.C2S.Move.Struct(drawWhere.X, drawWhere.Y)).Send();
                         return;
                     }
