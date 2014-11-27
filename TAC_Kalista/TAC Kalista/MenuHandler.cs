@@ -83,8 +83,6 @@ namespace TAC_Kalista
 
             Config.AddSubMenu(new Menu("Wall Hop settings", "wh"));
             Config.SubMenu("wh").AddItem(new MenuItem("JumpTo", "Jump key (HOLD)").SetValue(new KeyBind("T".ToCharArray()[0], KeyBindType.Press)));
-            Config.SubMenu("wh").AddItem(new MenuItem("about0", "Not fully tested"));
-            Config.SubMenu("wh").AddItem(new MenuItem("about00", "Hold it and hover over circle to jump"));
 
             Config.AddSubMenu(new Menu("Drawings", "Drawings"));
             Config.SubMenu("Drawings").AddSubMenu(new Menu("Ranges", "range"));

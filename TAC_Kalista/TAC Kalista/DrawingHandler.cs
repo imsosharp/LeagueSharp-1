@@ -188,15 +188,14 @@ namespace TAC_Kalista
 
         /**
          * @author TwilightLoL
-         * If you copy my code I will issue a DCMA.
-         * Copying is NOT allowed!
+         * Copying without permission = DCMA.
          * */
+
         public static void getAvailableJumpSpots()
         {
             int size = 295;
             int n = 15;
-            double x;
-            double y;
+            double x,y;
             Vector3 drawWhere;
 
             if (!SkillHandler.Q.IsReady())
@@ -204,24 +203,28 @@ namespace TAC_Kalista
                 Drawing.DrawText(Drawing.Width * 0.44f, Drawing.Height * 0.80f, Color.Red,
                 "Jumping mode active, but Q isn't.");
             }
-            Drawing.DrawText(Drawing.Width * 0.39f, Drawing.Height * 0.80f, Color.White,
-            "Hover the spot to jump to ");
+            else
+            {
+                Drawing.DrawText(Drawing.Width * 0.39f, Drawing.Height * 0.80f, Color.White,
+                    "Hover the spot to jump to ");
+            }
             Vector3 playerPosition = ObjectManager.Player.Position;
             Drawing.DrawCircle(ObjectManager.Player.Position, size, Color.RoyalBlue);
-            for (int i = 0; i < n; i++)
+            for (int i = 1; i <= n; i++)
             {
                 x =  size * Math.Cos(2 * Math.PI * i / n);
                 y =  size * Math.Sin(2 * Math.PI * i / n);
                 drawWhere = new Vector3((int)(playerPosition.X + x), (float)(playerPosition.Y + y), playerPosition.Z);
                 if (!Utility.IsWall(drawWhere))
                 {
-                    if (SkillHandler.Q.IsReady() && Game.CursorPos.Distance(drawWhere) <= 20f)
+                    //Game.PrintChat("Am i in circle: "+(Math.Pow(Game.CursorPos.X - drawWhere.X, 2) + Math.Pow(Game.CursorPos.Y - drawWhere.Y, 2) < Math.Pow(30, 2)));
+                    if (SkillHandler.Q.IsReady() && Game.CursorPos.Distance(drawWhere) <= 80f)
                     {
                         SkillHandler.Q.Cast(new Vector2(drawWhere.X, drawWhere.Y), true);
                         Packet.C2S.Move.Encoded(new Packet.C2S.Move.Struct(drawWhere.X, drawWhere.Y)).Send();
                         return;
                     }
-                    Utility.DrawCircle(drawWhere, 30, Color.Red);
+                    Utility.DrawCircle(drawWhere, 20, Color.Red);
                 }
             }
 

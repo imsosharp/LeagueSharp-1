@@ -18,9 +18,9 @@ namespace TAC_Kalista
         {
             Game.PrintChat("---------------------------");
             Game.PrintChat("<font color='#7A6EFF'>Twilight's Auto Carry:</font> <font color='#86E5E1'>Kalista</font>");
-            Game.PrintChat("Version: <font color='#FF0000'>3.4</font>");
+            Game.PrintChat("Version: <font color='#FF0000'>3.4.1</font>");
             Game.PrintChat("[News]");
-            Game.PrintChat("BETTER wallhopping. Now will draw EVERY single possible wallhop in the entire game. To use it hold keybind and hover over the circle to jump (circle hovering is a bit buggy)");
+            Game.PrintChat("Improved wallhopping (hovering on circle)");
             CustomEvents.Game.OnGameLoad += Load;
         }
         public static void Load(EventArgs args)
