@@ -9,7 +9,12 @@ using SharpDX;
 using SharpDX.Direct3D9;
 using SharpDX.Direct3D;
 using Color = System.Drawing.Color;
-
+/**
+ * HP Bar Indicator by Detuks
+ * Wall-Hop by TwilightLoL
+ * Everything else is mine
+ * Fuck you Hellsing.
+ * */
 namespace TAC_Kalista
 {
     class EnemyMarker
