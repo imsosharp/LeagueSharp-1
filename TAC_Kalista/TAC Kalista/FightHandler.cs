@@ -114,6 +114,7 @@ namespace TAC_Kalista
             {
                 SkillHandler.Q.Cast(po.CastPosition, Kalista.packetCast);
             } 
+                /*
             else if (po.Hitchance == HitChance.Collision)
             {
                 var collisions = SkillHandler.Q.GetCollision(ObjectManager.Player.Position.To2D(), new List<SharpDX.Vector2> { po.CastPosition.To2D() });
@@ -125,7 +126,7 @@ namespace TAC_Kalista
                         break;
                     }
                 }
-            }
+            }*/
         }
     }
 }
