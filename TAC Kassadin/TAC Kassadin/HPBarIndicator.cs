@@ -5,6 +5,9 @@ using SharpDX.Direct3D9;
 
 namespace TAC_Kassadin
 {
+    /**
+     * @author Detuks
+     * */
     class HpBarIndicator
     {
 
