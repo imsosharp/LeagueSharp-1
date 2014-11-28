@@ -18,8 +18,9 @@ namespace TAC_Kassadin
 
         static void Main(string[] args)
         {
-            Game.PrintChat("<font color='#FF0000'>[v1.0]</font> <font color='#7A6EFF'>Twilight's Auto Carry: </font> <font color='#86E5E1'>Kassadin</font>");
             CustomEvents.Game.OnGameLoad += onLoad;
+            Game.PrintChat("<font color='#FF0000'>[v1.0]</font> <font color='#7A6EFF'>Twilight's Auto Carry: </font> <font color='#86E5E1'>Kassadin</font>");
+            Timer t = new Timer(TimerCallback, null, 0, 300000);
         }
         private static void onLoad(EventArgs e)
         {
@@ -33,7 +34,6 @@ namespace TAC_Kassadin
             Interrupter.OnPossibleToInterrupt += AutoCarryHandler.CancelChanneledSpells;
             Obj_AI_Hero.OnProcessSpellCast += AutoCarryHandler.onProcessSpellCast;
             Drawing.OnDraw += DrawingHandler.load;
-            Timer t = new Timer(TimerCallback, null, 0, 300000);
         }
 
         private static void onGameUpdate(EventArgs e)
