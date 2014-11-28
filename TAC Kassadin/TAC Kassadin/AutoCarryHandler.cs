@@ -19,7 +19,13 @@ namespace TAC_Kassadin
             float distance = ObjectManager.Player.Distance(target.Position);
             if (target == null) return;
             
-            if (MenuHandler.menu.Item("useDFG").GetValue<bool>() && MathHandler.getComboDamage(target) > target.Health && item.IsReady()) item.Cast(target);
+            if (MenuHandler.menu.Item("useDFGFull").GetValue<bool>()
+                && SkillHandler.Q.IsReady() && SkillHandler.W.IsReady() && SkillHandler.E.IsReady() && SkillHandler.R.IsReady()
+                    && MenuHandler.menu.Item("useDFG").GetValue<bool>() 
+                        && MathHandler.getComboDamage(target) > target.Health && item.IsReady()) item.Cast(target);
+            else if (!MenuHandler.menu.Item("useDFGFull").GetValue<bool>() 
+                        && MenuHandler.menu.Item("useDFG").GetValue<bool>() && MathHandler.getComboDamage(target) > target.Health && item.IsReady()) item.Cast(target);
+
             if (MenuHandler.menu.Item("acR").GetValue<bool>() && SkillHandler.R.IsReady() && distance < (SkillHandler.R.Range + SkillHandler.W.Range)) MathHandler.castR(target);
             if (MenuHandler.menu.Item("acQ").GetValue<bool>() && SkillHandler.Q.IsReady() && distance < SkillHandler.Q.Range) SkillHandler.Q.Cast(target, Program.packetCast);
             if (MenuHandler.menu.Item("acW").GetValue<bool>() && SkillHandler.W.IsReady()) SkillHandler.W.Cast(Program.packetCast);
