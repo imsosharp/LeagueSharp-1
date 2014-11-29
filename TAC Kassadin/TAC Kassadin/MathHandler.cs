@@ -23,7 +23,18 @@ namespace TAC_Kassadin
                 damage += ObjectManager.Player.GetSummonerSpellDamage(target, Damage.SummonerSpell.Ignite);
             return (float)damage * (AutoCarryHandler.item.IsReady() ? 1.2f : 1);
         }
-
+        internal static int buffCount(int witch)
+        {
+            var buffs = ObjectManager.Player.Buffs;
+            foreach (var b in buffs)
+            {
+                if (witch == 1 && b.Name.ToLower() == "riftwalk")
+                    return b.Count;
+                else if (witch == 2 && b.Name.ToLower() == "forcepulsecounter")
+                    return b.Count;
+            }
+            return 0;
+        }
         internal static float calculateShield(Obj_AI_Base target)
         {
             return new float[] { 0, 40, 70, 100, 130, 160 }[SkillHandler.Q.Level] + 0.3f*ObjectManager.Player.FlatMagicDamageMod;

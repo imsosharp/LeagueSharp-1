@@ -17,6 +17,15 @@ namespace TAC_Kassadin
         {
             Obj_AI_Hero target = SimpleTs.GetTarget(SkillHandler.E.Range, SimpleTs.DamageType.Physical);
             float distance = ObjectManager.Player.Distance(target.Position);
+            /*
+            // NullLance - shield ? // forcepulsecounter
+            foreach(var b in ObjectManager.Player.Buffs)
+            {
+                Game.PrintChat(b.Name+": x"+b.Count);
+            }*/
+            
+            
+            
             if (target == null) return;
             
             if (MenuHandler.menu.Item("useDFGFull").GetValue<bool>()
@@ -26,7 +35,11 @@ namespace TAC_Kassadin
             else if (!MenuHandler.menu.Item("useDFGFull").GetValue<bool>() 
                         && MenuHandler.menu.Item("useDFG").GetValue<bool>() && MathHandler.getComboDamage(target) > target.Health && item.IsReady()) item.Cast(target);
 
-            if (MenuHandler.menu.Item("acR").GetValue<bool>() && SkillHandler.R.IsReady() && distance < (SkillHandler.R.Range + SkillHandler.W.Range)) MathHandler.castR(target);
+            
+            if (MenuHandler.menu.Item("acR").GetValue<bool>()
+                && SkillHandler.R.IsReady() 
+                    && distance < (SkillHandler.R.Range + SkillHandler.W.Range) && distance > (SkillHandler.W.Range+100)) MathHandler.castR(target);
+            else if (MathHandler.buffCount(1) > 1 && (ObjectManager.Player.GetSpellDamage(target, SpellSlot.R) > target.Health)) MathHandler.castR(target);
             if (MenuHandler.menu.Item("acQ").GetValue<bool>() && SkillHandler.Q.IsReady() && distance < SkillHandler.Q.Range) SkillHandler.Q.Cast(target, Program.packetCast);
             if (MenuHandler.menu.Item("acW").GetValue<bool>() && SkillHandler.W.IsReady()) SkillHandler.W.Cast(Program.packetCast);
             if (MenuHandler.menu.Item("acE").GetValue<bool>() && SkillHandler.E.IsReady() && SkillHandler.E.InRange(target.Position)) MathHandler.castE(target);
@@ -74,17 +87,17 @@ namespace TAC_Kassadin
                     || (h.Health < ObjectManager.Player.GetSpellDamage(h, SpellSlot.E))
                         || (h.Health < ObjectManager.Player.GetSpellDamage(h, SpellSlot.R))))
             {
-                if (ObjectManager.Player.GetSpellDamage(target, SpellSlot.E) > target.Health)
+                if (MenuHandler.menu.Item("ksQ").GetValue<bool>() && ObjectManager.Player.GetSpellDamage(target, SpellSlot.E) > target.Health)
                 {
                     SkillHandler.Q.Cast(target, Program.packetCast);
                     break;
                 }
-                else if (ObjectManager.Player.GetSpellDamage(target, SpellSlot.E) > target.Health)
+                else if (MenuHandler.menu.Item("ksE").GetValue<bool>() && ObjectManager.Player.GetSpellDamage(target, SpellSlot.E) > target.Health)
                 {
                     MathHandler.castE(target);
                     break;
                 }
-                else if(ObjectManager.Player.GetSpellDamage(target, SpellSlot.R) > target.Health)
+                else if (MenuHandler.menu.Item("ksR").GetValue<bool>() && ObjectManager.Player.GetSpellDamage(target, SpellSlot.R) > target.Health)
                 {
                     MathHandler.castR(target);
                     break;
