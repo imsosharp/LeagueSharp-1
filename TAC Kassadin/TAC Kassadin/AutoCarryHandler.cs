@@ -46,11 +46,11 @@ namespace TAC_Kassadin
         }
         internal static void Mixed()
         {
-            Obj_AI_Hero target = SimpleTs.GetTarget(SkillHandler.E.Range, SimpleTs.DamageType.Physical);
+            Obj_AI_Hero target = SimpleTs.GetTarget(SkillHandler.R.Range, SimpleTs.DamageType.Physical);
             float distance = ObjectManager.Player.Distance(target.Position);
             if (target == null) return;
-            if (MenuHandler.menu.Item("lcQ").GetValue<bool>() && SkillHandler.Q.IsReady() && distance < SkillHandler.Q.Range) SkillHandler.Q.Cast(target, Program.packetCast);
-            if (MenuHandler.menu.Item("lcE").GetValue<bool>() && SkillHandler.E.IsReady() && SkillHandler.E.InRange(target.Position)) MathHandler.castE(target);
+            if (MenuHandler.menu.Item("mxQ").GetValue<bool>() && SkillHandler.Q.IsReady() && distance < SkillHandler.Q.Range) SkillHandler.Q.Cast(target, Program.packetCast);
+            if (MenuHandler.menu.Item("mxE").GetValue<bool>() && SkillHandler.E.IsReady() && SkillHandler.E.InRange(target.Position)) MathHandler.castE(target);
         }
         internal static void AntiGapCloser(ActiveGapcloser gapcloser)
         {
