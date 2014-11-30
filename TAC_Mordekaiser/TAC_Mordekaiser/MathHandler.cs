@@ -15,6 +15,7 @@ namespace TAC_Mordekaiser
         {
             float damage = 0f;
             if (ItemHandler.Item.IsReady()) damage += (float)ObjectManager.Player.GetItemDamage(target, Damage.DamageItems.Dfg) / 1.2f;
+            if (ItemHandler.Hex.IsReady()) damage += (float)ObjectManager.Player.GetItemDamage(target, Damage.DamageItems.Botrk);
             if (SkillHandler.Q.IsReady() && ObjectManager.Player.Distance(target) < SkillHandler.Q.Range) damage += calculateQdamage(target);
             if (SkillHandler.W.IsReady() && ObjectManager.Player.Distance(target) < Orbwalking.GetRealAutoAttackRange(ObjectManager.Player)) damage += calculateWdamage(target);
             if (SkillHandler.E.IsReady() && ObjectManager.Player.Distance(target) < SkillHandler.E.Range) damage += calculateEdamage(target);
