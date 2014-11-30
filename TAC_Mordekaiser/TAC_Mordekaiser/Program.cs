@@ -19,9 +19,10 @@ namespace TAC_Mordekaiser
         }
         private static void onLoad(EventArgs args)
         {
+            Game.OnGameUpdate += onUpdate;
             AntiGapcloser.OnEnemyGapcloser += AutoCarryHandler.AntiGapCloser;
             Obj_AI_Hero.OnProcessSpellCast += AutoCarryHandler.onProcessSpellCast;
-            Game.OnGameUpdate += onUpdate;
+            DrawingHandler.load();
         }
         private static void onUpdate(EventArgs args)
         {

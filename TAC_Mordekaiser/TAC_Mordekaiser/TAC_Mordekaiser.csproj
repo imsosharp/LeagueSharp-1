@@ -54,6 +54,7 @@
     <Compile Include="DrawingHandler.cs" />
     <Compile Include="ItemHandler.cs" />
     <Compile Include="MathHandler.cs" />
+    <Compile Include="MenuHanlder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SkillHandler.cs" />

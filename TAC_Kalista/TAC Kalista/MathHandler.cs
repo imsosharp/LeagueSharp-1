@@ -59,6 +59,7 @@ namespace TAC_Kalista
          **/
         public static double getRealDamage(Obj_AI_Base target)
         {
+            /*
             int skillLevel = SkillHandler.E.Level;
             int stacks = target.Buffs.FirstOrDefault(b => b.DisplayName == "KalistaExpungeMarker").Count;
             double basicDamagex = new double[] { 0, 20, 30, 40, 50, 60 }[skillLevel];
@@ -77,6 +78,8 @@ namespace TAC_Kalista
 //                Game.PrintChat("Target: " + target.SkinName + " Total to target: " + (int)realDamage + " || Dealing " + basicDamagex + "(+" + (int)(0.6 * (ObjectManager.Player.BaseAttackDamage + ObjectManager.Player.FlatPhysicalDamageMod)) + ") Will do: " + (int)basicDamage + (basicDamage * extraDamage) * (stacks - 1) + " (" + stacks + ")");
             }
             return realDamage;
+             * */
+            return ObjectManager.Player.GetSpellDamage(target, SpellSlot.E) * 0.9;
         }
     }
 }
