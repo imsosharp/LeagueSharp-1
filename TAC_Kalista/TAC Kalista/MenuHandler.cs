@@ -64,11 +64,13 @@ namespace TAC_Kalista
 
 
             Config.AddSubMenu(new Menu("Harass settings", "harass"));
-            Config.SubMenu("harass").AddItem(new MenuItem("stackE", "E stacks to cast").SetValue(new Slider(1, 1, 10)));
+            Config.SubMenu("harass").AddItem(new MenuItem("harassQ", "Use Q").SetValue(true));
+            Config.SubMenu("harass").AddItem(new MenuItem("stackE", "Use E at").SetValue(new Slider(1, 1, 10)));
             Config.SubMenu("harass").AddItem(new MenuItem("manaPercent", "Mana %").SetValue(new Slider(40, 1, 100)));
 
             Config.AddSubMenu(new Menu("Wave Clear settings", "wc"));
-            Config.SubMenu("wc").AddItem(new MenuItem("useEwc", "Use E to clear").SetValue(true));
+            Config.SubMenu("wc").AddItem(new MenuItem("wcQ", "Use Q").SetValue(true));
+            Config.SubMenu("wc").AddItem(new MenuItem("wcE", "Use E").SetValue(true));
             Config.SubMenu("wc").AddItem(new MenuItem("enableClear", "WaveClear enabled?").SetValue(false));
             
             Config.AddSubMenu(new Menu("Smite settings", "smite"));

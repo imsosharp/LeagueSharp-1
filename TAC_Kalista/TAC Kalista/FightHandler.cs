@@ -20,7 +20,6 @@ namespace TAC_Kalista
                             && hero.Health < (MathHandler.getRealDamage(hero) - SkillHandler.Q.GetDamage(hero))
                 )))
             {
-
                 customQCast(SimpleTs.GetTarget(SkillHandler.Q.Range, SimpleTs.DamageType.Physical));
             }
 
@@ -43,13 +42,7 @@ namespace TAC_Kalista
                 SkillHandler.E.Cast();
             }
 
-            if (MenuHandler.Config.Item("useItems").GetValue<KeyBind>().Active
-                /*// Auto all in at X champions    
-                    || ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(Orbwalking.GetRealAutoAttackRange(ObjectManager.Player))
-                            && hero.CountEnemysInRange((int)Orbwalking.GetRealAutoAttackRange(ObjectManager.Player)) <= MenuHandler.Config.Item("allInAt").GetValue<Slider>().Value)*/)
-            {
-                ItemHandler.useItem();
-            }
+            if (MenuHandler.Config.Item("useItems").GetValue<KeyBind>().Active) ItemHandler.useItem();
         }
         public static void OnHarass()
         {
@@ -58,9 +51,7 @@ namespace TAC_Kalista
             float percentManaAfterE = 100 * ((ObjectManager.Player.Mana - SkillHandler.E.Instance.ManaCost) / ObjectManager.Player.MaxMana);
             int minPercentMana = MenuHandler.Config.SubMenu("Harass").Item("manaPercent").GetValue<Slider>().Value;
 
-            var first = SkillHandler.Q.GetPrediction(target).CollisionObjects[0];
-            var second = SkillHandler.Q.GetPrediction(target).CollisionObjects[1];
-            if (first == target || first.IsMinion && first.IsEnemy && first.Health < SkillHandler.Q.GetDamage(first) && second == target && percentManaAfterQ >= minPercentMana) FightHandler.customQCast(target);
+            if (percentManaAfterQ >= minPercentMana && MenuHandler.Config.Item("harassQ").GetValue<bool>() && SkillHandler.Q.IsReady()) FightHandler.customQCast(target);
             if (SkillHandler.E.IsReady()
                     && ObjectManager.Get<Obj_AI_Hero>().Any(
                         hero => hero.IsValidTarget(SkillHandler.E.Range) 
@@ -73,15 +64,66 @@ namespace TAC_Kalista
                 SkillHandler.E.Cast(Kalista.packetCast);
             }
         }
+        /**
+         * @author Hellsing
+         * */
         public static void OnLaneClear()
         {
-            if (MenuHandler.Config.Item("enableClear").GetValue<bool>() && MenuHandler.Config.Item("useEwc").GetValue<bool>() && SkillHandler.E.IsReady())
+            if (MenuHandler.Config.Item("enableClear").GetValue<bool>())// && MenuHandler.Config.Item("useEwc").GetValue<bool>() && SkillHandler.E.IsReady())
             {
-                List<Obj_AI_Base> minions = MinionManager.GetMinions(ObjectManager.Player.Position, Orbwalking.GetRealAutoAttackRange(ObjectManager.Player),MinionTypes.All,MinionTeam.Enemy,MinionOrderTypes.Health);
-                foreach (var data in minions)
+                if (MenuHandler.Config.Item("wcQ").GetValue<bool>() && SkillHandler.Q.IsReady())
                 {
-                    if (MathHandler.getRealDamage(data) >= data.Health)
-                        SkillHandler.E.Cast();
+                    var minions = ObjectManager.Get<Obj_AI_Minion>().Where(m => m.BaseSkinName.Contains("Minion") && m.IsValidTarget(SkillHandler.Q.Range)).ToList();
+                    if (minions.Count >= 3)
+                    {
+                        minions.Sort((m1, m2) => m2.Distance(ObjectManager.Player, true).CompareTo(m1.Distance(ObjectManager.Player, true)));
+                        int bestHitCount = 0;
+                        PredictionOutput bestResult = null;
+                        foreach (var minion in minions)
+                        {
+                            var prediction = SkillHandler.Q.GetPrediction(minion);
+                            var targets = prediction.CollisionObjects;
+                            targets.Sort((t1, t2) => t1.Distance(ObjectManager.Player, true).CompareTo(t2.Distance(ObjectManager.Player, true)));
+                            targets.Add(minion);
+                            for (int i = 0; i < targets.Count; i++)
+                            {
+                                if (ObjectManager.Player.GetSpellDamage(targets[i], SpellSlot.Q) * 0.9 < targets[i].Health || i == targets.Count)
+                                {
+                                    if (i >= 3 && (bestResult == null || bestHitCount < i))
+                                    {
+                                        bestHitCount = i;
+                                        bestResult = prediction;
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                        if (bestResult != null) SkillHandler.Q.Cast(bestResult.CastPosition);
+                    }
+                }
+
+                if (MenuHandler.Config.Item("wcE").GetValue<bool>() && SkillHandler.E.IsReady())
+                {
+                    List<Obj_AI_Base> minions = MinionManager.GetMinions(ObjectManager.Player.Position, SkillHandler.E.Range);
+                    if (minions.Count >= 3)
+                    {
+                        int conditionMet = 0;
+                        foreach (var minion in minions)
+                        {
+                            if (MathHandler.getRealDamage(minion) * 0.9 > minion.Health)
+                                conditionMet++;
+                        }
+                        if (conditionMet >= 3) SkillHandler.E.Cast(true);
+                    }
+                    IEnumerable<Obj_AI_Base> minionsBig = MinionManager.GetMinions(ObjectManager.Player.Position, SkillHandler.E.Range).Where(m => m.BaseSkinName.Contains("MinionSiege"));
+                    foreach (var minion in minionsBig)
+                    {
+                        if (MathHandler.getRealDamage(minion) > minion.Health)
+                        {
+                            SkillHandler.E.Cast(true);
+                            break;
+                        }
+                    }
                 }
             }
         }
@@ -110,23 +152,16 @@ namespace TAC_Kalista
                     if (po.Hitchance >= HitChance.High) canCast = 1;
                     break;
             }
-            if (canCast > 0 && ObjectManager.Player.Distance(po.UnitPosition) < SkillHandler.Q.Range )
+            if (canCast != 0 && ObjectManager.Player.Distance(po.UnitPosition) < SkillHandler.Q.Range)
             {
                 SkillHandler.Q.Cast(po.CastPosition, Kalista.packetCast);
-            } 
-                /*
+            }
             else if (po.Hitchance == HitChance.Collision)
             {
-                var collisions = SkillHandler.Q.GetCollision(ObjectManager.Player.Position.To2D(), new List<SharpDX.Vector2> { po.CastPosition.To2D() });
-                foreach (var col in collisions.Where(x => x.IsMinion))
-                {
-                    if (col.Health > (float)Damage.GetSpellDamage(ObjectManager.Player, col, SpellSlot.Q) * 0.9f)
-                    {
-                        SkillHandler.Q.Cast(po.CastPosition,Kalista.packetCast);
-                        break;
-                    }
-                }
-            }*/
+                List<Obj_AI_Base> coll = po.CollisionObjects;
+                Obj_AI_Base goal = coll.FirstOrDefault(obj => SkillHandler.Q.GetPrediction(obj).Hitchance >= HitChance.Medium && SkillHandler.Q.GetDamage(target) > obj.Health);
+                if (goal != null) SkillHandler.Q.Cast(goal, Kalista.packetCast);
+            }
         }
     }
 }
