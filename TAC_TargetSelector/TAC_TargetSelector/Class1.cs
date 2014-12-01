@@ -13,6 +13,12 @@ namespace TAC_TargetSelector
         private static Menu _Config;
         public static TargetingMode _Mode;
         public static Obj_AI_Hero Target;
+        public enum DamageType
+        {
+            Magical,
+            Physical,
+            True,
+        }
         #region Targets
 
         private static readonly string[] ap =
@@ -58,6 +64,7 @@ namespace TAC_TargetSelector
             AutoPriority,
             LessAttack,
             LessCast,
+            Automatic,
         }
         static TS()
         {
@@ -72,16 +79,14 @@ namespace TAC_TargetSelector
                 Render.Circle.DrawCircle(Target.Position, 150, _Config.Item("SelTColor").GetValue<Circle>().Color, 7, true);
             }
         }
-        public static Obj_AI_Hero getTarget(float range = 600)
+        public static Obj_AI_Hero getTarget(DamageType damageType,float range = 600)
         {
             Obj_AI_Hero newtarget = null;
-            if (Target != null)
+            if (Target.IsValidTarget() && !IsInvulnerable(Target) && (range < 0 && Orbwalking.InAutoAttackRange(Target) || ObjectManager.Player.Distance(Target) < range))
             {
-                Game.PrintChat("Target already selected! " + Target);
-                newtarget = Target;
-                return newtarget;
+                return Target;
             }
-            if (_Mode != TargetingMode.AutoPriority)
+            if (_Mode != TargetingMode.AutoPriority && _Mode != TargetingMode.Automatic)
             {
                 foreach (var target in ObjectManager.Get<Obj_AI_Hero>().Where(target => target.IsValidTarget() && ObjectManager.Player.Distance(target) <= range))
                 {
@@ -126,7 +131,7 @@ namespace TAC_TargetSelector
                     }
                 }
             }
-            else
+            else if (_Mode != TargetingMode.Automatic && _Mode == TargetingMode.AutoPriority)
             {
                 int prio = 5;
 
@@ -159,8 +164,81 @@ namespace TAC_TargetSelector
                     }
                 }
             }
-            Target = newtarget;
+            else
+            {
+                // Group targets by priority
+                // Check targets by HP, Attacks, Cast etc
+                // Decide witch target to focus
+                var bestRatio = 0f;
+                foreach (var hero in ObjectManager.Get<Obj_AI_Hero>())
+                {
+                    if (!hero.IsValidTarget() || IsInvulnerable(hero) ||
+                        ((!(range < 0) || !Orbwalking.InAutoAttackRange(hero)) && !(ObjectManager.Player.Distance(hero) < range)))
+                    {
+                        continue;
+                    }
+                    var damage = 0f;
+
+                    switch (damageType)
+                    {
+                        case DamageType.Magical:
+                            damage = (float)ObjectManager.Player.CalcDamage(hero, Damage.DamageType.Magical, 100);
+                            break;
+                        case DamageType.Physical:
+                            damage = (float)ObjectManager.Player.CalcDamage(hero, Damage.DamageType.Physical, 100);
+                            break;
+                        case DamageType.True:
+                            damage = 100;
+                            break;
+                    }
+
+                    var ratio = damage / (1 + hero.Health) * GetPriority(hero);
+
+                    if (ratio > bestRatio)
+                    {
+                        bestRatio = ratio;
+                        newtarget = hero;
+                    }
+                }
+            }
             return newtarget;
+        }
+        public static float GetPriority(Obj_AI_Hero hero)
+        {
+            var p = 1;
+            if (_Config != null && _Config.Item("priority"+hero.ChampionName) != null)
+            {
+                p = _Config.Item("priority" + hero.ChampionName).GetValue<Slider>().Value;
+            }
+
+            switch (p)
+            {
+                case 2:
+                    return 1.5f;
+                case 3:
+                    return 1.75f;
+                case 4:
+                    return 2f;
+                case 5:
+                    return 2.5f;
+                default:
+                    return 1f;
+            }
+        }
+        public static bool IsInvulnerable(Obj_AI_Base target)
+        {
+            //TODO: add yasuo wall, spellshields, etc.
+            if (target.HasBuff("Undying Rage") && target.Health >= 2f)
+            {
+                return true;
+            }
+
+            if (target.HasBuff("JudicatorIntervention"))
+            {
+                return true;
+            }
+
+            return false;
         }
         private static int FindPrioForTarget(string ChampionName)
         {
