@@ -137,6 +137,7 @@ namespace TAC_Kalista
         public static void customQCast(Obj_AI_Hero target)
         {
             if (!SkillHandler.Q.IsReady() || target == null) return;
+            if ((100 * ((ObjectManager.Player.Mana - SkillHandler.Q.Instance.ManaCost) / ObjectManager.Player.MaxMana)) >= 3) return;
 
             PredictionOutput po = SkillHandler.Q.GetPrediction(target);
             int canCast = 0;
