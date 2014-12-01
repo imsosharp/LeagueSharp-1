@@ -75,9 +75,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TAC_TargetSelector">
-      <HintPath>C:\LeagueSharp\\System\TAC_TargetSelector.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoCarryHandler.cs" />
