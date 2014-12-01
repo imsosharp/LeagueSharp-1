@@ -158,6 +158,17 @@ namespace TAC_Kalista
                 }
             }
         }
+        internal static void AntiGapCloser(ActiveGapcloser gapcloser)
+        {
+            if (MenuHandler.Config.Item("antiGap").GetValue<bool>() && gapcloser.Sender.IsValidTarget(MenuHandler.Config.Item("antiGapRange").GetValue<Slider>().Value))
+            {
+                if (SkillHandler.Q.IsReady() && gapcloser.Sender.IsValidTarget(MenuHandler.Config.Item("antiGapRange").GetValue<Slider>().Value))
+                {
+                    SkillHandler.Q.CastOnUnit(gapcloser.Sender, Kalista.packetCast);
+                    Orbwalking.Orbwalk(gapcloser.Sender, Game.CursorPos);
+                }
+            }
+        }
         public static void customQCast(Obj_AI_Hero target)
         {
             if (!SkillHandler.Q.IsReady() || target == null) return;
