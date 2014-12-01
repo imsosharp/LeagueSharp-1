@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Threading;
 using LeagueSharp;
 using LeagueSharp.Common;
+using TAC_TargetSelector;
 
 namespace TAC_Kassadin
 {
@@ -15,7 +16,8 @@ namespace TAC_Kassadin
         internal static Items.Item item = Utility.Map.GetMap()._MapType == Utility.Map.MapType.TwistedTreeline || Utility.Map.GetMap()._MapType == Utility.Map.MapType.CrystalScar ? new Items.Item(3188, 750) : new Items.Item(3128, 750);
         internal static void AutoCarry()
         {
-            Obj_AI_Hero target = SimpleTs.GetTarget(SkillHandler.E.Range, SimpleTs.DamageType.Physical);
+            Obj_AI_Hero target = TS.getTarget(SkillHandler.E.Range);
+//            Obj_AI_Hero target = SimpleTs.GetTarget(SkillHandler.E.Range, SimpleTs.DamageType.Physical);
             float distance = ObjectManager.Player.Distance(target.Position);
             /*
             // NullLance - shield ? // forcepulsecounter
@@ -46,7 +48,7 @@ namespace TAC_Kassadin
         }
         internal static void Mixed()
         {
-            Obj_AI_Hero target = SimpleTs.GetTarget(SkillHandler.R.Range, SimpleTs.DamageType.Physical);
+            Obj_AI_Hero target = TS.getTarget(SkillHandler.R.Range);
             float distance = ObjectManager.Player.Distance(target.Position);
             if (target == null) return;
             if (MenuHandler.menu.Item("mxQ").GetValue<bool>() && SkillHandler.Q.IsReady() && distance < SkillHandler.Q.Range) SkillHandler.Q.Cast(target, Program.packetCast);

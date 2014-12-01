@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using LeagueSharp;
 using LeagueSharp.Common;
 using Color = System.Drawing.Color;
+using TAC_TargetSelector;
 
 namespace TAC_Kassadin
 {
@@ -16,9 +17,10 @@ namespace TAC_Kassadin
         {
             menu = new Menu("TAC Kassadin","tac_kassadin",true);
 
-            Menu targetSelector = new Menu("Target selector","ts");
-            SimpleTs.AddToMenu(targetSelector);
-            menu.AddSubMenu(targetSelector);
+//            Menu targetSelector = new Menu("Target selector","ts");
+            TS.createMenu(menu);
+//            SimpleTs.AddToMenu(targetSelector);
+//            menu.AddSubMenu(targetSelector);
 
             Menu orbwalker = new Menu("Orbwalker", "orbwalker");
             Program.orb = new Orbwalking.Orbwalker(orbwalker);
