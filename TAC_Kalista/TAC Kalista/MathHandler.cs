@@ -15,7 +15,7 @@ namespace TAC_Kalista
             double damage = 0;//ObjectManager.Player.GetAutoAttackDamage(target);
             if (SkillHandler.Q.IsReady() && ObjectManager.Player.Distance(target) < SkillHandler.Q.Range)
                 damage += ObjectManager.Player.GetSpellDamage(target, SpellSlot.Q);
-            if (SkillHandler.E.IsReady() && ObjectManager.Player.Distance(targte) < SkillHandler.E.Range)
+            if (SkillHandler.E.IsReady() && ObjectManager.Player.Distance(target) < SkillHandler.E.Range)
                 damage += getRealDamage(target);
             return (float)damage;
         }

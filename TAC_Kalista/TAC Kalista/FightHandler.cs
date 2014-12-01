@@ -10,6 +10,7 @@ namespace TAC_Kalista
 {
     class FightHandler
     {
+        internal static Obj_AI_Hero soul = null;
         public static void OnCombo()
         {
             // Cast Q if out of range with E
@@ -133,7 +134,30 @@ namespace TAC_Kalista
             if (sender.IsMe && args.SData.Name == "KalistaExpungeWrapper") 
                 Utility.DelayAction.Add(250,Orbwalking.ResetAutoAttackTimer);
         }
-
+        public static void saveSould()
+        {
+            if (soul == null)
+            {
+                foreach (var ally in
+                    from ally in ObjectManager.Get<Obj_AI_Hero>().Where(tx => tx.IsAlly && !tx.IsDead && !tx.IsMe)
+                    where ObjectManager.Player.Distance(ally) <= SkillHandler.R.Range
+                    from buff in ally.Buffs
+                    where ally.HasBuff("kalistacoopstrikeally")
+                    select ally)
+                {
+                    soul = ally;
+                    break;
+                }
+            }
+            else
+            {
+                if((soul.Health/soul.MaxHealth) > MenuHandler.Config.Item("soulHP").GetValue<Slider>().Value 
+                        && soul.CountEnemysInRange((int)Orbwalking.GetRealAutoAttackRange(soul)) >= MenuHandler.Config.Item("soulEnemyCount").GetValue<Slider>().Value)
+                {
+                    SkillHandler.R.Cast(Kalista.packetCast);
+                }
+            }
+        }
         public static void customQCast(Obj_AI_Hero target)
         {
             if (!SkillHandler.Q.IsReady() || target == null) return;

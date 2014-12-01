@@ -62,6 +62,11 @@ namespace TAC_Kalista
                 }
             }
 
+            Config.AddSubMenu(new Menu("Misc", "misc"));
+            Config.SubMenu("misc").AddItem(new MenuItem("saveSould", "Save soulbound").SetValue(true));
+            Config.SubMenu("misc").AddItem(new MenuItem("soulHP", "Save soul at HP%").SetValue(new Slider(15,1,100)));
+            Config.SubMenu("misc").AddItem(new MenuItem("soulEnemyCount", "and at X enemy around").SetValue(new Slider(3,1,5)));
+            Config.SubMenu("misc").AddItem(new MenuItem("antiGap", "Anti-Gap Closer").SetValue(false));
 
             Config.AddSubMenu(new Menu("Harass settings", "harass"));
             Config.SubMenu("harass").AddItem(new MenuItem("harassQ", "Use Q").SetValue(true));
