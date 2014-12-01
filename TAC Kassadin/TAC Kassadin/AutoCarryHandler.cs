@@ -56,7 +56,7 @@ namespace TAC_Kassadin
         }
         internal static void AntiGapCloser(ActiveGapcloser gapcloser)
         {
-            if (MenuHandler.menu.Item("antiGap").GetValue<bool>())
+            if (MenuHandler.menu.Item("antiGap").GetValue<bool>() && gapcloser.Sender.IsValidTarget(SkillHandler.E.Range))
             {
                 if (gapcloser.Sender.FlatMagicDamageMod > 0 && SkillHandler.Q.IsReady() && gapcloser.Sender.IsValidTarget(SkillHandler.Q.Range)) SkillHandler.Q.Cast(gapcloser.Sender, Program.packetCast);
                 if (SkillHandler.E.IsReady() && gapcloser.Sender.IsValidTarget(SkillHandler.E.Range)) SkillHandler.E.CastOnUnit(gapcloser.Sender, Program.packetCast);

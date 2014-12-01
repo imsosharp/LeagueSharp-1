@@ -13,6 +13,7 @@ namespace TAC_TargetSelector
         private static Menu _Config;
         public static TargetingMode _Mode;
         public static Obj_AI_Hero Target;
+        private static Dictionary<string,float> targetsPriority = new Dictionary<string,float>();
         public enum DamageType
         {
             Magical,
@@ -166,10 +167,8 @@ namespace TAC_TargetSelector
             }
             else
             {
-                // Group targets by priority
-                // Check targets by HP, Attacks, Cast etc
-                // Decide witch target to focus
                 var bestRatio = 0f;
+//                targetsPriority.Clear(); // Refresh list
                 foreach (var hero in ObjectManager.Get<Obj_AI_Hero>())
                 {
                     if (!hero.IsValidTarget() || IsInvulnerable(hero) ||
@@ -192,14 +191,20 @@ namespace TAC_TargetSelector
                             break;
                     }
 
+
+
                     var ratio = damage / (1 + hero.Health) * GetPriority(hero);
 
+//                    targetsPriority.Add(hero.BaseSkinName, ratio);
                     if (ratio > bestRatio)
                     {
                         bestRatio = ratio;
                         newtarget = hero;
                     }
                 }
+                // after we done some calculations, we should select the new target
+//                KeyValuePair<string,float> bestTarget = targetsPriority.OrderByDescending(kv => kv.Value).Last();
+//                Game.PrintChat("Best target is: "+bestTarget);
             }
             return newtarget;
         }
@@ -213,15 +218,16 @@ namespace TAC_TargetSelector
 
             switch (p)
             {
+                case 1:
+                default:
+                    return 2.5f;
                 case 2:
-                    return 1.5f;
+                    return 2f;
                 case 3:
                     return 1.75f;
                 case 4:
-                    return 2f;
+                    return 1.5f;
                 case 5:
-                    return 2.5f;
-                default:
                     return 1f;
             }
         }
