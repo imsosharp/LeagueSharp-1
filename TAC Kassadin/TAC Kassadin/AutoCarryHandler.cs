@@ -7,7 +7,6 @@ using System.Globalization;
 using System.Threading;
 using LeagueSharp;
 using LeagueSharp.Common;
-using TAC_TargetSelector;
 
 namespace TAC_Kassadin
 {
