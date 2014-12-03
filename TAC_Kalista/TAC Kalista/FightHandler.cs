@@ -164,7 +164,8 @@ namespace TAC_Kalista
         }
         internal static void AntiGapCloser(ActiveGapcloser gapcloser)
         {
-            if (!MenuHandler.Config.Item("antiGapPrevent").GetValue<bool>() && MenuHandler.Config.Item("antiGap").GetValue<bool>() && gapcloser.Sender.IsValidTarget(MenuHandler.Config.Item("antiGapRange").GetValue<Slider>().Value))
+            if(MenuHandler.orb.ActiveMode == Orbwalking.OrbwalkingMode.Combo && MenuHandler.Config.Item("antiGapPrevent").GetValue<bool>()) return;
+            if (MenuHandler.Config.Item("antiGap").GetValue<bool>() && gapcloser.Sender.IsValidTarget(MenuHandler.Config.Item("antiGapRange").GetValue<Slider>().Value))
             {
                 if (SkillHandler.Q.IsReady() && gapcloser.Sender.IsValidTarget(MenuHandler.Config.Item("antiGapRange").GetValue<Slider>().Value))
                 {
