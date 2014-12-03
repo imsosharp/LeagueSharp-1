@@ -19,6 +19,25 @@ namespace TAC_Kalista
                 damage += getRealDamage(target);
             return (float)damage;
         }
+        internal static void castMinionE(Obj_AI_Base target)
+        {
+            if (ObjectManager.Get<Obj_AI_Hero>().Any(
+                        hero => hero.IsValidTarget(SkillHandler.E.Range)
+                            &&
+                                hero.Buffs.FirstOrDefault(b => b.Name.ToLower() == "kalistaexpungemarker").Count >= 1
+                            ))
+            {
+                List<Obj_AI_Base> minions = MinionManager.GetMinions(ObjectManager.Player.Position, SkillHandler.E.Range,MinionTypes.All,MinionTeam.Enemy,MinionOrderTypes.Health);
+                foreach (var minion in minions)
+                {
+                    if (MathHandler.getRealDamage(minion) * 0.9 > minion.Health)
+                    {
+                        SkillHandler.E.Cast(Kalista.packetCast);
+                        break;
+                    }
+                }
+            }        
+        }
 
         public static float GetPlayerHealthPercentage()
         {

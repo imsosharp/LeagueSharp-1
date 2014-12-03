@@ -13,7 +13,7 @@ namespace TAC_Kalista
         internal static Obj_AI_Hero soul = null;
         public static void OnCombo()
         {
-            // Cast Q if out of range with E
+            if (MenuHandler.Config.Item("useItems").GetValue<KeyBind>().Active) ItemHandler.useItem();
 
             if (MenuHandler.Config.Item("UseQAC").GetValue<bool>() || 
                     (ObjectManager.Get<Obj_AI_Hero>().Any(
@@ -42,8 +42,8 @@ namespace TAC_Kalista
             {
                 SkillHandler.E.Cast();
             }
-
-            if (MenuHandler.Config.Item("useItems").GetValue<KeyBind>().Active) ItemHandler.useItem();
+            if (SkillHandler.E.IsReady())
+                MathHandler.castMinionE(SimpleTs.GetTarget(SkillHandler.E.Range, SimpleTs.DamageType.Physical));
         }
         public static void OnHarass()
         {
@@ -63,6 +63,10 @@ namespace TAC_Kalista
                     percentManaAfterE >= minPercentMana)
             {
                 SkillHandler.E.Cast(Kalista.packetCast);
+            }
+            if(SkillHandler.E.IsReady() && target.IsValidTarget(SkillHandler.E.Range))
+            {
+                MathHandler.castMinionE(SimpleTs.GetTarget(SkillHandler.E.Range,SimpleTs.DamageType.Physical));
             }
         }
         /**
@@ -160,7 +164,7 @@ namespace TAC_Kalista
         }
         internal static void AntiGapCloser(ActiveGapcloser gapcloser)
         {
-            if (MenuHandler.Config.Item("antiGap").GetValue<bool>() && gapcloser.Sender.IsValidTarget(MenuHandler.Config.Item("antiGapRange").GetValue<Slider>().Value))
+            if (!MenuHandler.Config.Item("antiGapPrevent").GetValue<bool>() && MenuHandler.Config.Item("antiGap").GetValue<bool>() && gapcloser.Sender.IsValidTarget(MenuHandler.Config.Item("antiGapRange").GetValue<Slider>().Value))
             {
                 if (SkillHandler.Q.IsReady() && gapcloser.Sender.IsValidTarget(MenuHandler.Config.Item("antiGapRange").GetValue<Slider>().Value))
                 {

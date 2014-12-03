@@ -67,7 +67,8 @@ namespace TAC_Kalista
             Config.SubMenu("misc").AddItem(new MenuItem("soulHP", "Save soul at HP%").SetValue(new Slider(15,1,100)));
             Config.SubMenu("misc").AddItem(new MenuItem("soulEnemyCount", "and at X enemy around").SetValue(new Slider(3, 1, 5)));
             Config.SubMenu("misc").AddItem(new MenuItem("antiGap", "Anti-Gap Closer").SetValue(false));
-            Config.SubMenu("misc").AddItem(new MenuItem("antiGapRange", "Gap close range").SetValue(new Slider(300,200,(int)Orbwalking.GetRealAutoAttackRange(ObjectManager.Player))));
+            Config.SubMenu("misc").AddItem(new MenuItem("antiGapRange", "Gap close range").SetValue(new Slider(300, 300, 400)));
+            Config.SubMenu("misc").AddItem(new MenuItem("antiGapPrevent", "Prevent Anti-Gap in Combo mode").SetValue(true));
 
             Config.AddSubMenu(new Menu("Harass settings", "harass"));
             Config.SubMenu("harass").AddItem(new MenuItem("harassQ", "Use Q").SetValue(true));
