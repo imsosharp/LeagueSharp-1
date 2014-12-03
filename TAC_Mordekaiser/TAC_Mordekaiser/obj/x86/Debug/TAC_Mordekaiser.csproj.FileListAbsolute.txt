@@ -1,1 +1,2 @@
 C:\Users\Harold\Documents\GitHub\LeagueSharp\TAC_Mordekaiser\TAC_Mordekaiser\bin\x86\Debug\TAC_Mordekaiser.exe.config
+C:\Users\Twilight\Documents\GitHub\LeagueSharp\TAC_Mordekaiser\TAC_Mordekaiser\bin\x86\Debug\TAC_Mordekaiser.exe.config

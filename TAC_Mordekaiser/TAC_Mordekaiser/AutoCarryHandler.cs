@@ -16,16 +16,16 @@ namespace TAC_Mordekaiser
         {
             Obj_AI_Hero target = SimpleTs.GetTarget(SkillHandler.E.Range, SimpleTs.DamageType.Magical);
             float distance = ObjectManager.Player.Distance(target);
-            if (SkillHandler.Q.IsReady())
-            {
-                SkillHandler.Q.Cast(Program.packetCast);
-            }
-            if(MenuHandler.Config.Item("no"+target.BaseSkinName).GetValue<bool>() && !cloneReady() && SkillHandler.R.IsReady() && MathHandler.getTotalDamageToTarget(target) > target.Health && distance < ItemHandler.Item.Range)
+            if (MenuHandler.Config.Item("no" + target.BaseSkinName).GetValue<bool>() && !cloneReady() && SkillHandler.R.IsReady() && MathHandler.getTotalDamageToTarget(target) > target.Health && distance < ItemHandler.Item.Range)
             {
                 ItemHandler.Item.Cast(target);
                 ItemHandler.castHex(target);
-                ItemHandler.castIgnite(target);
                 SkillHandler.R.Cast(target, Program.packetCast);
+            }
+            if (SkillHandler.W.IsReady()) SkillHandler.W.Cast(ObjectManager.Player, Program.packetCast);
+            if (SkillHandler.Q.IsReady())
+            {
+                SkillHandler.Q.Cast(Program.packetCast);
             }
             if(cloneReady() && Environment.TickCount >= SlaveDelay)
             {
@@ -36,7 +36,11 @@ namespace TAC_Mordekaiser
             {
                 SkillHandler.E.Cast(target.Position, Program.packetCast);
             }
-            if (SkillHandler.W.IsReady()) SkillHandler.W.Cast(ObjectManager.Player, Program.packetCast);
+            if (MenuHandler.Config.Item("no" + target.BaseSkinName).GetValue<bool>() && !cloneReady() && SkillHandler.R.IsReady() && MathHandler.getTotalDamageToTarget(target) > target.Health && distance < ItemHandler.Item.Range)
+            {
+                ItemHandler.castIgnite(target);
+                SkillHandler.R.Cast(target, Program.packetCast);
+            }
         }
 
         internal static void Mixed()
