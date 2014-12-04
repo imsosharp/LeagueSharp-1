@@ -15,18 +15,8 @@ namespace TAC_Kassadin
         internal static Items.Item item = Utility.Map.GetMap()._MapType == Utility.Map.MapType.TwistedTreeline || Utility.Map.GetMap()._MapType == Utility.Map.MapType.CrystalScar ? new Items.Item(3188, 750) : new Items.Item(3128, 750);
         internal static void AutoCarry()
         {
-//            Obj_AI_Hero target = TS.getTarget(TS.DamageType.Magical,SkillHandler.E.Range);
             Obj_AI_Hero target = SimpleTs.GetTarget(SkillHandler.E.Range, SimpleTs.DamageType.Physical);
             float distance = ObjectManager.Player.Distance(target.Position);
-            /*
-            // NullLance - shield ? // forcepulsecounter
-            foreach(var b in ObjectManager.Player.Buffs)
-            {
-                Game.PrintChat(b.Name+": x"+b.Count);
-            }*/
-            
-            
-            
             if (target == null) return;
             
             if (MenuHandler.menu.Item("useDFGFull").GetValue<bool>()

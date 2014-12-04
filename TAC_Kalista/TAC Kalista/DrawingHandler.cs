@@ -9,19 +9,8 @@ using SharpDX;
 using SharpDX.Direct3D9;
 using SharpDX.Direct3D;
 using Color = System.Drawing.Color;
-/**
- * HP Bar Indicator by Detuks
- * Wall-Hop by TwilightLoL
- * Everything else is mine
- * */
 namespace TAC_Kalista
 {
-    class EnemyMarker
-    {
-        public string ChampionName { get; set; }
-        public double ExpireTime { get; set; }
-        public int BuffCount { get; set; }
-    }
     class DrawingHandler
     {
         public static SharpDX.Direct3D9.Device dxDevice = Drawing.Direct3DDevice;
@@ -31,7 +20,6 @@ namespace TAC_Kalista
         public static float hight = 9;
         public static readonly Vector3[] wallhops = new[] { new Vector3(794, 5914, 50), new Vector3(792, 6208, -71), new Vector3(10906, 7498, 52), new Vector3(10872, 7208, 51), new Vector3(11900, 4870, 51), new Vector3(11684, 4694, -71), new Vector3(12046, 5376, 54), new Vector3(12284, 5382, 51), new Vector3(11598, 8676, 62), new Vector3(11776, 8890, 50), new Vector3(8646, 9584, 50), new Vector3(8822, 9406, 51), new Vector3(6606, 11756, 53), new Vector3(6494, 12056, 56), new Vector3(5164, 12090, 56), new Vector3(5146, 11754, 56), new Vector3(5780, 10650, 55), new Vector3(5480, 10620, -71), new Vector3(3174, 9856, 52), new Vector3(3398, 10080, -65), new Vector3(2858, 9448, 51), new Vector3(2542, 9466, 52), new Vector3(3700, 7416, 51), new Vector3(3702, 7702, 52), new Vector3(3224, 6308, 52), new Vector3(3024, 6312, 57), new Vector3(4724, 5608, 50), new Vector3(4610, 5868, 51), new Vector3(6124, 5308, 48), new Vector3(6010, 5522, 51), new Vector3(9322, 4514, -71), new Vector3(9022, 4508, 52), new Vector3(6826, 8628, -71), new Vector3(7046, 8750, 52), };
         public static int minRange = 100;
-        public static readonly List<EnemyMarker> xEnemyMarker = new List<EnemyMarker>();
 
         public static void init()
         {
@@ -84,6 +72,9 @@ namespace TAC_Kalista
                 }
             }
         }
+        /**
+         * @author detuks
+         * */
         public static void OnEndScene(EventArgs args)
         {
             if (MenuHandler.Config.Item("drawHp").GetValue<bool>())
@@ -173,10 +164,16 @@ namespace TAC_Kalista
 
 
 
-        /**
-         * @author TwilightLoL
-         * Copying without permission = DCMA.
-         * */
+
+
+
+
+
+
+
+
+
+
 
         public static void getAvailableJumpSpots()
         {

@@ -17,6 +17,9 @@ namespace TAC_Kassadin
         internal static SpellSlot IgniteSlot = ObjectManager.Player.GetSpellSlot("SummonerDot");
 
     }
+    /**
+     * @author Kurisu
+     * */
     public class SpellData
     {
         public static List<String> SpellName = new List<string>()

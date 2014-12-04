@@ -23,6 +23,9 @@ namespace TAC_Mordekaiser
             R.SetTargetted(0.5f, 1500f);
         }
     }
+    /**
+     * @author kurisu
+     * */
     public class SpellData
     {
         public static List<String> SpellName = new List<string>()

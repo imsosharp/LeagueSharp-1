@@ -4,8 +4,7 @@ using LeagueSharp;
 using LeagueSharp.Common;
 using System.Collections.Generic;
 /**
- * Code was written by Esk0r (xQx)
- * I redesigned the code for my needs.
+ * @author xQx
  */
 namespace TAC_Kalista
 {

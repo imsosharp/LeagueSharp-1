@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace TAC_Kalista
 {
+    /**
+     * @author metaphorce 
+     */
     class SmiteHandler
     {
         private static readonly string[] MinionNames = { 

@@ -101,8 +101,6 @@ namespace TAC_Kalista
             Config.SubMenu("Drawings").SubMenu("range").AddItem(new MenuItem("ERange", "E range").SetValue(new Circle(true, Color.FromArgb(100, Color.BlueViolet))));
             Config.SubMenu("Drawings").SubMenu("range").AddItem(new MenuItem("drawESlow", "E slow range").SetValue(true));
             Config.SubMenu("Drawings").SubMenu("range").AddItem(new MenuItem("RRange", "R range").SetValue(new Circle(false, Color.FromArgb(100, Color.Blue))));
-            Config.SubMenu("Drawings").AddItem(new MenuItem("DrawJumpPos", "Draw wallhop spots")).SetValue(new Circle(false, Color.HotPink));
-            Config.SubMenu("Drawings").AddItem(new MenuItem("DrawJumpPosRange", "Spot range by skill:").SetValue(new StringList(new[] { "Q", "E", "R", "AA" }, 2)));
             Config.SubMenu("Drawings").AddItem(new MenuItem("drawHp", "Draw damage on HP bar")).SetValue(true);
             Config.SubMenu("Drawings").AddItem(new MenuItem("drawStacks", "Draw total stacks")).SetValue(true);
             Config.SubMenu("Drawings").AddItem(new MenuItem("enableDrawings", "Enable all drawings").SetValue(true));          

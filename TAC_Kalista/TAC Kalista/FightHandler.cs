@@ -132,12 +132,15 @@ namespace TAC_Kalista
                 }
             }
         }
-
+        /**
+         * @author Hellsing
+         * */
         public static void OnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
             if (sender.IsMe && args.SData.Name == "KalistaExpungeWrapper") 
                 Utility.DelayAction.Add(250,Orbwalking.ResetAutoAttackTimer);
         }
+
         public static void saveSould()
         {
             if (soul == null)
@@ -162,6 +165,7 @@ namespace TAC_Kalista
                 }
             }
         }
+
         internal static void AntiGapCloser(ActiveGapcloser gapcloser)
         {
             if(MenuHandler.orb.ActiveMode == Orbwalking.OrbwalkingMode.Combo && MenuHandler.Config.Item("antiGapPrevent").GetValue<bool>()) return;

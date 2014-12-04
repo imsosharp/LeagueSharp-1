@@ -36,7 +36,9 @@ namespace TAC_Kassadin
                 }
             }
         }
-
+        /**
+         * @author detuks
+         * */
         internal static void OnEndScene(EventArgs args)
         {
             if (MenuHandler.menu.Item("drawHp").GetValue<bool>())

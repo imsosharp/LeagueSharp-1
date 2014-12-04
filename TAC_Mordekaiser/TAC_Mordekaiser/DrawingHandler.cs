@@ -42,7 +42,9 @@ namespace TAC_Mordekaiser
                 }
             }
         }
-
+        /**
+         * @author detuks
+         * */
         internal static void OnEndScene(EventArgs args)
         {
             if (MenuHandler.Config.Item("drawHp").GetValue<bool>())
