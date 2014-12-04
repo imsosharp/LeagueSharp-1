@@ -25,9 +25,14 @@ namespace Anti_Rage
         {
             Game.PrintChat("Anti motherfucker loaded.");
             Config = new Menu("anti-rage", "Anti-Rage", true);
-            Config.AddItem(new MenuItem("restrict","Restrict chat usage").SetValue(true));
-            Config.AddItem(new MenuItem("filter","Restrict chat if i flame").SetValue(true));
+            Config.AddItem(new MenuItem("restrict", "Restrict chat usage").SetValue(true));
+            Config.AddItem(new MenuItem("filter", "Restrict chat if i flame").SetValue(true));
+            Config.AddItem(new MenuItem("mute", "Auto-Mute all at start").SetValue(true));
             Config.AddToMainMenu();
+            if (Config.Item("mute").GetValue<bool>())
+            {
+                Game.Say("/mute all");
+            }
             Game.OnGameInput += chatrestrict;
         }
         private static void chatrestrict(GameInputEventArgs args)

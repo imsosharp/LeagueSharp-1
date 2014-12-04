@@ -10,3 +10,5 @@ C:\Users\Harold\Documents\GitHub\LeagueSharp\Anti-Rage\Anti-Rage\bin\x86\Release
 C:\Users\Harold\Documents\GitHub\LeagueSharp\Anti-Rage\Anti-Rage\bin\x86\Release\LeagueSharp.xml
 C:\Users\Harold\Documents\GitHub\LeagueSharp\Anti-Rage\Anti-Rage\obj\x86\Release\Anti-Rage.exe
 C:\Users\Harold\Documents\GitHub\LeagueSharp\Anti-Rage\Anti-Rage\obj\x86\Release\Anti-Rage.pdb
+C:\Users\Twilight\Documents\GitHub\LeagueSharp\Anti-Rage\Anti-Rage\bin\x86\Release\Anti-Rage.exe.config
+C:\Users\Twilight\Documents\GitHub\LeagueSharp\Anti-Rage\Anti-Rage\obj\x86\Release\Anti-Rage.pdb
