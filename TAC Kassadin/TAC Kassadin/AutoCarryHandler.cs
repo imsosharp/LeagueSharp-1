@@ -71,6 +71,16 @@ namespace TAC_Kassadin
                     Program.UseShield = true;
             }
         }
+        internal static void chargeE()
+        {
+            if (MenuHandler.menu.Item("chargeE").GetValue<bool>() && SkillHandler.W.IsReady() && ObjectManager.Player.CountEnemysInRange((int)SkillHandler.R.Range * 2) == 0)
+            {
+                if (MathHandler.buffCount(2) >= MenuHandler.menu.Item("chargeEto").GetValue<Slider>().Value)
+                {
+                    SkillHandler.W.Cast(Program.packetCast);
+                }
+            }
+        }
         internal static void KillSecure()
         {
             foreach (var target in ObjectManager.Get<Obj_AI_Hero>().Where(h => 

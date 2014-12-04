@@ -42,6 +42,8 @@ namespace TAC_Kassadin
             menu.SubMenu("misc").AddItem(new MenuItem("useShieldHP", "Use Seraph at X HP").SetValue(new Slider(30, 10, 100)));
             menu.SubMenu("misc").AddItem(new MenuItem("useDFG", "Use DFG").SetValue(true));
             menu.SubMenu("misc").AddItem(new MenuItem("useDFGFull", "Use DFG on full combo only").SetValue(true));
+            menu.SubMenu("misc").AddItem(new MenuItem("chargeE", "Smart E charging").SetValue(true));
+            menu.SubMenu("misc").AddItem(new MenuItem("chargeEto", "Charge E to").SetValue(new Slider(4,1,5)));
 
 
             menu.AddSubMenu(new Menu("Kill-Secure", "ks"));

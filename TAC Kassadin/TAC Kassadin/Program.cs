@@ -19,7 +19,7 @@ namespace TAC_Kassadin
         static void Main(string[] args)
         {
             CustomEvents.Game.OnGameLoad += onLoad;
-            Game.PrintChat("<font color='#FF0000'>[v1.2]</font> <font color='#7A6EFF'>Twilight's Auto Carry: </font> <font color='#86E5E1'>Kassadin</font>");
+            Game.PrintChat("<font color='#FF0000'>[v1.3]</font> <font color='#7A6EFF'>Twilight's Auto Carry: </font> <font color='#86E5E1'>Kassadin</font>");
             Timer t = new Timer(TimerCallback, null, 0, 300000);
         }
         private static void onLoad(EventArgs e)
