@@ -28,12 +28,23 @@ namespace Anti_Rage
             Config.AddItem(new MenuItem("restrict", "Restrict chat usage").SetValue(true));
             Config.AddItem(new MenuItem("filter", "Restrict chat if i flame").SetValue(true));
             Config.AddItem(new MenuItem("mute", "Auto-Mute all at start").SetValue(true));
+            Config.AddItem(new MenuItem("unmuteGG", "Auto-UnMute at end + GG").SetValue(true));
             Config.AddToMainMenu();
             if (Config.Item("mute").GetValue<bool>())
             {
                 Game.Say("/mute all");
             }
+            Game.OnGameEnd += unmute;
+            Game.OnGameNotifyEvent += unmute;
             Game.OnGameInput += chatrestrict;
+        }
+        internal static void unmute(EventArgs args)
+        {
+            if (Config.Item("unmuteGG").GetValue<bool>())
+            {
+                Game.Say("/mute all");
+                Game.Say("/all gg!");
+            }
         }
         private static void chatrestrict(GameInputEventArgs args)
         {
