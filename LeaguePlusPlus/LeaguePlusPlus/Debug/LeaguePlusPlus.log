@@ -1,0 +1,19 @@
+﻿Build started 12/5/2014 11:22:31 AM.
+     1>Project "C:\Users\Twilight\Documents\GitHub\LeagueSharp\LeaguePlusPlus\LeaguePlusPlus\LeaguePlusPlus.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.1\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDLL /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\LeaguePlusPlus.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Data.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Xml.dll" /analyze- /errorReport:prompt /clr:nostdlib LeaguePlusPlus.cpp
+         LeaguePlusPlus.cpp
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(1193,5): warning MSB8012: TargetPath(C:\Users\Twilight\Documents\GitHub\LeagueSharp\LeaguePlusPlus\Debug\LeaguePlusPlus.dll) does not match the Linker's OutputFile property value (C:\Users\Twilight\Documents\GitHub\LeagueSharp\LeaguePlusPlusLoader\LeaguePlusPlusLoader\LeaguePlusPlus.dll). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"../../LeaguePlusPlusLoader/LeaguePlusPlusLoader/LeaguePlusPlus.dll" /INCREMENTAL /NOLOGO /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Twilight\Documents\GitHub\LeagueSharp\LeaguePlusPlus\Debug\LeaguePlusPlus.pdb" /ASSEMBLYDEBUG /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /FIXED:NO /NXCOMPAT /MACHINE:X86 /DLL Debug\app.res
+         Debug\AssemblyInfo.obj
+         Debug\LeaguePlusPlus.obj
+         Debug\stdafx.obj
+         "Debug\.NETFramework,Version=v4.5.AssemblyAttributes.obj"
+            Creating library ../../LeaguePlusPlusLoader/LeaguePlusPlusLoader/LeaguePlusPlus.lib and object ../../LeaguePlusPlusLoader/LeaguePlusPlusLoader/LeaguePlusPlus.exp
+         LeaguePlusPlus.vcxproj -> C:\Users\Twilight\Documents\GitHub\LeagueSharp\LeaguePlusPlus\Debug\LeaguePlusPlus.dll
+     1>Done Building Project "C:\Users\Twilight\Documents\GitHub\LeagueSharp\LeaguePlusPlus\LeaguePlusPlus\LeaguePlusPlus.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:02.48
