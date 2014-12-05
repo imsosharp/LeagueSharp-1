@@ -7,7 +7,6 @@ using SharpDX;
 using SharpDX.Direct3D9;
 using LeagueSharp;
 using LeagueSharp.Common;
-using LX_Orbwalker;
 using System.Globalization;
 using System.Threading;
 #endregion
@@ -29,6 +28,7 @@ namespace LightningRyze
 		private static SpellSlot IgniteSlot;
         public static HpBarIndicator hpi = new HpBarIndicator();
         private static readonly List<Hero> _heroes = new List<Hero>();
+        internal static Orbwalking.Orbwalker orb;
 		
         private static void Main(string[] args)
         {
@@ -56,10 +56,10 @@ namespace LightningRyze
 			var targetSelectorMenu = new Menu("Target Selector", "Target Selector");
 			SimpleTs.AddToMenu(targetSelectorMenu);
 			Config.AddSubMenu(targetSelectorMenu);
-			
-            var orbwalkerMenu = new Menu("LX-Orbwalker", "Orbalker");
-            LXOrbwalker.AddToMenu(orbwalkerMenu);
-            Config.AddSubMenu(orbwalkerMenu);
+
+            Menu orbwalker = new Menu("Orbwalker", "orbwalker");
+            orb = new Orbwalking.Orbwalker(orbwalker);
+            Config.AddSubMenu(orbwalker);
 			
 			Config.AddSubMenu(new Menu("Combo", "Combo"));
 			Config.SubMenu("Combo").AddItem(new MenuItem("ComboActive", "Combo!").SetValue(new KeyBind(32, KeyBindType.Press)));
@@ -120,7 +120,7 @@ namespace LightningRyze
 
 
 			Game.OnGameUpdate += Game_OnGameUpdate;
-			LXOrbwalker.BeforeAttack += LXOrbwalker_BeforeAttack;
+            Orbwalking.BeforeAttack += LXOrbwalker_BeforeAttack;
 			Drawing.OnDraw += Drawing_OnDraw;
 			Obj_AI_Base.OnProcessSpellCast += Obj_AI_Hero_OnProcessSpellCast;
             AntiGapcloser.OnEnemyGapcloser += AntiGapcloser_OnEnemyGapcloser;
@@ -143,6 +143,7 @@ namespace LightningRyze
         private static void Game_OnGameUpdate(EventArgs args)
         {         
         	target = SimpleTs.GetTarget(Q.Range+25, SimpleTs.DamageType.Magical);
+
 			if (Config.Item("ComboActive").GetValue<KeyBind>().Active)
 			{
 				if (Config.Item("TypeCombo").GetValue<StringList>().SelectedIndex == 0) ComboMixed();
@@ -307,7 +308,7 @@ namespace LightningRyze
                 }
             }
         }
-       	private static void LXOrbwalker_BeforeAttack(LXOrbwalker.BeforeAttackEventArgs args)
+       	private static void LXOrbwalker_BeforeAttack(Orbwalking.BeforeAttackEventArgs args)
 		{
 			if (Config.Item("ComboActive").GetValue<KeyBind>().Active || Config.Item("HarassActive").GetValue<KeyBind>().Active)
 				args.Process = !(Q.IsReady() || W.IsReady() || E.IsReady() || myHero.Distance(args.Target) >= 600);
