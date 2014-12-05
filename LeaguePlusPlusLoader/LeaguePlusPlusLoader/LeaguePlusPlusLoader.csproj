@@ -55,6 +55,10 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LeaguePlusPlus, Version=1.0.5452.27433, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\LeagueSharp\\System\LeaguePlusPlus.dll</HintPath>
+    </Reference>
     <Reference Include="LeagueSharp">
       <HintPath>C:\LeagueSharp\\System\LeagueSharp.dll</HintPath>
     </Reference>

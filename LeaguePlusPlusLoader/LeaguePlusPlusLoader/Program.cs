@@ -5,43 +5,12 @@ using System.Runtime.InteropServices;
 using System.IO;
 using LeagueSharp;
 using LeagueSharp.Common;
+using LeaguePlusPlus;
 
 namespace LeaguePlusPlusLoader
 {
     public class LeaguePlusPlusLoader
     {
-        /**
-         * Import the dll and it's functions
-         * */
-        #region Menu
-        [DllImport("LeaguePlusPlus.dll", EntryPoint = "onGameLoadMenu", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.StdCall)]
-        public static extern void onGameLoadMenu();
-        #endregion
-        #region onGame
-        [DllImport("LeaguePlusPlus.dll", EntryPoint = "onGame", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.StdCall)]
-        public static extern void onGame();
-        #endregion
-        #region onGameUpdate
-        [DllImport("LeaguePlusPlus.dll", EntryPoint = "onGameUpdate", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.StdCall)]
-        public static extern void onGameUpdate(EventArgs args);
-        #endregion
-        #region onDraw
-        [DllImport("LeaguePlusPlus.dll", EntryPoint = "onDraw", CharSet = CharSet.Unicode)]
-        public static extern void onDraw(EventArgs args);
-        #endregion
-        #region Enemy Gap closer
-        [DllImport("LeaguePlusPlus.dll", EntryPoint = "onEnemyGapCloser", CharSet = CharSet.Unicode)]
-        public static extern void onEnemyGapCloser(ActiveGapcloser gapcloser);
-        #endregion
-        #region Possilbe to interrupt
-        [DllImport("LeaguePlusPlus.dll", EntryPoint = "onPossibleToInterrupt", CharSet = CharSet.Unicode)]
-        public static extern void onPossibleToInterrupt(Obj_AI_Base unit, InterruptableSpell spell);
-        #endregion
-        #region on Process Spell Cast
-        [DllImport("LeaguePlusPlus.dll", EntryPoint = "onProcessSpellCast", CharSet = CharSet.Unicode)]
-        public static extern void onProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args);
-        #endregion
-
         /**
          * Load the handlers
          * */
@@ -62,19 +31,19 @@ namespace LeaguePlusPlusLoader
         internal static void onGameLoad(EventArgs args)
         {
             // C++ DLL Skill Handler
-            onGame();
+            LPP.onGame();
             // C++ DLL Menu Handler
-            onGameLoadMenu();
+            LPP.onGameLoadMenu();
             // C++ DLL Game Logic
-            Game.OnGameUpdate += onGameUpdate;
+            Game.OnGameUpdate += LPP.onGameUpdate;
             // C++ DLL Gap Closer Logic
-            AntiGapcloser.OnEnemyGapcloser += onEnemyGapCloser;
+            AntiGapcloser.OnEnemyGapcloser += LPP.onEnemyGapCloser;
             // C++ DLL Interrupter Logic
-            Interrupter.OnPossibleToInterrupt += onPossibleToInterrupt;
+            Interrupter.OnPossibleToInterrupt += LPP.onPossibleToInterrupt;
             // C++ DLL Spell cast logic
-            Obj_AI_Hero.OnProcessSpellCast += onProcessSpellCast;
+            Obj_AI_Hero.OnProcessSpellCast += LPP.onProcessSpellCast;
             // C++ DLL Drawings
-            Drawing.OnDraw += onDraw;
+            Drawing.OnDraw += LPP.onDraw;
         }
     }
 }
