@@ -11,22 +11,10 @@ namespace LeaguePlusPlusLoader
 {
     public class LeaguePlusPlusLoader
     {
-        /**
-         * Load the handlers
-         * */
         public static void Main()
         {
-            if (!File.Exists("LeaguePlusPlus.dll"))
-            {
-                Game.PrintChat("Failed to load DLL");
-                return;
-            }
-            else
-            {
-                Game.PrintChat("Loading L++!");
-                // Load C++ DLL Logic
-                CustomEvents.Game.OnGameLoad += onGameLoad;
-            }
+            Game.PrintChat("Loading L++!");
+            CustomEvents.Game.OnGameLoad += onGameLoad;
         }
         internal static void onGameLoad(EventArgs args)
         {
