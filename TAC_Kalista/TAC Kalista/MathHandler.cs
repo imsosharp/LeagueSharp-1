@@ -54,32 +54,7 @@ namespace TAC_Kalista
          * */
         public static double getRealDamage(Obj_AI_Base target, int customStacks = -1)
         {
-            return (float)CalculatePhysicalDamage(ObjectManager.Player, target, (float)GetRawRendDamage(target, customStacks));
-        }
-        internal static float CalculatePhysicalDamage(Obj_AI_Hero source, Obj_AI_Base target, float rawDamage)
-        {
-//            return CalculatePhysicalDamageMultiplier(source, target) * rawDamage;
-            return (float)source.CalcDamage(target, Damage.DamageType.Physical, rawDamage);
-        }
-
-        internal static float CalculatePhysicalDamageMultiplier(Obj_AI_Hero source, Obj_AI_Base target, float tweak = 0)
-        {
-            float armor = target.Armor + target.FlatArmorMod;
-
-            // Armor penetration percent
-            if (armor > 0 && source.PercentArmorPenetrationMod > 0)
-                armor *= source.PercentArmorPenetrationMod;
-
-            // Armor penetration flat
-            if (source.FlatArmorPenetrationMod > 0)
-                armor -= source.FlatArmorPenetrationMod;
-
-            // Target has positive armor
-            if (armor <= 0)
-                return (100f / (100f + armor)) + tweak;
-            // Target has negative armor
-            else
-                return (2f - (100f / (100f - armor))) + tweak;
+            return player.CalcDamage(target, Damage.DamageType.Physical, GetRawRendDamage(target, customStacks));
         }
         internal static double GetRawRendDamage(Obj_AI_Base target, int customStacks = -1)
         {
