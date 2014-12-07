@@ -13,9 +13,22 @@ namespace TAC_Kalista
     {
         public static Menu Config;
         internal static Orbwalking.Orbwalker orb;
+        /**
+         * @author Trees
+         * */
+        internal static void initOath()
+        {
+            Config = new Menu("Twilight's Kalista", "Kalista", true);
+            Config.AddItem(new MenuItem("Enabled", "Enabled").SetValue(new KeyBind(32, KeyBindType.Press)));
+            Config.AddItem(new MenuItem("Health", "Min Health %").SetValue(new Slider(30)));
+            Config.AddItem(new MenuItem("BlockCamera", "Block Camera Packet").SetValue(true));
+            Config.AddItem(new MenuItem("about","By Trees"));
+            Config.AddToMainMenu();
+
+        }
         public static void init()
         {
-            Config = new Menu("Twilight Kalista Rework", "Kalista", true);
+            Config = new Menu("Twilight's Kalista", "Kalista", true);
 
             var targetselectormenu = new Menu("Target Selector", "Common_TargetSelector");
             SimpleTs.AddToMenu(targetselectormenu);
@@ -43,8 +56,6 @@ namespace TAC_Kalista
             Config.SubMenu("ac").SubMenu("itemsAC").AddItem(new MenuItem("useItems", "Use Items").SetValue(new KeyBind("G".ToCharArray()[0], KeyBindType.Toggle)));
 
             Config.SubMenu("ac").SubMenu("itemsAC").AddItem(new MenuItem("allIn", "All in mode").SetValue(new KeyBind("U".ToCharArray()[0], KeyBindType.Toggle)));
-//            Config.SubMenu("ac").SubMenu("itemsAC").AddItem(new MenuItem("allInAt", "Auto All in when X hero").SetValue(new Slider(2, 1, 5)));
-            
             Config.SubMenu("ac").SubMenu("itemsAC").AddItem(new MenuItem("BOTRK", "Use BOTRK").SetValue(true));
             Config.SubMenu("ac").SubMenu("itemsAC").AddItem(new MenuItem("GHOSTBLADE", "Use Ghostblade").SetValue(true));
             Config.SubMenu("ac").SubMenu("itemsAC").AddItem(new MenuItem("SWORD", "Use SOTD").SetValue(true));
@@ -108,6 +119,7 @@ namespace TAC_Kalista
             Config.AddItem(new MenuItem("Packets", "Packet Casting").SetValue(true));
 
             Config.AddItem(new MenuItem("debug", "Debug").SetValue(false));
+            Config.AddItem(new MenuItem("about", "By Twilight and many others"));
             
             Config.AddToMainMenu();
 

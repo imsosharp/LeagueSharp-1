@@ -1,0 +1,1854 @@
+ImageRuntimeVersion: v4.0.30319
+Assembly LeagueSharp, Version=1.0.*, Culture=Invariant Language (Invariant Country): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly SharpDX.Direct3D9, Version=2.5.*, Culture=Invariant Language (Invariant Country): 
+	hash=None, flags=None
+Assembly SharpDX, Version=2.5.*, Culture=Invariant Language (Invariant Country): 
+	hash=None, flags=None
+Assembly System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=None, flags=None
+Assembly System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Class LeagueSharp.GameObjectNotFoundException: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Exception
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class LeagueSharp.GameObjectCreate: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(GameObject, EventArgs): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(GameObject, EventArgs, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class LeagueSharp.GameObjectDelete: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(GameObject, EventArgs): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(GameObject, EventArgs, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class LeagueSharp.GameObjectPropertyChange: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(GameObject, GameObjectPropertyChangeEventArgs): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(GameObject, GameObjectPropertyChangeEventArgs, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class LeagueSharp.GameObject: AutoLayout, AnsiClass, Class, Public
+    Void .ctor(UInt16, UInt32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Boolean IsValid 'get ' : 
+    Boolean IsMe 'get ' : 
+    Boolean IsEnemy 'get ' : 
+    Boolean IsAlly 'get ' : 
+    Int32 NetworkId 'get ' : 
+    SharpDX.BoundingBox BBox 'get ' : 
+    Int32 Flags 'get ' : 
+    LeagueSharp.GameObjectTeam Team 'get ' : 
+    Boolean IsDead 'get ' : 
+    Boolean IsVisible 'get ' : 
+    Single BoundingRadius 'get ' : 
+    SharpDX.Vector3 Orientation 'get ' : 
+    SharpDX.Vector3 Position 'get ' : 
+    LeagueSharp.GameObjectType Type 'get ' : 
+    System.String Name 'get ' : 
+  Events:
+    LeagueSharp.GameObjectPropertyChange OnPropertyChange: SpecialName
+    LeagueSharp.GameObjectDelete OnDelete: SpecialName
+    LeagueSharp.GameObjectCreate OnCreate: SpecialName
+  Methods:
+    ToString(): PrivateScope, Public, Virtual, HideBySig
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    get_Type(): PrivateScope, Public, HideBySig, SpecialName
+    get_Position(): PrivateScope, Public, HideBySig, SpecialName
+    get_Orientation(): PrivateScope, Public, HideBySig, SpecialName
+    get_BoundingRadius(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsVisible(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsDead(): PrivateScope, Public, HideBySig, SpecialName
+    get_Team(): PrivateScope, Public, HideBySig, SpecialName
+    get_Flags(): PrivateScope, Public, HideBySig, SpecialName
+    get_BBox(): PrivateScope, Public, HideBySig, SpecialName
+    get_NetworkId(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsAlly(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsEnemy(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsMe(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsValid(): PrivateScope, Public, HideBySig, SpecialName
+    add_OnCreate(GameObjectCreate): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnCreate(GameObjectCreate): PrivateScope, Public, Static, HideBySig, SpecialName
+    add_OnDelete(GameObjectDelete): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnDelete(GameObjectDelete): PrivateScope, Public, Static, HideBySig, SpecialName
+    add_OnPropertyChange(GameObjectPropertyChange): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnPropertyChange(GameObjectPropertyChange): PrivateScope, Public, Static, HideBySig, SpecialName
+Class LeagueSharp.AttackableUnit: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LeagueSharp.GameObject
+  Properties:
+    Single PathfindingCollisionRadius 'get ' : 
+    Single OverrideCollisionHeight 'get ' : 
+    Single OverrideCollisionRadius 'get ' : 
+    System.String ArmorMaterial 'get ' : 
+    Boolean LifestealImmune 'get ' : 
+    Boolean MagicImmune 'get ' : 
+    Boolean PhysicalImmune 'get ' : 
+    Boolean IsInvulnerable 'get ' : 
+    Single MaxMana 'get ' : 
+    Single Mana 'get ' : 
+    Single MaxHealth 'get ' : 
+    Single Health 'get ' : 
+    Boolean IsZombie 'get ' : 
+    Boolean IsTargetable 'get ' : 
+  Methods:
+    get_IsTargetable(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsZombie(): PrivateScope, Public, HideBySig, SpecialName
+    get_Health(): PrivateScope, Public, HideBySig, SpecialName
+    get_MaxHealth(): PrivateScope, Public, HideBySig, SpecialName
+    get_Mana(): PrivateScope, Public, HideBySig, SpecialName
+    get_MaxMana(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsInvulnerable(): PrivateScope, Public, HideBySig, SpecialName
+    get_PhysicalImmune(): PrivateScope, Public, HideBySig, SpecialName
+    get_MagicImmune(): PrivateScope, Public, HideBySig, SpecialName
+    get_LifestealImmune(): PrivateScope, Public, HideBySig, SpecialName
+    get_ArmorMaterial(): PrivateScope, Public, HideBySig, SpecialName
+    get_OverrideCollisionRadius(): PrivateScope, Public, HideBySig, SpecialName
+    get_OverrideCollisionHeight(): PrivateScope, Public, HideBySig, SpecialName
+    get_PathfindingCollisionRadius(): PrivateScope, Public, HideBySig, SpecialName
+Struct LeagueSharp.GameObjectType: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LeagueSharp.GameObjectType NeutralMinionCamp = 0 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType obj_AI_Base = 1 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType FollowerObject = 2 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType obj_AI_Hero = 3 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType obj_AI_Marker = 4 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType obj_AI_Minion = 5 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType LevelPropAI = 6 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType obj_AI_Turret = 7 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType obj_GeneralParticleEmmiter = 8 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType DrawFX = 9 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType obj_SpellChainMissile = 10 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType obj_SpellCircleMissile = 11 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType obj_SpellLineMissile = 12 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType obj_SpellMissile = 13 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType obj_SpellScriptedMissile = 14 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType obj_LampBulb = 15 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType obj_Barracks = 16 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType obj_BarracksDampener = 17 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType obj_AnimatedBuilding = 18 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType obj_Building = 19 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType obj_Levelsizer = 20 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType obj_NavPoint = 21 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType obj_SpawnPoint = 22 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType obj_Temple = 23 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType obj_Occluder = 24 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType obj_Lake = 25 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType obj_HQ = 26 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType obj_InfoPoint = 27 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType LevelPropGameObject = 28 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType LevelPropSpawnerPoint = 29 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType obj_Shop = 30 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType obj_Turret = 31 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType GrassObject = 32 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectType Unknown = 33 : Public, Static, Literal, HasDefault
+Struct LeagueSharp.GameObjectTeam: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LeagueSharp.GameObjectTeam Unknown = 0 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectTeam Order = 100 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectTeam Chaos = 200 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectTeam Neutral = 300 : Public, Static, Literal, HasDefault
+Class LeagueSharp.BuffInstanceNotFoundException: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Exception
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class LeagueSharp.BuffInstance: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Properties:
+    LeagueSharp.GameObject Caster 'get ' : 
+    System.String SourceName 'get ' : 
+    System.String Name 'get ' : 
+    System.String DisplayName 'get ' : 
+    Single EndTime 'get ' : 
+    Single StartTime 'get ' : 
+    Boolean IsPositive 'get ' : 
+    Boolean IsActive 'get ' : 
+    Int32 Count 'get ' : 
+    LeagueSharp.BuffType Type 'get ' : 
+  Methods:
+    get_Type(): PrivateScope, Public, HideBySig, SpecialName
+    get_Count(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsActive(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsPositive(): PrivateScope, Public, HideBySig, SpecialName
+    get_StartTime(): PrivateScope, Public, HideBySig, SpecialName
+    get_EndTime(): PrivateScope, Public, HideBySig, SpecialName
+    get_DisplayName(): PrivateScope, Public, HideBySig, SpecialName
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    get_SourceName(): PrivateScope, Public, HideBySig, SpecialName
+    get_Caster(): PrivateScope, Public, HideBySig, SpecialName
+Class LeagueSharp.ObjectManager: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed
+  Properties:
+    LeagueSharp.Obj_AI_Hero Player 'get ' : 
+  Methods:
+    Get(): PrivateScope, Public, Static, HideBySig
+    GetUnitByNetworkId(Int32): PrivateScope, Public, Static, HideBySig
+    get_Player(): PrivateScope, Public, Static, HideBySig, SpecialName
+Struct LeagueSharp.BuffType: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LeagueSharp.BuffType Internal = 0 : Public, Static, Literal, HasDefault
+    LeagueSharp.BuffType Aura = 1 : Public, Static, Literal, HasDefault
+    LeagueSharp.BuffType CombatEnchancer = 2 : Public, Static, Literal, HasDefault
+    LeagueSharp.BuffType CombatDehancer = 3 : Public, Static, Literal, HasDefault
+    LeagueSharp.BuffType SpellShield = 4 : Public, Static, Literal, HasDefault
+    LeagueSharp.BuffType Stun = 5 : Public, Static, Literal, HasDefault
+    LeagueSharp.BuffType Invisibility = 6 : Public, Static, Literal, HasDefault
+    LeagueSharp.BuffType Silence = 7 : Public, Static, Literal, HasDefault
+    LeagueSharp.BuffType Taunt = 8 : Public, Static, Literal, HasDefault
+    LeagueSharp.BuffType Polymorph = 9 : Public, Static, Literal, HasDefault
+    LeagueSharp.BuffType Slow = 10 : Public, Static, Literal, HasDefault
+    LeagueSharp.BuffType Snare = 11 : Public, Static, Literal, HasDefault
+    LeagueSharp.BuffType Damage = 12 : Public, Static, Literal, HasDefault
+    LeagueSharp.BuffType Heal = 13 : Public, Static, Literal, HasDefault
+    LeagueSharp.BuffType Haste = 14 : Public, Static, Literal, HasDefault
+    LeagueSharp.BuffType SpellImmunity = 15 : Public, Static, Literal, HasDefault
+    LeagueSharp.BuffType PhysicalImmunity = 16 : Public, Static, Literal, HasDefault
+    LeagueSharp.BuffType Invulnerability = 17 : Public, Static, Literal, HasDefault
+    LeagueSharp.BuffType Sleep = 18 : Public, Static, Literal, HasDefault
+    LeagueSharp.BuffType NearSight = 19 : Public, Static, Literal, HasDefault
+    LeagueSharp.BuffType Frenzy = 20 : Public, Static, Literal, HasDefault
+    LeagueSharp.BuffType Fear = 21 : Public, Static, Literal, HasDefault
+    LeagueSharp.BuffType Charm = 22 : Public, Static, Literal, HasDefault
+    LeagueSharp.BuffType Poison = 23 : Public, Static, Literal, HasDefault
+    LeagueSharp.BuffType Suppression = 24 : Public, Static, Literal, HasDefault
+    LeagueSharp.BuffType Blind = 25 : Public, Static, Literal, HasDefault
+    LeagueSharp.BuffType Counter = 26 : Public, Static, Literal, HasDefault
+    LeagueSharp.BuffType Shred = 27 : Public, Static, Literal, HasDefault
+    LeagueSharp.BuffType Flee = 28 : Public, Static, Literal, HasDefault
+    LeagueSharp.BuffType Knockup = 29 : Public, Static, Literal, HasDefault
+    LeagueSharp.BuffType Knockback = 30 : Public, Static, Literal, HasDefault
+    LeagueSharp.BuffType Disarm = 31 : Public, Static, Literal, HasDefault
+Class LeagueSharp.DrawFX: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LeagueSharp.GameObject
+    Void .ctor(UInt16, UInt32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class LeagueSharp.Draw: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(EventArgs): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(EventArgs, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class LeagueSharp.BeginScene: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(EventArgs): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(EventArgs, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class LeagueSharp.EndScene: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(EventArgs): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(EventArgs, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class LeagueSharp.PreReset: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(EventArgs): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(EventArgs, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class LeagueSharp.PostReset: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(EventArgs): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(EventArgs, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class LeagueSharp.Present: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(EventArgs): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(EventArgs, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class LeagueSharp.SetRenderTarget: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(EventArgs): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(EventArgs, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class LeagueSharp.Drawing: AutoLayout, AnsiClass, Class, Public, Sealed
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    SharpDX.Matrix View 'get ' : 
+    SharpDX.Matrix Projection 'get ' : 
+    SharpDX.Direct3D9.Device Direct3DDevice 'get ' : 
+    Int32 Height 'get ' : 
+    Int32 Width 'get ' : 
+  Events:
+    LeagueSharp.SetRenderTarget OnSetRenderTarget: SpecialName
+    LeagueSharp.Present OnPresent: SpecialName
+    LeagueSharp.PostReset OnPostReset: SpecialName
+    LeagueSharp.PreReset OnPreReset: SpecialName
+    LeagueSharp.EndScene OnEndScene: SpecialName
+    LeagueSharp.BeginScene OnBeginScene: SpecialName
+    LeagueSharp.Draw OnDraw: SpecialName
+  Methods:
+    add_OnDraw(Draw): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnDraw(Draw): PrivateScope, Public, Static, HideBySig, SpecialName
+    DrawText(Single, Single, Color, String): PrivateScope, Public, Static, HideBySig
+    DrawText(Single, Single, Color, String, Object[]): PrivateScope, Public, Static, HideBySig
+    DrawCircle(Vector3, Single, Color): PrivateScope, Public, Static, HideBySig
+    DrawLine(Vector2, Vector2, Single, Color): PrivateScope, Public, Static, HideBySig
+    DrawLine(Single, Single, Single, Single, Single, Color): PrivateScope, Public, Static, HideBySig
+    GetTextExtent(String): PrivateScope, Public, Static, HideBySig
+    WorldToMinimap(Vector3): PrivateScope, Public, Static, HideBySig
+    WorldToScreen(Vector3, Vector2&(Out)): PrivateScope, Public, Static, HideBySig
+    WorldToScreen(Vector3): PrivateScope, Public, Static, HideBySig
+    ScreenToWorld(Vector2): PrivateScope, Public, Static, HideBySig
+    ScreenToWorld(Single, Single): PrivateScope, Public, Static, HideBySig
+    get_Width(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_Height(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_Direct3DDevice(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_Projection(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_View(): PrivateScope, Public, Static, HideBySig, SpecialName
+    add_OnBeginScene(BeginScene): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnBeginScene(BeginScene): PrivateScope, Public, Static, HideBySig, SpecialName
+    add_OnEndScene(EndScene): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnEndScene(EndScene): PrivateScope, Public, Static, HideBySig, SpecialName
+    add_OnPreReset(PreReset): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnPreReset(PreReset): PrivateScope, Public, Static, HideBySig, SpecialName
+    add_OnPostReset(PostReset): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnPostReset(PostReset): PrivateScope, Public, Static, HideBySig, SpecialName
+    add_OnPresent(Present): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnPresent(Present): PrivateScope, Public, Static, HideBySig, SpecialName
+    add_OnSetRenderTarget(SetRenderTarget): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnSetRenderTarget(SetRenderTarget): PrivateScope, Public, Static, HideBySig, SpecialName
+Class LeagueSharp.FollowerObject: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LeagueSharp.GameObject
+    Void .ctor(UInt16, UInt32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class LeagueSharp.WndProc: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(WndEventArgs): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(WndEventArgs, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class LeagueSharp.GameUpdate: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(EventArgs): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(EventArgs, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class LeagueSharp.GameProcessPacket: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(GamePacketEventArgs): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(GamePacketEventArgs, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class LeagueSharp.GameSendPacket: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(GamePacketEventArgs): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(GamePacketEventArgs, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class LeagueSharp.GameStart: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(EventArgs): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(EventArgs, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class LeagueSharp.GameEnd: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(GameEndEventArgs): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(GameEndEventArgs, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class LeagueSharp.GameNotifyEvent: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(GameNotifyEventArgs): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(GameNotifyEventArgs, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class LeagueSharp.GameInput: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(GameInputEventArgs): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(GameInputEventArgs, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class LeagueSharp.Game: AutoLayout, AnsiClass, Class, Public, Sealed
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Region 'get ' : 
+    Int64 Id   'get ' : 
+    LeagueSharp.GameMapId MapId 'get ' : 
+    LeagueSharp.GameType Type 'get ' : 
+    System.String Version 'get ' : 
+    Single ClockTime 'get ' : 
+    System.String IP 'get ' : 
+    Int32 Port 'get ' : 
+    Int32 Ping 'get ' : 
+    SharpDX.Vector3 CursorPos 'get ' : 
+    LeagueSharp.GameMode Mode 'get ' : 
+    Single Time 'get ' : 
+  Events:
+    LeagueSharp.GameInput OnGameInput: SpecialName
+    LeagueSharp.GameNotifyEvent OnGameNotifyEvent: SpecialName
+    LeagueSharp.GameEnd OnGameEnd: SpecialName
+    LeagueSharp.GameStart OnGameStart: SpecialName
+    LeagueSharp.GameSendPacket OnGameSendPacket: SpecialName
+    LeagueSharp.GameProcessPacket OnGameProcessPacket: SpecialName
+    LeagueSharp.GameUpdate OnGameUpdate: SpecialName
+    LeagueSharp.WndProc OnWndProc: SpecialName
+  Methods:
+    PrintChat(String, Object[]): PrivateScope, Public, Static, HideBySig
+    PrintChat(String): PrivateScope, Public, Static, HideBySig
+    Say(String): PrivateScope, Public, Static, HideBySig
+    Say(String, Object[]): PrivateScope, Public, Static, HideBySig
+    SendPacket(Byte[], PacketChannel, PacketProtocolFlags): PrivateScope, Public, Static, HideBySig
+    ProcessPacket(Byte[], PacketChannel): PrivateScope, Public, Static, HideBySig
+    add_OnWndProc(WndProc): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnWndProc(WndProc): PrivateScope, Public, Static, HideBySig, SpecialName
+    add_OnGameUpdate(GameUpdate): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnGameUpdate(GameUpdate): PrivateScope, Public, Static, HideBySig, SpecialName
+    add_OnGameProcessPacket(GameProcessPacket): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnGameProcessPacket(GameProcessPacket): PrivateScope, Public, Static, HideBySig, SpecialName
+    add_OnGameSendPacket(GameSendPacket): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnGameSendPacket(GameSendPacket): PrivateScope, Public, Static, HideBySig, SpecialName
+    add_OnGameStart(GameStart): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnGameStart(GameStart): PrivateScope, Public, Static, HideBySig, SpecialName
+    add_OnGameEnd(GameEnd): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnGameEnd(GameEnd): PrivateScope, Public, Static, HideBySig, SpecialName
+    add_OnGameNotifyEvent(GameNotifyEvent): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnGameNotifyEvent(GameNotifyEvent): PrivateScope, Public, Static, HideBySig, SpecialName
+    add_OnGameInput(GameInput): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnGameInput(GameInput): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_Time(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_Mode(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_CursorPos(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_Ping(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_Port(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_IP(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ClockTime(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_Version(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_Type(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_MapId(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_Id(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_Region(): PrivateScope, Public, Static, HideBySig, SpecialName
+Class LeagueSharp.WndEventArgs: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.EventArgs
+    Void .ctor(Int32, HWND__*, UInt32, UInt32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Boolean Process 'get set' : 
+    Int32 LParam 'get ' IsLong : 
+    UInt32 WParam 'get ' : 
+    UInt32 Msg 'get ' : 
+    HWND__* HWnd 'get ' : 
+  Methods:
+    get_HWnd(): PrivateScope, Public, HideBySig, SpecialName
+    get_Msg(): PrivateScope, Public, HideBySig, SpecialName
+    get_WParam(): PrivateScope, Public, HideBySig, SpecialName
+    get_LParam(): PrivateScope, Public, HideBySig, SpecialName
+    get_Process(): PrivateScope, Public, HideBySig, SpecialName
+    set_Process(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig, SpecialName
+Class LeagueSharp.GamePacketEventArgs: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.EventArgs
+    Void .ctor(Int32, Byte[], LeagueSharp.PacketProtocolFlags, LeagueSharp.PacketChannel): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Boolean Process 'get set' : 
+    LeagueSharp.PacketChannel Channel 'get ' : 
+    LeagueSharp.PacketProtocolFlags ProtocolFlag 'get ' : 
+    Byte[] PacketData 'get ' : 
+  Methods:
+    get_PacketData(): PrivateScope, Public, HideBySig, SpecialName
+    get_ProtocolFlag(): PrivateScope, Public, HideBySig, SpecialName
+    get_Channel(): PrivateScope, Public, HideBySig, SpecialName
+    get_Process(): PrivateScope, Public, HideBySig, SpecialName
+    set_Process(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig, SpecialName
+Class LeagueSharp.GameEndEventArgs: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.EventArgs
+    Void .ctor(LeagueSharp.GameObjectTeam): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    LeagueSharp.GameObjectTeam WinningTeam 'get ' : 
+  Methods:
+    get_WinningTeam(): PrivateScope, Public, HideBySig, SpecialName
+Class LeagueSharp.GameNotifyEventArgs: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.EventArgs
+    Void .ctor(LeagueSharp.GameEventId, UInt32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    UInt32 NetworkId 'get ' IsLong : 
+    LeagueSharp.GameEventId EventId 'get ' : 
+  Methods:
+    get_EventId(): PrivateScope, Public, HideBySig, SpecialName
+    get_NetworkId(): PrivateScope, Public, HideBySig, SpecialName
+Class LeagueSharp.GameInputEventArgs: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.EventArgs
+    Void .ctor(Int32, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Boolean Process 'get set' : 
+    System.String Input 'get ' : 
+  Methods:
+    get_Input(): PrivateScope, Public, HideBySig, SpecialName
+    get_Process(): PrivateScope, Public, HideBySig, SpecialName
+    set_Process(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig, SpecialName
+Struct LeagueSharp.GameMode: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LeagueSharp.GameMode Connecting = 1 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameMode Running = 2 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameMode Paused = 3 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameMode Finished = 4 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameMode Exiting = 5 : Public, Static, Literal, HasDefault
+Struct LeagueSharp.GameType: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LeagueSharp.GameType Normal = 0 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameType Dominion = 1 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameType Tutorial = 2 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameType ARAM = 3 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameType FirstBlood = 4 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameType Ascension = 5 : Public, Static, Literal, HasDefault
+Struct LeagueSharp.GameMapId: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LeagueSharp.GameMapId SummonersRift = 1 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameMapId CrystalScar = 8 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameMapId TwistedTreeline = 10 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameMapId HowlingAbyss = 12 : Public, Static, Literal, HasDefault
+Struct LeagueSharp.PacketChannel: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LeagueSharp.PacketChannel Handshake = 0 : Public, Static, Literal, HasDefault
+    LeagueSharp.PacketChannel C2S = 1 : Public, Static, Literal, HasDefault
+    LeagueSharp.PacketChannel GamePlay = 2 : Public, Static, Literal, HasDefault
+    LeagueSharp.PacketChannel S2C = 3 : Public, Static, Literal, HasDefault
+    LeagueSharp.PacketChannel LowPriority = 4 : Public, Static, Literal, HasDefault
+    LeagueSharp.PacketChannel Communication = 5 : Public, Static, Literal, HasDefault
+    LeagueSharp.PacketChannel LoadingScreen = 6 : Public, Static, Literal, HasDefault
+Struct LeagueSharp.PacketProtocolFlags: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LeagueSharp.PacketProtocolFlags Reliable = 0 : Public, Static, Literal, HasDefault
+    LeagueSharp.PacketProtocolFlags NoFlags = 1 : Public, Static, Literal, HasDefault
+    LeagueSharp.PacketProtocolFlags Unsequenced = 2 : Public, Static, Literal, HasDefault
+Struct LeagueSharp.GameEventId: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LeagueSharp.GameEventId OnDelete = 0 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnSpawn = 1 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnDie = 2 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnKill = 3 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnChampionDie = 4 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnChampionKillPre = 5 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnChampionKill = 6 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnChampionKillPost = 7 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnChampionSingleKill = 8 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnChampionDoubleKill = 9 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnChampionTripleKill = 10 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnChampionQuadraKill = 11 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnChampionPentaKill = 12 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnChampionUnrealKill = 13 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnFirstBlood = 14 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnDamageTaken = 15 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnDamageGiven = 16 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnSpellCast1 = 17 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnSpellCast2 = 18 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnSpellCast3 = 19 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnSpellCast4 = 20 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnSpellAvatarCast1 = 21 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnSpellAvatarCast2 = 22 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnGoldSpent = 23 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnGoldEarned = 24 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnItemConsumeablePurchased = 25 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnCriticalStrike = 26 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnAce = 27 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnReincarnate = 28 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnDampenerKill = 29 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnDampenerDie = 30 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnDampenerRespawnSoon = 31 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnDampenerRespawn = 32 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnDampenerDamage = 33 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnTurretKill = 34 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnTurretDie = 35 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnTurretDamage = 36 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnMinionKill = 37 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnMinionDenied = 38 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnNeutralMinionKill = 39 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnSuperMonsterKill = 40 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnAcquireRedBuffFromNeutral = 41 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnAcquireBlueBuffFromNeutral = 42 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnHQKill = 43 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnHQDie = 44 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnHeal = 45 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnCastHeal = 46 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnBuff = 47 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnCrowdControlDealt = 48 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnKillingSpree = 49 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnKillingSpreeSet1 = 50 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnKillingSpreeSet2 = 51 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnKillingSpreeSet3 = 52 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnKillingSpreeSet4 = 53 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnKillingSpreeSet5 = 54 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnKillingSpreeSet6 = 55 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnKilledUnitOnKillingSpree = 56 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnKilledUnitOnKillingSpreeSet1 = 57 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnKilledUnitOnKillingSpreeSet2 = 58 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnKilledUnitOnKillingSpreeSet3 = 59 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnKilledUnitOnKillingSpreeSet4 = 60 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnKilledUnitOnKillingSpreeSet5 = 61 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnKilledUnitOnKillingSpreeSet6 = 62 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnKilledUnitOnKillingSpreeDoubleKill = 63 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnKilledUnitOnKillingSpreeTripleKill = 64 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnKilledUnitOnKillingSpreeQuadraKill = 65 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnKilledUnitOnKillingSpreePentaKill = 66 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnKilledUnitOnKillingSpreeUnrealKill = 67 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnDeathAssist = 68 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnQuit = 69 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnLeave = 70 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnReconnect = 71 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnGameStart = 72 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnAssistingSpreeSet1 = 73 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnAssistingSpreeSet2 = 74 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnChampionTripleAssist = 75 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnChampionPentaAssist = 76 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnPing = 77 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnPingPlayer = 78 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnPingBuilding = 79 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnPingOther = 80 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnEndGame = 81 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnSpellLevelup1 = 82 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnSpellLevelup2 = 83 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnSpellLevelup3 = 84 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnSpellLevelup4 = 85 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnItemPurchased = 86 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnItemSold = 87 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnItemRemoved = 88 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnItemCallout = 89 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnItemChange = 90 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnUndoEnabledChange = 91 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnShopItemSubstitutionChange = 92 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnSurrenderVoteStart = 93 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnSurrenderVote = 94 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnSurrenderVoteAlready = 95 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnSurrenderFailedVotes = 96 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnSurrenderTooEarly = 97 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnSurrenderAgreed = 98 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnSurrenderSpam = 99 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnEqualizeVoteStart = 100 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnEqualizeVote = 101 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnEqualizeVoteAlready = 102 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnEqualizeFailedVotes = 103 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnEqualizeTooEarly = 104 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnEqualizeNotEnoughGold = 105 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnEqualizeNotEnoughLevels = 106 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnEqualizeAgreed = 107 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnEqualizeSpam = 108 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnPause = 109 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnPauseResume = 110 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnMinionsSpawn = 111 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnStartGameMessage1 = 112 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnStartGameMessage2 = 113 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnStartGameMessage3 = 114 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnStartGameMessage4 = 115 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnStartGameMessage5 = 116 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnAlert = 117 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnScoreboardOpen = 118 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnAudioEventFinished = 119 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnNexusCrystalStart = 120 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnCapturePointNeutralized_A = 121 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnCapturePointNeutralized_B = 122 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnCapturePointNeutralized_C = 123 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnCapturePointNeutralized_D = 124 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnCapturePointNeutralized_E = 125 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnCapturePointCaptured_A = 126 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnCapturePointCaptured_B = 127 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnCapturePointCaptured_C = 128 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnCapturePointCaptured_D = 129 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnCapturePointCaptured_E = 130 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnCapturePointFiveCap = 131 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnVictoryPointThreshold1 = 132 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnVictoryPointThreshold2 = 133 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnVictoryPointThreshold3 = 134 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnVictoryPointThreshold4 = 135 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnMinionKillVictoryThreshold1 = 136 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnMinionKillVictoryThreshold2 = 137 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnReplayFastForwardStart = 138 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnReplayFastForwardEnd = 139 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnReplayOnKeyframeFinished = 140 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnKillDragon = 141 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnKillDragon_Spectator = 142 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnKillDragonSteal = 143 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnKillWorm = 144 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnKillWorm_Spectator = 145 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnKillWormSteal = 146 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnKillSpiderBoss = 147 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnKillSpiderBoss_Spectator = 148 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnCaptureAltar = 149 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnCaptureAltar_Spectator = 150 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnPlaceWard = 151 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameEventId OnKillWard = 152 : Public, Static, Literal, HasDefault
+Class LeagueSharp.GameObjectPropertyChangeEventArgs: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.EventArgs
+    Void .ctor(System.String, Single, Single): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Single NewValue 'get ' : 
+    Single OldValue 'get ' : 
+    System.String Property 'get ' : 
+  Methods:
+    get_Property(): PrivateScope, Public, HideBySig, SpecialName
+    get_OldValue(): PrivateScope, Public, HideBySig, SpecialName
+    get_NewValue(): PrivateScope, Public, HideBySig, SpecialName
+Class LeagueSharp.GameObjectNewPathEventArgs: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.EventArgs
+    Void .ctor(SharpDX.Vector3[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    SharpDX.Vector3[] Path 'get ' : 
+  Methods:
+    get_Path(): PrivateScope, Public, HideBySig, SpecialName
+Class LeagueSharp.GrassObject: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LeagueSharp.GameObject
+    Void .ctor(UInt16, UInt32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class LeagueSharp.Hud: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Properties:
+    LeagueSharp.GameObject SelectedUnit 'get set' : 
+  Methods:
+    get_SelectedUnit(): PrivateScope, Public, Static, HideBySig, SpecialName
+    set_SelectedUnit(GameObject): PrivateScope, Public, Static, HideBySig, SpecialName
+Class LeagueSharp.InventorySlotNotFoundException: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Exception
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class LeagueSharp.InventorySlot: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Properties:
+    LeagueSharp.SpellSlot SpellSlot 'get ' : 
+    Int32 Slot 'get ' : 
+    System.String DisplayName 'get ' : 
+    System.String Name 'get ' : 
+    LeagueSharp.ItemId Id 'get ' : 
+    Int32 Charges 'get ' : 
+    Int32 Stacks 'get ' : 
+  Methods:
+    get_Stacks(): PrivateScope, Public, HideBySig, SpecialName
+    get_Charges(): PrivateScope, Public, HideBySig, SpecialName
+    get_Id(): PrivateScope, Public, HideBySig, SpecialName
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    get_DisplayName(): PrivateScope, Public, HideBySig, SpecialName
+    get_Slot(): PrivateScope, Public, HideBySig, SpecialName
+    get_SpellSlot(): PrivateScope, Public, HideBySig, SpecialName
+    UseItem(GameObject): PrivateScope, Public, HideBySig
+    UseItem(Vector3): PrivateScope, Public, HideBySig
+    UseItem(): PrivateScope, Public, HideBySig
+Class LeagueSharp.SpellbookNotFoundException: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Exception
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class LeagueSharp.Spellbook: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Properties:
+    LeagueSharp.SpellDataInst[] Spells 'get ' : 
+    LeagueSharp.SpellSlot ActiveSpellSlot 'get ' : 
+    LeagueSharp.SpellSlot SelectedSpellSlot 'get ' : 
+    Boolean IsCastingSpell 'get ' : 
+    Boolean IsSummonerSpellbook 'get ' : 
+  Methods:
+    get_IsSummonerSpellbook(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsCastingSpell(): PrivateScope, Public, HideBySig, SpecialName
+    get_SelectedSpellSlot(): PrivateScope, Public, HideBySig, SpecialName
+    get_ActiveSpellSlot(): PrivateScope, Public, HideBySig, SpecialName
+    get_Spells(): PrivateScope, Public, HideBySig, SpecialName
+    GetSpell(SpellSlot): PrivateScope, Public, HideBySig
+    GetManaCost(SpellSlot): PrivateScope, Public, HideBySig
+    CanUseSpell(SpellSlot): PrivateScope, Public, HideBySig
+    CastSpell(SpellSlot): PrivateScope, Public, HideBySig
+    CastSpell(SpellSlot, GameObject): PrivateScope, Public, HideBySig
+    CastSpell(SpellSlot, Vector3): PrivateScope, Public, HideBySig
+Struct LeagueSharp.ItemId: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LeagueSharp.ItemId Unknown = 0 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Boots_of_Speed = 1001 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Faerie_Charm = 1004 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Rejuvenation_Bead = 1006 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Giants_Belt = 1011 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Cloak_of_Agility = 1018 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Blasting_Wand = 1026 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Sapphire_Crystal = 1027 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Ruby_Crystal = 1028 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Cloth_Armor = 1029 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Chain_Vest = 1031 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Null_Magic_Mantle = 1033 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Long_Sword = 1036 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Pickaxe = 1037 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId B_F_Sword = 1038 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Hunters_Machete = 1039 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Dagger = 1042 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Recurve_Bow = 1043 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Brawlers_Gloves = 1051 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Amplifying_Tome = 1052 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Vampiric_Scepter = 1053 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Dorans_Shield = 1054 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Dorans_Blade = 1055 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Dorans_Ring = 1056 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Needlessly_Large_Rod = 1058 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Prospectors_Blade = 1062 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Prospectors_Ring = 1063 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Dorans_Shield_Showdown = 1074 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Dorans_Blade_Showdown = 1075 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Dorans_Ring_Showdown = 1076 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Spirit_Stone = 1080 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Health_Potion = 2003 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Mana_Potion = 2004 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Elixir_of_Fortitude = 2037 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Elixir_of_Brilliance = 2039 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Ichor_of_Rage = 2040 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Crystalline_Flask = 2041 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Vision_Ward = 2043 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Stealth_Ward = 2044 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Ruby_Sightstone = 2045 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Oracles_Extract = 2047 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Ichor_of_Illumination = 2048 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Sightstone = 2049 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Guardians_Horn = 2051 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Raptor_Cloak = 2053 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Elixir_of_Ruin = 2137 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Elixir_of_Iron = 2138 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Elixir_of_Sorcery = 2139 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Elixir_of_Wrath = 2140 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Abyssal_Scepter = 3001 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Archangels_Staff = 3003 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Manamune = 3004 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Atmas_Impaler = 3005 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Berserkers_Greaves = 3006 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Archangels_Staff_Crystal_Scar = 3007 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Manamune_Crystal_Scar = 3008 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Boots_of_Swiftness = 3009 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Catalyst_the_Protector = 3010 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Sorcerers_Shoes = 3020 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Frozen_Mallet = 3022 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Twin_Shadows = 3023 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Glacial_Shroud = 3024 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Iceborn_Gauntlet = 3025 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Guardian_Angel = 3026 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Rod_of_Ages = 3027 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Chalice_of_Harmony = 3028 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Rod_of_Ages_Crystal_Scar = 3029 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Infinity_Edge = 3031 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Last_Whisper = 3035 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Mejais_Soulstealer = 3041 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Phage = 3044 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Phantom_Dancer = 3046 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Ninja_Tabi = 3047 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Zekes_Herald = 3050 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Ohmwrecker = 3056 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Sheen = 3057 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Banner_of_Command = 3060 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Spirit_Visage = 3065 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Kindlegem = 3067 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Sunfire_Cape = 3068 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Talisman_of_Ascension = 3069 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Tear_of_the_Goddess = 3070 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId The_Black_Cleaver = 3071 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId The_Bloodthirster = 3072 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Tear_of_the_Goddess_Crystal_Scar = 3073 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Ravenous_Hydra_Melee_Only = 3074 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Thornmail = 3075 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Tiamat_Melee_Only = 3077 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Trinity_Force = 3078 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Wardens_Mail = 3082 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Warmogs_Armor = 3083 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Overlords_Bloodmail = 3084 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Runaans_Hurricane_Ranged_Only = 3085 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Zeal = 3086 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Statikk_Shiv = 3087 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Rabadons_Deathcap = 3089 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Wooglets_Witchcap = 3090 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Wits_End = 3091 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Frost_Queens_Claim = 3092 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Avarice_Blade = 3093 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Nomads_Medallion = 3096 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Targons_Brace = 3097 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Frostfang = 3098 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Lich_Bane = 3100 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Stinger = 3101 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Banshees_Veil = 3102 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Lord_Van_Damms_Pillager = 3104 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Aegis_of_the_Legion = 3105 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Madreds_Razors = 3106 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Fiendish_Codex = 3108 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Frozen_Heart = 3110 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Mercurys_Treads = 3111 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Orb_of_Winter = 3112 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Aether_Wisp = 3113 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Forbidden_Idol = 3114 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Nashors_Tooth = 3115 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Rylais_Crystal_Scepter = 3116 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Boots_of_Mobility = 3117 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Wicked_Hatchet = 3122 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Executioners_Calling = 3123 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Guinsoos_Rageblade = 3124 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Deathfire_Grasp = 3128 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Sword_of_the_Divine = 3131 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId The_Brutalizer = 3134 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Void_Staff = 3135 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Haunting_Guise = 3136 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Dervish_Blade = 3137 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Mercurial_Scimitar = 3139 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Quicksilver_Sash = 3140 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Sword_of_the_Occult = 3141 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Youmuus_Ghostblade = 3142 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Randuins_Omen = 3143 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Bilgewater_Cutlass = 3144 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Hextech_Revolver = 3145 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Hextech_Gunblade = 3146 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Liandrys_Torment = 3151 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Will_of_the_Ancients = 3152 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Blade_of_the_Ruined_King = 3153 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Wriggles_Lantern = 3154 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Hexdrinker = 3155 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Maw_of_Malmortius = 3156 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Zhonyas_Hourglass = 3157 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Ionian_Boots_of_Lucidity = 3158 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Grezs_Spectral_Lantern = 3159 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Morellonomicon = 3165 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Bonetooth_Necklace = 3166 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Moonflair_Spellblade = 3170 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Zephyr = 3172 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Athenes_Unholy_Grail = 3174 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Odyns_Veil = 3180 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Sanguine_Blade = 3181 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Entropy = 3184 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId The_Lightbringer = 3185 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Hextech_Sweeper = 3187 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Blackfire_Torch = 3188 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Locket_of_the_Iron_Solari = 3190 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Seekers_Armguard = 3191 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId The_Hex_Core_mk_1 = 3196 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId The_Hex_Core_mk_2 = 3197 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Perfect_Hex_Core = 3198 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Quill_Coat = 3204 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Quill_Coat_3205 = 3205 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Spirit_of_the_Spectral_Wraith = 3206 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Spirit_of_the_Ancient_Golem = 3207 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Spirit_of_the_Ancient_Golem_3208 = 3208 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Spirit_of_the_Elder_Lizard = 3209 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Spectres_Cowl = 3211 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Mikaels_Crucible = 3222 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Berserkers_Greaves_Enchantment_Homeguard = 3250 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Berserkers_Greaves_Enchantment_Captain = 3251 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Berserkers_Greaves_Enchantment_Furor = 3252 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Berserkers_Greaves_Enchantment_Distortion = 3253 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Berserkers_Greaves_Enchantment_Alacrity = 3254 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Sorcerers_Shoes_Enchantment_Homeguard = 3255 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Sorcerers_Shoes_Enchantment_Captain = 3256 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Sorcerers_Shoes_Enchantment_Furor = 3257 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Sorcerers_Shoes_Enchantment_Distortion = 3258 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Sorcerers_Shoes_Enchantment_Alacrity = 3259 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Ninja_Tabi_Enchantment_Homeguard = 3260 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Ninja_Tabi_Enchantment_Captain = 3261 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Ninja_Tabi_Enchantment_Furor = 3262 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Ninja_Tabi_Enchantment_Distortion = 3263 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Ninja_Tabi_Enchantment_Alacrity = 3264 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Mercurys_Treads_Enchantment_Homeguard = 3265 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Mercurys_Treads_Enchantment_Captain = 3266 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Mercurys_Treads_Enchantment_Furor = 3267 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Mercurys_Treads_Enchantment_Distortion = 3268 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Mercurys_Treads_Enchantment_Alacrity = 3269 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Boots_of_Mobility_Enchantment_Homeguard = 3270 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Boots_of_Mobility_Enchantment_Captain = 3271 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Boots_of_Mobility_Enchantment_Furor = 3272 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Boots_of_Mobility_Enchantment_Distortion = 3273 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Boots_of_Mobility_Enchantment_Alacrity = 3274 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Ionian_Boots_of_Lucidity_Enchantment_Homeguard = 3275 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Ionian_Boots_of_Lucidity_Enchantment_Captain = 3276 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Ionian_Boots_of_Lucidity_Enchantment_Furor = 3277 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Ionian_Boots_of_Lucidity_Enchantment_Distortion = 3278 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Ionian_Boots_of_Lucidity_Enchantment_Alacrity = 3279 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Boots_of_Swiftness_Enchantment_Homeguard = 3280 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Boots_of_Swiftness_Enchantment_Captain = 3281 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Boots_of_Swiftness_Enchantment_Furor = 3282 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Boots_of_Swiftness_Enchantment_Distortion = 3283 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Boots_of_Swiftness_Enchantment_Alacrity = 3284 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Twin_Shadows_3290 = 3290 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Ancient_Coin = 3301 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Relic_Shield = 3302 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Spellthiefs_Edge = 3303 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Warding_Totem_Trinket = 3340 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Sweeping_Lens_Trinket = 3341 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Scrying_Orb_Trinket = 3342 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Soul_Anchor_Trinket = 3345 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Greater_Stealth_Totem_Trinket = 3361 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Greater_Vision_Totem_Trinket = 3362 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Farsight_Orb_Trinket = 3363 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Oracles_Lens_Trinket = 3364 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Face_of_the_Mountain = 3401 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Bonetooth_Necklace_3405 = 3405 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Bonetooth_Necklace_3411 = 3411 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Bonetooth_Necklace_3417 = 3417 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Bonetooth_Necklace_3450 = 3450 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Ardent_Censer = 3504 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Essence_Reaver = 3508 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId The_Black_Spear = 3599 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Stalkers_Blade = 3706 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Stalkers_Blade_Enchantment_Warrior = 3707 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Stalkers_Blade_Enchantment_Magus = 3708 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Stalkers_Blade_Enchantment_Juggernaut = 3709 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Stalkers_Blade_Enchantment_Devourer = 3710 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Poachers_Knife = 3711 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Rangers_Trailblazer = 3713 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Skirmishers_Sabre_Enchantment_Warrior = 3714 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Skirmishers_Sabre = 3715 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Skirmishers_Sabre_Enchantment_Magus = 3716 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Skirmishers_Sabre_Enchantment_Juggernaut = 3717 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Skirmishers_Sabre_Enchantment_Devourer = 3718 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Poachers_Knife_Enchantment_Warrior = 3719 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Poachers_Knife_Enchantment_Magus = 3720 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Poachers_Knife_Enchantment_Juggernaut = 3721 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Poachers_Knife_Enchantment_Devourer = 3722 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Rangers_Trailblazer_Enchantment_Warrior = 3723 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Rangers_Trailblazer_Enchantment_Magus = 3724 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Rangers_Trailblazer_Enchantment_Juggernaut = 3725 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Rangers_Trailblazer_Enchantment_Devourer = 3726 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Righteous_Glory = 3800 : Public, Static, Literal, HasDefault
+    LeagueSharp.ItemId Crystalline_Bracer = 3801 : Public, Static, Literal, HasDefault
+Struct LeagueSharp.SpellSlot: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LeagueSharp.SpellSlot Unknown = -1 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellSlot Q = 0 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellSlot W = 1 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellSlot E = 2 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellSlot R = 3 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellSlot Summoner1 = 4 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellSlot Summoner2 = 5 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellSlot Item1 = 6 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellSlot Item2 = 7 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellSlot Item3 = 8 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellSlot Item4 = 9 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellSlot Item5 = 10 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellSlot Item6 = 11 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellSlot Trinket = 12 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellSlot Recall = 13 : Public, Static, Literal, HasDefault
+Struct LeagueSharp.SpellState: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LeagueSharp.SpellState Ready = 0 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellState NotLearned = 2 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellState Surpressed = 3 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellState Cooldown = 4 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellState NoMana = 5 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellState Unknown = 10 : Public, Static, Literal, HasDefault
+Class LeagueSharp.LevelPropGameObject: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LeagueSharp.GameObject
+    Void .ctor(UInt16, UInt32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class LeagueSharp.LevelPropSpawnerPoint: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LeagueSharp.GameObject
+    Void .ctor(UInt16, UInt32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class LeagueSharp.Mastery: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Byte, LeagueSharp.MasteryPage, Byte): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Byte Id : Public
+    LeagueSharp.MasteryPage Page : Public
+    Byte Points : Public
+Struct LeagueSharp.MasteryPage: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LeagueSharp.MasteryPage Offense = 116 : Public, Static, Literal, HasDefault
+    LeagueSharp.MasteryPage Defense = 117 : Public, Static, Literal, HasDefault
+    LeagueSharp.MasteryPage Utility = 118 : Public, Static, Literal, HasDefault
+Class LeagueSharp.MenuGUI: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Boolean IsChatOpen 'get ' : 
+  Methods:
+    get_IsChatOpen(): PrivateScope, Public, Static, HideBySig, SpecialName
+Class LeagueSharp.NavMesh: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Properties:
+    Int16 Height 'get ' : 
+    Int16 Width 'get ' : 
+  Methods:
+    LineOfSightTest(Vector3, Vector3, Vector3&(Out)): PrivateScope, Public, Static, HideBySig
+    LineOfSightTest(Vector3, Vector3): PrivateScope, Public, Static, HideBySig
+    IsWallOfGrass(Single, Single, Single): PrivateScope, Public, Static, HideBySig
+    IsWallOfGrass(Vector3, Single): PrivateScope, Public, Static, HideBySig
+    GetHeightForPosition(Single, Single): PrivateScope, Public, Static, HideBySig
+    GetCollisionFlags(Single, Single): PrivateScope, Public, Static, HideBySig
+    GetCollisionFlags(Vector3): PrivateScope, Public, Static, HideBySig
+    get_Width(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_Height(): PrivateScope, Public, Static, HideBySig, SpecialName
+    GetCell(Int16, Int16): PrivateScope, Public, Static, HideBySig
+    GridToWorld(Int16, Int16): PrivateScope, Public, Static, HideBySig
+    WorldToGrid(Single, Single): PrivateScope, Public, Static, HideBySig
+Class LeagueSharp.NavMeshCell: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Properties:
+    SharpDX.Vector3 WorldPosition 'get ' : 
+    Int16 GridY 'get ' : 
+    Int16 GridX 'get ' : 
+    LeagueSharp.CollisionFlags CollFlags 'get set' : 
+  Methods:
+    get_CollFlags(): PrivateScope, Public, HideBySig, SpecialName
+    set_CollFlags(CollisionFlags): PrivateScope, Public, HideBySig, SpecialName
+    get_GridX(): PrivateScope, Public, HideBySig, SpecialName
+    get_GridY(): PrivateScope, Public, HideBySig, SpecialName
+    get_WorldPosition(): PrivateScope, Public, HideBySig, SpecialName
+Struct LeagueSharp.CollisionFlags: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    UInt16 value__ : Public, SpecialName, RTSpecialName
+    LeagueSharp.CollisionFlags None = 0 : Public, Static, Literal, HasDefault
+    LeagueSharp.CollisionFlags Grass = 1 : Public, Static, Literal, HasDefault
+    LeagueSharp.CollisionFlags Wall = 2 : Public, Static, Literal, HasDefault
+    LeagueSharp.CollisionFlags Building = 64 : Public, Static, Literal, HasDefault
+    LeagueSharp.CollisionFlags Prop = 128 : Public, Static, Literal, HasDefault
+Class LeagueSharp.NeutralMinionCamp: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LeagueSharp.GameObject
+    Void .ctor(UInt16, UInt32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class LeagueSharp.GameObjectPlayAnimation: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(GameObject, GameObjectPlayAnimationEventArgs): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(GameObject, GameObjectPlayAnimationEventArgs, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class LeagueSharp.GameObjectProcessSpellCast: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Obj_AI_Base, GameObjectProcessSpellCastEventArgs): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(Obj_AI_Base, GameObjectProcessSpellCastEventArgs, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class LeagueSharp.GameObjectNewPath: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Obj_AI_Base, GameObjectNewPathEventArgs): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(Obj_AI_Base, GameObjectNewPathEventArgs, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class LeagueSharp.Obj_AI_Base: AutoLayout, AnsiClass, Class, Public
+  :LeagueSharp.AttackableUnit
+    Void .ctor(UInt16, UInt32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Single PercentLocalGoldRewardMod 'get ' : 
+    Single FlatGoldRewardMod 'get ' : 
+    Single FlatExpRewardMod 'get ' : 
+    Single PathfindingRadiusMod 'get ' : 
+    Single AcquisitionRangeMod 'get ' : 
+    Single _NonHealingFlatHPPoolMod 'get ' : 
+    Single _PercentMagicPenetrationModPerLevel 'get ' : 
+    Single _PercentMagicPenetrationMod 'get ' : 
+    Single _FlatMagicPenetrationModPerLevel 'get ' : 
+    Single _FlatMagicPenetrationMod 'get ' : 
+    Single FlatGoldPer10Mod 'get ' : 
+    Single _PercentTimeDeadModPerLevel 'get ' : 
+    Single _PercentTimeDeadMod 'get ' : 
+    Single _FlatTimeDeadModPerLevel 'get ' : 
+    Single _FlatTimeDeadMod 'get ' : 
+    Single _PercentCooldownModPerLevel 'get ' : 
+    Single _PercentCooldownMod 'get ' : 
+    Single _PercentArmorPenetrationModPerLevel 'get ' : 
+    Single _PercentArmorPenetrationMod 'get ' : 
+    Single _FlatArmorPenetrationModPerLevel 'get ' : 
+    Single _FlatArmorPenetrationMod 'get ' : 
+    Single _FlatDodgeModPerLevel 'get ' : 
+    Single _FlatDodgeMod 'get ' : 
+    Single _FlatCritDamageModPerLevel 'get ' : 
+    Single _FlatCritChanceModPerLevel 'get ' : 
+    Single _PercentAttackSpeedModPerLevel 'get ' : 
+    Single _PercentMovementSpeedModPerLevel 'get ' : 
+    Single _FlatMovementSpeedModPerLevel 'get ' : 
+    Single _FlatMagicDamageModPerLevel 'get ' : 
+    Single _FlatPhysicalDamageModPerLevel 'get ' : 
+    Single _FlatMPRegenModPerLevel 'get ' : 
+    Single _FlatHPRegenModPerLevel 'get ' : 
+    Single _FlatSpellBlockModPerLevel 'get ' : 
+    Single _FlatArmorModPerLevel 'get ' : 
+    Single _FlatMPModPerLevel 'get ' : 
+    Single _FlatHPModPerLevel 'get ' : 
+    Single PercentBubbleRadiusMod 'get ' : 
+    Single FlatBubbleRadiusMod 'get ' : 
+    Single CastRange 'get ' : 
+    Single AttackRange 'get ' : 
+    Single MoveSpeed 'get ' : 
+    Single PARRegenRate 'get ' : 
+    Single PercentBasePARRegenMod 'get ' : 
+    Single BasePARRegenRate 'get ' : 
+    Single HPRegenRate 'get ' : 
+    Single SpellBlock 'get ' : 
+    Single Armor 'get ' : 
+    Single Crit 'get ' : 
+    Single Dodge 'get ' : 
+    Single MissChance 'get ' : 
+    Single ScaleSkinCoef 'get ' : 
+    Single CritDamageMultiplier 'get ' : 
+    Single BaseAbilityDamage 'get ' : 
+    Single BaseAttackDamage 'get ' : 
+    Single AttackSpeedMod 'get ' : 
+    Single PercentGoldLostOnDeathMod 'get ' : 
+    Single PercentRespawnTimeMod 'get ' : 
+    Single PercentSpellVampMod 'get ' : 
+    Single PercentLifeStealMod 'get ' : 
+    Single PercentHealingAmountMod 'get ' : 
+    Single PercentMultiplicativeAttackSpeedMod 'get ' : 
+    Single PercentAttackSpeedMod 'get ' : 
+    Single PercentCastRangeMod 'get ' : 
+    Single FlatCastRangeMod 'get ' : 
+    Single PercentAttackRangeMod 'get ' : 
+    Single FlatAttackRangeMod 'get ' : 
+    Single PercentEXPBonus 'get ' : 
+    Single PercentMagicReduction 'get ' : 
+    Single FlatMagicReduction 'get ' : 
+    Single PercentPhysicalReduction 'get ' : 
+    Single FlatPhysicalReduction 'get ' : 
+    Single PercentMagicDamageMod 'get ' : 
+    Single FlatMagicDamageMod 'get ' : 
+    Single PercentPhysicalDamageMod 'get ' : 
+    Single FlatPhysicalDamageMod 'get ' : 
+    Single PercentCritDamageMod 'get ' : 
+    Single FlatCritDamageMod 'get ' : 
+    Single FlatCritChanceMod 'get ' : 
+    Single FlatDodgeMod 'get ' : 
+    Single FlatMissChanceMod 'get ' : 
+    Single PercentSpellBlockMod 'get ' : 
+    Single FlatSpellBlockMod 'get ' : 
+    Single PercentBonusMagicPenetrationMod 'get ' : 
+    Single PercentMagicPenetrationMod 'get ' : 
+    Single FlatMagicPenetrationMod 'get ' : 
+    Single PercentBonusArmorPenetrationMod 'get ' : 
+    Single PercentArmorPenetrationMod 'get ' : 
+    Single FlatArmorPenetrationMod 'get ' : 
+    Single PercentArmorMod 'get ' : 
+    Single FlatArmorMod 'get ' : 
+    Single MoveSpeedFloorMod 'get ' : 
+    Single PercentMultiplicativeMovementSpeedMod 'get ' : 
+    Single PercentMovementSpeedMod 'get ' : 
+    Single FlatMovementSpeedMod 'get ' : 
+    Single PercentSlowResistMod 'get ' : 
+    Single PercentCCReduction 'get ' : 
+    Single PercentTenacityRuneMod 'get ' : 
+    Single PercentTenacityMasteryMod 'get ' : 
+    Single PercentTenacityItemMod 'get ' : 
+    Single PercentTenacityCharacterMod 'get ' : 
+    Single PercentTenacityCleanseMod 'get ' : 
+    Single PercentPARRegenMod 'get ' : 
+    Single FlatPARRegenMod 'get ' : 
+    Single PercentBaseHPRegenMod 'get ' : 
+    Single PercentHPRegenMod 'get ' : 
+    Single FlatHPRegenMod 'get ' : 
+    Single PercentPARPoolMod 'get ' : 
+    Single FlatPARPoolMod 'get ' : 
+    Single PercentHPPoolMod 'get ' : 
+    Single FlatHPPoolMod 'get ' : 
+    Single PercentCooldownMod 'get ' : 
+    Single PassiveCooldownTotalTime 'get ' : 
+    Single PassiveCooldownEndTime 'get ' : 
+    Single FlatCooldownMod 'get ' : 
+    SharpDX.Vector3 Direction 'get ' : 
+    Boolean IsHPBarRendered 'get ' : 
+    SharpDX.Vector2 HPBarPosition 'get ' : 
+    Single AttackCastDelay 'get ' : 
+    Single AttackDelay 'get ' : 
+    SharpDX.Vector3 InfoComponentBasePosition 'get ' : 
+    Boolean IsCharging 'get ' : 
+    Boolean IsChanneling 'get ' : 
+    Boolean IsAutoAttacking 'get ' : 
+    SharpDX.Vector3 ServerPosition 'get ' : 
+    LeagueSharp.GameObject Pet 'get ' : 
+    LeagueSharp.InventorySlot[] InventoryItems 'get ' : 
+    LeagueSharp.SpellData BasicAttack 'get ' : 
+    LeagueSharp.BuffInstance[] Buffs 'get ' : 
+    System.String BaseSkinName 'get ' : 
+    Boolean IsPacified 'get ' : 
+    Boolean IsStunned 'get ' : 
+    Boolean IsRooted 'get ' : 
+    Boolean IsDisableAmbientXP 'get ' : 
+    Boolean IsDisableAmbientGold 'get ' : 
+    Boolean IsImmovable 'get ' : 
+    Boolean CanMove 'get ' : 
+    Boolean CanCast 'get ' : 
+    Boolean CanAttack 'get ' : 
+    LeagueSharp.Spellbook Spellbook 'get ' : 
+    SharpDX.Vector3[] Path 'get ' : 
+    Boolean IsMoving 'get ' : 
+    Int32 AutoAttackTargetingFlags 'get ' : 
+    Single DeathDuration 'get ' : 
+    SharpDX.Vector3 LastPausePosition 'get ' : 
+    SharpDX.Vector3 FearLeashPoint 'get ' : 
+    Single PetReturnRadius 'get ' : 
+    LeagueSharp.GameObjectCombatType CombatType 'get ' : 
+    Single Gold 'get ' : 
+    Int32 AI_LastPetSpawnedID 'get ' : 
+    Boolean SpellCastBlockingAI 'get ' : 
+    LeagueSharp.GameObjectCharacterState CharacterState 'get ' : 
+    Single ExpGiveRadius 'get ' : 
+    Single ScriptGoldGiven 'get ' : 
+    Single ScriptExpGiven 'get ' : 
+    Single ScriptHealthBonus 'get ' : 
+    Single ScriptDamageBonus 'get ' : 
+    Boolean PlayerControlled 'get ' : 
+    System.String SkinName 'get ' : 
+    Boolean IsHoldingPosition 'get ' : 
+    Boolean IsWindingUp 'get ' : 
+    Boolean IsMinion 'get ' : 
+  Events:
+    LeagueSharp.GameObjectNewPath OnNewPath: SpecialName
+    LeagueSharp.GameObjectProcessSpellCast OnProcessSpellCast: SpecialName
+    LeagueSharp.GameObjectPlayAnimation OnPlayAnimation: SpecialName
+  Methods:
+    add_OnProcessSpellCast(GameObjectProcessSpellCast): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnProcessSpellCast(GameObjectProcessSpellCast): PrivateScope, Public, Static, HideBySig, SpecialName
+    add_OnNewPath(GameObjectNewPath): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnNewPath(GameObjectNewPath): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_PercentBonusMagicPenetrationMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_FlatSpellBlockMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentSpellBlockMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_FlatMissChanceMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_FlatDodgeMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_FlatCritChanceMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_FlatCritDamageMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentCritDamageMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_FlatPhysicalDamageMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentPhysicalDamageMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_FlatMagicDamageMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentMagicDamageMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_FlatPhysicalReduction(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentPhysicalReduction(): PrivateScope, Public, HideBySig, SpecialName
+    get_FlatMagicReduction(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentMagicReduction(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentEXPBonus(): PrivateScope, Public, HideBySig, SpecialName
+    get_FlatAttackRangeMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentAttackRangeMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_FlatCastRangeMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentCastRangeMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentAttackSpeedMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentMultiplicativeAttackSpeedMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentHealingAmountMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentLifeStealMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentSpellVampMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentRespawnTimeMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentGoldLostOnDeathMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_AttackSpeedMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_BaseAttackDamage(): PrivateScope, Public, HideBySig, SpecialName
+    get_BaseAbilityDamage(): PrivateScope, Public, HideBySig, SpecialName
+    get_CritDamageMultiplier(): PrivateScope, Public, HideBySig, SpecialName
+    get_ScaleSkinCoef(): PrivateScope, Public, HideBySig, SpecialName
+    get_MissChance(): PrivateScope, Public, HideBySig, SpecialName
+    get_Dodge(): PrivateScope, Public, HideBySig, SpecialName
+    get_Crit(): PrivateScope, Public, HideBySig, SpecialName
+    get_Armor(): PrivateScope, Public, HideBySig, SpecialName
+    get_SpellBlock(): PrivateScope, Public, HideBySig, SpecialName
+    get_HPRegenRate(): PrivateScope, Public, HideBySig, SpecialName
+    get_BasePARRegenRate(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentBasePARRegenMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PARRegenRate(): PrivateScope, Public, HideBySig, SpecialName
+    get_MoveSpeed(): PrivateScope, Public, HideBySig, SpecialName
+    get_AttackRange(): PrivateScope, Public, HideBySig, SpecialName
+    get_CastRange(): PrivateScope, Public, HideBySig, SpecialName
+    get_FlatBubbleRadiusMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentBubbleRadiusMod(): PrivateScope, Public, HideBySig, SpecialName
+    get__FlatHPModPerLevel(): PrivateScope, Public, HideBySig, SpecialName
+    get__FlatMPModPerLevel(): PrivateScope, Public, HideBySig, SpecialName
+    get__FlatArmorModPerLevel(): PrivateScope, Public, HideBySig, SpecialName
+    get__FlatSpellBlockModPerLevel(): PrivateScope, Public, HideBySig, SpecialName
+    get__FlatHPRegenModPerLevel(): PrivateScope, Public, HideBySig, SpecialName
+    get__FlatMPRegenModPerLevel(): PrivateScope, Public, HideBySig, SpecialName
+    get__FlatPhysicalDamageModPerLevel(): PrivateScope, Public, HideBySig, SpecialName
+    get__FlatMagicDamageModPerLevel(): PrivateScope, Public, HideBySig, SpecialName
+    get__FlatMovementSpeedModPerLevel(): PrivateScope, Public, HideBySig, SpecialName
+    get__PercentMovementSpeedModPerLevel(): PrivateScope, Public, HideBySig, SpecialName
+    get__PercentAttackSpeedModPerLevel(): PrivateScope, Public, HideBySig, SpecialName
+    get__FlatCritChanceModPerLevel(): PrivateScope, Public, HideBySig, SpecialName
+    get__FlatCritDamageModPerLevel(): PrivateScope, Public, HideBySig, SpecialName
+    get__FlatDodgeMod(): PrivateScope, Public, HideBySig, SpecialName
+    get__FlatDodgeModPerLevel(): PrivateScope, Public, HideBySig, SpecialName
+    get__FlatArmorPenetrationMod(): PrivateScope, Public, HideBySig, SpecialName
+    get__FlatArmorPenetrationModPerLevel(): PrivateScope, Public, HideBySig, SpecialName
+    get__PercentArmorPenetrationMod(): PrivateScope, Public, HideBySig, SpecialName
+    get__PercentArmorPenetrationModPerLevel(): PrivateScope, Public, HideBySig, SpecialName
+    get__PercentCooldownMod(): PrivateScope, Public, HideBySig, SpecialName
+    get__PercentCooldownModPerLevel(): PrivateScope, Public, HideBySig, SpecialName
+    get__FlatTimeDeadMod(): PrivateScope, Public, HideBySig, SpecialName
+    get__FlatTimeDeadModPerLevel(): PrivateScope, Public, HideBySig, SpecialName
+    get__PercentTimeDeadMod(): PrivateScope, Public, HideBySig, SpecialName
+    get__PercentTimeDeadModPerLevel(): PrivateScope, Public, HideBySig, SpecialName
+    get_FlatGoldPer10Mod(): PrivateScope, Public, HideBySig, SpecialName
+    get__FlatMagicPenetrationMod(): PrivateScope, Public, HideBySig, SpecialName
+    get__FlatMagicPenetrationModPerLevel(): PrivateScope, Public, HideBySig, SpecialName
+    get__PercentMagicPenetrationMod(): PrivateScope, Public, HideBySig, SpecialName
+    get__PercentMagicPenetrationModPerLevel(): PrivateScope, Public, HideBySig, SpecialName
+    get__NonHealingFlatHPPoolMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_AcquisitionRangeMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PathfindingRadiusMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_FlatExpRewardMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_FlatGoldRewardMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentLocalGoldRewardMod(): PrivateScope, Public, HideBySig, SpecialName
+    add_OnPlayAnimation(GameObjectPlayAnimation): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnPlayAnimation(GameObjectPlayAnimation): PrivateScope, Public, Static, HideBySig, SpecialName
+    HasBuffOfType(BuffType): PrivateScope, Public, HideBySig
+    IssueOrder(GameObjectOrder, Vector3): PrivateScope, Public, HideBySig
+    IssueOrder(GameObjectOrder, GameObject): PrivateScope, Public, HideBySig
+    GetPath(Vector3): PrivateScope, Public, HideBySig
+    get_IsMinion(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsWindingUp(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsHoldingPosition(): PrivateScope, Public, HideBySig, SpecialName
+    get_SkinName(): PrivateScope, Public, HideBySig, SpecialName
+    get_PlayerControlled(): PrivateScope, Public, HideBySig, SpecialName
+    get_ScriptDamageBonus(): PrivateScope, Public, HideBySig, SpecialName
+    get_ScriptHealthBonus(): PrivateScope, Public, HideBySig, SpecialName
+    get_ScriptExpGiven(): PrivateScope, Public, HideBySig, SpecialName
+    get_ScriptGoldGiven(): PrivateScope, Public, HideBySig, SpecialName
+    get_ExpGiveRadius(): PrivateScope, Public, HideBySig, SpecialName
+    get_CharacterState(): PrivateScope, Public, HideBySig, SpecialName
+    get_SpellCastBlockingAI(): PrivateScope, Public, HideBySig, SpecialName
+    get_AI_LastPetSpawnedID(): PrivateScope, Public, HideBySig, SpecialName
+    get_Gold(): PrivateScope, Public, HideBySig, SpecialName
+    get_CombatType(): PrivateScope, Public, HideBySig, SpecialName
+    get_PetReturnRadius(): PrivateScope, Public, HideBySig, SpecialName
+    get_FearLeashPoint(): PrivateScope, Public, HideBySig, SpecialName
+    get_LastPausePosition(): PrivateScope, Public, HideBySig, SpecialName
+    get_DeathDuration(): PrivateScope, Public, HideBySig, SpecialName
+    get_AutoAttackTargetingFlags(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsMoving(): PrivateScope, Public, HideBySig, SpecialName
+    get_Path(): PrivateScope, Public, HideBySig, SpecialName
+    get_Spellbook(): PrivateScope, Public, HideBySig, SpecialName
+    get_CanAttack(): PrivateScope, Public, HideBySig, SpecialName
+    get_CanCast(): PrivateScope, Public, HideBySig, SpecialName
+    get_CanMove(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsImmovable(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsDisableAmbientGold(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsDisableAmbientXP(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsRooted(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsStunned(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsPacified(): PrivateScope, Public, HideBySig, SpecialName
+    get_BaseSkinName(): PrivateScope, Public, HideBySig, SpecialName
+    get_Buffs(): PrivateScope, Public, HideBySig, SpecialName
+    get_BasicAttack(): PrivateScope, Public, HideBySig, SpecialName
+    get_InventoryItems(): PrivateScope, Public, HideBySig, SpecialName
+    get_Pet(): PrivateScope, Public, HideBySig, SpecialName
+    get_ServerPosition(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsAutoAttacking(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsChanneling(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsCharging(): PrivateScope, Public, HideBySig, SpecialName
+    get_InfoComponentBasePosition(): PrivateScope, Public, HideBySig, SpecialName
+    get_AttackDelay(): PrivateScope, Public, HideBySig, SpecialName
+    get_AttackCastDelay(): PrivateScope, Public, HideBySig, SpecialName
+    get_HPBarPosition(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsHPBarRendered(): PrivateScope, Public, HideBySig, SpecialName
+    get_Direction(): PrivateScope, Public, HideBySig, SpecialName
+    get_FlatCooldownMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PassiveCooldownEndTime(): PrivateScope, Public, HideBySig, SpecialName
+    get_PassiveCooldownTotalTime(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentCooldownMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_FlatHPPoolMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentHPPoolMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_FlatPARPoolMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentPARPoolMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_FlatHPRegenMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentHPRegenMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentBaseHPRegenMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_FlatPARRegenMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentPARRegenMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentTenacityCleanseMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentTenacityCharacterMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentTenacityItemMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentTenacityMasteryMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentTenacityRuneMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentCCReduction(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentSlowResistMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_FlatMovementSpeedMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentMovementSpeedMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentMultiplicativeMovementSpeedMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_MoveSpeedFloorMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_FlatArmorMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentArmorMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_FlatArmorPenetrationMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentArmorPenetrationMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentBonusArmorPenetrationMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_FlatMagicPenetrationMod(): PrivateScope, Public, HideBySig, SpecialName
+    get_PercentMagicPenetrationMod(): PrivateScope, Public, HideBySig, SpecialName
+Class LeagueSharp.Obj_AI_Hero: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LeagueSharp.Obj_AI_Base
+    Void .ctor(UInt16, UInt32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Single TotalHeal 'get ' : 
+    Single MagicDamageTaken 'get ' : 
+    Single PhysicalDamageTaken 'get ' : 
+    Single MagicDamageDealtPlayer 'get ' : 
+    Single PhysicalDamageDealtPlayer 'get ' : 
+    Single CombatPlayerScore 'get ' : 
+    Single ObjectivePlayerScore 'get ' : 
+    Single TotalPlayerScore 'get ' : 
+    Single LargestCriticalStrike 'get ' : 
+    Int32 UnrealKills 'get ' : 
+    Int32 PentaKills 'get ' : 
+    Int32 QuadraKills 'get ' : 
+    Int32 TripleKills 'get ' : 
+    Int32 DoubleKills 'get ' : 
+    Int32 HQKilled 'get ' : 
+    Int32 WardsPlaced 'get ' : 
+    Int32 SuperMonsterKilled 'get ' : 
+    Int32 TurretsKilled 'get ' : 
+    Int32 BarracksKilled 'get ' : 
+    Single LongestTimeSpentLiving 'get ' : 
+    Int32 LargestKillingSpree 'get ' : 
+    Single Score 'get ' : 
+    Int32 NodesNeutralized 'get ' : 
+    Int32 NodesCaptured 'get ' : 
+    Single GoldCurrent 'get ' : 
+    Single GoldEarned 'get ' : 
+    Int32 Assists 'get ' : 
+    Int32 Deaths 'get ' : 
+    Int32 ChampionsKilled 'get ' : 
+    Int32 WardsKilled 'get ' : 
+    Int32 NeutralMinionsKilled 'get ' : 
+    Int32 MinionsKilled 'get ' : 
+    Single TotalTimeCrowdControlDealt 'get ' : 
+    Int32 VisionWardsBought 'get ' : 
+    Int32 SightWardsBought 'get ' : 
+    System.String ChampionName 'get ' : 
+    LeagueSharp.ItemId[] Runes 'get ' : 
+    LeagueSharp.Mastery[] Masteries 'get ' : 
+    Int32 LevelCap 'get ' : 
+    Int32 SpellTrainingPoints 'get ' : 
+    Int32 Level 'get ' : 
+    Single Experience 'get ' : 
+    Boolean HasBotAI 'get ' : 
+    Boolean IsBot 'get ' : 
+    LeagueSharp.Spellbook SummonerSpellbook 'get ' : 
+  Methods:
+    get_SummonerSpellbook(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsBot(): PrivateScope, Public, HideBySig, SpecialName
+    get_HasBotAI(): PrivateScope, Public, HideBySig, SpecialName
+    get_Experience(): PrivateScope, Public, HideBySig, SpecialName
+    get_Level(): PrivateScope, Public, HideBySig, SpecialName
+    get_SpellTrainingPoints(): PrivateScope, Public, HideBySig, SpecialName
+    get_LevelCap(): PrivateScope, Public, HideBySig, SpecialName
+    get_Masteries(): PrivateScope, Public, HideBySig, SpecialName
+    get_Runes(): PrivateScope, Public, HideBySig, SpecialName
+    get_ChampionName(): PrivateScope, Public, HideBySig, SpecialName
+    get_SightWardsBought(): PrivateScope, Public, HideBySig, SpecialName
+    get_VisionWardsBought(): PrivateScope, Public, HideBySig, SpecialName
+    get_TotalTimeCrowdControlDealt(): PrivateScope, Public, HideBySig, SpecialName
+    get_MinionsKilled(): PrivateScope, Public, HideBySig, SpecialName
+    get_NeutralMinionsKilled(): PrivateScope, Public, HideBySig, SpecialName
+    get_WardsKilled(): PrivateScope, Public, HideBySig, SpecialName
+    get_ChampionsKilled(): PrivateScope, Public, HideBySig, SpecialName
+    get_Deaths(): PrivateScope, Public, HideBySig, SpecialName
+    get_Assists(): PrivateScope, Public, HideBySig, SpecialName
+    get_GoldEarned(): PrivateScope, Public, HideBySig, SpecialName
+    get_GoldCurrent(): PrivateScope, Public, HideBySig, SpecialName
+    get_NodesCaptured(): PrivateScope, Public, HideBySig, SpecialName
+    get_NodesNeutralized(): PrivateScope, Public, HideBySig, SpecialName
+    get_Score(): PrivateScope, Public, HideBySig, SpecialName
+    get_LargestKillingSpree(): PrivateScope, Public, HideBySig, SpecialName
+    get_LongestTimeSpentLiving(): PrivateScope, Public, HideBySig, SpecialName
+    get_BarracksKilled(): PrivateScope, Public, HideBySig, SpecialName
+    get_TurretsKilled(): PrivateScope, Public, HideBySig, SpecialName
+    get_SuperMonsterKilled(): PrivateScope, Public, HideBySig, SpecialName
+    get_WardsPlaced(): PrivateScope, Public, HideBySig, SpecialName
+    get_HQKilled(): PrivateScope, Public, HideBySig, SpecialName
+    get_DoubleKills(): PrivateScope, Public, HideBySig, SpecialName
+    get_TripleKills(): PrivateScope, Public, HideBySig, SpecialName
+    get_QuadraKills(): PrivateScope, Public, HideBySig, SpecialName
+    get_PentaKills(): PrivateScope, Public, HideBySig, SpecialName
+    get_UnrealKills(): PrivateScope, Public, HideBySig, SpecialName
+    get_LargestCriticalStrike(): PrivateScope, Public, HideBySig, SpecialName
+    get_TotalPlayerScore(): PrivateScope, Public, HideBySig, SpecialName
+    get_ObjectivePlayerScore(): PrivateScope, Public, HideBySig, SpecialName
+    get_CombatPlayerScore(): PrivateScope, Public, HideBySig, SpecialName
+    get_PhysicalDamageDealtPlayer(): PrivateScope, Public, HideBySig, SpecialName
+    get_MagicDamageDealtPlayer(): PrivateScope, Public, HideBySig, SpecialName
+    get_PhysicalDamageTaken(): PrivateScope, Public, HideBySig, SpecialName
+    get_MagicDamageTaken(): PrivateScope, Public, HideBySig, SpecialName
+    get_TotalHeal(): PrivateScope, Public, HideBySig, SpecialName
+    BuyItem(ItemId): PrivateScope, Public, HideBySig
+    SellItem(Int32): PrivateScope, Public, HideBySig
+    UndoBuy(): PrivateScope, Public, HideBySig
+    SwapItem(Int32, Int32): PrivateScope, Public, HideBySig
+Class LeagueSharp.Obj_AI_Minion: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LeagueSharp.Obj_AI_Base
+    Void .ctor(UInt16, UInt32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Int32 MinionLevel 'get ' : 
+    SharpDX.Vector3 LeashedPosition 'get ' : 
+    Int32 CampNumber 'get ' : 
+    Int32 OriginalState 'get ' : 
+    Int32 RoamState 'get ' : 
+  Methods:
+    get_RoamState(): PrivateScope, Public, HideBySig, SpecialName
+    get_OriginalState(): PrivateScope, Public, HideBySig, SpecialName
+    get_CampNumber(): PrivateScope, Public, HideBySig, SpecialName
+    get_LeashedPosition(): PrivateScope, Public, HideBySig, SpecialName
+    get_MinionLevel(): PrivateScope, Public, HideBySig, SpecialName
+Class LeagueSharp.Obj_AI_Turret: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LeagueSharp.Obj_AI_Base
+    Void .ctor(UInt16, UInt32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class LeagueSharp.Obj_AI_Marker: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LeagueSharp.Obj_AI_Base
+    Void .ctor(UInt16, UInt32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class LeagueSharp.Obj_Building: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LeagueSharp.AttackableUnit
+    Void .ctor(UInt16, UInt32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class LeagueSharp.Obj_AnimatedBuilding: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LeagueSharp.Obj_Building
+    Void .ctor(UInt16, UInt32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class LeagueSharp.Obj_BarracksDampener: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LeagueSharp.Obj_AnimatedBuilding
+    Void .ctor(UInt16, UInt32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class LeagueSharp.Obj_Shop: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LeagueSharp.Obj_Building
+    Void .ctor(UInt16, UInt32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Struct LeagueSharp.Vector3Time: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(SharpDX.Vector3, Single): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Single Time 'get ' : 
+    SharpDX.Vector3 Position 'get ' : 
+  Methods:
+    get_Position(): PrivateScope, Public, HideBySig, SpecialName
+    get_Time(): PrivateScope, Public, HideBySig, SpecialName
+Class LeagueSharp.Obj_SpellMissile: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LeagueSharp.GameObject
+    Void .ctor(UInt16, UInt32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    LeagueSharp.GameObject Target 'get ' : 
+    SharpDX.Vector3 EndPosition 'get ' : 
+    SharpDX.Vector3 StartPosition 'get ' : 
+    LeagueSharp.Obj_AI_Base SpellCaster 'get ' : 
+    LeagueSharp.SpellData SData 'get ' : 
+  Methods:
+    get_SData(): PrivateScope, Public, HideBySig, SpecialName
+    get_SpellCaster(): PrivateScope, Public, HideBySig, SpecialName
+    get_StartPosition(): PrivateScope, Public, HideBySig, SpecialName
+    get_EndPosition(): PrivateScope, Public, HideBySig, SpecialName
+    get_Target(): PrivateScope, Public, HideBySig, SpecialName
+Class LeagueSharp.Obj_SpellLineMissile: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LeagueSharp.Obj_SpellMissile
+    Void .ctor(UInt16, UInt32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    SendStandardPacket(Int32): PrivateScope, Public, HideBySig
+Class LeagueSharp.Obj_SpellCircleMissile: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LeagueSharp.Obj_SpellMissile
+    Void .ctor(UInt16, UInt32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class LeagueSharp.Obj_SpellChainMissile: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LeagueSharp.Obj_SpellMissile
+    Void .ctor(UInt16, UInt32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class LeagueSharp.Obj_Turret: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LeagueSharp.Obj_AnimatedBuilding
+    Void .ctor(UInt16, UInt32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class LeagueSharp.Obj_GeneralParticleEmmiter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LeagueSharp.GameObject
+    Void .ctor(UInt16, UInt32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class LeagueSharp.Obj_LampBulb: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LeagueSharp.GameObject
+    Void .ctor(UInt16, UInt32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class LeagueSharp.Obj_Lake: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LeagueSharp.Obj_Building
+    Void .ctor(UInt16, UInt32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class LeagueSharp.Obj_HQ: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LeagueSharp.Obj_AnimatedBuilding
+    Void .ctor(UInt16, UInt32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class LeagueSharp.Obj_SpawnPoint: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LeagueSharp.Obj_Building
+    Void .ctor(UInt16, UInt32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class LeagueSharp.Obj_Barracks: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LeagueSharp.Obj_Building
+    Void .ctor(UInt16, UInt32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Struct LeagueSharp.GameObjectCharacterState: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LeagueSharp.GameObjectCharacterState CanAttack = 1 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectCharacterState CanCast = 2 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectCharacterState CanMove = 4 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectCharacterState Immovable = 8 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectCharacterState RevealSpecificUnit = 32 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectCharacterState Taunted = 64 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectCharacterState Feared = 128 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectCharacterState Fleeing = 256 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectCharacterState Surpressed = 512 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectCharacterState Asleep = 1024 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectCharacterState NearSight = 2048 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectCharacterState Ghosted = 4096 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectCharacterState GhostProof = 8192 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectCharacterState Charmed = 16384 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectCharacterState NoRender = 32768 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectCharacterState DodgePiercing = 131072 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectCharacterState DisableAmbientGold = 262144 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectCharacterState DisableAmbientXP = 524288 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectCharacterState ForceRenderParticles = 65536 : Public, Static, Literal, HasDefault
+Struct LeagueSharp.GameObjectCombatType: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LeagueSharp.GameObjectCombatType Melee = 1 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectCombatType Ranged = 2 : Public, Static, Literal, HasDefault
+Struct LeagueSharp.GameObjectOrder: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LeagueSharp.GameObjectOrder HoldPosition = 1 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectOrder MoveTo = 2 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectOrder AttackUnit = 3 : Public, Static, Literal, HasDefault
+    LeagueSharp.GameObjectOrder AttackTo = 7 : Public, Static, Literal, HasDefault
+Class LeagueSharp.SpellDataNotFoundException: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Exception
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class LeagueSharp.SpellData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Properties:
+    Single LineWidth 'get ' : 
+    Single MissileSpeed 'get ' : 
+    Single CastFrame 'get ' : 
+    Single SpellCastTime 'get ' : 
+    Single SpellTotalTime 'get ' : 
+    Single[] CastRadiusSecondary 'get ' : 
+    Single[] CastRangeDisplayOverride 'get ' : 
+    Single[] CastRadius 'get ' : 
+    Single[] CastRange 'get ' : 
+    UInt32 Hash 'get ' IsLong : 
+    System.String Name 'get ' : 
+  Methods:
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    get_Hash(): PrivateScope, Public, HideBySig, SpecialName
+    get_CastRange(): PrivateScope, Public, HideBySig, SpecialName
+    get_CastRadius(): PrivateScope, Public, HideBySig, SpecialName
+    get_CastRangeDisplayOverride(): PrivateScope, Public, HideBySig, SpecialName
+    get_CastRadiusSecondary(): PrivateScope, Public, HideBySig, SpecialName
+    get_SpellTotalTime(): PrivateScope, Public, HideBySig, SpecialName
+    get_SpellCastTime(): PrivateScope, Public, HideBySig, SpecialName
+    get_CastFrame(): PrivateScope, Public, HideBySig, SpecialName
+    get_MissileSpeed(): PrivateScope, Public, HideBySig, SpecialName
+    get_LineWidth(): PrivateScope, Public, HideBySig, SpecialName
+    GetSpellData(UInt32 IsLong): PrivateScope, Public, Static, HideBySig
+    GetSpellData(String): PrivateScope, Public, Static, HideBySig
+Class LeagueSharp.GameObjectProcessSpellCastEventArgs: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.EventArgs
+    Void .ctor(LeagueSharp.SpellData, Int32, SharpDX.Vector3, SharpDX.Vector3, Single, Single, Single, Single, Single, UInt32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    LeagueSharp.GameObject Target 'get ' : 
+    Single TimeTillPlayAnimation 'get ' : 
+    Single ExtraTimeForCast 'get ' : 
+    Single AnimateCast 'get ' : 
+    Single TimeCast 'get ' : 
+    Single TimeSpellEnd 'get ' : 
+    SharpDX.Vector3 End 'get ' : 
+    SharpDX.Vector3 Start 'get ' : 
+    Int32 Level 'get ' : 
+    LeagueSharp.SpellData SData 'get ' : 
+  Methods:
+    get_SData(): PrivateScope, Public, HideBySig, SpecialName
+    get_Level(): PrivateScope, Public, HideBySig, SpecialName
+    get_Start(): PrivateScope, Public, HideBySig, SpecialName
+    get_End(): PrivateScope, Public, HideBySig, SpecialName
+    get_TimeSpellEnd(): PrivateScope, Public, HideBySig, SpecialName
+    get_TimeCast(): PrivateScope, Public, HideBySig, SpecialName
+    get_AnimateCast(): PrivateScope, Public, HideBySig, SpecialName
+    get_ExtraTimeForCast(): PrivateScope, Public, HideBySig, SpecialName
+    get_TimeTillPlayAnimation(): PrivateScope, Public, HideBySig, SpecialName
+    get_Target(): PrivateScope, Public, HideBySig, SpecialName
+Class LeagueSharp.GameObjectPlayAnimationEventArgs: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.EventArgs
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Animation 'get ' : 
+  Methods:
+    get_Animation(): PrivateScope, Public, HideBySig, SpecialName
+Class LeagueSharp.SpellDataInstNotFoundException: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Exception
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class LeagueSharp.SpellDataInst: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Properties:
+    LeagueSharp.SpellData SData 'get ' : 
+    Single ManaCost 'get ' : 
+    LeagueSharp.SpellState State 'get ' : 
+    LeagueSharp.SpellSlot Slot 'get ' : 
+    System.String Name 'get ' : 
+    Single AmmoRechargeStart 'get ' : 
+    Int32 Ammo 'get ' : 
+    Boolean IsSealed 'get ' : 
+    Int32 ToggleState 'get ' : 
+    Single Cooldown 'get ' : 
+    Single CooldownExpires 'get ' : 
+    Int32 Level 'get ' : 
+  Methods:
+    get_Level(): PrivateScope, Public, HideBySig, SpecialName
+    get_CooldownExpires(): PrivateScope, Public, HideBySig, SpecialName
+    get_Cooldown(): PrivateScope, Public, HideBySig, SpecialName
+    get_ToggleState(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsSealed(): PrivateScope, Public, HideBySig, SpecialName
+    get_Ammo(): PrivateScope, Public, HideBySig, SpecialName
+    get_AmmoRechargeStart(): PrivateScope, Public, HideBySig, SpecialName
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    get_Slot(): PrivateScope, Public, HideBySig, SpecialName
+    get_State(): PrivateScope, Public, HideBySig, SpecialName
+    get_ManaCost(): PrivateScope, Public, HideBySig, SpecialName
+    get_SData(): PrivateScope, Public, HideBySig, SpecialName
+Struct LeagueSharp.SpellFlags: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LeagueSharp.SpellFlags Autocast = 2 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellFlags Instacast = 4 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellFlags PersistThroughDeath = 8 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellFlags NonDispellable = 16 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellFlags AffectImportantBotTargets = 64 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellFlags AllowWhileTaunted = 128 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellFlags AffectUntargetable = 512 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellFlags AffectEnemies = 1024 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellFlags AffectFriends = 2048 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellFlags AffectBuildings = 4096 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellFlags NotAffectSelf = 8192 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellFlags AffectNeutral = 16384 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellFlags AffectMinions = 32768 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellFlags AffectHeroes = 65536 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellFlags AffectTurrets = 131072 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellFlags AlwaysSelf = 262144 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellFlags AffectDead = 524288 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellFlags AffectNotPet = 1048576 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellFlags AffectBarrackOnly = 2097152 : Public, Static, Literal, HasDefault
+    LeagueSharp.SpellFlags NonTargetableAlly = 8388608 : Public, Static, Literal, HasDefault

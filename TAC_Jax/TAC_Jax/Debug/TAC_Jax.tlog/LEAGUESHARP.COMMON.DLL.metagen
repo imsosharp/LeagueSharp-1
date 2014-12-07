@@ -1,0 +1,2271 @@
+  LeagueSharp.Common.Properties.Resources.resources - Embedded, ContainedInManifestFile, 
+ImageRuntimeVersion: v4.0.30319
+Assembly LeagueSharp.Common, Version=1.0.*, Culture=Invariant Language (Invariant Country): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly SharpDX.Direct3D9, Version=2.5.*, Culture=Invariant Language (Invariant Country): 
+	hash=None, flags=None
+Assembly SharpDX, Version=2.5.*, Culture=Invariant Language (Invariant Country): 
+	hash=None, flags=None
+Assembly LeagueSharp, Version=1.0.*, Culture=Invariant Language (Invariant Country): 
+	hash=None, flags=None
+Assembly System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=None, flags=None
+Assembly System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Class LeagueSharp.Common.Render: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed
+  Properties:
+    SharpDX.Direct3D9.Device Device 'get ' : 
+  Methods:
+    get_Device(): PrivateScope, Public, Static, HideBySig, SpecialName
+    OnScreen(Vector2): PrivateScope, Public, Static, HideBySig
+    Add(RenderObject, Int32(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    Remove(RenderObject): PrivateScope, Public, Static, HideBySig
+Class LeagueSharp.Common.Render+RenderObject: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Int32 Layer : Public
+    VisibleConditionDelegate VisibleCondition : Public
+  Properties:
+    Boolean Visible 'get set' : 
+  Methods:
+    get_Visible(): PrivateScope, Public, HideBySig, SpecialName
+    set_Visible(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    OnDraw(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    OnEndScene(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    OnPreReset(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    OnPostReset(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    Dispose(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class LeagueSharp.Common.Render+RenderObject+VisibleConditionDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(RenderObject): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(RenderObject, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class LeagueSharp.Common.Render+Circle: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+  :LeagueSharp.Common.Render+RenderObject
+    Void .ctor(LeagueSharp.GameObject, Single, System.Drawing.Color, Int32, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(LeagueSharp.GameObject, SharpDX.Vector3, Single, System.Drawing.Color, Int32, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(SharpDX.Vector3, SharpDX.Vector3, Single, System.Drawing.Color, Int32, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(SharpDX.Vector3, Single, System.Drawing.Color, Int32, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    SharpDX.Vector3 Position 'get set' : 
+    LeagueSharp.GameObject Unit 'get set' : 
+    Single Radius 'get set' : 
+    System.Drawing.Color Color 'get set' : 
+    Int32 Width 'get set' : 
+    Boolean ZDeep 'get set' : 
+    SharpDX.Vector3 Offset 'get set' : 
+  Methods:
+    get_Position(): PrivateScope, Public, HideBySig, SpecialName
+    set_Position(Vector3): PrivateScope, Public, HideBySig, SpecialName
+    get_Unit(): PrivateScope, Public, HideBySig, SpecialName
+    set_Unit(GameObject): PrivateScope, Public, HideBySig, SpecialName
+    get_Radius(): PrivateScope, Public, HideBySig, SpecialName
+    set_Radius(Single): PrivateScope, Public, HideBySig, SpecialName
+    get_Color(): PrivateScope, Public, HideBySig, SpecialName
+    set_Color(Color): PrivateScope, Public, HideBySig, SpecialName
+    get_Width(): PrivateScope, Public, HideBySig, SpecialName
+    set_Width(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_ZDeep(): PrivateScope, Public, HideBySig, SpecialName
+    set_ZDeep(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    get_Offset(): PrivateScope, Public, HideBySig, SpecialName
+    set_Offset(Vector3): PrivateScope, Public, HideBySig, SpecialName
+    OnDraw(): PrivateScope, Public, Virtual, HideBySig
+    CreateVertexes(): PrivateScope, Public, Static, HideBySig
+    DrawCircle(Vector3, Single, Color, Int32(Optional, HasDefault), Boolean(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+Class LeagueSharp.Common.Render+Line: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+  :LeagueSharp.Common.Render+RenderObject
+    Void .ctor(SharpDX.Vector2, SharpDX.Vector2, Int32, SharpDX.ColorBGRA): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    SharpDX.ColorBGRA Color : Public
+  Properties:
+    SharpDX.Vector2 Start 'get set' : 
+    SharpDX.Vector2 End 'get set' : 
+    PositionDelegate StartPositionUpdate 'get set' : 
+    PositionDelegate EndPositionUpdate 'get set' : 
+    Int32 Width 'get set' : 
+  Methods:
+    get_Start(): PrivateScope, Public, HideBySig, SpecialName
+    set_Start(Vector2): PrivateScope, Public, HideBySig, SpecialName
+    get_End(): PrivateScope, Public, HideBySig, SpecialName
+    set_End(Vector2): PrivateScope, Public, HideBySig, SpecialName
+    get_StartPositionUpdate(): PrivateScope, Public, HideBySig, SpecialName
+    set_StartPositionUpdate(PositionDelegate): PrivateScope, Public, HideBySig, SpecialName
+    get_EndPositionUpdate(): PrivateScope, Public, HideBySig, SpecialName
+    set_EndPositionUpdate(PositionDelegate): PrivateScope, Public, HideBySig, SpecialName
+    get_Width(): PrivateScope, Public, HideBySig, SpecialName
+    set_Width(Int32): PrivateScope, Public, HideBySig, SpecialName
+    OnEndScene(): PrivateScope, Public, Virtual, HideBySig
+    OnPreReset(): PrivateScope, Public, Virtual, HideBySig
+    OnPostReset(): PrivateScope, Public, Virtual, HideBySig
+    Dispose(): PrivateScope, Public, Virtual, HideBySig
+Class LeagueSharp.Common.Render+Line+PositionDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class LeagueSharp.Common.Render+Rectangle: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+  :LeagueSharp.Common.Render+RenderObject
+    Void .ctor(Int32, Int32, Int32, Int32, SharpDX.ColorBGRA): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    SharpDX.ColorBGRA Color : Public
+  Properties:
+    Int32 X    'get set' : 
+    Int32 Y    'get set' : 
+    Int32 Width 'get set' : 
+    Int32 Height 'get set' : 
+    PositionDelegate PositionUpdate 'get set' : 
+  Methods:
+    get_X(): PrivateScope, Public, HideBySig, SpecialName
+    set_X(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_Y(): PrivateScope, Public, HideBySig, SpecialName
+    set_Y(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_Width(): PrivateScope, Public, HideBySig, SpecialName
+    set_Width(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_Height(): PrivateScope, Public, HideBySig, SpecialName
+    set_Height(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_PositionUpdate(): PrivateScope, Public, HideBySig, SpecialName
+    set_PositionUpdate(PositionDelegate): PrivateScope, Public, HideBySig, SpecialName
+    OnEndScene(): PrivateScope, Public, Virtual, HideBySig
+    OnPreReset(): PrivateScope, Public, Virtual, HideBySig
+    OnPostReset(): PrivateScope, Public, Virtual, HideBySig
+    Dispose(): PrivateScope, Public, Virtual, HideBySig
+Class LeagueSharp.Common.Render+Rectangle+PositionDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class LeagueSharp.Common.Render+Sprite: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+  :LeagueSharp.Common.Render+RenderObject
+    Void .ctor(System.Drawing.Bitmap, SharpDX.Vector2): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(SharpDX.Direct3D9.BaseTexture, SharpDX.Vector2): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.IO.Stream, SharpDX.Vector2): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Byte[], SharpDX.Vector2): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, SharpDX.Vector2): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Int32 X    'get set' : 
+    Int32 Y    'get set' : 
+    System.Drawing.Bitmap Bitmap 'get set' : 
+    Int32 Width 'get ' : 
+    Int32 Height 'get ' : 
+    SharpDX.Vector2 Size 'get ' : 
+    SharpDX.Vector2 Position 'get set' : 
+    PositionDelegate PositionUpdate 'get set' : 
+    SharpDX.Vector2 Scale 'get set' : 
+    SharpDX.ColorBGRA Color 'get set' : 
+  Events:
+    OnResetting OnReset: 
+  Methods:
+    get_X(): PrivateScope, Public, HideBySig, SpecialName
+    set_X(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_Y(): PrivateScope, Public, HideBySig, SpecialName
+    set_Y(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_Bitmap(): PrivateScope, Public, HideBySig, SpecialName
+    set_Bitmap(Bitmap): PrivateScope, Public, HideBySig, SpecialName
+    get_Width(): PrivateScope, Public, HideBySig, SpecialName
+    get_Height(): PrivateScope, Public, HideBySig, SpecialName
+    get_Size(): PrivateScope, Public, HideBySig, SpecialName
+    set_Position(Vector2): PrivateScope, Public, HideBySig, SpecialName
+    get_Position(): PrivateScope, Public, HideBySig, SpecialName
+    get_PositionUpdate(): PrivateScope, Public, HideBySig, SpecialName
+    set_PositionUpdate(PositionDelegate): PrivateScope, Public, HideBySig, SpecialName
+    set_Scale(Vector2): PrivateScope, Public, HideBySig, SpecialName
+    get_Scale(): PrivateScope, Public, HideBySig, SpecialName
+    set_Color(ColorBGRA): PrivateScope, Public, HideBySig, SpecialName
+    get_Color(): PrivateScope, Public, HideBySig, SpecialName
+    add_OnReset(OnResetting): PrivateScope, Public, HideBySig, SpecialName
+    remove_OnReset(OnResetting): PrivateScope, Public, HideBySig, SpecialName
+    Crop(Int32, Int32, Int32, Int32, Boolean(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    Crop(Rectangle, Boolean(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    Show(): PrivateScope, Public, HideBySig
+    Hide(): PrivateScope, Public, HideBySig
+    Reset(): PrivateScope, Public, HideBySig
+    GrayScale(): PrivateScope, Public, HideBySig
+    Fade(): PrivateScope, Public, HideBySig
+    Complement(): PrivateScope, Public, HideBySig
+    SetSaturation(Single): PrivateScope, Public, HideBySig
+    UpdateTextureBitmap(Bitmap, Vector2(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    OnEndScene(): PrivateScope, Public, Virtual, HideBySig
+    OnPreReset(): PrivateScope, Public, Virtual, HideBySig
+    OnPostReset(): PrivateScope, Public, Virtual, HideBySig
+    Dispose(): PrivateScope, Public, Virtual, HideBySig
+Class LeagueSharp.Common.Render+Sprite+OnResetting: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Sprite): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(Sprite, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class LeagueSharp.Common.Render+Sprite+PositionDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class LeagueSharp.Common.Render+Text: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+  :LeagueSharp.Common.Render+RenderObject
+    Void .ctor(System.String, Int32, Int32, Int32, SharpDX.ColorBGRA, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, SharpDX.Vector2, Int32, SharpDX.ColorBGRA, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, LeagueSharp.Obj_AI_Base, SharpDX.Vector2, Int32, SharpDX.ColorBGRA, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Int32, System.String, Int32, SharpDX.ColorBGRA, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(SharpDX.Vector2, System.String, Int32, SharpDX.ColorBGRA, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Boolean Centered : Public
+    SharpDX.Vector2 Offset : Public
+    Boolean OutLined : Public
+    PositionDelegate PositionUpdate : Public
+    SharpDX.Direct3D9.FontDescription TextFontDescription : Public
+    TextDelegate TextUpdate : Public
+    LeagueSharp.Obj_AI_Base Unit : Public
+  Properties:
+    Int32 X    'get set' : 
+    Int32 Y    'get set' : 
+    Int32 Width 'get set' : 
+    SharpDX.ColorBGRA Color 'get set' : 
+    System.String text 'get set' : 
+  Methods:
+    get_X(): PrivateScope, Public, HideBySig, SpecialName
+    set_X(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_Y(): PrivateScope, Public, HideBySig, SpecialName
+    set_Y(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_Width(): PrivateScope, Public, HideBySig, SpecialName
+    set_Width(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_Color(): PrivateScope, Public, HideBySig, SpecialName
+    set_Color(ColorBGRA): PrivateScope, Public, HideBySig, SpecialName
+    get_text(): PrivateScope, Public, HideBySig, SpecialName
+    set_text(String): PrivateScope, Public, HideBySig, SpecialName
+    OnEndScene(): PrivateScope, Public, Virtual, HideBySig
+    OnPreReset(): PrivateScope, Public, Virtual, HideBySig
+    OnPostReset(): PrivateScope, Public, Virtual, HideBySig
+    Dispose(): PrivateScope, Public, Virtual, HideBySig
+Class LeagueSharp.Common.Render+Text+PositionDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class LeagueSharp.Common.Render+Text+TextDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class LeagueSharp.Common.Alerter: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :LeagueSharp.Common.Render+Text
+    Void .ctor(Int32, Int32, System.String, Int32, SharpDX.ColorBGRA, System.String, Single): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Single EndTime 'get ' : 
+    Single StartTime 'get ' : 
+    Single Duration 'get ' : 
+  Methods:
+    get_EndTime(): PrivateScope, Public, HideBySig, SpecialName
+    get_StartTime(): PrivateScope, Public, HideBySig, SpecialName
+    get_Duration(): PrivateScope, Public, HideBySig, SpecialName
+    Remove(): PrivateScope, Public, HideBySig
+Class LeagueSharp.Common.OnGapcloseH: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(ActiveGapcloser): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(ActiveGapcloser, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Struct LeagueSharp.Common.GapcloserType: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LeagueSharp.Common.GapcloserType Skillshot = 0 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.GapcloserType Targeted = 1 : Public, Static, Literal, HasDefault
+Struct LeagueSharp.Common.Gapcloser: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    System.String ChampionName : Public
+    LeagueSharp.Common.GapcloserType SkillType : Public
+    LeagueSharp.SpellSlot Slot : Public
+    System.String SpellName : Public
+Struct LeagueSharp.Common.ActiveGapcloser: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    SharpDX.Vector3 End : Public
+    LeagueSharp.Obj_AI_Base Sender : Public
+    LeagueSharp.Common.GapcloserType SkillType : Public
+    SharpDX.Vector3 Start : Public
+    Int32 TickCount : Public
+Class LeagueSharp.Common.AntiGapcloser: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed
+  Fields:
+    System.Collections.Generic.List`1[LeagueSharp.Common.Gapcloser] Spells : Public, Static
+    System.Collections.Generic.List`1[LeagueSharp.Common.ActiveGapcloser] ActiveGapclosers : Public, Static
+  Events:
+    LeagueSharp.Common.OnGapcloseH OnEnemyGapcloser: 
+  Methods:
+    add_OnEnemyGapcloser(OnGapcloseH): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnEnemyGapcloser(OnGapcloseH): PrivateScope, Public, Static, HideBySig, SpecialName
+Class LeagueSharp.Common.AutoLevel: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Int32[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Collections.Generic.IEnumerable`1[LeagueSharp.SpellSlot]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Enabled(Boolean): PrivateScope, Public, Static, HideBySig
+Class LeagueSharp.Common.Config: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Properties:
+    System.String LeagueSharpDirectory 'get ' : 
+    System.String SelectedLanguage 'get ' : 
+    Byte ShowMenuPressKey 'get ' : 
+    Byte ShowMenuToggleKey 'get ' : 
+  Methods:
+    get_LeagueSharpDirectory(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_SelectedLanguage(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ShowMenuPressKey(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ShowMenuToggleKey(): PrivateScope, Public, Static, HideBySig, SpecialName
+    GetHotkey(String, Byte): PrivateScope, Public, Static, HideBySig
+Class LeagueSharp.Common.SpellDamageDelegate: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Obj_AI_Base, Obj_AI_Base, Int32): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(Obj_AI_Base, Obj_AI_Base, Int32, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class LeagueSharp.Common.DamageSpell: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Double CalculatedDamage : Public
+    LeagueSharp.Common.SpellDamageDelegate Damage : Public
+    DamageType DamageType : Public
+    LeagueSharp.SpellSlot Slot : Public
+    Int32 Stage : Public
+Class LeagueSharp.Common.Damage: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed
+  Fields:
+    System.Collections.Generic.Dictionary`2[System.String,System.Collections.Generic.List`1[LeagueSharp.Common.DamageSpell]] Spells : Public, Static
+  Methods:
+    GetSummonerSpellDamage(Obj_AI_Hero, Obj_AI_Base, SummonerSpell): PrivateScope, Public, Static, HideBySig
+    GetItemDamage(Obj_AI_Hero, Obj_AI_Base, DamageItems): PrivateScope, Public, Static, HideBySig
+    GetAutoAttackDamage(Obj_AI_Base, Obj_AI_Base, Boolean(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    GetComboDamage(Obj_AI_Hero, Obj_AI_Base, IEnumerable`1): PrivateScope, Public, Static, HideBySig
+    GetComboDamage(Obj_AI_Hero, Obj_AI_Base, IEnumerable`1): PrivateScope, Public, Static, HideBySig
+    IsKillable(Obj_AI_Hero, Obj_AI_Base, IEnumerable`1): PrivateScope, Public, Static, HideBySig
+    GetDamageSpell(Obj_AI_Base, Obj_AI_Base, String): PrivateScope, Public, Static, HideBySig
+    GetDamageSpell(Obj_AI_Hero, Obj_AI_Base, SpellSlot, Int32(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    GetSpellDamage(Obj_AI_Base, Obj_AI_Base, String): PrivateScope, Public, Static, HideBySig
+    GetSpellDamage(Obj_AI_Hero, Obj_AI_Base, SpellSlot, Int32(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    CalcDamage(Obj_AI_Base, Obj_AI_Base, DamageType, Double): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Damage+DamageItems: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    DamageItems Hexgun = 0 : Public, Static, Literal, HasDefault
+    DamageItems Dfg = 1 : Public, Static, Literal, HasDefault
+    DamageItems Botrk = 2 : Public, Static, Literal, HasDefault
+    DamageItems Bilgewater = 3 : Public, Static, Literal, HasDefault
+    DamageItems Tiamat = 4 : Public, Static, Literal, HasDefault
+    DamageItems Hydra = 5 : Public, Static, Literal, HasDefault
+    DamageItems BlackFireTorch = 6 : Public, Static, Literal, HasDefault
+    DamageItems OdingVeils = 7 : Public, Static, Literal, HasDefault
+    DamageItems FrostQueenClaim = 8 : Public, Static, Literal, HasDefault
+Struct LeagueSharp.Common.Damage+DamageType: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    DamageType Physical = 0 : Public, Static, Literal, HasDefault
+    DamageType Magical = 1 : Public, Static, Literal, HasDefault
+    DamageType True = 2 : Public, Static, Literal, HasDefault
+Struct LeagueSharp.Common.Damage+SummonerSpell: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    SummonerSpell Ignite = 0 : Public, Static, Literal, HasDefault
+    SummonerSpell Smite = 1 : Public, Static, Literal, HasDefault
+Class LeagueSharp.Common.Dash: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed
+  Methods:
+    IsDashing(Obj_AI_Base): PrivateScope, Public, Static, HideBySig
+    GetDashInfo(Obj_AI_Base): PrivateScope, Public, Static, HideBySig
+Class LeagueSharp.Common.Dash+DashItem: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Int32 Duration : Public
+    SharpDX.Vector2 EndPos : Public
+    Int32 EndTick : Public
+    System.Collections.Generic.List`1[SharpDX.Vector2] Path : Public
+    Boolean Processed : Public
+    Single Speed : Public
+    SharpDX.Vector2 StartPos : Public
+    Int32 StartTick : Public
+    LeagueSharp.Obj_AI_Base Unit : Public
+    Boolean IsBlink : Public
+Class LeagueSharp.Common.GamePacket: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Byte[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(LeagueSharp.GamePacketEventArgs): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Byte): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    LeagueSharp.PacketChannel Channel : Public
+    LeagueSharp.PacketProtocolFlags Flags : Public
+  Properties:
+    Byte Header 'get ' : 
+    Int64 Position 'get set' : 
+    Boolean Block 'get set' : 
+  Methods:
+    get_Header(): PrivateScope, Public, HideBySig, SpecialName
+    get_Position(): PrivateScope, Public, HideBySig, SpecialName
+    set_Position(Int64): PrivateScope, Public, HideBySig, SpecialName
+    get_Block(): PrivateScope, Public, HideBySig, SpecialName
+    set_Block(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    Size(): PrivateScope, Public, HideBySig
+    ReadByte(Int64(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    ReadShort(Int64(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    ReadFloat(Int64(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    ReadInteger(Int64(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    ReadString(Int64(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    WriteByte(Byte, Int32(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    WriteShort(Int16): PrivateScope, Public, HideBySig
+    WriteFloat(Single): PrivateScope, Public, HideBySig
+    WriteInteger(Int32): PrivateScope, Public, HideBySig
+    WriteHexString(String): PrivateScope, Public, HideBySig
+    WriteString(String): PrivateScope, Public, HideBySig
+    SearchByte(Byte): PrivateScope, Public, HideBySig
+    SearchShort(Int16): PrivateScope, Public, HideBySig
+    SearchFloat(Single): PrivateScope, Public, HideBySig
+    SearchInteger(Int32): PrivateScope, Public, HideBySig
+    SearchString(String): PrivateScope, Public, HideBySig
+    SearchHexString(String): PrivateScope, Public, HideBySig
+    SearchObject(GameObject): PrivateScope, Public, HideBySig
+    SearchObject(Int32): PrivateScope, Public, HideBySig
+    SearchPosition(Vector2): PrivateScope, Public, HideBySig
+    SearchPosition(Vector3): PrivateScope, Public, HideBySig
+    SearchPosition(GameObject): PrivateScope, Public, HideBySig
+    SearchPosition(Obj_AI_Base): PrivateScope, Public, HideBySig
+    SearchGameTile(Vector2): PrivateScope, Public, HideBySig
+    SearchGameTile(Vector3): PrivateScope, Public, HideBySig
+    SearchGameTile(GameObject): PrivateScope, Public, HideBySig
+    Send(PacketChannel(Optional, HasDefault), PacketProtocolFlags(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    Process(PacketChannel(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    Dump(): PrivateScope, Public, HideBySig
+    SaveToFile(String): PrivateScope, Public, HideBySig
+Class LeagueSharp.Common.Global: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed
+  Methods:
+    Read(String, Boolean(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    Load(String): PrivateScope, Public, Static, HideBySig
+    Save(String, String[]): PrivateScope, Public, Static, HideBySig
+    Write(String, T): PrivateScope, Public, Static, HideBySig
+    FromByteArray(Byte[]): PrivateScope, Public, Static, HideBySig
+    ToByteArray(Object, Int32): PrivateScope, Public, Static, HideBySig
+Class LeagueSharp.Common.HealthPrediction: AutoLayout, AnsiClass, Class, Public
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetHealthPrediction(Obj_AI_Base, Int32, Int32(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    LaneClearHealthPrediction(Obj_AI_Base, Int32, Int32(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+Class LeagueSharp.Common.OnPosibleToInterruptH: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Obj_AI_Base, InterruptableSpell): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(Obj_AI_Base, InterruptableSpell, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class LeagueSharp.Common.OnPossibleToInterruptH: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Obj_AI_Base, InterruptableSpell): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(Obj_AI_Base, InterruptableSpell, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Struct LeagueSharp.Common.InterruptableDangerLevel: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LeagueSharp.Common.InterruptableDangerLevel Low = 0 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.InterruptableDangerLevel Medium = 1 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.InterruptableDangerLevel High = 2 : Public, Static, Literal, HasDefault
+Struct LeagueSharp.Common.InterruptableSpell: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    System.String BuffName : Public
+    System.String ChampionName : Public
+    LeagueSharp.Common.InterruptableDangerLevel DangerLevel : Public
+    Int32 ExtraDuration : Public
+    LeagueSharp.SpellSlot Slot : Public
+    System.String SpellName : Public
+Class LeagueSharp.Common.Interrupter: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed
+  Fields:
+    System.Collections.Generic.List`1[LeagueSharp.Common.InterruptableSpell] Spells : Public, Static
+  Events:
+    LeagueSharp.Common.OnPossibleToInterruptH OnPossibleToInterrupt: 
+  Methods:
+    add_OnPossibleToInterrupt(OnPossibleToInterruptH): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnPossibleToInterrupt(OnPossibleToInterruptH): PrivateScope, Public, Static, HideBySig, SpecialName
+    IsChannelingImportantSpell(Obj_AI_Hero): PrivateScope, Public, Static, HideBySig
+Class LeagueSharp.Common.LastCastedSpellEntry: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.String, Int32, LeagueSharp.Obj_AI_Base): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String Name : Public
+    LeagueSharp.Obj_AI_Base Target : Public
+    Int32 Tick : Public
+Class LeagueSharp.Common.LastCastPacketSentEntry: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(LeagueSharp.SpellSlot, Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    LeagueSharp.SpellSlot Slot : Public
+    Int32 TargetNetworkId : Public
+    Int32 Tick : Public
+Class LeagueSharp.Common.LastCastedSpell: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed
+  Fields:
+    LeagueSharp.Common.LastCastPacketSentEntry LastCastPacketSent : Public, Static
+  Methods:
+    LastCastedSpellT(Obj_AI_Hero): PrivateScope, Public, Static, HideBySig
+    LastCastedSpellName(Obj_AI_Hero): PrivateScope, Public, Static, HideBySig
+    LastCastedSpellTarget(Obj_AI_Hero): PrivateScope, Public, Static, HideBySig
+    LastCastedspell(Obj_AI_Hero): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Circle: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, Serializable, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Boolean, System.Drawing.Color, Single): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Boolean Active : Public
+    System.Drawing.Color Color : Public
+    Single Radius : Public
+Struct LeagueSharp.Common.Slider: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, Serializable, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Int32, Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Int32 MaxValue : Public
+    Int32 MinValue : Public
+  Properties:
+    Int32 Value 'get set' : 
+  Methods:
+    get_Value(): PrivateScope, Public, HideBySig, SpecialName
+    set_Value(Int32): PrivateScope, Public, HideBySig, SpecialName
+Struct LeagueSharp.Common.StringList: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, Serializable, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(System.String[], Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String[] SList : Public
+    Int32 SelectedIndex : Public
+Struct LeagueSharp.Common.KeyBindType: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LeagueSharp.Common.KeyBindType Toggle = 0 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.KeyBindType Press = 1 : Public, Static, Literal, HasDefault
+Struct LeagueSharp.Common.KeyBind: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, Serializable, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(UInt32, LeagueSharp.Common.KeyBindType, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Boolean Active : Public
+    UInt32 Key : Public
+    LeagueSharp.Common.KeyBindType Type : Public
+Class LeagueSharp.Common.Menu: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.String, System.String, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.Collections.Generic.List`1[LeagueSharp.Common.Menu] Children : Public
+    System.String DisplayName : Public
+    Boolean IsRootMenu : Public
+    System.Collections.Generic.List`1[LeagueSharp.Common.MenuItem] Items : Public
+    System.String Name : Public
+    LeagueSharp.Common.Menu Parent : Public
+  Methods:
+    AddToMainMenu(): PrivateScope, Public, HideBySig
+    AddItem(MenuItem): PrivateScope, Public, HideBySig
+    AddSubMenu(Menu): PrivateScope, Public, HideBySig
+    Item(String): PrivateScope, Public, HideBySig
+    SubMenu(String): PrivateScope, Public, HideBySig
+Class LeagueSharp.Common.OnValueChangeEventArgs: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.Object, System.Object): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetOldValue(): PrivateScope, Public, HideBySig
+    GetNewValue(): PrivateScope, Public, HideBySig
+Class LeagueSharp.Common.MenuItem: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.String, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String DisplayName : Public
+    System.String Name : Public
+    LeagueSharp.Common.Menu Parent : Public
+  Events:
+    System.EventHandler`1[LeagueSharp.Common.OnValueChangeEventArgs] ValueChanged: 
+  Methods:
+    add_ValueChanged(EventHandler`1): PrivateScope, Public, HideBySig, SpecialName
+    remove_ValueChanged(EventHandler`1): PrivateScope, Public, HideBySig, SpecialName
+    SetShared(): PrivateScope, Public, HideBySig
+    DontSave(): PrivateScope, Public, HideBySig
+    GetValue(): PrivateScope, Public, HideBySig
+    SetValue(T): PrivateScope, Public, HideBySig
+Class LeagueSharp.Common.ColorPicker: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed
+  Fields:
+    OnSelectColor OnChangeColor : Public, Static
+    Sprite BackgroundSprite : Public, Static
+    Sprite LuminitySprite : Public, Static
+    Sprite OpacitySprite : Public, Static
+    Rectangle PreviewRectangle : Public, Static
+    System.Drawing.Bitmap LuminityBitmap : Public, Static
+    System.Drawing.Bitmap OpacityBitmap : Public, Static
+    CPSlider LuminositySlider : Public, Static
+    CPSlider AlphaSlider : Public, Static
+  Properties:
+    Int32 X    'get set' : 
+    Int32 Y    'get set' : 
+    Boolean Visible 'get set' : 
+    Int32 ColorPickerX 'get ' : 
+    Int32 ColorPickerY 'get ' : 
+    Int32 ColorPickerW 'get ' : 
+    Int32 ColorPickerH 'get ' : 
+  Methods:
+    get_X(): PrivateScope, Public, Static, HideBySig, SpecialName
+    set_X(Int32): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_Y(): PrivateScope, Public, Static, HideBySig, SpecialName
+    set_Y(Int32): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_Visible(): PrivateScope, Public, Static, HideBySig, SpecialName
+    set_Visible(Boolean): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ColorPickerX(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ColorPickerY(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ColorPickerW(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_ColorPickerH(): PrivateScope, Public, Static, HideBySig, SpecialName
+    Load(OnSelectColor, Color): PrivateScope, Public, Static, HideBySig
+    FireOnChangeColor(Color): PrivateScope, Public, Static, HideBySig
+Class LeagueSharp.Common.ColorPicker+OnSelectColor: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Color): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(Color, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class LeagueSharp.Common.ColorPicker+CPSlider: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(Int32, Int32, Int32, Single): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Int32 Height : Public
+    Boolean Moving : Public
+  Properties:
+    Boolean Visible 'get set' : 
+    Int32 sX   'get set' : 
+    Int32 sY   'get set' : 
+    Int32 Width 'get ' : 
+    Single Percent 'get set' : 
+  Methods:
+    get_Visible(): PrivateScope, Public, HideBySig, SpecialName
+    set_Visible(Boolean): PrivateScope, Public, HideBySig, SpecialName
+    set_sX(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_sX(): PrivateScope, Public, HideBySig, SpecialName
+    set_sY(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_sY(): PrivateScope, Public, HideBySig, SpecialName
+    get_Width(): PrivateScope, Public, HideBySig, SpecialName
+    get_Percent(): PrivateScope, Public, HideBySig, SpecialName
+    set_Percent(Single): PrivateScope, Public, HideBySig, SpecialName
+    OnWndProc(WndEventArgs): PrivateScope, Public, HideBySig
+Class LeagueSharp.Common.ColorPicker+HSLColor: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Drawing.Color): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Double, Double, Double): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Double Hue 'get set' : 
+    Double Saturation 'get set' : 
+    Double Luminosity 'get set' : 
+  Methods:
+    get_Hue(): PrivateScope, Public, HideBySig, SpecialName
+    set_Hue(Double): PrivateScope, Public, HideBySig, SpecialName
+    get_Saturation(): PrivateScope, Public, HideBySig, SpecialName
+    set_Saturation(Double): PrivateScope, Public, HideBySig, SpecialName
+    get_Luminosity(): PrivateScope, Public, HideBySig, SpecialName
+    set_Luminosity(Double): PrivateScope, Public, HideBySig, SpecialName
+    ToString(): PrivateScope, Public, Virtual, HideBySig
+    ToRGBString(): PrivateScope, Public, HideBySig
+    SetRGB(Int32, Int32, Int32): PrivateScope, Public, HideBySig
+    op_Implicit(HSLColor): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Implicit(Color): PrivateScope, Public, Static, HideBySig, SpecialName
+Class LeagueSharp.Common.MenuWrapper: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.String, Boolean, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    SubMenu MainMenu 'get ' : 
+    LeagueSharp.Common.Menu MenuHandle 'get ' : 
+    LeagueSharp.Common.Menu TargetSelectorMenu 'get ' : 
+    LeagueSharp.Common.Menu OrbwalkerMenu 'get ' : 
+    Orbwalker Orbwalker 'get ' : 
+  Methods:
+    get_MainMenu(): PrivateScope, Public, HideBySig, SpecialName
+    get_MenuHandle(): PrivateScope, Public, HideBySig, SpecialName
+    get_TargetSelectorMenu(): PrivateScope, Public, HideBySig, SpecialName
+    get_OrbwalkerMenu(): PrivateScope, Public, HideBySig, SpecialName
+    get_Orbwalker(): PrivateScope, Public, HideBySig, SpecialName
+Class LeagueSharp.Common.MenuWrapper+SubMenu: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(LeagueSharp.Common.Menu): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(LeagueSharp.Common.Menu, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    LeagueSharp.Common.Menu MenuHandle 'get ' : 
+  Methods:
+    AddSubMenu(String): PrivateScope, Public, HideBySig
+    GetSubMenu(String): PrivateScope, Public, HideBySig
+    AddBool(String, Boolean(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    AddLinkedBool(String, Boolean(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    GetBool(String): PrivateScope, Public, HideBySig
+    CreateBoolLink(String): PrivateScope, Public, HideBySig
+    AddCircle(String, Boolean, Color, Single(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    AddLinkedCircle(String, Boolean, Color, Single(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    GetCircle(String): PrivateScope, Public, HideBySig
+    CreateCircleLink(String): PrivateScope, Public, HideBySig
+    AddKeyBind(String, UInt32, KeyBindType, Boolean(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    AddLinkedKeyBind(String, UInt32, KeyBindType, Boolean(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    GetKeyBind(String): PrivateScope, Public, HideBySig
+    CreateKeyBindLink(String): PrivateScope, Public, HideBySig
+    AddSlider(String, Int32, Int32(Optional, HasDefault), Int32(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    AddLinkedSlider(String, Int32, Int32(Optional, HasDefault), Int32(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    GetSlider(String): PrivateScope, Public, HideBySig
+    CreateSliderLink(String): PrivateScope, Public, HideBySig
+    AddStringList(String, String[], Int32(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    AddLinkedStringList(String, String[], Int32(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    GetStringList(String): PrivateScope, Public, HideBySig
+    CreateStringListLink(String): PrivateScope, Public, HideBySig
+    get_MenuHandle(): PrivateScope, Public, HideBySig, SpecialName
+Class LeagueSharp.Common.MenuWrapper+BoolLink: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(SubMenu, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Boolean Value 'get set' : 
+  Methods:
+    get_Value(): PrivateScope, Public, HideBySig, SpecialName
+    set_Value(Boolean): PrivateScope, Public, HideBySig, SpecialName
+Class LeagueSharp.Common.MenuWrapper+CircleLink: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(SubMenu, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    LeagueSharp.Common.Circle Value 'get set' : 
+  Methods:
+    get_Value(): PrivateScope, Public, HideBySig, SpecialName
+    set_Value(Circle): PrivateScope, Public, HideBySig, SpecialName
+Class LeagueSharp.Common.MenuWrapper+KeyBindLink: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(SubMenu, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    LeagueSharp.Common.KeyBind Value 'get set' : 
+  Methods:
+    get_Value(): PrivateScope, Public, HideBySig, SpecialName
+    set_Value(KeyBind): PrivateScope, Public, HideBySig, SpecialName
+Class LeagueSharp.Common.MenuWrapper+SliderLink: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(SubMenu, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    LeagueSharp.Common.Slider Value 'get set' : 
+  Methods:
+    get_Value(): PrivateScope, Public, HideBySig, SpecialName
+    set_Value(Slider): PrivateScope, Public, HideBySig, SpecialName
+Class LeagueSharp.Common.MenuWrapper+StringListLink: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(SubMenu, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    LeagueSharp.Common.StringList Value 'get set' : 
+  Methods:
+    get_Value(): PrivateScope, Public, HideBySig, SpecialName
+    set_Value(StringList): PrivateScope, Public, HideBySig, SpecialName
+Class LeagueSharp.Common.Orbwalking: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed
+  Fields:
+    Int32 LastAATick : Public, Static
+    Boolean Attack : Public, Static
+    Boolean DisableNextAttack : Public, Static
+    Boolean Move : Public, Static
+    Int32 LastMoveCommandT : Public, Static
+    SharpDX.Vector3 LastMoveCommandPosition : Public, Static
+  Events:
+    BeforeAttackEvenH BeforeAttack: 
+    OnAttackEvenH OnAttack: 
+    AfterAttackEvenH AfterAttack: 
+    OnTargetChangeH OnTargetChange: 
+    OnNonKillableMinionH OnNonKillableMinion: 
+  Methods:
+    add_BeforeAttack(BeforeAttackEvenH): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_BeforeAttack(BeforeAttackEvenH): PrivateScope, Public, Static, HideBySig, SpecialName
+    add_OnAttack(OnAttackEvenH): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnAttack(OnAttackEvenH): PrivateScope, Public, Static, HideBySig, SpecialName
+    add_AfterAttack(AfterAttackEvenH): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_AfterAttack(AfterAttackEvenH): PrivateScope, Public, Static, HideBySig, SpecialName
+    add_OnTargetChange(OnTargetChangeH): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnTargetChange(OnTargetChangeH): PrivateScope, Public, Static, HideBySig, SpecialName
+    add_OnNonKillableMinion(OnNonKillableMinionH): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnNonKillableMinion(OnNonKillableMinionH): PrivateScope, Public, Static, HideBySig, SpecialName
+    IsAutoAttackReset(String): PrivateScope, Public, Static, HideBySig
+    IsMelee(Obj_AI_Base): PrivateScope, Public, Static, HideBySig
+    IsAutoAttack(String): PrivateScope, Public, Static, HideBySig
+    GetRealAutoAttackRange(Obj_AI_Base): PrivateScope, Public, Static, HideBySig
+    InAutoAttackRange(Obj_AI_Base): PrivateScope, Public, Static, HideBySig
+    GetMyProjectileSpeed(): PrivateScope, Public, Static, HideBySig
+    CanAttack(): PrivateScope, Public, Static, HideBySig
+    CanMove(Single): PrivateScope, Public, Static, HideBySig
+    SetMovementDelay(Int32): PrivateScope, Public, Static, HideBySig
+    SetMinimumOrbwalkDistance(Single): PrivateScope, Public, Static, HideBySig
+    GetLastMoveTime(): PrivateScope, Public, Static, HideBySig
+    GetLastMovePosition(): PrivateScope, Public, Static, HideBySig
+    Orbwalk(Obj_AI_Base, Vector3, Single(Optional, HasDefault), Single(Optional, HasDefault), Boolean(Optional, HasDefault), Boolean(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    ResetAutoAttackTimer(): PrivateScope, Public, Static, HideBySig
+Class LeagueSharp.Common.Orbwalking+AfterAttackEvenH: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Obj_AI_Base, Obj_AI_Base): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(Obj_AI_Base, Obj_AI_Base, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class LeagueSharp.Common.Orbwalking+BeforeAttackEvenH: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(BeforeAttackEventArgs): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(BeforeAttackEventArgs, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class LeagueSharp.Common.Orbwalking+OnAttackEvenH: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Obj_AI_Base, Obj_AI_Base): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(Obj_AI_Base, Obj_AI_Base, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class LeagueSharp.Common.Orbwalking+OnNonKillableMinionH: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Obj_AI_Base): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(Obj_AI_Base, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class LeagueSharp.Common.Orbwalking+OnTargetChangeH: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Obj_AI_Base, Obj_AI_Base): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(Obj_AI_Base, Obj_AI_Base, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Struct LeagueSharp.Common.Orbwalking+OrbwalkingMode: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    OrbwalkingMode LastHit = 0 : Public, Static, Literal, HasDefault
+    OrbwalkingMode Mixed = 1 : Public, Static, Literal, HasDefault
+    OrbwalkingMode LaneClear = 2 : Public, Static, Literal, HasDefault
+    OrbwalkingMode Combo = 3 : Public, Static, Literal, HasDefault
+    OrbwalkingMode None = 4 : Public, Static, Literal, HasDefault
+Class LeagueSharp.Common.Orbwalking+BeforeAttackEventArgs: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    LeagueSharp.Obj_AI_Base Target : Public
+    LeagueSharp.Obj_AI_Base Unit : Public
+  Properties:
+    Boolean Process 'get set' : 
+  Methods:
+    get_Process(): PrivateScope, Public, HideBySig, SpecialName
+    set_Process(Boolean): PrivateScope, Public, HideBySig, SpecialName
+Class LeagueSharp.Common.Orbwalking+Orbwalker: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(LeagueSharp.Common.Menu): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    OrbwalkingMode ActiveMode 'get set' : 
+  Methods:
+    get_ActiveMode(): PrivateScope, Public, HideBySig, SpecialName
+    set_ActiveMode(OrbwalkingMode): PrivateScope, Public, HideBySig, SpecialName
+    SetAttack(Boolean): PrivateScope, Public, HideBySig
+    SetMovement(Boolean): PrivateScope, Public, HideBySig
+    ForceTarget(Obj_AI_Base): PrivateScope, Public, HideBySig
+    SetOrbwalkingPoint(Vector3): PrivateScope, Public, HideBySig
+    GetTarget(): PrivateScope, Public, HideBySig
+Class LeagueSharp.Common.Packet: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+Struct LeagueSharp.Common.Packet+ActionStates: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    ActionStates BeginRecall = 111207118 : Public, Static, Literal, HasDefault
+    ActionStates FinishRecall = 97690254 : Public, Static, Literal, HasDefault
+Struct LeagueSharp.Common.Packet+AttackTypePacket: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    AttackTypePacket Circular = 0 : Public, Static, Literal, HasDefault
+    AttackTypePacket ConeSkillShot = 1 : Public, Static, Literal, HasDefault
+    AttackTypePacket TargetedAA = 2 : Public, Static, Literal, HasDefault
+Struct LeagueSharp.Common.Packet+DamageTypePacket: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    DamageTypePacket Magical = 4 : Public, Static, Literal, HasDefault
+    DamageTypePacket CriticalAttack = 11 : Public, Static, Literal, HasDefault
+    DamageTypePacket Physical = 12 : Public, Static, Literal, HasDefault
+    DamageTypePacket True = 36 : Public, Static, Literal, HasDefault
+Struct LeagueSharp.Common.Packet+Emotes: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Emotes Dance = 0 : Public, Static, Literal, HasDefault
+    Emotes Joke = 3 : Public, Static, Literal, HasDefault
+    Emotes Taunt = 1 : Public, Static, Literal, HasDefault
+    Emotes Laugh = 2 : Public, Static, Literal, HasDefault
+Struct LeagueSharp.Common.Packet+FloatTextPacket: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    FloatTextPacket Invulnerable = 0 : Public, Static, Literal, HasDefault
+    FloatTextPacket Special = 1 : Public, Static, Literal, HasDefault
+    FloatTextPacket Heal = 2 : Public, Static, Literal, HasDefault
+    FloatTextPacket ManaHeal = 3 : Public, Static, Literal, HasDefault
+    FloatTextPacket ManaDmg = 4 : Public, Static, Literal, HasDefault
+    FloatTextPacket Dodge = 5 : Public, Static, Literal, HasDefault
+    FloatTextPacket Critical = 6 : Public, Static, Literal, HasDefault
+    FloatTextPacket Experience = 7 : Public, Static, Literal, HasDefault
+    FloatTextPacket Gold = 8 : Public, Static, Literal, HasDefault
+    FloatTextPacket Level = 9 : Public, Static, Literal, HasDefault
+    FloatTextPacket Disable = 10 : Public, Static, Literal, HasDefault
+    FloatTextPacket QuestRecv = 11 : Public, Static, Literal, HasDefault
+    FloatTextPacket QuestDone = 12 : Public, Static, Literal, HasDefault
+    FloatTextPacket Score = 13 : Public, Static, Literal, HasDefault
+    FloatTextPacket PhysDmg = 14 : Public, Static, Literal, HasDefault
+    FloatTextPacket MagicDmg = 15 : Public, Static, Literal, HasDefault
+    FloatTextPacket TrueDmg = 16 : Public, Static, Literal, HasDefault
+    FloatTextPacket EnemyPhysDmg = 17 : Public, Static, Literal, HasDefault
+    FloatTextPacket EnemyMagicDmg = 18 : Public, Static, Literal, HasDefault
+    FloatTextPacket EnemyTrueDmg = 19 : Public, Static, Literal, HasDefault
+    FloatTextPacket EnemyCritical = 20 : Public, Static, Literal, HasDefault
+    FloatTextPacket Countdown = 21 : Public, Static, Literal, HasDefault
+    FloatTextPacket Legacy = 22 : Public, Static, Literal, HasDefault
+    FloatTextPacket LegacyCritical = 23 : Public, Static, Literal, HasDefault
+    FloatTextPacket Debug = 24 : Public, Static, Literal, HasDefault
+Struct LeagueSharp.Common.Packet+MultiPacketType: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    MultiPacketType Unknown100 = 0 : Public, Static, Literal, HasDefault
+    MultiPacketType Unknown101 = 1 : Public, Static, Literal, HasDefault
+    MultiPacketType Unknown102 = 2 : Public, Static, Literal, HasDefault
+    MultiPacketType Unknown10C = 12 : Public, Static, Literal, HasDefault
+    MultiPacketType Unknown115 = 21 : Public, Static, Literal, HasDefault
+    MultiPacketType Unknown116 = 22 : Public, Static, Literal, HasDefault
+    MultiPacketType Unknown124 = 36 : Public, Static, Literal, HasDefault
+    MultiPacketType Unknown11A = 26 : Public, Static, Literal, HasDefault
+    MultiPacketType Unknown11E = 30 : Public, Static, Literal, HasDefault
+    MultiPacketType Unknown122 = 34 : Public, Static, Literal, HasDefault
+    MultiPacketType Unknown12C = 44 : Public, Static, Literal, HasDefault
+    MultiPacketType Unknown104 = 4 : Public, Static, Literal, HasDefault
+    MultiPacketType Unknown118 = 8 : Public, Static, Literal, HasDefault
+    MultiPacketType Unknown120 = 32 : Public, Static, Literal, HasDefault
+    MultiPacketType SpawnTurret = 35 : Public, Static, Literal, HasDefault
+    MultiPacketType Unknown125 = 37 : Public, Static, Literal, HasDefault
+    MultiPacketType NPCDeath = 38 : Public, Static, Literal, HasDefault
+    MultiPacketType Unknown2E = 46 : Public, Static, Literal, HasDefault
+    MultiPacketType InitSpell = 7 : Public, Static, Literal, HasDefault
+    MultiPacketType AddBuff = 9 : Public, Static, Literal, HasDefault
+    MultiPacketType UndoToken = 11 : Public, Static, Literal, HasDefault
+    MultiPacketType ObjectCreation = 13 : Public, Static, Literal, HasDefault
+    MultiPacketType SurrenderState = 14 : Public, Static, Literal, HasDefault
+    MultiPacketType OnAttack = 15 : Public, Static, Literal, HasDefault
+    MultiPacketType DeathTimer = 23 : Public, Static, Literal, HasDefault
+    MultiPacketType ChangeItem = 28 : Public, Static, Literal, HasDefault
+    MultiPacketType ActionState = 33 : Public, Static, Literal, HasDefault
+    MultiPacketType UndoConfirm = 39 : Public, Static, Literal, HasDefault
+    MultiPacketType LockCamera = 43 : Public, Static, Literal, HasDefault
+    MultiPacketType Unknown = 255 : Public, Static, Literal, HasDefault
+Struct LeagueSharp.Common.Packet+PingType: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    PingType Normal = 0 : Public, Static, Literal, HasDefault
+    PingType Fallback = 5 : Public, Static, Literal, HasDefault
+    PingType EnemyMissing = 3 : Public, Static, Literal, HasDefault
+    PingType Danger = 2 : Public, Static, Literal, HasDefault
+    PingType OnMyWay = 4 : Public, Static, Literal, HasDefault
+    PingType AssistMe = 6 : Public, Static, Literal, HasDefault
+Class LeagueSharp.Common.Packet+C2S: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+Class LeagueSharp.Common.Packet+C2S+Ping: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Encoded(Struct): PrivateScope, Public, Static, HideBySig
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+C2S+Ping+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Single, Single, Int32, PingType): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Int32 TargetNetworkId : Public
+    PingType Type : Public
+    Single X : Public
+    Single Y : Public
+Class LeagueSharp.Common.Packet+C2S+LevelUpSpell: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Encoded(Struct): PrivateScope, Public, Static, HideBySig
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+C2S+LevelUpSpell+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Int32, LeagueSharp.SpellSlot, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Boolean Evolution : Public
+    Int32 NetworkId : Public
+    LeagueSharp.SpellSlot Slot : Public
+Class LeagueSharp.Common.Packet+C2S+Move: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Encoded(Struct): PrivateScope, Public, Static, HideBySig
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+C2S+Move+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Single, Single, Byte, Int32, Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Byte MoveType : Public
+    Int32 SourceNetworkId : Public
+    Int32 TargetNetworkId : Public
+    Int32 UnitNetworkId : Public
+    Int32 WaypointCount : Public
+    Single X : Public
+    Single Y : Public
+Class LeagueSharp.Common.Packet+C2S+Cast: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Encoded(Struct): PrivateScope, Public, Static, HideBySig
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+C2S+Cast+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Int32, LeagueSharp.SpellSlot, Int32, Single, Single, Single, Single): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Single FromX : Public
+    Single FromY : Public
+    LeagueSharp.SpellSlot Slot : Public
+    Int32 SourceNetworkId : Public
+    Int32 TargetNetworkId : Public
+    Single ToX : Public
+    Single ToY : Public
+Class LeagueSharp.Common.Packet+C2S+ChargedCast: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Encoded(Struct): PrivateScope, Public, Static, HideBySig
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+C2S+ChargedCast+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(LeagueSharp.SpellSlot, Single, Single, Single, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    LeagueSharp.SpellSlot Slot : Public
+    Int32 SourceNetworkId : Public
+    Single ToX : Public
+    Single ToY : Public
+    Single ToZ : Public
+Class LeagueSharp.Common.Packet+C2S+BuyItem: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Encoded(Struct): PrivateScope, Public, Static, HideBySig
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+C2S+BuyItem+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Int32 ItemId : Public
+    Int32 NetworkId : Public
+Class LeagueSharp.Common.Packet+C2S+SellItem: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Encoded(Struct): PrivateScope, Public, Static, HideBySig
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+C2S+SellItem+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Byte, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(LeagueSharp.SpellSlot, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Byte InventorySlot : Public
+    Int32 NetworkId : Public
+    LeagueSharp.SpellSlot SpellSlot : Public
+Class LeagueSharp.Common.Packet+C2S+SwapItem: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Encoded(Struct): PrivateScope, Public, Static, HideBySig
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+C2S+SwapItem+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Byte, Byte, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Byte FromSlotByte : Public
+    Int32 NetworkId : Public
+    Byte ToSlotByte : Public
+Class LeagueSharp.Common.Packet+C2S+Emote: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Encoded(Struct): PrivateScope, Public, Static, HideBySig
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+C2S+Emote+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Byte, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Byte EmoteId : Public
+    Int32 NetworkId : Public
+Class LeagueSharp.Common.Packet+C2S+InteractObject: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Encoded(Struct): PrivateScope, Public, Static, HideBySig
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+C2S+InteractObject+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Int32 ObjectNetworkId : Public
+    Int32 SourceNetworkId : Public
+Class LeagueSharp.Common.Packet+C2S+SetTarget: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+C2S+SetTarget+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    Int32 NetworkId : Public
+    LeagueSharp.Obj_AI_Base Unit : Public
+Class LeagueSharp.Common.Packet+C2S+HeartBeat: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+C2S+HeartBeat+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    Single AckTime : Public
+    Single RecvTime : Public
+Class LeagueSharp.Common.Packet+C2S+UpdateConfirm: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+C2S+UpdateConfirm+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    Int32 SequenceId : Public
+Class LeagueSharp.Common.Packet+C2S+Undo: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Encoded(): PrivateScope, Public, Static, HideBySig
+Class LeagueSharp.Common.Packet+MultiPacket: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    BasePacket(Byte): PrivateScope, Public, Static, HideBySig
+    DecodeHeader(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+MultiPacket+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Int32, MultiPacketType, Byte): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Int32 NetworkId : Public
+    Byte SubHeader : Public
+    MultiPacketType Type : Public
+Class LeagueSharp.Common.Packet+MultiPacket+ActionState: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte SubHeader : Public, Static
+  Methods:
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+    Encoded(ReturnStruct): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+MultiPacket+ActionState+ReturnStruct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    Int32 Action : Public
+Class LeagueSharp.Common.Packet+MultiPacket+ChangeItem: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte SubHeader : Public, Static
+  Methods:
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+    Encoded(ReturnStruct): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+MultiPacket+ChangeItem+ReturnStruct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    Int32 FinalItemId : Public
+    Int32 InitialItemId : Public
+Class LeagueSharp.Common.Packet+MultiPacket+OnAttack: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte SubHeader : Public, Static
+  Methods:
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+MultiPacket+OnAttack+ReturnStruct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    SharpDX.Vector3 Position : Public
+    Int32 TargetNetworkId : Public
+    AttackTypePacket Type : Public
+Class LeagueSharp.Common.Packet+MultiPacket+SurrenderState: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte SubHeader : Public, Static
+  Methods:
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+MultiPacket+SurrenderState+ReturnStruct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Boolean CanSurrender : Public
+Class LeagueSharp.Common.Packet+MultiPacket+UndoToken: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte SubHeader : Public, Static
+  Methods:
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+    Encoded(Int32): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+MultiPacket+UndoToken+ReturnStruct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    Int32 UndoAmount : Public
+Class LeagueSharp.Common.Packet+MultiPacket+UndoConfirm: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte SubHeader : Public, Static
+  Methods:
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Class LeagueSharp.Common.Packet+MultiPacket+UndoConfirm+RefundItem: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(Int16, Byte, LeagueSharp.SpellSlot, Int32, Int32, Single, Single): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Int32 Charge : Public
+    Single CurrentCooldown : Public
+    Byte InventorySlot : Public
+    Int32 ItemId : Public
+    LeagueSharp.SpellSlot SpellSlot : Public
+    Int32 Stack : Public
+    Single TotalCooldown : Public
+Class LeagueSharp.Common.Packet+MultiPacket+DeathTimer: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte SubHeader : Public, Static
+  Methods:
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+MultiPacket+DeathTimer+ReturnStruct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    LeagueSharp.Obj_AI_Hero Hero : Public
+    Single Time : Public
+Class LeagueSharp.Common.Packet+MultiPacket+ObjectCreation: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte SubHeader : Public, Static
+  Methods:
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+MultiPacket+ObjectCreation+ReturnStruct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    Int32 NetworkId : Public
+    LeagueSharp.Obj_AI_Base Unit : Public
+    Single UnknownFloat : Public
+    Single UnknownFloat2 : Public
+Class LeagueSharp.Common.Packet+MultiPacket+AddBuff: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte SubHeader : Public, Static
+  Methods:
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+MultiPacket+AddBuff+ReturnStruct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    Byte BuffType : Public
+    Int32 NetworkId : Public
+    Byte State : Public
+    LeagueSharp.Obj_AI_Base Unit : Public
+Class LeagueSharp.Common.Packet+MultiPacket+Unknown100: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte SubHeader : Public, Static
+  Methods:
+    Encoded(ReturnStruct): PrivateScope, Public, Static, HideBySig
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+MultiPacket+Unknown100+ReturnStruct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Int32, Single[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Single[] UnknownFloats : Public
+    Int32 UnknownNetworkId : Public
+Class LeagueSharp.Common.Packet+MultiPacket+Unknown101: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte SubHeader : Public, Static
+  Methods:
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+MultiPacket+Unknown101+ReturnStruct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    Byte UnknownByte : Public
+    Int32 UnknownNetworkId : Public
+Class LeagueSharp.Common.Packet+MultiPacket+Unknown102: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte SubHeader : Public, Static
+  Methods:
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+MultiPacket+Unknown102+ReturnStruct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    Byte UnknownByte : Public
+    Int32 UnknownNetworkId : Public
+Class LeagueSharp.Common.Packet+MultiPacket+Unknown104: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte SubHeader : Public, Static
+  Methods:
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+MultiPacket+Unknown104+ReturnStruct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    LeagueSharp.SpellSlot Slot : Public
+    Byte UnknownByte : Public
+    Int32 UnknownNetworkId : Public
+Class LeagueSharp.Common.Packet+MultiPacket+Unknown115: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte SubHeader : Public, Static
+  Methods:
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+MultiPacket+Unknown115+ReturnStruct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    Byte UnknownByte : Public
+    Int32 UnknownNetworkId : Public
+Class LeagueSharp.Common.Packet+MultiPacket+Unknown122: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte SubHeader : Public, Static
+  Methods:
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+MultiPacket+Unknown122+ReturnStruct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    Int32 UnknownNetworkId : Public
+Class LeagueSharp.Common.Packet+MultiPacket+Unknown124: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte SubHeader : Public, Static
+  Methods:
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+MultiPacket+Unknown124+ReturnStruct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    Int32 UnknownNetworkId : Public
+Class LeagueSharp.Common.Packet+MultiPacket+SpawnTurret: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte SubHeader : Public, Static
+  Methods:
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+MultiPacket+SpawnTurret+ReturnStruct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    Single[] UnknownFloats : Public
+    Int32 UnknownNetworkId : Public
+Class LeagueSharp.Common.Packet+MultiPacket+NPCDeath: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte SubHeader : Public, Static
+  Methods:
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Class LeagueSharp.Common.Packet+S2C: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+Class LeagueSharp.Common.Packet+S2C+Ping: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Encoded(Struct): PrivateScope, Public, Static, HideBySig
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+S2C+Ping+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Single, Single, Int32, Int32, PingType, Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Boolean Silent : Public
+    Int32 SourceNetworkId : Public
+    Int32 TargetNetworkId : Public
+    PingType Type : Public
+    Single X : Public
+    Single Y : Public
+Class LeagueSharp.Common.Packet+S2C+GainVision: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Encoded(Struct): PrivateScope, Public, Static, HideBySig
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+S2C+GainVision+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Int32, Single, Single): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Single CurrentHealth : Public
+    Single MaxHealth : Public
+    Int32 UnitNetworkId : Public
+Class LeagueSharp.Common.Packet+S2C+LoseVision: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Encoded(Struct): PrivateScope, Public, Static, HideBySig
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+S2C+LoseVision+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Int32 UnitNetworkId : Public
+Class LeagueSharp.Common.Packet+S2C+EmptyJungleCamp: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Encoded(Struct): PrivateScope, Public, Static, HideBySig
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+S2C+EmptyJungleCamp+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Int32, Int32, Byte): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Int32 CampId : Public
+    Byte EmptyType : Public
+    Int32 UnitNetworkId : Public
+Class LeagueSharp.Common.Packet+S2C+Dash: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Encoded(Struct): PrivateScope, Public, Static, HideBySig
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+S2C+Dash+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Int32, Single): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Single Speed : Public
+    Int32 UnitNetworkId : Public
+Class LeagueSharp.Common.Packet+S2C+GameEnd: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Encoded(Struct): PrivateScope, Public, Static, HideBySig
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+S2C+GameEnd+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Byte): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Byte Winner : Public
+Class LeagueSharp.Common.Packet+S2C+TowerAggro: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte Header : Public, Static
+    System.Collections.Generic.Dictionary`2[System.Int32,System.Int32] AggroList : Public, Static, InitOnly
+  Methods:
+    Encoded(Struct): PrivateScope, Public, Static, HideBySig
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+S2C+TowerAggro+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Int32 TargetNetworkId : Public
+    Int32 TurretNetworkId : Public
+Class LeagueSharp.Common.Packet+S2C+UpdateModel: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Encoded(Struct): PrivateScope, Public, Static, HideBySig
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+S2C+UpdateModel+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Int32, Int32, System.String, Boolean, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Boolean BOk : Public
+    Int32 Id : Public
+    System.String ModelName : Public
+    Int32 NetworkId : Public
+    Int32 SkinId : Public
+Class LeagueSharp.Common.Packet+S2C+Recall: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte Header : Public, Static
+    System.Collections.Generic.Dictionary`2[System.Int32,System.Int32] RecallT : Public, Static, InitOnly
+    System.Collections.Generic.Dictionary`2[System.Int32,System.Int32] TPT : Public, Static, InitOnly
+  Methods:
+    Encoded(Struct): PrivateScope, Public, Static, HideBySig
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+S2C+Recall+ObjectType: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    ObjectType Player = 0 : Public, Static, Literal, HasDefault
+    ObjectType Turret = 1 : Public, Static, Literal, HasDefault
+    ObjectType Minion = 2 : Public, Static, Literal, HasDefault
+    ObjectType Ward = 3 : Public, Static, Literal, HasDefault
+    ObjectType Object = 4 : Public, Static, Literal, HasDefault
+Struct LeagueSharp.Common.Packet+S2C+Recall+RecallStatus: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    RecallStatus RecallStarted = 0 : Public, Static, Literal, HasDefault
+    RecallStatus RecallAborted = 1 : Public, Static, Literal, HasDefault
+    RecallStatus RecallFinished = 2 : Public, Static, Literal, HasDefault
+    RecallStatus Unknown = 3 : Public, Static, Literal, HasDefault
+    RecallStatus TeleportStart = 4 : Public, Static, Literal, HasDefault
+    RecallStatus TeleportAbort = 5 : Public, Static, Literal, HasDefault
+    RecallStatus TeleportEnd = 6 : Public, Static, Literal, HasDefault
+Struct LeagueSharp.Common.Packet+S2C+Recall+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Int32, RecallStatus, ObjectType, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Int32 Duration : Public
+    RecallStatus Status : Public
+    ObjectType Type : Public
+    Int32 UnitNetworkId : Public
+Class LeagueSharp.Common.Packet+S2C+PlayEmote: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Encoded(Struct): PrivateScope, Public, Static, HideBySig
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+S2C+PlayEmote+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Byte, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Byte EmoteId : Public
+    Int32 NetworkId : Public
+Class LeagueSharp.Common.Packet+S2C+Damage: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Encoded(Struct): PrivateScope, Public, Static, HideBySig
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+S2C+Damage+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Single, Int32, Int32, Int32, DamageTypePacket, Int16): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Single DamageAmount : Public
+    Int32 SourceNetworkId : Public
+    Int32 TargetNetworkId : Public
+    Int32 TargetNetworkIdCopy : Public
+    DamageTypePacket Type : Public
+    Int16 Unknown : Public
+Class LeagueSharp.Common.Packet+S2C+FloatText: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Encoded(Struct): PrivateScope, Public, Static, HideBySig
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+S2C+FloatText+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(System.String, FloatTextPacket, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Int32 NetworkId : Public
+    System.String Text : Public
+    FloatTextPacket Type : Public
+Class LeagueSharp.Common.Packet+S2C+DebugMessage: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Encoded(String): PrivateScope, Public, Static, HideBySig
+Class LeagueSharp.Common.Packet+S2C+HighlightUnit: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Encoded(Int32): PrivateScope, Public, Static, HideBySig
+Class LeagueSharp.Common.Packet+S2C+RemoveHighlightUnit: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Encoded(Int32): PrivateScope, Public, Static, HideBySig
+Class LeagueSharp.Common.Packet+S2C+PlayerDisconnect: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+S2C+PlayerDisconnect+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    Int32 NetworkId : Public
+    LeagueSharp.Obj_AI_Hero Player : Public
+Class LeagueSharp.Common.Packet+S2C+PlayerReconnect: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+S2C+PlayerReconnect+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    Int32 ClientId : Public
+    LeagueSharp.Obj_AI_Hero Player : Public
+Class LeagueSharp.Common.Packet+S2C+PlayerReconnected: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+S2C+PlayerReconnected+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    Int32 ClientId : Public
+    LeagueSharp.Obj_AI_Hero Player : Public
+Class LeagueSharp.Common.Packet+S2C+GainBuff: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+S2C+GainBuff+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    Int32 BuffId : Public
+    Byte BuffSlot : Public
+    Single Duration : Public
+    Int32 NetworkId : Public
+    LeagueSharp.Obj_AI_Base Source : Public
+    Int32 SourceNetworkId : Public
+    Int32 Stack : Public
+    LeagueSharp.Obj_AI_Base Target : Public
+    Int32 TargetNetworkId : Public
+    LeagueSharp.BuffType Type : Public
+    LeagueSharp.Obj_AI_Base Unit : Public
+    Boolean Visible : Public
+Class LeagueSharp.Common.Packet+S2C+LoseBuff: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+S2C+LoseBuff+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    Int32 BuffId : Public
+    Byte BuffSlot : Public
+    Single Duration : Public
+    Int32 NetworkId : Public
+    LeagueSharp.Obj_AI_Base Unit : Public
+Class LeagueSharp.Common.Packet+S2C+SetCooldown: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+    Encoded(Struct): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+S2C+SetCooldown+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Int32, LeagueSharp.SpellSlot, Single, Single): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Single CurrentCooldown : Public
+    Int32 NetworkId : Public
+    LeagueSharp.SpellSlot Slot : Public
+    Single TotalCooldown : Public
+    LeagueSharp.Obj_AI_Base Unit : Public
+Class LeagueSharp.Common.Packet+S2C+StartItemCooldown: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+S2C+StartItemCooldown+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    Byte InventorySlot : Public
+    Int32 NetworkId : Public
+    LeagueSharp.SpellSlot SpellSlot : Public
+    LeagueSharp.Obj_AI_Base Unit : Public
+Class LeagueSharp.Common.Packet+S2C+BuyItemAns: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Encoded(Struct): PrivateScope, Public, Static, HideBySig
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+S2C+BuyItemAns+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Int32, Byte, Byte, Int32, Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Int32 Charge : Public
+    Byte InventorySlot : Public
+    Item Item : Public
+    Int32 NetworkId : Public
+    Byte ReplaceItem : Public
+    LeagueSharp.SpellSlot SpellSlot : Public
+    Int32 Stack : Public
+    LeagueSharp.Obj_AI_Hero Unit : Public
+Class LeagueSharp.Common.Packet+S2C+SellItemAns: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+S2C+SellItemAns+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    Byte InventorySlot : Public
+    Int32 NetworkId : Public
+    LeagueSharp.SpellSlot SpellSlot : Public
+    Int32 Stack : Public
+    LeagueSharp.Obj_AI_Hero Unit : Public
+    Byte UnknownByte : Public
+Class LeagueSharp.Common.Packet+S2C+SwapItemAns: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+S2C+SwapItemAns+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    Byte FromInventorySlot : Public
+    LeagueSharp.SpellSlot FromSpellSlot : Public
+    Int32 NetworkId : Public
+    Byte ToInventorySlot : Public
+    LeagueSharp.SpellSlot ToSpellSlot : Public
+    LeagueSharp.Obj_AI_Hero Unit : Public
+Class LeagueSharp.Common.Packet+S2C+ChangeSpellSlot: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+    Encoded(Struct): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+S2C+ChangeSpellSlot+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    Int32 NetworkId : Public
+    LeagueSharp.SpellSlot Slot : Public
+    System.String SpellString : Public
+    LeagueSharp.Obj_AI_Base Unit : Public
+    Byte UnknownByte : Public
+Class LeagueSharp.Common.Packet+S2C+AddGold: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+    Encoded(Struct): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+S2C+AddGold+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    Single Gold : Public
+    Int32 ReceivingNetworkId : Public
+    LeagueSharp.Obj_AI_Base ReceivingUnit : Public
+    Int32 SourceNetworkId : Public
+    LeagueSharp.Obj_AI_Base SourceUnit : Public
+Class LeagueSharp.Common.Packet+S2C+LevelUp: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Byte Header : Public, Static
+  Methods:
+    Decoded(Byte[]): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Packet+S2C+LevelUp+Struct: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    Int32 Level : Public
+    Int32 NetworkId : Public
+    Int32 PointsLeft : Public
+    LeagueSharp.Obj_AI_Hero Unit : Public
+Struct LeagueSharp.Common.HitChance: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LeagueSharp.Common.HitChance Immobile = 8 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.HitChance Dashing = 7 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.HitChance VeryHigh = 6 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.HitChance High = 5 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.HitChance Medium = 4 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.HitChance Low = 3 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.HitChance Impossible = 2 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.HitChance OutOfRange = 1 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.HitChance Collision = 0 : Public, Static, Literal, HasDefault
+Struct LeagueSharp.Common.SkillshotType: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LeagueSharp.Common.SkillshotType SkillshotLine = 0 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.SkillshotType SkillshotCircle = 1 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.SkillshotType SkillshotCone = 2 : Public, Static, Literal, HasDefault
+Struct LeagueSharp.Common.CollisionableObjects: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LeagueSharp.Common.CollisionableObjects Minions = 0 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.CollisionableObjects Heroes = 1 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.CollisionableObjects YasuoWall = 2 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.CollisionableObjects Walls = 3 : Public, Static, Literal, HasDefault
+Class LeagueSharp.Common.PredictionInput: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Boolean Aoe : Public
+    Boolean Collision : Public
+    LeagueSharp.Common.CollisionableObjects[] CollisionObjects : Public
+    Single Delay : Public
+    Single Radius : Public
+    Single Range : Public
+    Single Speed : Public
+    LeagueSharp.Common.SkillshotType Type : Public
+    LeagueSharp.Obj_AI_Base Unit : Public
+    Boolean UseBoundingRadius : Public
+  Properties:
+    SharpDX.Vector3 From 'get set' : 
+    SharpDX.Vector3 RangeCheckFrom 'get set' : 
+  Methods:
+    get_From(): PrivateScope, Public, HideBySig, SpecialName
+    set_From(Vector3): PrivateScope, Public, HideBySig, SpecialName
+    get_RangeCheckFrom(): PrivateScope, Public, HideBySig, SpecialName
+    set_RangeCheckFrom(Vector3): PrivateScope, Public, HideBySig, SpecialName
+Class LeagueSharp.Common.PredictionOutput: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.Collections.Generic.List`1[LeagueSharp.Obj_AI_Hero] AoeTargetsHit : Public
+    System.Collections.Generic.List`1[LeagueSharp.Obj_AI_Base] CollisionObjects : Public
+    LeagueSharp.Common.HitChance Hitchance : Public
+  Properties:
+    SharpDX.Vector3 CastPosition 'get set' : 
+    Int32 AoeTargetsHitCount 'get ' : 
+    SharpDX.Vector3 UnitPosition 'get set' : 
+  Methods:
+    get_CastPosition(): PrivateScope, Public, HideBySig, SpecialName
+    set_CastPosition(Vector3): PrivateScope, Public, HideBySig, SpecialName
+    get_AoeTargetsHitCount(): PrivateScope, Public, HideBySig, SpecialName
+    get_UnitPosition(): PrivateScope, Public, HideBySig, SpecialName
+    set_UnitPosition(Vector3): PrivateScope, Public, HideBySig, SpecialName
+Class LeagueSharp.Common.Prediction: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    GetPrediction(Obj_AI_Base, Single): PrivateScope, Public, Static, HideBySig
+    GetPrediction(Obj_AI_Base, Single, Single): PrivateScope, Public, Static, HideBySig
+    GetPrediction(Obj_AI_Base, Single, Single, Single): PrivateScope, Public, Static, HideBySig
+    GetPrediction(PredictionInput): PrivateScope, Public, Static, HideBySig
+Class LeagueSharp.Common.Collision: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed
+  Methods:
+    GetCollision(List`1, PredictionInput): PrivateScope, Public, Static, HideBySig
+Class LeagueSharp.Common.CustomEvents: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+Class LeagueSharp.Common.CustomEvents+Game: AutoLayout, AnsiClass, Class, NestedPublic
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Events:
+    OnGameLoaded OnGameLoad: 
+    OnGameEnded OnGameEnd: 
+  Methods:
+    add_OnGameLoad(OnGameLoaded): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnGameLoad(OnGameLoaded): PrivateScope, Public, Static, HideBySig, SpecialName
+    add_OnGameEnd(OnGameEnded): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnGameEnd(OnGameEnded): PrivateScope, Public, Static, HideBySig, SpecialName
+Class LeagueSharp.Common.CustomEvents+Game+OnGameEnded: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(EventArgs): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(EventArgs, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class LeagueSharp.Common.CustomEvents+Game+OnGameLoaded: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(EventArgs): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(EventArgs, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class LeagueSharp.Common.CustomEvents+Unit: AutoLayout, AnsiClass, Class, NestedPublic
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Events:
+    OnLeveledUpSpell OnLevelUpSpell: 
+    OnLeveledUp OnLevelUp: 
+    OnDashed OnDash: 
+  Methods:
+    add_OnLevelUpSpell(OnLeveledUpSpell): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnLevelUpSpell(OnLeveledUpSpell): PrivateScope, Public, Static, HideBySig, SpecialName
+    add_OnLevelUp(OnLeveledUp): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnLevelUp(OnLeveledUp): PrivateScope, Public, Static, HideBySig, SpecialName
+    add_OnDash(OnDashed): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_OnDash(OnDashed): PrivateScope, Public, Static, HideBySig, SpecialName
+    TriggerOnDash(Obj_AI_Base, DashItem): PrivateScope, Public, Static, HideBySig
+Class LeagueSharp.Common.CustomEvents+Unit+OnDashed: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Obj_AI_Base, DashItem): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(Obj_AI_Base, DashItem, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class LeagueSharp.Common.CustomEvents+Unit+OnLeveledUp: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Obj_AI_Base, OnLevelUpEventArgs): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(Obj_AI_Base, OnLevelUpEventArgs, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class LeagueSharp.Common.CustomEvents+Unit+OnLeveledUpSpell: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Obj_AI_Base, OnLevelUpSpellEventArgs): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(Obj_AI_Base, OnLevelUpSpellEventArgs, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class LeagueSharp.Common.CustomEvents+Unit+OnLevelUpEventArgs: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+  :System.EventArgs
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Int32 NewLevel : Public
+    Int32 RemainingPoints : Public
+Class LeagueSharp.Common.CustomEvents+Unit+OnLevelUpSpellEventArgs: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+  :System.EventArgs
+  Fields:
+    Int32 Remainingpoints : Public
+    Int32 SpellId : Public
+    Int32 SpellLevel : Public
+Class LeagueSharp.Common.Geometry: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    Distance(Obj_AI_Base, Boolean(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    Distance(Obj_AI_Base, Obj_AI_Base, Boolean(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    Distance(Obj_AI_Base, Vector3, Boolean(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    Distance(Obj_AI_Base, Vector2, Boolean(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    Distance3D(Obj_AI_Base, Obj_AI_Base, Boolean(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    To2D(Vector3): PrivateScope, Public, Static, HideBySig
+    Distance(Vector3, Vector3, Boolean(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    IsValid(Vector2): PrivateScope, Public, Static, HideBySig
+    To3D(Vector2): PrivateScope, Public, Static, HideBySig
+    Distance(Vector2, Vector2, Boolean(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    Distance(Vector2, Vector3, Boolean(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    Distance(Vector2, Obj_AI_Base, Boolean(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    Distance(Vector2, Vector2, Vector2, Boolean(Optional, HasDefault), Boolean(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    Normalized(Vector2): PrivateScope, Public, Static, HideBySig
+    Extend(Vector2, Vector2, Single): PrivateScope, Public, Static, HideBySig
+    SwitchYZ(Vector3): PrivateScope, Public, Static, HideBySig
+    Perpendicular(Vector2): PrivateScope, Public, Static, HideBySig
+    Perpendicular2(Vector2): PrivateScope, Public, Static, HideBySig
+    Rotated(Vector2, Single): PrivateScope, Public, Static, HideBySig
+    CrossProduct(Vector2, Vector2): PrivateScope, Public, Static, HideBySig
+    RadianToDegree(Double): PrivateScope, Public, Static, HideBySig
+    DegreeToRadian(Double): PrivateScope, Public, Static, HideBySig
+    Polar(Vector2): PrivateScope, Public, Static, HideBySig
+    AngleBetween(Vector2, Vector2): PrivateScope, Public, Static, HideBySig
+    Closest(Vector2, List`1): PrivateScope, Public, Static, HideBySig
+    ProjectOn(Vector2, Vector2, Vector2): PrivateScope, Public, Static, HideBySig
+    Intersection(Vector2, Vector2, Vector2, Vector2): PrivateScope, Public, Static, HideBySig
+    VectorMovementCollision(Vector2, Vector2, Single, Vector2, Single, Single(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    PathLength(List`1): PrivateScope, Public, Static, HideBySig
+    To2D(List`1): PrivateScope, Public, Static, HideBySig
+    CircleCircleIntersection(Vector2, Vector2, Single, Single): PrivateScope, Public, Static, HideBySig
+    Close(Single, Single, Single): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Geometry+IntersectionResult: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Boolean, SharpDX.Vector2): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Boolean Intersects : Public
+    SharpDX.Vector2 Point : Public
+Struct LeagueSharp.Common.Geometry+ProjectionInfo: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Boolean, SharpDX.Vector2, SharpDX.Vector2): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Boolean IsOnSegment : Public
+    SharpDX.Vector2 LinePoint : Public
+    SharpDX.Vector2 SegmentPoint : Public
+Class LeagueSharp.Common.Items: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    HasItem(Int32): PrivateScope, Public, Static, HideBySig
+    HasItem(String): PrivateScope, Public, Static, HideBySig
+    HasItem(String, Obj_AI_Hero): PrivateScope, Public, Static, HideBySig
+    HasItem(Int32, Obj_AI_Hero): PrivateScope, Public, Static, HideBySig
+    CanUseItem(String): PrivateScope, Public, Static, HideBySig
+    CanUseItem(Int32): PrivateScope, Public, Static, HideBySig
+    UseItem(String, Obj_AI_Base(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    UseItem(Int32, Obj_AI_Base(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    UseItem(Int32, Vector2): PrivateScope, Public, Static, HideBySig
+    UseItem(Int32, Vector3): PrivateScope, Public, Static, HideBySig
+    GetWardSlot(): PrivateScope, Public, Static, HideBySig
+Class LeagueSharp.Common.Items+Item: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(Int32, Single): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Int32 Id : Public
+    Single Range : Public
+  Methods:
+    IsReady(): PrivateScope, Public, HideBySig
+    Cast(): PrivateScope, Public, HideBySig
+    Cast(Obj_AI_Base): PrivateScope, Public, HideBySig
+    Cast(Vector2): PrivateScope, Public, HideBySig
+    Cast(Vector3): PrivateScope, Public, HideBySig
+    Buy(): PrivateScope, Public, HideBySig
+Class LeagueSharp.Common.MEC: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    SharpDX.Vector2[] g_MinMaxCorners : Public, Static
+    SharpDX.RectangleF g_MinMaxBox : Public, Static
+    SharpDX.Vector2[] g_NonCulledPoints : Public, Static
+  Methods:
+    GetMec(List`1): PrivateScope, Public, Static, HideBySig
+    MakeConvexHull(List`1): PrivateScope, Public, Static, HideBySig
+    FindMinimalBoundingCircle(List`1, Vector2&(Out), Single&(Out)): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.MEC+MecCircle: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(SharpDX.Vector2, Single): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    SharpDX.Vector2 Center : Public
+    Single Radius : Public
+Class LeagueSharp.Common.Spell: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(LeagueSharp.SpellSlot, Single): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Int32 ChargeDuration : Public
+    System.String ChargedBuffName : Public
+    Int32 ChargedMaxRange : Public
+    Int32 ChargedMinRange : Public
+    System.String ChargedSpellName : Public
+    Boolean Collision : Public
+    Single Delay : Public
+    Boolean IsChargedSpell : Public
+    Boolean IsSkillshot : Public
+    Int32 LastCastAttemptT : Public
+    LeagueSharp.Common.HitChance MinHitChance : Public
+    LeagueSharp.SpellSlot Slot : Public
+    Single Speed : Public
+    LeagueSharp.Common.SkillshotType Type : Public
+    Single Width : Public
+  Properties:
+    LeagueSharp.SpellDataInst Instance 'get ' : 
+    Single Range 'get set' : 
+    Boolean IsCharging 'get ' : 
+    Int32 Level 'get ' : 
+    SharpDX.Vector3 From 'get set' : 
+    SharpDX.Vector3 RangeCheckFrom 'get set' : 
+  Methods:
+    get_Instance(): PrivateScope, Public, HideBySig, SpecialName
+    get_Range(): PrivateScope, Public, HideBySig, SpecialName
+    set_Range(Single): PrivateScope, Public, HideBySig, SpecialName
+    get_IsCharging(): PrivateScope, Public, HideBySig, SpecialName
+    get_Level(): PrivateScope, Public, HideBySig, SpecialName
+    get_From(): PrivateScope, Public, HideBySig, SpecialName
+    set_From(Vector3): PrivateScope, Public, HideBySig, SpecialName
+    get_RangeCheckFrom(): PrivateScope, Public, HideBySig, SpecialName
+    set_RangeCheckFrom(Vector3): PrivateScope, Public, HideBySig, SpecialName
+    SetTargetted(Single, Single, Vector3(Optional, HasDefault), Vector3(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    SetSkillshot(Single, Single, Single, Boolean, SkillshotType, Vector3(Optional, HasDefault), Vector3(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    SetCharged(String, String, Int32, Int32, Single): PrivateScope, Public, HideBySig
+    StartCharging(): PrivateScope, Public, HideBySig
+    StartCharging(Vector3): PrivateScope, Public, HideBySig
+    UpdateSourcePosition(Vector3(Optional, HasDefault), Vector3(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    GetPrediction(Obj_AI_Base, Boolean(Optional, HasDefault), Single(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    GetCollision(Vector2, List`1, Single(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    GetHitCount(HitChance(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    Cast(): PrivateScope, Public, HideBySig
+    CastOnUnit(Obj_AI_Base, Boolean(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    Cast(Obj_AI_Base, Boolean(Optional, HasDefault), Boolean(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    Cast(Boolean(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    Cast(Vector2, Boolean(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    Cast(Vector3, Boolean(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    CastIfHitchanceEquals(Obj_AI_Base, HitChance, Boolean(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    CastIfWillHit(Obj_AI_Base, Int32(Optional, HasDefault), Boolean(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    IsReady(Int32(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    GetHealthPrediction(Obj_AI_Base): PrivateScope, Public, HideBySig
+    GetCircularFarmLocation(List`1, Single(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    GetCircularFarmLocation(List`1, Single(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    GetLineFarmLocation(List`1, Single(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    GetLineFarmLocation(List`1, Single(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    CountHits(List`1, Vector3): PrivateScope, Public, HideBySig
+    CountHits(List`1, Vector3): PrivateScope, Public, HideBySig
+    GetDamage(Obj_AI_Base, Int32(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    IsKillable(Obj_AI_Base, Int32(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    WillHit(Obj_AI_Base, Vector3, Int32(Optional, HasDefault), HitChance(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    WillHit(Vector3, Vector3, Int32(Optional, HasDefault)): PrivateScope, Public, HideBySig
+    InRange(Vector3): PrivateScope, Public, HideBySig
+Struct LeagueSharp.Common.Spell+CastStates: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    CastStates SuccessfullyCasted = 0 : Public, Static, Literal, HasDefault
+    CastStates NotReady = 1 : Public, Static, Literal, HasDefault
+    CastStates NotCasted = 2 : Public, Static, Literal, HasDefault
+    CastStates OutOfRange = 3 : Public, Static, Literal, HasDefault
+    CastStates Collision = 4 : Public, Static, Literal, HasDefault
+    CastStates NotEnoughTargets = 5 : Public, Static, Literal, HasDefault
+    CastStates LowHitChance = 6 : Public, Static, Literal, HasDefault
+Class LeagueSharp.Common.SpellHumanizer: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed
+  Properties:
+    Boolean Enabled 'get set' : 
+    Boolean Debug 'get set' : 
+  Methods:
+    get_Enabled(): PrivateScope, Public, Static, HideBySig, SpecialName
+    set_Enabled(Boolean): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_Debug(): PrivateScope, Public, Static, HideBySig, SpecialName
+    set_Debug(Boolean): PrivateScope, Public, Static, HideBySig, SpecialName
+    Check(GamePacket): PrivateScope, Public, Static, HideBySig
+Class LeagueSharp.Common.TargetSelector: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Single, TargetingMode): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    LeagueSharp.Obj_AI_Hero Target : Public
+  Methods:
+    SetDrawCircleOfTarget(Boolean): PrivateScope, Public, HideBySig
+    OverrideTarget(Obj_AI_Hero): PrivateScope, Public, HideBySig
+    DisableTargetOverride(): PrivateScope, Public, HideBySig
+    GetRange(): PrivateScope, Public, HideBySig
+    SetRange(Single): PrivateScope, Public, HideBySig
+    GetTargetingMode(): PrivateScope, Public, HideBySig
+    SetTargetingMode(TargetingMode): PrivateScope, Public, HideBySig
+    ToString(): PrivateScope, Public, Virtual, HideBySig
+Struct LeagueSharp.Common.TargetSelector+TargetingMode: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    TargetingMode LowHP = 0 : Public, Static, Literal, HasDefault
+    TargetingMode MostAD = 1 : Public, Static, Literal, HasDefault
+    TargetingMode MostAP = 2 : Public, Static, Literal, HasDefault
+    TargetingMode Closest = 3 : Public, Static, Literal, HasDefault
+    TargetingMode NearMouse = 4 : Public, Static, Literal, HasDefault
+    TargetingMode AutoPriority = 5 : Public, Static, Literal, HasDefault
+    TargetingMode LessAttack = 6 : Public, Static, Literal, HasDefault
+    TargetingMode LessCast = 7 : Public, Static, Literal, HasDefault
+Class LeagueSharp.Common.SimpleTs: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed
+  Properties:
+    LeagueSharp.Obj_AI_Hero SelectedTarget 'get ' : 
+  Methods:
+    get_SelectedTarget(): PrivateScope, Public, Static, HideBySig, SpecialName
+    SetPriority(Obj_AI_Hero, Int32): PrivateScope, Public, Static, HideBySig
+    GetPriority(Obj_AI_Hero): PrivateScope, Public, Static, HideBySig
+    AddToMenu(Menu): PrivateScope, Public, Static, HideBySig
+    IsInvulnerable(Obj_AI_Base): PrivateScope, Public, Static, HideBySig
+    SetTarget(Obj_AI_Hero): PrivateScope, Public, Static, HideBySig
+    GetSelectedTarget(): PrivateScope, Public, Static, HideBySig
+    GetTarget(Single, DamageType): PrivateScope, Public, Static, HideBySig
+    GetTarget(Obj_AI_Base, Single, DamageType): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.SimpleTs+DamageType: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    DamageType Magical = 0 : Public, Static, Literal, HasDefault
+    DamageType Physical = 1 : Public, Static, Literal, HasDefault
+    DamageType True = 2 : Public, Static, Literal, HasDefault
+Class LeagueSharp.Common.MultiLanguage: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed
+  Fields:
+    System.Collections.Generic.Dictionary`2[System.String,System.String] Translations : Public, Static
+    System.Xml.Serialization.XmlSerializer Serializer : Public, Static
+  Methods:
+    LoadLanguage(String): PrivateScope, Public, Static, HideBySig
+    _(String): PrivateScope, Public, Static, HideBySig
+Class LeagueSharp.Common.MultiLanguage+TranslatedEntry: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String TextToTranslate : Public
+    System.String TranslatedText : Public
+Class LeagueSharp.Common.Utility: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    IsFacing(Obj_AI_Base, Obj_AI_Base, Single(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    IsBothFacing(Obj_AI_Base, Obj_AI_Base, Single): PrivateScope, Public, Static, HideBySig
+    IsValidTarget(Obj_AI_Base, Single(Optional, HasDefault), Boolean(Optional, HasDefault), Vector3(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    IsValid(GameObject): PrivateScope, Public, Static, HideBySig
+    HealthPercentage(Obj_AI_Base): PrivateScope, Public, Static, HideBySig
+    ManaPercentage(Obj_AI_Base): PrivateScope, Public, Static, HideBySig
+    Highlight(Obj_AI_Base, Boolean(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    DebugMessage(String): PrivateScope, Public, Static, HideBySig
+    DumpPacket(GamePacket, Boolean(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    IsRecalling(Obj_AI_Hero): PrivateScope, Public, Static, HideBySig
+    Randomize(Vector3, Int32, Int32): PrivateScope, Public, Static, HideBySig
+    PrintFloatText(GameObject, String, FloatTextPacket): PrivateScope, Public, Static, HideBySig
+    IsWall(Vector3): PrivateScope, Public, Static, HideBySig
+    GetRecallTime(Obj_AI_Hero): PrivateScope, Public, Static, HideBySig
+    GetRecallTime(String): PrivateScope, Public, Static, HideBySig
+    LevelUpSpell(Spellbook, SpellSlot): PrivateScope, Public, Static, HideBySig
+    CutPath(List`1, Single): PrivateScope, Public, Static, HideBySig
+    GetWaypoints(Obj_AI_Base): PrivateScope, Public, Static, HideBySig
+    HasBuff(Obj_AI_Base, String, Boolean(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    GetSpellSlot(Obj_AI_Hero, String, Boolean(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    UnderTurret(): PrivateScope, Public, Static, HideBySig
+    UnderTurret(Obj_AI_Base): PrivateScope, Public, Static, HideBySig
+    UnderTurret(Obj_AI_Base, Boolean): PrivateScope, Public, Static, HideBySig
+    UnderTurret(Vector3, Boolean): PrivateScope, Public, Static, HideBySig
+    CountEnemysInRange(Int32): PrivateScope, Public, Static, HideBySig
+    CountEnemysInRange(Int32, Obj_AI_Base): PrivateScope, Public, Static, HideBySig (Obsolete)
+    CountEnemysInRange(Obj_AI_Base, Int32): PrivateScope, Public, Static, HideBySig
+    CountEnemysInRange(Int32, Vector3): PrivateScope, Public, Static, HideBySig (Obsolete)
+    CountEnemysInRange(Vector3, Int32): PrivateScope, Public, Static, HideBySig
+    InShopRange(): PrivateScope, Public, Static, HideBySig
+    DrawCircle(Vector3, Single, Color, Int32(Optional, HasDefault), Int32(Optional, HasDefault), Boolean(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    InFountain(): PrivateScope, Public, Static, HideBySig
+Class LeagueSharp.Common.Utility+DelayAction: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed
+  Fields:
+    System.Collections.Generic.List`1[LeagueSharp.Common.Utility+DelayAction+Action] ActionList : Public, Static
+  Methods:
+    Add(Int32, Callback): PrivateScope, Public, Static, HideBySig
+Class LeagueSharp.Common.Utility+DelayAction+Callback: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Struct LeagueSharp.Common.Utility+DelayAction+Action: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Int32, Callback): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Callback CallbackObject : Public
+    Int32 Time : Public
+Class LeagueSharp.Common.Utility+HpBarDamageIndicator: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    System.Drawing.Color Color : Public, Static
+    Boolean Enabled : Public, Static
+  Properties:
+    DamageToUnitDelegate DamageToUnit 'get set' : 
+  Methods:
+    get_DamageToUnit(): PrivateScope, Public, Static, HideBySig, SpecialName
+    set_DamageToUnit(DamageToUnitDelegate): PrivateScope, Public, Static, HideBySig, SpecialName
+Class LeagueSharp.Common.Utility+HpBarDamageIndicator+DamageToUnitDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Obj_AI_Hero): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    BeginInvoke(Obj_AI_Hero, AsyncCallback, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class LeagueSharp.Common.Utility+Map: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(System.String, System.String, MapType, SharpDX.Vector2, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    SharpDX.Vector2 Grid : Public
+    System.String Name : Public
+    System.String ShortName : Public
+    Int32 StartingLevel : Public
+    MapType _MapType : Public
+  Methods:
+    GetMap(): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.Utility+Map+MapType: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    MapType Unknown = 0 : Public, Static, Literal, HasDefault
+    MapType SummonersRift = 1 : Public, Static, Literal, HasDefault
+    MapType CrystalScar = 2 : Public, Static, Literal, HasDefault
+    MapType TwistedTreeline = 3 : Public, Static, Literal, HasDefault
+    MapType HowlingAbyss = 4 : Public, Static, Literal, HasDefault
+Class LeagueSharp.Common.Version: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed
+  Fields:
+    Int32 MajorVersion : Public, Static
+    Int32 MinorVersion : Public, Static
+    Int32 Build : Public, Static
+    Int32 Revision : Public, Static
+  Methods:
+    IsOlder(String): PrivateScope, Public, Static, HideBySig
+    IsNewer(String): PrivateScope, Public, Static, HideBySig
+    IsEqual(String): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.MinionOrderTypes: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LeagueSharp.Common.MinionOrderTypes None = 0 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.MinionOrderTypes Health = 1 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.MinionOrderTypes MaxHealth = 2 : Public, Static, Literal, HasDefault
+Struct LeagueSharp.Common.MinionTeam: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LeagueSharp.Common.MinionTeam Neutral = 0 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.MinionTeam Ally = 1 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.MinionTeam Enemy = 2 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.MinionTeam NotAlly = 3 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.MinionTeam NotAllyForEnemy = 4 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.MinionTeam All = 5 : Public, Static, Literal, HasDefault
+Struct LeagueSharp.Common.MinionTypes: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LeagueSharp.Common.MinionTypes Ranged = 0 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.MinionTypes Melee = 1 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.MinionTypes All = 2 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.MinionTypes Wards = 3 : Public, Static, Literal, HasDefault
+Class LeagueSharp.Common.MinionManager: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    GetMinions(Vector3, Single, MinionTypes(Optional, HasDefault), MinionTeam(Optional, HasDefault), MinionOrderTypes(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    IsMinion(Obj_AI_Minion, Boolean(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    GetBestCircularFarmLocation(List`1, Single, Single, Int32(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    GetBestLineFarmLocation(List`1, Single, Single): PrivateScope, Public, Static, HideBySig
+    GetMinionsPredictedPositions(List`1, Single, Single, Single, Vector3, Single, Boolean, SkillshotType, Vector3(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+Struct LeagueSharp.Common.MinionManager+FarmLocation: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(SharpDX.Vector2, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Int32 MinionsHit : Public
+    SharpDX.Vector2 Position : Public
+Struct LeagueSharp.Common.WindowsMessages: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    LeagueSharp.Common.WindowsMessages WM_LBUTTONDBLCLCK = 515 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.WindowsMessages WM_RBUTTONDBLCLCK = 518 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.WindowsMessages WM_MBUTTONDBLCLCK = 521 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.WindowsMessages WM_MBUTTONDOWN = 519 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.WindowsMessages WM_MBUTTONUP = 520 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.WindowsMessages WM_MOUSEMOVE = 512 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.WindowsMessages WM_LBUTTONDOWN = 513 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.WindowsMessages WM_LBUTTONUP = 514 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.WindowsMessages WM_RBUTTONDOWN = 516 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.WindowsMessages WM_RBUTTONUP = 517 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.WindowsMessages WM_KEYDOWN = 256 : Public, Static, Literal, HasDefault
+    LeagueSharp.Common.WindowsMessages WM_KEYUP = 257 : Public, Static, Literal, HasDefault
+Class LeagueSharp.Common.Utils: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Methods:
+    GetCursorPos(): PrivateScope, Public, Static, HideBySig
+    KeyToText(UInt32): PrivateScope, Public, Static, HideBySig
+    Md5Hash(String): PrivateScope, Public, Static, HideBySig
+    IsUnderRectangle(Vector2, Single, Single, Single, Single): PrivateScope, Public, Static, HideBySig
+    FormatTime(Single): PrivateScope, Public, Static, HideBySig
+    FormatTime(Double): PrivateScope, Public, Static, HideBySig
+    GetBytes(String): PrivateScope, Public, Static, HideBySig
+    GetString(Byte[]): PrivateScope, Public, Static, HideBySig
+    IndexOf(T[], T[]): PrivateScope, Public, Static, HideBySig
+    GetLocation(): PrivateScope, Public, Static, HideBySig
+    ToHexString(Byte): PrivateScope, Public, Static, HideBySig
+    EnableConsoleEditMode(): PrivateScope, Public, Static, HideBySig
