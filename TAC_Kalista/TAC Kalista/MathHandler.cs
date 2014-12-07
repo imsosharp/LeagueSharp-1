@@ -58,7 +58,8 @@ namespace TAC_Kalista
         }
         internal static float CalculatePhysicalDamage(Obj_AI_Hero source, Obj_AI_Base target, float rawDamage)
         {
-            return CalculatePhysicalDamageMultiplier(source, target) * rawDamage;
+//            return CalculatePhysicalDamageMultiplier(source, target) * rawDamage;
+            return (float)source.CalcDamage(target, Damage.DamageType.Physical, rawDamage);
         }
 
         internal static float CalculatePhysicalDamageMultiplier(Obj_AI_Hero source, Obj_AI_Base target, float tweak = 0)
