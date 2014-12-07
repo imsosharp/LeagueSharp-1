@@ -30,7 +30,7 @@ namespace TAC_Kalista
                 List<Obj_AI_Base> minions = MinionManager.GetMinions(ObjectManager.Player.Position, SkillHandler.E.Range,MinionTypes.All,MinionTeam.Enemy,MinionOrderTypes.Health);
                 foreach (var minion in minions)
                 {
-                    if (MathHandler.getRealDamage(minion) * 0.9 > minion.Health)
+                    if (MathHandler.getRealDamage(minion) > minion.Health)
                     {
                         SkillHandler.E.Cast(Kalista.packetCast);
                         break;
@@ -47,10 +47,58 @@ namespace TAC_Kalista
         {
             return ObjectManager.Player.Mana * 100 / ObjectManager.Player.MaxMana;
         }
-
-        public static double getRealDamage(Obj_AI_Base target)
+        internal static Obj_AI_Hero player = ObjectManager.Player;
+        /**
+         * @author Hellsing
+         * Everything below is created by hellsing not me.
+         * */
+        public static double getRealDamage(Obj_AI_Base target, int customStacks = -1)
         {
-            return ObjectManager.Player.GetSpellDamage(target, SpellSlot.E) * 0.9;
+            return (float)CalculatePhysicalDamage(ObjectManager.Player, target, (float)GetRawRendDamage(target, customStacks));
+        }
+        internal static float CalculatePhysicalDamage(Obj_AI_Hero source, Obj_AI_Base target, float rawDamage)
+        {
+            return CalculatePhysicalDamageMultiplier(source, target) * rawDamage;
+        }
+
+        internal static float CalculatePhysicalDamageMultiplier(Obj_AI_Hero source, Obj_AI_Base target, float tweak = 0)
+        {
+            float armor = target.Armor + target.FlatArmorMod;
+
+            // Armor penetration percent
+            if (armor > 0 && source.PercentArmorPenetrationMod > 0)
+                armor *= source.PercentArmorPenetrationMod;
+
+            // Armor penetration flat
+            if (source.FlatArmorPenetrationMod > 0)
+                armor -= source.FlatArmorPenetrationMod;
+
+            // Target has positive armor
+            if (armor <= 0)
+                return (100f / (100f + armor)) + tweak;
+            // Target has negative armor
+            else
+                return (2f - (100f / (100f - armor))) + tweak;
+        }
+        internal static double GetRawRendDamage(Obj_AI_Base target, int customStacks = -1)
+        {
+            // Get buff
+            var buff = target.Buffs.FirstOrDefault(b => b.DisplayName == "KalistaExpungeMarker" && b.SourceName == player.ChampionName);
+
+            if (buff != null || customStacks != -1)
+            {
+                // Base damage
+                double damage = (10 + 10 * player.Spellbook.GetSpell(SpellSlot.E).Level) + 0.6 * (player.BaseAttackDamage + player.FlatPhysicalDamageMod);
+
+                // Damage per spear
+                double singleSpearDamage = damage * new double[] { 0, 0.25, 0.30, 0.35, 0.40, 0.45 }[player.Spellbook.GetSpell(SpellSlot.E).Level];
+                damage += (((customStacks == -1 ? buff.Count : customStacks) - 1) * singleSpearDamage);
+
+                // Calculate the damage and return
+                return damage;
+            }
+
+            return 0;
         }
     }
 }
