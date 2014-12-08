@@ -70,7 +70,7 @@ namespace TAC_Jax
                     EventHandler.onLaneClear();
                     break;
             }
-            if (MenuHandler.Config.Item("Ward").GetValue<KeyBind>().Active) Jumper.wardJump(Game.CursorPos.To2D());
+            if (MenuHandler.Config.Item("Ward").GetValue<KeyBind>().Active) EventHandler.WardJump();
             updateCount();
         }
         internal static void updateCount()
