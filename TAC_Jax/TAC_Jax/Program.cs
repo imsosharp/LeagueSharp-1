@@ -35,11 +35,11 @@ namespace TAC_Jax
             Game.OnGameUpdate += Game_OnGameUpdate;
             //Obj_AI_Hero.OnProcessSpellCast += EventHandler.Game_OnProcessSpell;
             AntiGapcloser.OnEnemyGapcloser += EventHandler.AntiGapCloser;
-            LXOrbwalker.BeforeAttack += Orbwalking_BeforeAttack;
+            Orbwalking.BeforeAttack += Orbwalking_BeforeAttack;
             Drawing.OnDraw += DrawingHandler.load;
             Drawing.OnEndScene += DrawingHandler.OnEndScene;
         }
-        static void Orbwalking_BeforeAttack(LXOrbwalker.BeforeAttackEventArgs args)
+        static void Orbwalking_BeforeAttack(Orbwalking.BeforeAttackEventArgs args)
         {
             var dBuffBro = ObjectManager.Player.Buffs.FirstOrDefault(b => b.DisplayName == "JaxRelentlessAssaultAS").Count;
             if (dBuffBro > 0)
@@ -58,15 +58,15 @@ namespace TAC_Jax
         {
             packetCast = MenuHandler.Config.Item("packetCast").GetValue<bool>();
             debug = MenuHandler.Config.Item("debug").GetValue<bool>();
-            switch (LXOrbwalker.CurrentMode)
+            switch (EventHandler.Orbwalker.ActiveMode)
             {
-                case LXOrbwalker.Mode.Combo:
+                case Orbwalking.OrbwalkingMode.Combo:
                     EventHandler.onCombo();
                     break;
-                case LXOrbwalker.Mode.Harass:
+                case Orbwalking.OrbwalkingMode.Mixed:
                     EventHandler.onHarass();
                     break;
-                case LXOrbwalker.Mode.LaneClear:
+                case Orbwalking.OrbwalkingMode.LaneClear:
                     EventHandler.onLaneClear();
                     break;
             }

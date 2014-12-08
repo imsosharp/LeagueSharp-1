@@ -17,14 +17,15 @@ namespace TAC_Jax
             Menu targetSelector = new Menu("Target selector", "ts");
             SimpleTs.AddToMenu(targetSelector);
             Config.AddSubMenu(targetSelector);
-
-            var orbwalkerMenu = new Menu("LX Orbwalker", "my_Orbwalker");
-            LXOrbwalker.AddToMenu(orbwalkerMenu);
-            Config.AddSubMenu(orbwalkerMenu);
-            /*
-            Menu orbwalker = new Menu("Orbwalker", "orbwalker");
-            Jax.orb = new Orbwalking.Orbwalker(orbwalker);
-            Config.AddSubMenu(orbwalker);*/
+            try
+            {
+                Config.AddSubMenu(new Menu("Orbwalker", "Orbwalker"));
+                EventHandler.Orbwalker = new Orbwalking.Orbwalker(Config.SubMenu("Orbwalker"));
+            }
+            catch(Exception ex)
+            {
+                Game.PrintChat("Could not load orbwalker! " + ex);
+            }
 
             Config.AddSubMenu(new Menu("Auto Carry", "ac"));
             Config.SubMenu("ac").AddSubMenu(new Menu("Use Q", "q_menu"));
@@ -35,6 +36,14 @@ namespace TAC_Jax
             Config.SubMenu("ac").AddItem(new MenuItem("acW", "Smart W").SetValue(true));
             Config.SubMenu("ac").AddItem(new MenuItem("acE", "Smart E").SetValue(true));
             Config.SubMenu("ac").AddItem(new MenuItem("acR", "Smart R").SetValue(true));
+
+            Config.AddSubMenu(new Menu("Mixed", "mx"));
+            Config.SubMenu("mx").AddItem(new MenuItem("about", "This is automatic"));
+            Config.SubMenu("mx").AddItem(new MenuItem("about1", "Hold mixed key and if"));
+            Config.SubMenu("mx").AddItem(new MenuItem("about3", "you dont have lvl 6 it will"));
+            Config.SubMenu("mx").AddItem(new MenuItem("about4", "use E+W+Q or if you have lvl 6"));
+            Config.SubMenu("mx").AddItem(new MenuItem("about5", "then you need 2 auto's and then"));
+            Config.SubMenu("mx").AddItem(new MenuItem("about6", "hold mixed button for high burst dmg"));
 
             Config.AddSubMenu(new Menu("Lane/Jungle clear", "cl"));
             Config.SubMenu("cl").AddItem(new MenuItem("clear_w", "Use W").SetValue(true));

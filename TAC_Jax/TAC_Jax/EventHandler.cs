@@ -16,6 +16,7 @@ namespace TAC_Jax
 {
     class EventHandler
     {
+        internal static Orbwalking.Orbwalker Orbwalker;
         internal static Vector3 lastWardPos;
         internal static int lastPlaced;
         internal static void AntiGapCloser(ActiveGapcloser gapcloser)
@@ -25,6 +26,7 @@ namespace TAC_Jax
                 SkillHandler.E.Cast(Jax.packetCast);
             }
         }
+        /*
         internal static void Game_OnProcessSpell(Obj_AI_Base unit, GameObjectProcessSpellCastEventArgs spell)
         {
             if (!unit.IsMe) return;
@@ -35,15 +37,15 @@ namespace TAC_Jax
                 // Get enemy surounded :P
                 Obj_AI_Hero targets = SimpleTs.GetTarget(SkillHandler.E.Range,SimpleTs.DamageType.Physical);
                 // Check if our target is going escape and current mode is combo
-                /*if (LXOrbwalker.CurrentMode == LXOrbwalker.Mode.Combo 
+                if (LXOrbwalker.CurrentMode == LXOrbwalker.Mode.Combo 
                         && ObjectManager.Player.Distance(targets) < (SkillHandler.E.Range - 30f))
                 {
                     SkillHandler.E.Cast(Jax.packetCast);
-                }*/
+                }
             }
             //jaxcounterstrike
             //jaxleapstrike
-        }
+        }*/
         internal static bool canDieFromLeaping(Obj_AI_Hero target)
         {
             return target.Health < (ObjectManager.Player.GetSpellDamage(target, SpellSlot.Q) + ObjectManager.Player.GetSpellDamage(target,SpellSlot.W));
@@ -62,6 +64,8 @@ namespace TAC_Jax
                 {
                     if(ObjectManager.Player.Level >= 6 && Jax.buffCount > 0 && Jax.buffCount % 3 == 0)
                     {
+                        Jax.isCastingE = true;
+                        Jax.lastTickE = Environment.TickCount;
                         SkillHandler.E.Cast(Jax.packetCast);
                         SkillHandler.Q.Cast(target,Jax.packetCast);
                         Utility.DelayAction.Add(5, () =>
@@ -77,6 +81,12 @@ namespace TAC_Jax
                         SkillHandler.W.Cast(Jax.packetCast);
                         SkillHandler.Q.Cast(Jax.packetCast);
                     }
+                }
+                if(Jax.isCastingE && Jax.canCastE)
+                {
+                    SkillHandler.E.Cast(Jax.packetCast);
+                    Jax.canCastE = false;
+                    Jax.isCastingE = false;
                 }
             }
         }
@@ -133,7 +143,11 @@ namespace TAC_Jax
                 {
                     SkillHandler.W.Cast(Jax.packetCast);
                 }
-
+                if (canDieFromLeaping(target) && SkillHandler.Q.IsReady() && SkillHandler.W.IsReady())
+                {
+                    SkillHandler.W.Cast(Jax.packetCast);
+                    SkillHandler.Q.Cast(target, Jax.packetCast);
+                }
                 // Check if our flash and q is ready 
                 if(SkillHandler.Q.IsReady() && SkillHandler.Flash.IsReady())
                 {
@@ -212,9 +226,9 @@ namespace TAC_Jax
             foreach (Obj_AI_Minion ward in ObjectManager.Get<Obj_AI_Minion>().Where(ward =>
                 ward.Name.ToLower().Contains("ward") && ward.Distance(Game.CursorPos) < 250))
             {
-                if (SkillHandler.E.IsReady())
+                if (SkillHandler.Q.IsReady())
                 {
-                    SkillHandler.E.CastOnUnit(ward);
+                    SkillHandler.Q.CastOnUnit(ward,Jax.packetCast);
                     return;
                 }
             }
@@ -224,7 +238,7 @@ namespace TAC_Jax
             {
                 if (SkillHandler.Q.IsReady())
                 {
-                    SkillHandler.Q.CastOnUnit(hero);
+                    SkillHandler.Q.CastOnUnit(hero, Jax.packetCast);
                     return;
                 }
             }
@@ -234,7 +248,7 @@ namespace TAC_Jax
             {
                 if (SkillHandler.Q.IsReady())
                 {
-                    SkillHandler.Q.CastOnUnit(minion);
+                    SkillHandler.Q.CastOnUnit(minion, Jax.packetCast);
                     return;
                 }
             }

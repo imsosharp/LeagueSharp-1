@@ -8,3 +8,4 @@ C:\Users\Twilight\Documents\GitHub\LeagueSharp\TAC_Jax\TAC_Jax\bin\x86\Debug\Sha
 C:\Users\Twilight\Documents\GitHub\LeagueSharp\TAC_Jax\TAC_Jax\bin\x86\Debug\LeagueSharp.xml
 C:\Users\Twilight\Documents\GitHub\LeagueSharp\TAC_Jax\TAC_Jax\obj\x86\Debug\TAC_Jax.exe
 C:\Users\Twilight\Documents\GitHub\LeagueSharp\TAC_Jax\TAC_Jax\obj\x86\Debug\TAC_Jax.pdb
+C:\Users\Twilight\Documents\GitHub\LeagueSharp\TAC_Jax\TAC_Jax\obj\x86\Debug\TAC_Jax.csprojResolveAssemblyReference.cache
