@@ -35,7 +35,7 @@ namespace TAC_Jax
 
             Config.SubMenu("ac").AddItem(new MenuItem("acW", "Smart W").SetValue(true));
             Config.SubMenu("ac").AddItem(new MenuItem("acE", "Smart E").SetValue(true));
-            Config.SubMenu("ac").AddItem(new MenuItem("acR", "Smart R").SetValue(true));
+//            Config.SubMenu("ac").AddItem(new MenuItem("acR", "Smart R").SetValue(true));
 
             Config.AddSubMenu(new Menu("Mixed", "mx"));
             Config.SubMenu("mx").AddItem(new MenuItem("about", "This is automatic"));
