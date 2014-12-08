@@ -12,7 +12,7 @@ namespace TAC_Jax
     class DrawingHandler
     {
         internal static HpBarIndicator hpi = new HpBarIndicator();
-        internal static void load()
+        internal static void load(EventArgs args)
         {
             loadSpells();
             if (MenuHandler.Config.Item("drawHp").GetValue<bool>())
@@ -23,7 +23,7 @@ namespace TAC_Jax
                 .Where(ene => !ene.IsDead && ene.IsEnemy && ene.IsVisible))
                 {
                     hpi.unit = enemy;
-                    hpi.drawDmg(EventHandler.comboDamage(enemy), Color.Yellow);
+                    hpi.drawDmg((float)EventHandler.comboDamage(enemy), Color.Yellow);
                 }
             }
         }
@@ -51,7 +51,7 @@ namespace TAC_Jax
                 .Where(ene => !ene.IsDead && ene.IsEnemy && ene.IsVisible))
                 {
                     hpi.unit = enemy;
-                    hpi.drawDmg(EventHandler.comboDamage(enemy), Color.Yellow);
+                    hpi.drawDmg((float)EventHandler.comboDamage(enemy), Color.Yellow);
                 }
             }
         }

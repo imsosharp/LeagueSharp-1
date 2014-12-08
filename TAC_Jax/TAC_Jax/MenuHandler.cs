@@ -23,17 +23,34 @@ namespace TAC_Jax
             Config.AddSubMenu(orbwalker);
 
             Config.AddSubMenu(new Menu("Auto Carry", "ac"));
-            Config.SubMenu("ac").AddItem(new MenuItem("acQ", "Use Q").SetValue(true));
+            Config.SubMenu("ac").AddSubMenu(new Menu("Use Q", "q_menu"));
+            Config.SubMenu("ac").SubMenu("q_menu").AddItem(new MenuItem("acQ_useIfWorth", "Use F+Q if worth").SetValue(true));
+            Config.SubMenu("ac").SubMenu("q_menu").AddItem(new MenuItem("acQ_useIfWorthEnemy", "Maximum enemies in range: ").SetValue(new Slider(2,1,5)));
+            Config.SubMenu("ac").SubMenu("q_menu").AddItem(new MenuItem("acQ", "Enabled").SetValue(true));
+
+            // todo fix this shit
             Config.SubMenu("ac").AddSubMenu(new Menu("Use W", "w_menu"));
-            Config.SubMenu("ac").SubMenu("w_menu").AddItem(new MenuItem("acW_mode", "W mode").SetValue(new StringList(new[] {"AA Reset","Helicopter","Smart"}, 3)));
+            Config.SubMenu("ac").SubMenu("w_menu").AddItem(new MenuItem("acW_mode", "W mode").SetValue(new StringList(new[] { "AA Reset", "Helicopter", "Smart" }, 2)));
             Config.SubMenu("ac").SubMenu("w_menu").AddItem(new MenuItem("acW", "Enabled").SetValue(true));
+
             Config.SubMenu("ac").AddItem(new MenuItem("acE", "Smart E").SetValue(true));
             Config.SubMenu("ac").AddItem(new MenuItem("acR", "Smart R").SetValue(true));
 
+
+            Config.AddSubMenu(new Menu("Advanced", "advanced"));
+
+            Config.SubMenu("advanced").AddSubMenu(new Menu("Smart E", "e_menu"));
+            Config.SubMenu("advanced").SubMenu("e_menu").AddItem(new MenuItem("gapclose_E", "Prevent gap-closing").SetValue(true));
+            Config.SubMenu("advanced").SubMenu("e_menu").AddItem(new MenuItem("gapcloseRange_E", "Gap-close range").SetValue(new Slider(250,200,400)));
+
+            Config.SubMenu("advanced").AddItem(new MenuItem("packetCast", "Packet Casting").SetValue(true));
+            Config.SubMenu("advanced").AddItem(new MenuItem("debug", "Debugging").SetValue(true));
+
             Config.AddSubMenu(new Menu("Drawings", "Drawings"));
-            Config.SubMenu("Drawings").AddItem(new MenuItem("rangeq", "Q range").SetValue(new Circle(true, Color.FromArgb(100, Color.Red))));
-            Config.SubMenu("Drawings").AddItem(new MenuItem("rangee", "E range").SetValue(new Circle(true, Color.FromArgb(100, Color.BlueViolet))));
+            Config.SubMenu("Drawings").AddItem(new MenuItem("rangeQ", "Q range").SetValue(new Circle(true, Color.FromArgb(100, Color.Red))));
+            Config.SubMenu("Drawings").AddItem(new MenuItem("rangeE", "E range").SetValue(new Circle(true, Color.FromArgb(100, Color.BlueViolet))));
             Config.SubMenu("Drawings").AddItem(new MenuItem("drawHp", "Draw combo damage").SetValue(true));
+            Config.AddToMainMenu();
         }
     }
 }
