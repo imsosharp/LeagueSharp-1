@@ -32,20 +32,21 @@ namespace TAC_Jax
             Config.SubMenu("ac").SubMenu("q_menu").AddItem(new MenuItem("acQ_useIfWorthEnemy", "Maximum enemies in range: ").SetValue(new Slider(2,1,5)));
             Config.SubMenu("ac").SubMenu("q_menu").AddItem(new MenuItem("acQ", "Enabled").SetValue(true));
 
-            // todo fix this shit
-            Config.SubMenu("ac").AddSubMenu(new Menu("Use W", "w_menu"));
-            Config.SubMenu("ac").SubMenu("w_menu").AddItem(new MenuItem("acW_mode", "W mode").SetValue(new StringList(new[] { "AA Reset", "Helicopter", "Smart" }, 2)));
-            Config.SubMenu("ac").SubMenu("w_menu").AddItem(new MenuItem("acW", "Enabled").SetValue(true));
-
+            Config.SubMenu("ac").AddItem(new MenuItem("acW", "Smart W").SetValue(true));
             Config.SubMenu("ac").AddItem(new MenuItem("acE", "Smart E").SetValue(true));
             Config.SubMenu("ac").AddItem(new MenuItem("acR", "Smart R").SetValue(true));
 
+            Config.AddSubMenu(new Menu("Lane/Jungle clear", "cl"));
+            Config.SubMenu("cl").AddItem(new MenuItem("clear_w", "Use W").SetValue(true));
+            Config.SubMenu("cl").AddItem(new MenuItem("clear_e", "Use E").SetValue(true));
+            Config.SubMenu("cl").AddItem(new MenuItem("lane_enabled", "Lane-Clear Enabled").SetValue(false));
+            Config.SubMenu("cl").AddItem(new MenuItem("about99", "By xQx"));
 
             Config.AddSubMenu(new Menu("Advanced", "advanced"));
-
             Config.SubMenu("advanced").AddSubMenu(new Menu("Smart E", "e_menu"));
             Config.SubMenu("advanced").SubMenu("e_menu").AddItem(new MenuItem("gapclose_E", "Prevent gap-closing").SetValue(true));
             Config.SubMenu("advanced").SubMenu("e_menu").AddItem(new MenuItem("gapcloseRange_E", "Gap-close range").SetValue(new Slider(250,200,400)));
+            Config.SubMenu("advanced").AddItem(new MenuItem("Ward", "Ward Jump")).SetValue(new KeyBind('T', KeyBindType.Press));
 
             Config.SubMenu("advanced").AddItem(new MenuItem("packetCast", "Packet Casting").SetValue(true));
             Config.SubMenu("advanced").AddItem(new MenuItem("debug", "Debugging").SetValue(true));

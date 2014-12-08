@@ -14,10 +14,13 @@ namespace TAC_Jax
         internal static bool debug = false;
         internal static bool isCastingQ = false;
         internal static bool hasResetBuffCount = false;
+        internal static bool isCastingE = false;
+        internal static bool canCastE = false;
 
-        internal static int w_mode = 3;
         internal static int buffCount = 0;
+        internal static int buffCountBeforeQ = 0;
         internal static int lastTick = 0;
+        internal static int lastTickE = 0;
 
         static void Main(string[] args)
         {
@@ -30,7 +33,7 @@ namespace TAC_Jax
             SkillHandler.load();
             MenuHandler.load();
             Game.OnGameUpdate += Game_OnGameUpdate;
-            Obj_AI_Hero.OnProcessSpellCast += EventHandler.Game_OnProcessSpell;
+            //Obj_AI_Hero.OnProcessSpellCast += EventHandler.Game_OnProcessSpell;
             AntiGapcloser.OnEnemyGapcloser += EventHandler.AntiGapCloser;
             LXOrbwalker.BeforeAttack += Orbwalking_BeforeAttack;
             Drawing.OnDraw += DrawingHandler.load;
@@ -53,16 +56,21 @@ namespace TAC_Jax
 
         static void Game_OnGameUpdate(EventArgs args)
         {
+            packetCast = MenuHandler.Config.Item("packetCast").GetValue<bool>();
+            debug = MenuHandler.Config.Item("debug").GetValue<bool>();
             switch (LXOrbwalker.CurrentMode)
             {
                 case LXOrbwalker.Mode.Combo:
                     EventHandler.onCombo();
                     break;
                 case LXOrbwalker.Mode.Harass:
+                    EventHandler.onHarass();
+                    break;
+                case LXOrbwalker.Mode.LaneClear:
+                    EventHandler.onLaneClear();
                     break;
             }
-            w_mode = MenuHandler.Config.Item("acW_mode").GetValue<Slider>().Value;
-            packetCast = MenuHandler.Config.Item("packetCast").GetValue<bool>();
+            if (MenuHandler.Config.Item("Ward").GetValue<KeyBind>().Active) Jumper.wardJump(Game.CursorPos.To2D());
             updateCount();
         }
         internal static void updateCount()
@@ -76,7 +84,26 @@ namespace TAC_Jax
                     Game.PrintChat("Resetting buff counter to 0");
                 lastTick = 0;
                 buffCount = 0;
+                buffCountBeforeQ = 0;
                 hasResetBuffCount = true;
+            }
+            /* Skill E time shit */
+            // TODO:
+            // double check this shit, i think its not working properaly
+            if(isCastingE && !canCastE && lastTickE > 0 && Environment.TickCount - lastTickE >= 1500)
+            {
+                lastTickE = 0;
+                canCastE = true;
+                if (debug)
+                    Game.PrintChat("Jax can cast E, resetting counter to 0");
+            }
+            if(lastTickE > 0 && Environment.TickCount - lastTickE >= 2000)
+            {
+                lastTick = 0;
+                canCastE = false;
+                isCastingE = false;
+                if (debug)
+                    Game.PrintChat("Resetting jax counter strike counter to 0");
             }
         }
     }
