@@ -80,6 +80,7 @@
     <Compile Include="DrawingHandler.cs" />
     <Compile Include="EventHandler.cs" />
     <Compile Include="HBI.cs" />
+    <Compile Include="LXOrbwalker.cs" />
     <Compile Include="MenuHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

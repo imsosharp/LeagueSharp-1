@@ -62,8 +62,10 @@ namespace TAC_Jax
                     SkillHandler.Q.Cast(target, Jax.packetCast);
                 }
                 // Check W mode and only use Q + W if it's available or when out of actual range.
-                if(Jax.w_mode == 3 || Jax.w_mode == 0) // Means if our W usage mode is "SMART"
+                switch(Jax.w_mode)
                 {
+                    case 3:
+                    default:
                     // Let's check if we need to gap close to target
                     // Now if our target isn't in range of our E and we don't have phage buff,
                     // means we have to use helicopter
@@ -80,25 +82,24 @@ namespace TAC_Jax
                                 SkillHandler.W.Cast(Jax.packetCast);
                             });
                     }
-                }
+                    break;
                 // means if our W mode is helicopter, we will only use helicopter if Q available
-                else if(Jax.w_mode == 2)
-                {
+                case 2:
                     if(target.IsValidTarget(SkillHandler.Q.Range) && SkillHandler.Q.IsReady() && SkillHandler.W.IsReady())
                     {
                         SkillHandler.W.Cast(target, Jax.packetCast);
                         SkillHandler.Q.Cast(target, Jax.packetCast);
                     }
-                }
+                break;
                 // means if our W mode is AA reset only we will use when we leap to 
                 //actual target if were out of range and then use w
-                else if(Jax.w_mode == 1)
-                {
+                case 1:
                     if(ObjectManager.Player.Distance(target) < SkillHandler.E.Range)
                         SkillHandler.Q.Cast(target, Jax.packetCast);
                     if (Jax.buffCount > 0)
                         SkillHandler.W.Cast(Jax.packetCast);
-                }
+                break;
+            }
 
                 // if we are out of distance we need to cast our Q to get near him.
                 // if he is not valid target in our range we have to cast q to get near him.

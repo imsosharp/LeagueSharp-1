@@ -18,9 +18,13 @@ namespace TAC_Jax
             SimpleTs.AddToMenu(targetSelector);
             Config.AddSubMenu(targetSelector);
 
+            var orbwalkerMenu = new Menu("LX Orbwalker", "my_Orbwalker");
+            LXOrbwalker.AddToMenu(orbwalkerMenu);
+            Config.AddSubMenu(orbwalkerMenu);
+            /*
             Menu orbwalker = new Menu("Orbwalker", "orbwalker");
             Jax.orb = new Orbwalking.Orbwalker(orbwalker);
-            Config.AddSubMenu(orbwalker);
+            Config.AddSubMenu(orbwalker);*/
 
             Config.AddSubMenu(new Menu("Auto Carry", "ac"));
             Config.SubMenu("ac").AddSubMenu(new Menu("Use Q", "q_menu"));

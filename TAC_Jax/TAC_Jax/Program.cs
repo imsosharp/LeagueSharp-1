@@ -10,8 +10,6 @@ namespace TAC_Jax
 {
     class Jax
     {
-        internal static Orbwalking.Orbwalker orb;
-
         internal static bool packetCast = true;
         internal static bool debug = false;
         internal static bool isCastingQ = false;
@@ -34,11 +32,11 @@ namespace TAC_Jax
             Game.OnGameUpdate += Game_OnGameUpdate;
             Obj_AI_Hero.OnProcessSpellCast += EventHandler.Game_OnProcessSpell;
             AntiGapcloser.OnEnemyGapcloser += EventHandler.AntiGapCloser;
-            Orbwalking.BeforeAttack += Orbwalking_BeforeAttack;
+            LXOrbwalker.BeforeAttack += Orbwalking_BeforeAttack;
             Drawing.OnDraw += DrawingHandler.load;
             Drawing.OnEndScene += DrawingHandler.OnEndScene;
         }
-        static void Orbwalking_BeforeAttack(Orbwalking.BeforeAttackEventArgs args)
+        static void Orbwalking_BeforeAttack(LXOrbwalker.BeforeAttackEventArgs args)
         {
             var dBuffBro = ObjectManager.Player.Buffs.FirstOrDefault(b => b.DisplayName == "JaxRelentlessAssaultAS").Count;
             if (dBuffBro > 0)
@@ -55,12 +53,12 @@ namespace TAC_Jax
 
         static void Game_OnGameUpdate(EventArgs args)
         {
-            switch (orb.ActiveMode)
+            switch (LXOrbwalker.CurrentMode)
             {
-                case Orbwalking.OrbwalkingMode.Combo:
+                case LXOrbwalker.Mode.Combo:
                     EventHandler.onCombo();
                     break;
-                case Orbwalking.OrbwalkingMode.Mixed:
+                case LXOrbwalker.Mode.Harass:
                     break;
             }
             w_mode = MenuHandler.Config.Item("acW_mode").GetValue<Slider>().Value;
