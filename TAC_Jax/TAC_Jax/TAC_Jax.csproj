@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="DrawingHandler.cs" />
     <Compile Include="EventHandler.cs" />
+    <Compile Include="GameHandler.cs" />
     <Compile Include="HBI.cs" />
     <Compile Include="MenuHandler.cs" />
     <Compile Include="Orbwalker.cs" />

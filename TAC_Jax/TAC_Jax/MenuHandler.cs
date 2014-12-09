@@ -20,7 +20,7 @@ namespace TAC_Jax
             try
             {
                 Config.AddSubMenu(new Menu("Orbwalker", "Orbwalker"));
-                EventHandler.Orbwalker = new Orbwalking.Orbwalker(Config.SubMenu("Orbwalker"));
+                GameHandler.Orbwalker = new Orbwalking.Orbwalker(Config.SubMenu("Orbwalker"));
             }
             catch(Exception ex)
             {
@@ -35,7 +35,6 @@ namespace TAC_Jax
 
             Config.SubMenu("ac").AddItem(new MenuItem("acW", "Smart W").SetValue(true));
             Config.SubMenu("ac").AddItem(new MenuItem("acE", "Smart E").SetValue(true));
-//            Config.SubMenu("ac").AddItem(new MenuItem("acR", "Smart R").SetValue(true));
 
             Config.AddSubMenu(new Menu("Mixed", "mx"));
             Config.SubMenu("mx").AddItem(new MenuItem("about", "This is automatic"));
@@ -48,15 +47,21 @@ namespace TAC_Jax
             Config.AddSubMenu(new Menu("Lane/Jungle clear", "cl"));
             Config.SubMenu("cl").AddItem(new MenuItem("clear_w", "Use W").SetValue(true));
             Config.SubMenu("cl").AddItem(new MenuItem("clear_e", "Use E").SetValue(true));
-            Config.SubMenu("cl").AddItem(new MenuItem("lane_enabled", "Lane-Clear Enabled").SetValue(false));
-            Config.SubMenu("cl").AddItem(new MenuItem("about99", "By xQx"));
 
             Config.AddSubMenu(new Menu("Advanced", "advanced"));
             Config.SubMenu("advanced").AddSubMenu(new Menu("Smart E", "e_menu"));
+            Config.SubMenu("advanced").SubMenu("e_menu").AddItem(new MenuItem("interruptE", "Interrupt (E) enemy cast").SetValue(true));
             Config.SubMenu("advanced").SubMenu("e_menu").AddItem(new MenuItem("gapclose_E", "Prevent gap-closing").SetValue(true));
-            Config.SubMenu("advanced").SubMenu("e_menu").AddItem(new MenuItem("gapcloseRange_E", "Gap-close range").SetValue(new Slider(250,200,400)));
-            Config.SubMenu("advanced").AddItem(new MenuItem("Ward", "Ward Jump")).SetValue(new KeyBind('T', KeyBindType.Press));
+            Config.SubMenu("advanced").SubMenu("e_menu").AddItem(new MenuItem("gapcloseRange_E", "Gap-close range").SetValue(new Slider(250, 200, 400)));
 
+            Config.SubMenu("advanced").AddSubMenu(new Menu("Smart R", "r_menu"));
+            Config.SubMenu("advanced").SubMenu("e_menu").AddItem(new MenuItem("smartR", "Smart R").SetValue(true));
+            Config.SubMenu("advanced").SubMenu("e_menu").AddItem(new MenuItem("useR_under", "Use if under HP %").SetValue(new Slider(50, 10, 100)));
+            Config.SubMenu("advanced").SubMenu("e_menu").AddItem(new MenuItem("useR_when", "Use when X enemy around").SetValue(new Slider(2, 1, 5)));
+
+
+            Config.SubMenu("advanced").AddItem(new MenuItem("Ward", "Ward Jump")).SetValue(new KeyBind('T', KeyBindType.Press));
+            Config.SubMenu("advanced").AddItem(new MenuItem("ks_enabled", "Kill-Steal").SetValue(true));
             Config.SubMenu("advanced").AddItem(new MenuItem("packetCast", "Packet Casting").SetValue(true));
             Config.SubMenu("advanced").AddItem(new MenuItem("debug", "Debugging").SetValue(true));
 
@@ -64,6 +69,7 @@ namespace TAC_Jax
             Config.SubMenu("Drawings").AddItem(new MenuItem("rangeQ", "Q range").SetValue(new Circle(true, Color.FromArgb(100, Color.Red))));
             Config.SubMenu("Drawings").AddItem(new MenuItem("rangeE", "E range").SetValue(new Circle(true, Color.FromArgb(100, Color.BlueViolet))));
             Config.SubMenu("Drawings").AddItem(new MenuItem("drawHp", "Draw combo damage").SetValue(true));
+            Config.SubMenu("Drawings").AddItem(new MenuItem("drawWard", "Draw jumping radius").SetValue(true));
             Config.AddToMainMenu();
         }
     }

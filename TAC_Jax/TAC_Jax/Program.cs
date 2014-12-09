@@ -12,19 +12,12 @@ namespace TAC_Jax
     {
         internal static bool packetCast = true;
         internal static bool debug = false;
-        internal static bool isCastingQ = false;
-        internal static bool hasResetBuffCount = false;
-        internal static bool isCastingE = false;
-        internal static bool canCastE = false;
-
-        internal static int buffCount = 0;
-        internal static int buffCountBeforeQ = 0;
-        internal static int lastTick = 0;
-        internal static int lastTickE = 0;
 
         static void Main(string[] args)
         {
-            CustomEvents.Game.OnGameLoad += Game_OnGameLoad;   
+            CustomEvents.Game.OnGameLoad += Game_OnGameLoad;
+            Game.PrintChat("[" + Utils.FormatTime(Game.ClockTime) + "] <font color='#00ff00'>System (Kappa):</font> <font color='#FF0000'>[v1.1]</font> <font color='#7A6EFF'>Twilight's Auto Carry: </font> <font color='#86E5E1'>Jax</font>");
+            Game.PrintChat("[" + Utils.FormatTime(Game.ClockTime) + "] <font color='#00ff00'>System (Kappa):</font> Thank you for using my assembly!");
         }
 
         static void Game_OnGameLoad(EventArgs args)
@@ -33,32 +26,19 @@ namespace TAC_Jax
             SkillHandler.load();
             MenuHandler.load();
             Game.OnGameUpdate += Game_OnGameUpdate;
-            //Obj_AI_Hero.OnProcessSpellCast += EventHandler.Game_OnProcessSpell;
+            Obj_AI_Hero.OnProcessSpellCast += EventHandler.Game_OnProcessSpell;
             AntiGapcloser.OnEnemyGapcloser += EventHandler.AntiGapCloser;
-            Orbwalking.BeforeAttack += Orbwalking_BeforeAttack;
+            Interrupter.OnPossibleToInterrupt += EventHandler.onInterrupt;
+            Orbwalking.BeforeAttack += EventHandler.Orbwalking_BeforeAttack;
             Drawing.OnDraw += DrawingHandler.load;
             Drawing.OnEndScene += DrawingHandler.OnEndScene;
-        }
-        static void Orbwalking_BeforeAttack(Orbwalking.BeforeAttackEventArgs args)
-        {
-            var dBuffBro = ObjectManager.Player.Buffs.FirstOrDefault(b => b.DisplayName == "JaxRelentlessAssaultAS").Count;
-            if (dBuffBro > 0)
-            {
-                buffCount++;
-                if (buffCount != dBuffBro && dBuffBro < 6 && dBuffBro > 1)
-                    buffCount = dBuffBro;
-                lastTick = Environment.TickCount;
-                if(debug)
-                    Game.PrintChat("(" + buffCount + ") Buff: JaxRelentlessAssaultAS Count: " + dBuffBro);
-                hasResetBuffCount = false;
-            }
         }
 
         static void Game_OnGameUpdate(EventArgs args)
         {
             packetCast = MenuHandler.Config.Item("packetCast").GetValue<bool>();
             debug = MenuHandler.Config.Item("debug").GetValue<bool>();
-            switch (EventHandler.Orbwalker.ActiveMode)
+            switch (GameHandler.Orbwalker.ActiveMode)
             {
                 case Orbwalking.OrbwalkingMode.Combo:
                     EventHandler.onCombo();
@@ -69,42 +49,20 @@ namespace TAC_Jax
                 case Orbwalking.OrbwalkingMode.LaneClear:
                     EventHandler.onLaneClear();
                     break;
+                    /*
+                case Orbwalking.OrbwalkingMode.Flee:
+                    EventHandler.WardJump();
+                    break;*/
             }
-            if (MenuHandler.Config.Item("Ward").GetValue<KeyBind>().Active) EventHandler.WardJump();
-            updateCount();
-        }
-        internal static void updateCount()
-        {
-            /* Check if I have my passive and it didnt expire
-             * Only expire the passive when I don't auto attack in 2.5 seconds
-             */
-            if (hasResetBuffCount == false && Environment.TickCount - lastTick >= 2500)
-            {
-                if (debug)
-                    Game.PrintChat("Resetting buff counter to 0");
-                lastTick = 0;
-                buffCount = 0;
-                buffCountBeforeQ = 0;
-                hasResetBuffCount = true;
-            }
-            /* Skill E time shit */
-            // TODO:
-            // double check this shit, i think its not working properaly
-            if(isCastingE && !canCastE && lastTickE > 0 && Environment.TickCount - lastTickE >= 1500)
-            {
-                lastTickE = 0;
-                canCastE = true;
-                if (debug)
-                    Game.PrintChat("Jax can cast E, resetting counter to 0");
-            }
-            if(lastTickE > 0 && Environment.TickCount - lastTickE >= 2000)
-            {
-                lastTick = 0;
-                canCastE = false;
-                isCastingE = false;
-                if (debug)
-                    Game.PrintChat("Resetting jax counter strike counter to 0");
-            }
+            if (MenuHandler.Config.Item("smartR").GetValue<bool>())
+                EventHandler.smartR();
+
+            if (MenuHandler.Config.Item("ks_enabled").GetValue<bool>())
+                EventHandler.killSteal();
+
+            if (MenuHandler.Config.Item("Ward").GetValue<KeyBind>().Active) 
+                EventHandler.WardJump();
+            GameHandler.updateCount();
         }
     }
 }

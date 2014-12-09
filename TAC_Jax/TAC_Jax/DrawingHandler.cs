@@ -15,6 +15,8 @@ namespace TAC_Jax
         internal static void load(EventArgs args)
         {
             loadSpells();
+            if (MenuHandler.Config.Item("drawWard").GetValue<bool>())
+                Utility.DrawCircle(Game.CursorPos, 250, Color.Purple, 8, 30);
             if (MenuHandler.Config.Item("drawHp").GetValue<bool>())
             {
                 foreach (
@@ -23,7 +25,7 @@ namespace TAC_Jax
                 .Where(ene => !ene.IsDead && ene.IsEnemy && ene.IsVisible))
                 {
                     hpi.unit = enemy;
-                    hpi.drawDmg((float)EventHandler.comboDamage(enemy), Color.Yellow);
+                    hpi.drawDmg((float)GameHandler.comboDamage(enemy), Color.Yellow);
                 }
             }
         }
@@ -51,7 +53,7 @@ namespace TAC_Jax
                 .Where(ene => !ene.IsDead && ene.IsEnemy && ene.IsVisible))
                 {
                     hpi.unit = enemy;
-                    hpi.drawDmg((float)EventHandler.comboDamage(enemy), Color.Yellow);
+                    hpi.drawDmg((float)GameHandler.comboDamage(enemy), Color.Yellow);
                 }
             }
         }
