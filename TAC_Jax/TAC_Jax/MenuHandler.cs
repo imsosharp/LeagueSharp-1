@@ -51,8 +51,8 @@ namespace TAC_Jax
             Config.SubMenu("advanced").SubMenu("e_menu").AddItem(new MenuItem("gapcloseRange_E", "Gap-close range").SetValue(new Slider(250, 200, 400)));
 
             Config.SubMenu("advanced").AddSubMenu(new Menu("Smart R", "r_menu"));
-            Config.SubMenu("advanced").SubMenu("e_menu").AddItem(new MenuItem("useR_under", "Use if under HP %").SetValue(new Slider(50, 10, 100)));
-            Config.SubMenu("advanced").SubMenu("e_menu").AddItem(new MenuItem("useR_when", "Use when X enemy around").SetValue(new Slider(2, 1, 5)));
+            Config.SubMenu("advanced").SubMenu("r_menu").AddItem(new MenuItem("useR_under", "Use if under HP %").SetValue(new Slider(50, 10, 100)));
+            Config.SubMenu("advanced").SubMenu("r_menu").AddItem(new MenuItem("useR_when", "Use when X enemy around").SetValue(new Slider(2, 1, 5)));
 
 
             Config.SubMenu("advanced").AddItem(new MenuItem("Ward", "Ward Jump")).SetValue(new KeyBind('T', KeyBindType.Press));
