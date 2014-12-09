@@ -78,17 +78,12 @@ namespace TAC_Jax
                         GameHandler.lastTickE = Environment.TickCount;
                         SkillHandler.E.Cast(Jax.packetCast);
                         SkillHandler.Q.Cast(target,Jax.packetCast);
-                        Utility.DelayAction.Add(5, () =>
-                        {
-                            SkillHandler.W.Cast(Jax.packetCast);
-                        });
                     }
                     else
                     {
                         GameHandler.isCastingE = true;
                         GameHandler.lastTickE = Environment.TickCount;
                         SkillHandler.E.Cast(Jax.packetCast);
-                        SkillHandler.W.Cast(Jax.packetCast);
                         SkillHandler.Q.Cast(Jax.packetCast);
                     }
                 }
@@ -100,15 +95,32 @@ namespace TAC_Jax
                 }
             }
         }
+
+        internal static void Orbwalking_AfterAttack(Obj_AI_Base unit, Obj_AI_Base target)
+        {
+            if(SkillHandler.W.IsReady() && target.IsValidTarget(Orbwalking.GetRealAutoAttackRange(target) + 50))
+            {
+                switch (GameHandler.Orbwalker.ActiveMode)
+                {
+                    case Orbwalking.OrbwalkingMode.Combo:
+                    case Orbwalking.OrbwalkingMode.Mixed:
+                        SkillHandler.W.Cast(Jax.packetCast);
+                        break;
+                    case Orbwalking.OrbwalkingMode.LaneClear:
+                        if (MenuHandler.Config.Item("clear_w").GetValue<bool>()) SkillHandler.W.Cast(Jax.packetCast);
+                        break;
+                }
+            }
+        }
         internal static void onCombo()
         {
-            // TODO: Make E cast when in range
-            // make better w logic
-            // need more tests on E out of range
-
-            // TODO: Make mixed damage in TS and orbwalker
+            /**
+             * Todo:
+             * Try to predict if enemy flash, only then Q
+             * If you go in and you are near: AA + E + W + AA + E = max dmg with no bork
+             * If the dumb bastard goes in: E + AA + BOTRK + W + AA + E + Q
+             * */
             Obj_AI_Hero target = SimpleTs.GetTarget(SkillHandler.Q.Range,SimpleTs.DamageType.Physical);
-
             if(target != null)
             {
                 if(SkillHandler.E.IsReady() && SkillHandler.Q.IsReady() && ObjectManager.Player.Distance(target) < SkillHandler.Q.Range)
@@ -141,6 +153,19 @@ namespace TAC_Jax
                     SkillHandler.Q.Cast(target,Jax.packetCast);
                 }
 
+                if (target != null && target.Type == ObjectManager.Player.Type && target.ServerPosition.Distance(ObjectManager.Player.ServerPosition) <= 450)
+                {
+                    bool hasCutGlass = Items.HasItem(3144);
+                    bool hasBotrk = Items.HasItem(3153);
+                    if (hasBotrk || hasCutGlass)
+                    {
+                        int itemId = hasCutGlass ? 3144 : 3153;
+                        double damage = ObjectManager.Player.GetItemDamage(target, Damage.DamageItems.Botrk);
+                        if (hasCutGlass || ObjectManager.Player.Health + damage < ObjectManager.Player.MaxHealth)
+                            Items.UseItem(itemId, target);
+                    }
+                }
+
                 /* Check if player Health is below W damage,
                  * so then we can use it without auto-attacking
                  * or else it's useless to waste W + auto-attack,
@@ -148,18 +173,13 @@ namespace TAC_Jax
                  * Also check if I just used Q and auto-attacked 
                  * for biggest damage possible
                  */
-                if ((target.Health < ObjectManager.Player.GetSpellDamage(target,SpellSlot.W))
-                    || (!ObjectManager.Player.IsDashing() && SkillHandler.W.IsReady() && GameHandler.buffCountBeforeQ != GameHandler.buffCount))
-                {
-                    SkillHandler.W.Cast(Jax.packetCast);
-                }
                 if (canDieFromLeaping(target) && SkillHandler.Q.IsReady() && SkillHandler.W.IsReady())
                 {
                     SkillHandler.W.Cast(Jax.packetCast);
                     SkillHandler.Q.Cast(target, Jax.packetCast);
                 }
                 // Check if our flash and q is ready 
-                if(SkillHandler.Q.IsReady() && SkillHandler.Flash.IsReady())
+                if(SkillHandler.Q.IsReady() && SkillHandler.Flash.IsReady() && canDieFromLeaping(target))
                 {
                     // Check if it is actually worth the flash
                     // Only Flash Q if target is going to die, or else it's not worth
@@ -203,10 +223,6 @@ namespace TAC_Jax
                     GameHandler.lastTickE = Environment.TickCount;
                     GameHandler.canCastE = false;
                     SkillHandler.E.Cast(Jax.packetCast);
-                }
-                if (MenuHandler.Config.Item("clear_w").GetValue<bool>() && SkillHandler.W.IsReady())
-                {
-                    SkillHandler.W.Cast(Jax.packetCast);
                 }
             }
         }

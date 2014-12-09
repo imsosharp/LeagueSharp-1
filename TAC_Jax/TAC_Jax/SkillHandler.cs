@@ -16,9 +16,9 @@ namespace TAC_Jax
         {
             Q = new Spell(SpellSlot.Q, 700f);
             W = new Spell(SpellSlot.W);
-            E = new Spell(SpellSlot.E, 187.5f);
+            E = new Spell(SpellSlot.E, 210f);
             R = new Spell(SpellSlot.R);
-            Q.SetTargetted(0.50f, 75f);
+            Q.SetTargetted(-0.5f, 0);
             Flash = new Spell(ObjectManager.Player.GetSpellSlot("SummonerFlash"),500f);
             Ignite = new Spell(ObjectManager.Player.GetSpellSlot("SummonerDot"), 600f);
         }

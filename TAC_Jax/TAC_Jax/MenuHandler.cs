@@ -31,10 +31,6 @@ namespace TAC_Jax
             Config.SubMenu("ac").AddSubMenu(new Menu("Use Q", "q_menu"));
             Config.SubMenu("ac").SubMenu("q_menu").AddItem(new MenuItem("acQ_useIfWorth", "Use F+Q if worth").SetValue(true));
             Config.SubMenu("ac").SubMenu("q_menu").AddItem(new MenuItem("acQ_useIfWorthEnemy", "Maximum enemies in range: ").SetValue(new Slider(2,1,5)));
-            Config.SubMenu("ac").SubMenu("q_menu").AddItem(new MenuItem("acQ", "Enabled").SetValue(true));
-
-            Config.SubMenu("ac").AddItem(new MenuItem("acW", "Smart W").SetValue(true));
-            Config.SubMenu("ac").AddItem(new MenuItem("acE", "Smart E").SetValue(true));
 
             Config.AddSubMenu(new Menu("Mixed", "mx"));
             Config.SubMenu("mx").AddItem(new MenuItem("about", "This is automatic"));
@@ -55,7 +51,6 @@ namespace TAC_Jax
             Config.SubMenu("advanced").SubMenu("e_menu").AddItem(new MenuItem("gapcloseRange_E", "Gap-close range").SetValue(new Slider(250, 200, 400)));
 
             Config.SubMenu("advanced").AddSubMenu(new Menu("Smart R", "r_menu"));
-            Config.SubMenu("advanced").SubMenu("e_menu").AddItem(new MenuItem("smartR", "Smart R").SetValue(true));
             Config.SubMenu("advanced").SubMenu("e_menu").AddItem(new MenuItem("useR_under", "Use if under HP %").SetValue(new Slider(50, 10, 100)));
             Config.SubMenu("advanced").SubMenu("e_menu").AddItem(new MenuItem("useR_when", "Use when X enemy around").SetValue(new Slider(2, 1, 5)));
 

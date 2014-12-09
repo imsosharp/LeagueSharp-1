@@ -63,6 +63,16 @@ namespace TAC_Jax
                     Game.PrintChat("Resetting jax counter strike counter to 0");
             }
         }
+        internal static double getSheenDamage(Obj_AI_Base target)
+        {
+            //FlatMagicDamageMod
+            if (Items.HasItem(3057) && Items.CanUseItem(3057)) // sheen
+                return ObjectManager.Player.BaseAttackDamage;
+            else if (Items.HasItem(3078) && Items.CanUseItem(3078)) // trinity
+                return ObjectManager.Player.BaseAttackDamage * 2;
+            else
+            return 0;
+        }
 
         internal static double comboDamage(Obj_AI_Hero target)
         {
@@ -88,6 +98,8 @@ namespace TAC_Jax
                 if (buffCount > 0 && buffCount % 3 == 0) damage += ObjectManager.Player.GetSpellDamage(target, SpellSlot.R);
                 // Check ignite damage
                 if (SkillHandler.Ignite.IsReady()) damage += SkillHandler.Ignite.GetDamage(target);
+                // Check sheen/trinity damage
+                damage += getSheenDamage(target);
             }
             return damage;
         }
