@@ -201,16 +201,20 @@ namespace TAC_Jax
         }
         internal static void Orbwalking_BeforeAttack(Orbwalking.BeforeAttackEventArgs args)
         {
-            var dBuffBro = ObjectManager.Player.Buffs.FirstOrDefault(b => b.DisplayName == "JaxRelentlessAssaultAS").Count;
-            if (dBuffBro > 0)
+            var buff = ObjectManager.Player.Buffs.FirstOrDefault(b => b.DisplayName == "JaxRelentlessAssaultAS");
+            if (buff != null)
             {
-                GameHandler.buffCount++;
-                if (GameHandler.buffCount != dBuffBro && dBuffBro < 6 && dBuffBro > 1)
-                    GameHandler.buffCount = dBuffBro;
-                GameHandler.lastTick = Environment.TickCount;
-                if (Jax.debug)
-                    Game.PrintChat("(" + GameHandler.buffCount + ") Buff: JaxRelentlessAssaultAS Count: " + dBuffBro);
-                GameHandler.hasResetBuffCount = false;
+                var dBuffBro = buff.Count;
+                if (dBuffBro > 0)
+                {
+                    GameHandler.buffCount++;
+                    if (GameHandler.buffCount != dBuffBro && dBuffBro < 6 && dBuffBro > 1)
+                        GameHandler.buffCount = dBuffBro;
+                    GameHandler.lastTick = Environment.TickCount;
+                    if (Jax.debug)
+                        Game.PrintChat("(" + GameHandler.buffCount + ") Buff: JaxRelentlessAssaultAS Count: " + dBuffBro);
+                    GameHandler.hasResetBuffCount = false;
+                }
             }
         }
         internal static void onLaneClear()
