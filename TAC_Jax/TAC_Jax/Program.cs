@@ -50,10 +50,13 @@ namespace TAC_Jax
                 case Orbwalking.OrbwalkingMode.LaneClear:
                     EventHandler.onLaneClear();
                     break;
-                    /*
-                case Orbwalking.OrbwalkingMode.Flee:
-                    EventHandler.WardJump();
-                    break;*/
+                case Orbwalking.OrbwalkingMode.None:
+                    if (MenuHandler.Config.Item("Flee").GetValue<bool>())
+                    {
+                        Orbwalking.Orbwalk(null, Game.CursorPos);
+                        EventHandler.WardJump();
+                    }
+                    break;
             }
             if (MenuHandler.Config.Item("smartR").GetValue<bool>())
                 EventHandler.smartR();

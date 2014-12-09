@@ -56,6 +56,7 @@ namespace TAC_Jax
 
 
             Config.SubMenu("advanced").AddItem(new MenuItem("Ward", "Ward Jump")).SetValue(new KeyBind('T', KeyBindType.Press));
+            Config.SubMenu("advanced").AddItem(new MenuItem("Flee", "Flee mode")).SetValue(new KeyBind('G', KeyBindType.Press));
             Config.SubMenu("advanced").AddItem(new MenuItem("ks_enabled", "Kill-Steal").SetValue(true));
             Config.SubMenu("advanced").AddItem(new MenuItem("packetCast", "Packet Casting").SetValue(true));
             Config.SubMenu("advanced").AddItem(new MenuItem("debug", "Debugging").SetValue(true));
