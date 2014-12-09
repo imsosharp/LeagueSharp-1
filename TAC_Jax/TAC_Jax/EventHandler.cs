@@ -49,10 +49,11 @@ namespace TAC_Jax
                     GameHandler.lastTickE = Environment.TickCount;
                     SkillHandler.E.Cast();
                 }
+                    /*
                 else if (!GameSpellHandler.canDodge(spellName))
                 {
 
-                }
+                }*/
             }
         }
         internal static bool canDieFromLeaping(Obj_AI_Hero target)
@@ -211,7 +212,7 @@ namespace TAC_Jax
         }
         internal static void smartR()
         {
-            if (ObjectManager.Player.HealthPercentage() <= MenuHandler.Config.Item("useR_under").GetValue<Slider>().Value
+            if (ObjectManager.Player.CountEnemysInRange(550) <= 3 && ObjectManager.Player.HealthPercentage() <= MenuHandler.Config.Item("useR_under").GetValue<Slider>().Value
                     || ObjectManager.Player.CountEnemysInRange(550) <= MenuHandler.Config.Item("useR_when").GetValue<Slider>().Value)
                 SkillHandler.R.Cast(Jax.packetCast);
         }
