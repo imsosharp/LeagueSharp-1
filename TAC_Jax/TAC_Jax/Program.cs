@@ -16,7 +16,7 @@ namespace TAC_Jax
         static void Main(string[] args)
         {
             CustomEvents.Game.OnGameLoad += Game_OnGameLoad;
-            Game.PrintChat("[" + Utils.FormatTime(Game.ClockTime) + "] <font color='#00ff00'>System (Kappa):</font> <font color='#FF0000'>[v1.1.1.1]</font> <font color='#7A6EFF'>Twilight's Auto Carry: </font> <font color='#86E5E1'>Jax</font>");
+            Game.PrintChat("[" + Utils.FormatTime(Game.ClockTime) + "] <font color='#00ff00'>System (Kappa):</font> <font color='#FF0000'>[v1.2]</font> <font color='#7A6EFF'>Twilight's Auto Carry: </font> <font color='#86E5E1'>Jax</font>");
             Game.PrintChat("[" + Utils.FormatTime(Game.ClockTime) + "] <font color='#00ff00'>System (Kappa):</font> Thank you for using my assembly!");
         }
 

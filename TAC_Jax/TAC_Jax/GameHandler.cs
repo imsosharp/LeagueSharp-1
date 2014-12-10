@@ -21,15 +21,19 @@ namespace TAC_Jax
 
         internal static bool isCastingQ = false;
         internal static bool hasResetBuffCount = false;
-        internal static bool isCastingE = false;
-        internal static bool canCastE = false;
 
         internal static int buffCount = 0;
-        internal static int buffCountBeforeQ = 0;
         internal static int lastTick = 0;
-        internal static int lastTickE = 0;
         internal static int lastPlaced;
+        
 
+        internal static bool isCastingE
+        {
+            get
+            {
+                return ObjectManager.Player.HasBuff("JaxCounterStrike");
+            }
+        }
         internal static void updateCount()
         {
             /* Check if I have my passive and it didnt expire
@@ -41,34 +45,15 @@ namespace TAC_Jax
                     Game.PrintChat("Resetting buff counter to 0");
                 lastTick = 0;
                 buffCount = 0;
-                buffCountBeforeQ = 0;
                 hasResetBuffCount = true;
-            }
-            /* Skill E time shit */
-            // TODO:
-            // double check this shit, i think its not working properaly
-            if (isCastingE && !canCastE && lastTickE > 0 && Environment.TickCount - lastTickE >= 1500)
-            {
-                lastTickE = 0;
-                canCastE = true;
-                if (Jax.debug)
-                    Game.PrintChat("Jax can cast E, resetting counter to 0");
-            }
-            if (lastTickE > 0 && Environment.TickCount - lastTickE >= 2000)
-            {
-                lastTick = 0;
-                canCastE = false;
-                isCastingE = false;
-                if (Jax.debug)
-                    Game.PrintChat("Resetting jax counter strike counter to 0");
             }
         }
         internal static double getSheenDamage(Obj_AI_Base target)
         {
             //FlatMagicDamageMod
-            if (Items.HasItem(3057) && Items.CanUseItem(3057)) // sheen
+            if (Items.HasItem(3057) && ObjectManager.Player.HasBuff("Sheen")) // sheen
                 return ObjectManager.Player.BaseAttackDamage;
-            else if (Items.HasItem(3078) && Items.CanUseItem(3078)) // trinity
+            else if (Items.HasItem(3078) && ObjectManager.Player.HasBuff("Sheen")) // trinity
                 return ObjectManager.Player.BaseAttackDamage * 2;
             else
             return 0;
@@ -98,6 +83,8 @@ namespace TAC_Jax
                 if (buffCount > 0 && buffCount % 3 == 0) damage += ObjectManager.Player.GetSpellDamage(target, SpellSlot.R);
                 // Check ignite damage
                 if (SkillHandler.Ignite.IsReady()) damage += SkillHandler.Ignite.GetDamage(target);
+                // Check BotRK damage
+                if (Items.HasItem(3153) && Items.CanUseItem(3153)) damage += ObjectManager.Player.GetItemDamage(target, Damage.DamageItems.Botrk);
                 // Check sheen/trinity damage
                 damage += getSheenDamage(target);
             }

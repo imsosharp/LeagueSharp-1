@@ -51,6 +51,12 @@ namespace TAC_Jax
             Config.SubMenu("advanced").SubMenu("e_menu").AddItem(new MenuItem("gapcloseRange_E", "Gap-close range").SetValue(new Slider(250, 200, 400)));
 
             Config.SubMenu("advanced").AddSubMenu(new Menu("Smart R", "r_menu"));
+            Config.SubMenu("advanced").AddSubMenu(new Menu("Modes", "modes"));
+            // todo: add this shit to code
+            Config.SubMenu("advanced").SubMenu("modes").AddItem(new MenuItem("useR_combo", "Use in combo mode").SetValue(true));
+            Config.SubMenu("advanced").SubMenu("modes").AddItem(new MenuItem("useR_mixed", "Use in mixed mode").SetValue(true));
+            Config.SubMenu("advanced").SubMenu("modes").AddItem(new MenuItem("useR_flee", "Use in flee mode").SetValue(true));
+
             Config.SubMenu("advanced").SubMenu("r_menu").AddItem(new MenuItem("useR_under", "Use if under HP %").SetValue(new Slider(50, 10, 100)));
             Config.SubMenu("advanced").SubMenu("r_menu").AddItem(new MenuItem("useR_when", "Use when X enemy around").SetValue(new Slider(2, 1, 5)));
 
