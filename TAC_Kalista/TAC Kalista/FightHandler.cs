@@ -11,22 +11,22 @@ namespace TAC_Kalista
 {
     class FightHandler
     {
-        internal static Obj_AI_Hero soul = null;
+        internal static Obj_AI_Hero Soul = null;
         public static void OnCombo()
         {
             var targetsInRange = SimpleTs.GetTarget(ObjectManager.Player.AttackRange, SimpleTs.DamageType.Physical);
             if (targetsInRange == null && Utility.CountEnemysInRange((int)SkillHandler.Q.Range) > 0 && MenuHandler.Config.Item("stickToTarget").GetValue<bool>())
-                MenuHandler.orb.ForceTarget(GetDashObject);
+                MenuHandler.Orb.ForceTarget(GetDashObject);
 
-            if (MenuHandler.Config.Item("useItems").GetValue<KeyBind>().Active) ItemHandler.useItem();
+            if (MenuHandler.Config.Item("useItems").GetValue<KeyBind>().Active) ItemHandler.UseItem();
 
             if (MenuHandler.Config.Item("UseQAC").GetValue<bool>() || 
                     (ObjectManager.Get<Obj_AI_Hero>().Any(
                         hero => hero.IsValidTarget(SkillHandler.E.Range+400)
-                            && hero.Health < (MathHandler.getRealDamage(hero) - SkillHandler.Q.GetDamage(hero))
+                            && hero.Health < (MathHandler.GetRealDamage(hero) - SkillHandler.Q.GetDamage(hero))
                 )))
             {
-                customQCast(SimpleTs.GetTarget(SkillHandler.Q.Range, SimpleTs.DamageType.Physical));
+                CustomQCast(SimpleTs.GetTarget(SkillHandler.Q.Range, SimpleTs.DamageType.Physical));
             }
 
             if (SkillHandler.E.IsReady() && (( ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(SkillHandler.E.Range)
@@ -35,7 +35,7 @@ namespace TAC_Kalista
                             // auto e
                             || (MenuHandler.Config.Item("UseEAC").GetValue<bool>()
                     && ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(SkillHandler.E.Range)
-                           && hero.Health < MathHandler.getRealDamage(hero)))
+                           && hero.Health < MathHandler.GetRealDamage(hero)))
                             || (SkillHandler.Q.IsReady() && MenuHandler.Config.Item("UseEACSlow").GetValue<bool>()
                         && ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(SkillHandler.E.Range) 
                             && ObjectManager.Player.Distance(hero) > (SkillHandler.E.Range - 110)
@@ -48,7 +48,7 @@ namespace TAC_Kalista
                 SkillHandler.E.Cast();
             }
             if (SkillHandler.E.IsReady())
-                MathHandler.castMinionE(SimpleTs.GetTarget(SkillHandler.E.Range, SimpleTs.DamageType.Physical));
+                MathHandler.CastMinionE(SimpleTs.GetTarget(SkillHandler.E.Range, SimpleTs.DamageType.Physical));
         }
         public static void OnHarass()
         {
@@ -57,7 +57,7 @@ namespace TAC_Kalista
             float percentManaAfterE = 100 * ((ObjectManager.Player.Mana - SkillHandler.E.Instance.ManaCost) / ObjectManager.Player.MaxMana);
             int minPercentMana = MenuHandler.Config.SubMenu("Harass").Item("manaPercent").GetValue<Slider>().Value;
 
-            if (percentManaAfterQ >= minPercentMana && MenuHandler.Config.Item("harassQ").GetValue<bool>() && SkillHandler.Q.IsReady()) FightHandler.customQCast(target);
+            if (percentManaAfterQ >= minPercentMana && MenuHandler.Config.Item("harassQ").GetValue<bool>() && SkillHandler.Q.IsReady()) FightHandler.CustomQCast(target);
             if (SkillHandler.E.IsReady()
                     && ObjectManager.Get<Obj_AI_Hero>().Any(
                         hero => hero.IsValidTarget(SkillHandler.E.Range) 
@@ -67,11 +67,11 @@ namespace TAC_Kalista
                  &&
                     percentManaAfterE >= minPercentMana)
             {
-                SkillHandler.E.Cast(Kalista.packetCast);
+                SkillHandler.E.Cast(Kalista.PacketCast);
             }
             if(SkillHandler.E.IsReady() && target.IsValidTarget(SkillHandler.E.Range))
             {
-                MathHandler.castMinionE(SimpleTs.GetTarget(SkillHandler.E.Range,SimpleTs.DamageType.Physical));
+                MathHandler.CastMinionE(SimpleTs.GetTarget(SkillHandler.E.Range,SimpleTs.DamageType.Physical));
             }
         }
         /**
@@ -120,7 +120,7 @@ namespace TAC_Kalista
                         int conditionMet = 0;
                         foreach (var minion in minions)
                         {
-                            if (MathHandler.getRealDamage(minion) * 0.9 > minion.Health)
+                            if (MathHandler.GetRealDamage(minion) * 0.9 > minion.Health)
                                 conditionMet++;
                         }
                         if (conditionMet >= 3) SkillHandler.E.Cast(true);
@@ -128,7 +128,7 @@ namespace TAC_Kalista
                     IEnumerable<Obj_AI_Base> minionsBig = MinionManager.GetMinions(ObjectManager.Player.Position, SkillHandler.E.Range).Where(m => m.BaseSkinName.Contains("MinionSiege"));
                     foreach (var minion in minionsBig)
                     {
-                        if (MathHandler.getRealDamage(minion) > minion.Health)
+                        if (MathHandler.GetRealDamage(minion) > minion.Health)
                         {
                             SkillHandler.E.Cast(true);
                             break;
@@ -146,9 +146,9 @@ namespace TAC_Kalista
                 Utility.DelayAction.Add(250,Orbwalking.ResetAutoAttackTimer);
         }
 
-        public static void saveSould()
+        public static void SaveSould()
         {
-            if (soul == null)
+            if (Soul == null)
             {
                 foreach (var ally in
                     from ally in ObjectManager.Get<Obj_AI_Hero>().Where(tx => tx.IsAlly && !tx.IsDead && !tx.IsMe)
@@ -157,33 +157,33 @@ namespace TAC_Kalista
                     where ally.HasBuff("kalistacoopstrikeally")
                     select ally)
                 {
-                    soul = ally;
+                    Soul = ally;
                     break;
                 }
             }
             else
             {
-                if((soul.Health/soul.MaxHealth) > MenuHandler.Config.Item("soulHP").GetValue<Slider>().Value 
-                        && soul.CountEnemysInRange((int)Orbwalking.GetRealAutoAttackRange(soul)) >= MenuHandler.Config.Item("soulEnemyCount").GetValue<Slider>().Value)
+                if((Soul.Health/Soul.MaxHealth) > MenuHandler.Config.Item("soulHP").GetValue<Slider>().Value 
+                        && Soul.CountEnemysInRange((int)Orbwalking.GetRealAutoAttackRange(Soul)) >= MenuHandler.Config.Item("soulEnemyCount").GetValue<Slider>().Value)
                 {
-                    SkillHandler.R.Cast(Kalista.packetCast);
+                    SkillHandler.R.Cast(Kalista.PacketCast);
                 }
             }
         }
 
         internal static void AntiGapCloser(ActiveGapcloser gapcloser)
         {
-            if(MenuHandler.orb.ActiveMode == Orbwalking.OrbwalkingMode.Combo && MenuHandler.Config.Item("antiGapPrevent").GetValue<bool>()) return;
+            if(MenuHandler.Orb.ActiveMode == Orbwalking.OrbwalkingMode.Combo && MenuHandler.Config.Item("antiGapPrevent").GetValue<bool>()) return;
             if (MenuHandler.Config.Item("antiGap").GetValue<bool>() && gapcloser.Sender.IsValidTarget(MenuHandler.Config.Item("antiGapRange").GetValue<Slider>().Value))
             {
                 if (SkillHandler.Q.IsReady() && gapcloser.Sender.IsValidTarget(MenuHandler.Config.Item("antiGapRange").GetValue<Slider>().Value))
                 {
-                    SkillHandler.Q.CastOnUnit(gapcloser.Sender, Kalista.packetCast);
+                    SkillHandler.Q.CastOnUnit(gapcloser.Sender, Kalista.PacketCast);
                     Orbwalking.Orbwalk(gapcloser.Sender, Game.CursorPos);
                 }
             }
         }
-        public static void customQCast(Obj_AI_Hero target)
+        public static void CustomQCast(Obj_AI_Hero target)
         {
             if (!SkillHandler.Q.IsReady() || target == null || ObjectManager.Player.IsDashing()) return;
             if ((100 * ((ObjectManager.Player.Mana - SkillHandler.Q.Instance.ManaCost) / ObjectManager.Player.MaxMana)) <= 3) return; // && ObjectManager.Player.GetSpellDamage(target, SpellSlot.Q) < target.Health) return;
@@ -204,13 +204,13 @@ namespace TAC_Kalista
             }
             if (canCast != 0 && ObjectManager.Player.Distance(po.UnitPosition) < SkillHandler.Q.Range)
             {
-                SkillHandler.Q.Cast(po.CastPosition, Kalista.packetCast);
+                SkillHandler.Q.Cast(po.CastPosition, Kalista.PacketCast);
             }
             else if (po.Hitchance == HitChance.Collision)
             {
                 List<Obj_AI_Base> coll = po.CollisionObjects;
                 Obj_AI_Base goal = coll.FirstOrDefault(obj => SkillHandler.Q.GetPrediction(obj).Hitchance >= HitChance.Medium && SkillHandler.Q.GetDamage(target) > obj.Health);
-                if (goal != null) SkillHandler.Q.Cast(goal, Kalista.packetCast);
+                if (goal != null) SkillHandler.Q.Cast(goal, Kalista.PacketCast);
             }
         }
         internal static Obj_AI_Base GetDashObject

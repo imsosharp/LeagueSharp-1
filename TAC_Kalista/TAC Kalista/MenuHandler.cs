@@ -12,8 +12,8 @@ namespace TAC_Kalista
     class MenuHandler
     {
         public static Menu Config;
-        internal static Orbwalking.Orbwalker orb;
-        public static void init()
+        internal static Orbwalking.Orbwalker Orb;
+        public static void Init()
         {
             Config = new Menu("Twilight Kalista Rework", "Kalista", true);
 
@@ -22,7 +22,7 @@ namespace TAC_Kalista
             Config.AddSubMenu(targetselectormenu);
 
             Menu orbwalker = new Menu("Orbwalker", "orbwalker");
-            orb = new Orbwalking.Orbwalker(orbwalker);
+            Orb = new Orbwalking.Orbwalker(orbwalker);
             Config.AddSubMenu(orbwalker);
 
             Config.AddSubMenu(new Menu("AutoCarry options", "ac"));

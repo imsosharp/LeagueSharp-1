@@ -10,10 +10,10 @@ namespace TAC_Kalista
 {
     class Kalista
     {
-        public static bool packetCast;
-        public static bool debug;
-        public static bool drawings;
-        public static bool canexport = true;
+        public static bool PacketCast;
+        public static bool Debug;
+        public static bool Drawings;
+        public static bool Canexport = true;
         static void Main(string[] args)
         {
             Game.PrintChat("---------------------------");
@@ -23,10 +23,10 @@ namespace TAC_Kalista
         public static void Load(EventArgs args)
         {
             if (ObjectManager.Player.ChampionName != "Kalista") return;
-            SkillHandler.init();
-            ItemHandler.init();
-            MenuHandler.init();
-            DrawingHandler.init();
+            SkillHandler.Init();
+            ItemHandler.Init();
+            MenuHandler.Init();
+            DrawingHandler.Init();
             Game.OnGameUpdate += OnGameUpdateModes;
             Game.OnGameSendPacket += Game_OnGameSendPacket;
             AntiGapcloser.OnEnemyGapcloser += FightHandler.AntiGapCloser;
@@ -42,9 +42,9 @@ namespace TAC_Kalista
         }
         public static void OnGameUpdateModes(EventArgs args)
         {
-            drawings = MenuHandler.Config.Item("enableDrawings").GetValue<bool>();
-            debug = MenuHandler.Config.Item("debug").GetValue<bool>();
-            packetCast = MenuHandler.Config.Item("Packets").GetValue<bool>();
+            Drawings = MenuHandler.Config.Item("enableDrawings").GetValue<bool>();
+            Debug = MenuHandler.Config.Item("debug").GetValue<bool>();
+            PacketCast = MenuHandler.Config.Item("Packets").GetValue<bool>();
             if (ObjectManager.Player.HasBuff("Recall")) return;
 
             if (MenuHandler.Config.Item("Orbwalk").GetValue<KeyBind>().Active)
@@ -61,7 +61,7 @@ namespace TAC_Kalista
             }
             if (MenuHandler.Config.Item("saveSould").GetValue<bool>())
             {
-                FightHandler.saveSould();
+                FightHandler.SaveSould();
             }
             SmiteHandler.Init();
 
