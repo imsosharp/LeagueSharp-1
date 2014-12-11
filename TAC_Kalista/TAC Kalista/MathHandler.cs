@@ -19,12 +19,18 @@ namespace TAC_Kalista
                 damage += getRealDamage(target);
             return (float)damage;
         }
+
+        internal static int CheckBuff(Obj_AI_Base target)
+        {
+            var buff = target.Buffs.FirstOrDefault(b => b.DisplayName == "KalistaExpungeMarker");
+            return buff != null ? buff.Count : 0;
+        }
         internal static void castMinionE(Obj_AI_Base target)
         {
             if (ObjectManager.Get<Obj_AI_Hero>().Any(
                         hero => hero.IsValidTarget(SkillHandler.E.Range)
                             &&
-                                hero.Buffs.FirstOrDefault(b => b.Name.ToLower() == "kalistaexpungemarker").Count >= 1
+                                CheckBuff(hero) >= 1
                             ))
             {
                 List<Obj_AI_Base> minions = MinionManager.GetMinions(ObjectManager.Player.Position, SkillHandler.E.Range,MinionTypes.All,MinionTeam.Enemy,MinionOrderTypes.Health);
@@ -56,6 +62,10 @@ namespace TAC_Kalista
         {
             return player.CalcDamage(target, Damage.DamageType.Physical, GetRawRendDamage(target, customStacks));
         }
+        /**
+         * Base by hellsing
+         * Patch 4.21 ready by incube
+         * */
         internal static double GetRawRendDamage(Obj_AI_Base target, int customStacks = -1)
         {
             // Get buff
@@ -66,8 +76,11 @@ namespace TAC_Kalista
                 // Base damage
                 double damage = (10 + 10 * player.Spellbook.GetSpell(SpellSlot.E).Level) + 0.6 * (player.BaseAttackDamage + player.FlatPhysicalDamageMod);
 
-                // Damage per spear
-                double singleSpearDamage = damage * new double[] { 0, 0.25, 0.30, 0.35, 0.40, 0.45 }[player.Spellbook.GetSpell(SpellSlot.E).Level];
+                //Damage per spear
+                double singleSpearDamage =
+                    new double[] {0, 10, 14, 19, 25, 32}[player.Spellbook.GetSpell(SpellSlot.E).Level] +
+                    new double[] { 0, 0.2, 0.225, 025, 0.275, 0.3 }[player.Spellbook.GetSpell(SpellSlot.E).Level] * (player.BaseAttackDamage + player.FlatPhysicalDamageMod);
+                //double singleSpearDamage = damage * new double[] { 0, 0.25, 0.30, 0.35, 0.40, 0.45 }[player.Spellbook.GetSpell(SpellSlot.E).Level];
                 damage += (((customStacks == -1 ? buff.Count : customStacks) - 1) * singleSpearDamage);
 
                 // Calculate the damage and return

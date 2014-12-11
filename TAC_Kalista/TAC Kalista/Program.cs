@@ -17,7 +17,7 @@ namespace TAC_Kalista
         static void Main(string[] args)
         {
             Game.PrintChat("---------------------------");
-            Game.PrintChat("[<font color='#FF0000'>v3.9</font>]<font color='#7A6EFF'>Twilight's Auto Carry:</font> <font color='#86E5E1'>Kalista</font>");
+            Game.PrintChat("[<font color='#FF0000'>v4</font>]<font color='#7A6EFF'>Twilight's Auto Carry:</font> <font color='#86E5E1'>Kalista</font>");
             CustomEvents.Game.OnGameLoad += Load;
         }
         public static void Load(EventArgs args)
@@ -28,8 +28,17 @@ namespace TAC_Kalista
             MenuHandler.init();
             DrawingHandler.init();
             Game.OnGameUpdate += OnGameUpdateModes;
+            Game.OnGameSendPacket += Game_OnGameSendPacket;
             AntiGapcloser.OnEnemyGapcloser += FightHandler.AntiGapCloser;
             Obj_AI_Hero.OnProcessSpellCast += FightHandler.OnProcessSpellCast;
+        }
+
+        static void Game_OnGameSendPacket(GamePacketEventArgs args)
+        {
+            if (args.PacketData[0] == Packet.C2S.Cast.Header && ObjectManager.Player.IsDashing() && Packet.C2S.Cast.Decoded(args.PacketData).Slot == SpellSlot.Q)
+            {
+                args.Process = false;
+            }
         }
         public static void OnGameUpdateModes(EventArgs args)
         {

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LeagueSharp;
 using LeagueSharp.Common;
+using SharpDX;
 
 namespace TAC_Kalista
 {
@@ -13,6 +14,10 @@ namespace TAC_Kalista
         internal static Obj_AI_Hero soul = null;
         public static void OnCombo()
         {
+            var targetsInRange = SimpleTs.GetTarget(ObjectManager.Player.AttackRange, SimpleTs.DamageType.Physical);
+            if (targetsInRange == null && Utility.CountEnemysInRange((int)SkillHandler.Q.Range) > 0 && MenuHandler.Config.Item("stickToTarget").GetValue<bool>())
+                MenuHandler.orb.ForceTarget(GetDashObject);
+
             if (MenuHandler.Config.Item("useItems").GetValue<KeyBind>().Active) ItemHandler.useItem();
 
             if (MenuHandler.Config.Item("UseQAC").GetValue<bool>() || 
@@ -25,7 +30,7 @@ namespace TAC_Kalista
             }
 
             if (SkillHandler.E.IsReady() && (( ObjectManager.Get<Obj_AI_Hero>().Any(hero => hero.IsValidTarget(SkillHandler.E.Range)
-                && hero.Buffs.FirstOrDefault(b => b.Name.ToLower() == "kalistaexpungemarker").Count >= MenuHandler.Config.Item("minE").GetValue<Slider>().Value
+                && MathHandler.CheckBuff(hero) >= MenuHandler.Config.Item("minE").GetValue<Slider>().Value
                             ) && MenuHandler.Config.Item("minEE").GetValue<bool>()) 
                             // auto e
                             || (MenuHandler.Config.Item("UseEAC").GetValue<bool>()
@@ -57,7 +62,7 @@ namespace TAC_Kalista
                     && ObjectManager.Get<Obj_AI_Hero>().Any(
                         hero => hero.IsValidTarget(SkillHandler.E.Range) 
                             &&
-                                hero.Buffs.FirstOrDefault(b => b.Name.ToLower() == "kalistaexpungemarker").Count >= MenuHandler.Config.Item("stackE").GetValue<Slider>().Value                    
+                                MathHandler.CheckBuff(hero) >= MenuHandler.Config.Item("stackE").GetValue<Slider>().Value                    
                             )
                  &&
                     percentManaAfterE >= minPercentMana)
@@ -180,7 +185,7 @@ namespace TAC_Kalista
         }
         public static void customQCast(Obj_AI_Hero target)
         {
-            if (!SkillHandler.Q.IsReady() || target == null) return;
+            if (!SkillHandler.Q.IsReady() || target == null || ObjectManager.Player.IsDashing()) return;
             if ((100 * ((ObjectManager.Player.Mana - SkillHandler.Q.Instance.ManaCost) / ObjectManager.Player.MaxMana)) <= 3) return; // && ObjectManager.Player.GetSpellDamage(target, SpellSlot.Q) < target.Health) return;
 
             PredictionOutput po = SkillHandler.Q.GetPrediction(target);
@@ -207,6 +212,49 @@ namespace TAC_Kalista
                 Obj_AI_Base goal = coll.FirstOrDefault(obj => SkillHandler.Q.GetPrediction(obj).Hitchance >= HitChance.Medium && SkillHandler.Q.GetDamage(target) > obj.Health);
                 if (goal != null) SkillHandler.Q.Cast(goal, Kalista.packetCast);
             }
+        }
+        internal static Obj_AI_Base GetDashObject
+        {
+            get
+            {
+                float realAArange = Orbwalking.GetRealAutoAttackRange(ObjectManager.Player);
+
+                var objects = ObjectManager.Get<Obj_AI_Base>().Where(o => o.IsValidTarget(realAArange));
+                Vector2 apexPoint = ObjectManager.Player.ServerPosition.To2D() + (ObjectManager.Player.ServerPosition.To2D() - Game.CursorPos.To2D()).Normalized() * realAArange;
+
+                Obj_AI_Base target = null;
+
+                foreach (var obj in objects)
+                {
+                    if (IsLyingInCone(obj.ServerPosition.To2D(), apexPoint, ObjectManager.Player.ServerPosition.To2D(), realAArange))
+                    {
+                        if (target == null || target.Distance(apexPoint, true) > obj.Distance(apexPoint, true))
+                            target = obj;
+                    }
+                }
+
+                return target;
+            }
+        }
+        internal static bool IsLyingInCone(Vector2 position, Vector2 apexPoint, Vector2 circleCenter, float aperture)
+        {
+            float halfAperture = aperture / 2.0f;
+            Vector2 apexToXVect = apexPoint - position;
+            Vector2 axisVect = apexPoint - circleCenter;
+            bool isInInfiniteCone = DotProd(apexToXVect, axisVect) / Magn(apexToXVect) / Magn(axisVect) > Math.Cos(halfAperture);
+            if (!isInInfiniteCone)
+                return false;
+            bool isUnderRoundCap = DotProd(apexToXVect, axisVect) / Magn(axisVect) < Magn(axisVect);
+
+            return isUnderRoundCap;
+        }
+        internal static float DotProd(Vector2 a, Vector2 b)
+        {
+            return a.X * b.X + a.Y * b.Y;
+        }
+        internal static float Magn(Vector2 a)
+        {
+            return (float)(Math.Sqrt(a.X * a.X + a.Y * a.Y));
         }
     }
 }
