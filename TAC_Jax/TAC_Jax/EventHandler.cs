@@ -9,7 +9,6 @@ using SharpDX;
 //EmpoweredTwo --When Jax presses W
 //MasterySpellWeaving -- When Jax is using W on target
 //ItemPhageSpeed
-// TODO: add items and get theyre damage
 namespace TAC_Jax
 {
     class EventHandler
@@ -24,91 +23,80 @@ namespace TAC_Jax
             if (!MenuHandler.Config.Item("interruptE").GetValue<bool>() 
                 || ObjectManager.Player.IsDead
                     || !GameHandler.IsCastingE || SkillHandler.E.IsReady()) return;
-            if (GameHandler.IsCastingE && SkillHandler.E.IsReady())
-            {
-                float distance = ObjectManager.Player.Distance(unit);
-                if (SkillHandler.Q.IsReady() && distance < SkillHandler.Q.Range && distance > SkillHandler.E.Range)
-                    SkillHandler.Q.Cast(Jax.PacketCast);
-                if(distance < SkillHandler.E.Range)
-                    SkillHandler.E.Cast(Jax.PacketCast);
-            }
+            if (!GameHandler.IsCastingE || !SkillHandler.E.IsReady()) return;
+            float distance = ObjectManager.Player.Distance(unit);
+            if (SkillHandler.Q.IsReady() && distance < SkillHandler.Q.Range && distance > SkillHandler.E.Range)
+                SkillHandler.Q.Cast(Jax.PacketCast);
+            if(distance < SkillHandler.E.Range)
+                SkillHandler.E.Cast(Jax.PacketCast);
         }
         
         internal static void Game_OnProcessSpell(Obj_AI_Base unit, GameObjectProcessSpellCastEventArgs spell)
         {
             String spellName = spell.SData.Name.ToLower();
             // Check on effects, so we can use E to dodge they're spell effects.
-            if(!unit.IsMe)
+            if (unit.IsMe) return;
+            if(GameSpellHandler.CanDodge(spellName) && !GameHandler.IsCastingE)
             {
-                if(GameSpellHandler.CanDodge(spellName) && !GameHandler.IsCastingE)
-                {
-                    SkillHandler.E.Cast();
-                }
-                    /*
+                SkillHandler.E.Cast();
+            }
+            /*
                 else if (!GameSpellHandler.canDodge(spellName))
                 {
                 no idea what i wanted to do here. lul
                 }*/
-            }
         }
         internal static bool CanDieFromLeaping(Obj_AI_Hero target)
         {
-            return target.Health < (ObjectManager.Player.GetSpellDamage(target, SpellSlot.Q) + ObjectManager.Player.GetSpellDamage(target,SpellSlot.W));
+            return target.Health < (ObjectManager.Player.GetSpellDamage(target, SpellSlot.Q) + ObjectManager.Player.GetSpellDamage(target, SpellSlot.W) + GameHandler.GetSheenDamage(target,true));
         }
         internal static void OnHarass()
         {
             Obj_AI_Hero target = SimpleTs.GetTarget(SkillHandler.Q.Range, SimpleTs.DamageType.Physical);
-            if(target != null)
+            if (target == null) return;
+            if(SkillHandler.Q.IsReady() && SkillHandler.W.IsReady())
             {
-                /**
-                 * Check if my Q is available
-                 * Check if my 3'rd R is available
-                 * Check if my W is available
-                 */
-                if(SkillHandler.Q.IsReady() && SkillHandler.W.IsReady())
+                if (ObjectManager.Player.Level >= 6 && GameHandler.BuffCount > 0 && GameHandler.BuffCount % 3 == 0)
                 {
-                    if (ObjectManager.Player.Level >= 6 && GameHandler.BuffCount > 0 && GameHandler.BuffCount % 3 == 0)
-                    {
-                        if(SkillHandler.E.IsReady())
-                            SkillHandler.E.Cast(Jax.PacketCast);
-                        SkillHandler.Q.Cast(target,Jax.PacketCast);
-                    }
-                    else
-                    {
-                        if(SkillHandler.E.IsReady())
-                            SkillHandler.E.Cast(Jax.PacketCast);
-                        SkillHandler.Q.Cast(Jax.PacketCast);
-                    }
+                    if(SkillHandler.E.IsReady())
+                        SkillHandler.E.Cast(Jax.PacketCast);
+                    SkillHandler.Q.Cast(target,Jax.PacketCast);
                 }
-                if (GameHandler.IsCastingE && SkillHandler.E.IsReady())
+                else
                 {
-                    SkillHandler.E.Cast(Jax.PacketCast);
+                    if(SkillHandler.E.IsReady())
+                        SkillHandler.E.Cast(Jax.PacketCast);
+                    SkillHandler.Q.Cast(Jax.PacketCast);
                 }
             }
+            if (GameHandler.IsCastingE && SkillHandler.E.IsReady())
+                SkillHandler.E.Cast(Jax.PacketCast);
         }
 
         internal static void Orbwalking_AfterAttack(Obj_AI_Base unit, Obj_AI_Base target)
         {
-            if(SkillHandler.W.IsReady() && target.IsValidTarget(Orbwalking.GetRealAutoAttackRange(ObjectManager.Player) + 50))
+            /* Force sheen if we have it activated and only in combo mode
+             * Check if W is available
+             * Check if we are in range with the target. */
+            if ((!GameHandler.HasSheenActive 
+                    && MenuHandler.Config.Item("force_sheen").GetValue<bool>() 
+                        && GameHandler.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo) 
+                || !SkillHandler.W.IsReady() ||
+                    !target.IsValidTarget(Orbwalking.GetRealAutoAttackRange(ObjectManager.Player) + 50)) return;
+            switch (GameHandler.Orbwalker.ActiveMode)
             {
-                switch (GameHandler.Orbwalker.ActiveMode)
-                {
-                    case Orbwalking.OrbwalkingMode.Combo:
-                    case Orbwalking.OrbwalkingMode.Mixed:
-                        SkillHandler.W.Cast(Jax.PacketCast);
-                        break;
-                    case Orbwalking.OrbwalkingMode.LaneClear:
-                        if (MenuHandler.Config.Item("clear_w").GetValue<bool>()) SkillHandler.W.Cast(Jax.PacketCast);
-                        break;
-                }
+                case Orbwalking.OrbwalkingMode.Combo:
+                case Orbwalking.OrbwalkingMode.Mixed:
+                    SkillHandler.W.Cast(Jax.PacketCast);
+                    break;
+                case Orbwalking.OrbwalkingMode.LaneClear:
+                    if (MenuHandler.Config.Item("clear_w").GetValue<bool>()) SkillHandler.W.Cast(Jax.PacketCast);
+                    break;
             }
         }
+
         internal static void OnCombo()
         {
-            /**
-             * Todo:
-             * Try to predict if enemy flash, only then Q
-             * */
             Obj_AI_Hero target = SimpleTs.GetTarget(SkillHandler.Q.Range,SimpleTs.DamageType.Physical);
             if(target != null)
             {
@@ -139,6 +127,12 @@ namespace TAC_Jax
                         Items.UseItem(Items.HasItem(3144) ? 3144 : 3153, target);
                 }
 
+                if (SkillHandler.IgniteSlot != SpellSlot.Unknown && SkillHandler.Ignite.IsReady()
+                    && ObjectManager.Player.GetSummonerSpellDamage(target, Damage.SummonerSpell.Ignite) > target.Health && ObjectManager.Player.Distance(target) <= 500)
+                {
+                    SkillHandler.Ignite.Cast(target, Jax.PacketCast);
+                }
+
                 /* Check if player Health is below W damage,
                  * so then we can use it without auto-attacking
                  * or else it's useless to waste W + auto-attack,
@@ -151,17 +145,15 @@ namespace TAC_Jax
                     SkillHandler.W.Cast(Jax.PacketCast);
                     SkillHandler.Q.Cast(target, Jax.PacketCast);
                 }
-                // Check if our flash and q is ready 
-                if(SkillHandler.Q.IsReady() && SkillHandler.W.IsReady() && SkillHandler.Flash.IsReady() && CanDieFromLeaping(target))
+                // Check if our flash and q is ready and he can die from leaping onto the target
+                if(SkillHandler.Q.IsReady() && SkillHandler.W.IsReady() && CanDieFromLeaping(target))
                 {
-                    // Check if it is actually worth the flash
-                    // Only Flash Q if target is going to die, or else it's not worth
-                    // TODO: Do another checkup on priority stuff
                     if (MenuHandler.Config.Item("acQ_useIfWorth").GetValue<bool>()
-                            && target.ChampionsKilled > target.Deaths
+                            && (target.ChampionsKilled > target.Deaths || target.ChampionsKilled > ObjectManager.Player.ChampionsKilled)
                                 && target.CountEnemysInRange((int)(SkillHandler.Q.Range + SkillHandler.Flash.Range)) < MenuHandler.Config.Item("acQ_useIfWorthEnemy").GetValue<Slider>().Value)
                     {
-                        SkillHandler.Flash.Cast(target.Position,Jax.PacketCast);
+                        if (SkillHandler.Flash.IsReady() && ObjectManager.Player.Distance(target) > SkillHandler.Q.Range)
+                            SkillHandler.Flash.Cast(target.Position,Jax.PacketCast);
                         SkillHandler.W.Cast(Jax.PacketCast);
                         SkillHandler.Q.Cast(target.Position, Jax.PacketCast);
                     }
@@ -191,44 +183,42 @@ namespace TAC_Jax
             foreach (var minions in ObjectManager.Get<Obj_AI_Minion>().Where(minion => minion.IsValidTarget(SkillHandler.Q.Range)).OrderBy(minion => minion.Health))
             {
                 if (MenuHandler.Config.Item("clear_e").GetValue<bool>() && SkillHandler.E.IsReady() && minions.IsValidTarget(SkillHandler.E.Range) && !GameHandler.IsCastingE)
-                {
                     SkillHandler.E.Cast(Jax.PacketCast);
-                }
             }
         }
         internal static void SmartR()
         {
-            if (ObjectManager.Player.CountEnemysInRange(550) <= 3 &&
-                ObjectManager.Player.HealthPercentage() <=
-                MenuHandler.Config.Item("useR_under").GetValue<Slider>().Value
-                ||
-                ObjectManager.Player.CountEnemysInRange(550) <=
-                MenuHandler.Config.Item("useR_when").GetValue<Slider>().Value)
+            if (((ObjectManager.Player.CountEnemysInRange(550) > 3 || !(ObjectManager.Player.HealthPercentage() <=
+                                                                        MenuHandler.Config.Item("useR_under")
+                                                                            .GetValue<Slider>()
+                                                                            .Value)) &&
+                 (ObjectManager.Player.CountEnemysInRange(550) >
+                  MenuHandler.Config.Item("useR_when").GetValue<Slider>().Value)) ||
+                !MenuHandler.Config.Item("useR").GetValue<bool>()) return;
+            switch (GameHandler.Orbwalker.ActiveMode)
             {
-                switch (GameHandler.Orbwalker.ActiveMode)
-                {
-                    case Orbwalking.OrbwalkingMode.Combo:
-                        if (MenuHandler.Config.Item("useR_combo").GetValue<bool>())
-                            SkillHandler.R.Cast(Jax.PacketCast);
-                        break;
-                    case Orbwalking.OrbwalkingMode.Mixed:
-                        if (MenuHandler.Config.Item("useR_mixed").GetValue<bool>())
-                            SkillHandler.R.Cast(Jax.PacketCast);
-                        break;
-                    case Orbwalking.OrbwalkingMode.None:
-                        if (MenuHandler.Config.Item("useR_flee").GetValue<bool>() && MenuHandler.Config.Item("Flee").GetValue<bool>())
-                            SkillHandler.R.Cast(Jax.PacketCast);
-                        break;
-                }
+                case Orbwalking.OrbwalkingMode.Combo:
+                    if (MenuHandler.Config.Item("useR_combo").GetValue<bool>())
+                        SkillHandler.R.Cast(Jax.PacketCast);
+                    break;
+                case Orbwalking.OrbwalkingMode.Mixed:
+                    if (MenuHandler.Config.Item("useR_mixed").GetValue<bool>())
+                        SkillHandler.R.Cast(Jax.PacketCast);
+                    break;
+                case Orbwalking.OrbwalkingMode.None:
+                    if (MenuHandler.Config.Item("useR_flee").GetValue<bool>() && MenuHandler.Config.Item("Flee").GetValue<bool>())
+                        SkillHandler.R.Cast(Jax.PacketCast);
+                    break;
             }
         }
+
         internal static void KillSteal()
         {
             if (SkillHandler.W.IsReady() && SkillHandler.Q.IsReady())
             {
                 foreach (var target
                         in ObjectManager.Get<Obj_AI_Hero>().Where(hero => !hero.IsDead && hero.IsEnemy && hero.IsValidTarget(SkillHandler.Q.Range)
-                            && SkillHandler.Q.GetHealthPrediction(hero) <= SkillHandler.Q.GetDamage(hero) + SkillHandler.W.GetDamage(hero)).OrderBy(i => i.Health).OrderByDescending(i => i.Distance3D(ObjectManager.Player)))
+                            && SkillHandler.Q.GetHealthPrediction(hero) <= SkillHandler.Q.GetDamage(hero) + SkillHandler.W.GetDamage(hero)).OrderBy(i => i.Health).ThenByDescending(i => i.Distance3D(ObjectManager.Player)))
                 {
                     if (SkillHandler.W.IsReady()) SkillHandler.W.Cast(Jax.PacketCast);
                     if (SkillHandler.Q.IsReady()) SkillHandler.Q.Cast(target, Jax.PacketCast);
@@ -238,6 +228,7 @@ namespace TAC_Jax
 
         /**
          * @author xSalice
+         * Taken from xSalice xKittyKiller assembly
          */
 
         internal static void WardJump()
@@ -272,7 +263,7 @@ namespace TAC_Jax
                 }
             }
 
-            if (Environment.TickCount <= GameHandler.LastPlaced + 3000 || !SkillHandler.E.IsReady()) return;
+            if (Environment.TickCount <= GameHandler.LastPlaced + 3000 || !SkillHandler.Q.IsReady()) return;
 
             Vector3 cursorPos = Game.CursorPos;
             Vector3 myPos = ObjectManager.Player.Position;

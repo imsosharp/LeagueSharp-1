@@ -16,7 +16,6 @@ namespace TAC_Jax
         internal static Orbwalking.Orbwalker Orbwalker;
         internal static Vector3 LastWardPos;
 
-        internal static bool IsCastingQ = false;
         internal static bool HasResetBuffCount = false;
 
         internal static int BuffCount = 0;
@@ -26,10 +25,12 @@ namespace TAC_Jax
 
         internal static bool IsCastingE
         {
-            get
-            {
-                return ObjectManager.Player.HasBuff("JaxCounterStrike");
-            }
+            get { return ObjectManager.Player.HasBuff("JaxCounterStrike"); }
+        }
+
+        internal static bool HasSheenActive
+        {
+            get { return ObjectManager.Player.HasBuff("Sheen"); }
         }
         internal static void UpdateCount()
         {
@@ -45,15 +46,18 @@ namespace TAC_Jax
                 HasResetBuffCount = true;
             }
         }
-        internal static double GetSheenDamage(Obj_AI_Base target)
+        internal static double GetSheenDamage(Obj_AI_Base target,bool simulate = false)
         {
-            //FlatMagicDamageMod
-            if (Items.HasItem(3057) && ObjectManager.Player.HasBuff("Sheen")) // sheen
+            if (simulate)
+                return Items.HasItem(3057)
+                    ? ObjectManager.Player.BaseAttackDamage
+                    : (Items.HasItem(3078) ? ObjectManager.Player.BaseAttackDamage*2 : 0);
+            else if (Items.HasItem(3057) && ObjectManager.Player.HasBuff("Sheen")) // sheen
                 return ObjectManager.Player.BaseAttackDamage;
             else if (Items.HasItem(3078) && ObjectManager.Player.HasBuff("Sheen")) // trinity
                 return ObjectManager.Player.BaseAttackDamage * 2;
             else
-            return 0;
+                return 0;
         }
 
         internal static double ComboDamage(Obj_AI_Hero target)

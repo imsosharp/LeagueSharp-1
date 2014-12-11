@@ -6,6 +6,7 @@ namespace TAC_Jax
     class SkillHandler
     {
         internal static Spell Q, W, E, R, Flash, Ignite;
+        internal static SpellSlot IgniteSlot, SmiteSlot;
         
         internal static void Load()
         {
@@ -16,6 +17,9 @@ namespace TAC_Jax
             Q.SetTargetted(-0.5f, 0);
             Flash = new Spell(ObjectManager.Player.GetSpellSlot("SummonerFlash"),500f);
             Ignite = new Spell(ObjectManager.Player.GetSpellSlot("SummonerDot"), 600f);
+
+            IgniteSlot = ObjectManager.Player.GetSpellSlot("SummonerDot");
+            SmiteSlot = ObjectManager.Player.GetSpellSlot("SummonerSmite");
         }
     }
 }

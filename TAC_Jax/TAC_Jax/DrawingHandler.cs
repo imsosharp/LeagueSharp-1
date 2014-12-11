@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LeagueSharp;
 using LeagueSharp.Common;
 using Color = System.Drawing.Color;
@@ -25,7 +22,8 @@ namespace TAC_Jax
                 .Where(ene => !ene.IsDead && ene.IsEnemy && ene.IsVisible))
                 {
                     Hpi.Unit = enemy;
-                    Hpi.DrawDmg((float)GameHandler.ComboDamage(enemy), Color.Yellow);
+                    var damage = (float)GameHandler.ComboDamage(enemy);
+                    Hpi.DrawDmg(damage, damage > enemy.Health ? Color.Red : Color.Yellow);
                 }
             }
         }
@@ -53,7 +51,8 @@ namespace TAC_Jax
                 .Where(ene => !ene.IsDead && ene.IsEnemy && ene.IsVisible))
                 {
                     Hpi.Unit = enemy;
-                    Hpi.DrawDmg((float)GameHandler.ComboDamage(enemy), Color.Yellow);
+                    var damage = (float)GameHandler.ComboDamage(enemy);
+                    Hpi.DrawDmg(damage, damage > enemy.Health ? Color.Red : Color.Yellow);
                 }
             }
         }
