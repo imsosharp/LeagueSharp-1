@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LeagueSharp;
+﻿using LeagueSharp;
 using LeagueSharp.Common;
 
 namespace TAC_Jax
@@ -12,7 +7,7 @@ namespace TAC_Jax
     {
         internal static Spell Q, W, E, R, Flash, Ignite;
         
-        internal static void load()
+        internal static void Load()
         {
             Q = new Spell(SpellSlot.Q, 700f);
             W = new Spell(SpellSlot.W);

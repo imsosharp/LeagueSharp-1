@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LeagueSharp;
 using LeagueSharp.Common;
 using Color = System.Drawing.Color;
@@ -11,7 +8,7 @@ namespace TAC_Jax
     class MenuHandler
     {
         internal static Menu Config;
-        internal static void load()
+        internal static void Load()
         {
             Config = new Menu("TAC Jax", "TAC_Jax", true);
             Menu targetSelector = new Menu("Target selector", "ts");
@@ -28,6 +25,13 @@ namespace TAC_Jax
             }
 
             Config.AddSubMenu(new Menu("Auto Carry", "ac"));
+            Config.SubMenu("ac").AddSubMenu(new Menu("Use BotRK on", "botrk_menu"));
+
+            foreach (var enemy in ObjectManager.Get<Obj_AI_Hero>().Where(enemy => enemy.IsEnemy))
+            {
+                Config.SubMenu("ac").SubMenu("botrk_menu").AddItem(new MenuItem("botrk_"+enemy.BaseSkinName, enemy.BaseSkinName).SetValue(true));
+            }
+
             Config.SubMenu("ac").AddSubMenu(new Menu("Use Q", "q_menu"));
             Config.SubMenu("ac").SubMenu("q_menu").AddItem(new MenuItem("acQ_useIfWorth", "Use F+Q if worth").SetValue(true));
             Config.SubMenu("ac").SubMenu("q_menu").AddItem(new MenuItem("acQ_useIfWorthEnemy", "Maximum enemies in range: ").SetValue(new Slider(2,1,5)));
@@ -51,14 +55,13 @@ namespace TAC_Jax
             Config.SubMenu("advanced").SubMenu("e_menu").AddItem(new MenuItem("gapcloseRange_E", "Gap-close range").SetValue(new Slider(250, 200, 400)));
 
             Config.SubMenu("advanced").AddSubMenu(new Menu("Smart R", "r_menu"));
+            Config.SubMenu("advanced").SubMenu("r_menu").AddItem(new MenuItem("useR_under", "Use if under HP %").SetValue(new Slider(50, 10, 100)));
+            Config.SubMenu("advanced").SubMenu("r_menu").AddItem(new MenuItem("useR_when", "Use when X enemy around").SetValue(new Slider(2, 1, 5)));
+
             Config.SubMenu("advanced").AddSubMenu(new Menu("Modes", "modes"));
-            // todo: add this shit to code
             Config.SubMenu("advanced").SubMenu("modes").AddItem(new MenuItem("useR_combo", "Use in combo mode").SetValue(true));
             Config.SubMenu("advanced").SubMenu("modes").AddItem(new MenuItem("useR_mixed", "Use in mixed mode").SetValue(true));
             Config.SubMenu("advanced").SubMenu("modes").AddItem(new MenuItem("useR_flee", "Use in flee mode").SetValue(true));
-
-            Config.SubMenu("advanced").SubMenu("r_menu").AddItem(new MenuItem("useR_under", "Use if under HP %").SetValue(new Slider(50, 10, 100)));
-            Config.SubMenu("advanced").SubMenu("r_menu").AddItem(new MenuItem("useR_when", "Use when X enemy around").SetValue(new Slider(2, 1, 5)));
 
 
             Config.SubMenu("advanced").AddItem(new MenuItem("Ward", "Ward Jump")).SetValue(new KeyBind('T', KeyBindType.Press));

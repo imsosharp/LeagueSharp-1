@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LeagueSharp;
 using LeagueSharp.Common;
 using SharpDX;
@@ -17,38 +14,38 @@ namespace TAC_Jax
          * over-spam EventHandler with this stuff.
          * */
         internal static Orbwalking.Orbwalker Orbwalker;
-        internal static Vector3 lastWardPos;
+        internal static Vector3 LastWardPos;
 
-        internal static bool isCastingQ = false;
-        internal static bool hasResetBuffCount = false;
+        internal static bool IsCastingQ = false;
+        internal static bool HasResetBuffCount = false;
 
-        internal static int buffCount = 0;
-        internal static int lastTick = 0;
-        internal static int lastPlaced;
+        internal static int BuffCount = 0;
+        internal static int LastTick = 0;
+        internal static int LastPlaced;
         
 
-        internal static bool isCastingE
+        internal static bool IsCastingE
         {
             get
             {
                 return ObjectManager.Player.HasBuff("JaxCounterStrike");
             }
         }
-        internal static void updateCount()
+        internal static void UpdateCount()
         {
             /* Check if I have my passive and it didnt expire
              * Only expire the passive when I don't auto attack in 2.5 seconds
              */
-            if (hasResetBuffCount == false && Environment.TickCount - lastTick >= 2500)
+            if (HasResetBuffCount == false && Environment.TickCount - LastTick >= 2500)
             {
-                if (Jax.debug)
+                if (Jax.Debug)
                     Game.PrintChat("Resetting buff counter to 0");
-                lastTick = 0;
-                buffCount = 0;
-                hasResetBuffCount = true;
+                LastTick = 0;
+                BuffCount = 0;
+                HasResetBuffCount = true;
             }
         }
-        internal static double getSheenDamage(Obj_AI_Base target)
+        internal static double GetSheenDamage(Obj_AI_Base target)
         {
             //FlatMagicDamageMod
             if (Items.HasItem(3057) && ObjectManager.Player.HasBuff("Sheen")) // sheen
@@ -59,7 +56,7 @@ namespace TAC_Jax
             return 0;
         }
 
-        internal static double comboDamage(Obj_AI_Hero target)
+        internal static double ComboDamage(Obj_AI_Hero target)
         {
             /**
              * TODO:
@@ -80,13 +77,13 @@ namespace TAC_Jax
                 // Check if W is ready
                 if (SkillHandler.W.IsReady()) damage += ObjectManager.Player.GetSpellDamage(target, SpellSlot.W);
                 // Check if R 3rd stack is ready
-                if (buffCount > 0 && buffCount % 3 == 0) damage += ObjectManager.Player.GetSpellDamage(target, SpellSlot.R);
+                if (BuffCount > 0 && BuffCount % 3 == 0) damage += ObjectManager.Player.GetSpellDamage(target, SpellSlot.R);
                 // Check ignite damage
                 if (SkillHandler.Ignite.IsReady()) damage += SkillHandler.Ignite.GetDamage(target);
                 // Check BotRK damage
                 if (Items.HasItem(3153) && Items.CanUseItem(3153)) damage += ObjectManager.Player.GetItemDamage(target, Damage.DamageItems.Botrk);
                 // Check sheen/trinity damage
-                damage += getSheenDamage(target);
+                damage += GetSheenDamage(target);
             }
             return damage;
         }
@@ -216,7 +213,7 @@ namespace TAC_Jax
                 "SRUAP_Turret_Chaos4BasicAttack", "KalistaBasicAttackNone", "KalistaBasicAttackSlow",
                 "SRU_SpiritwolfBasicAttack2", "SRU_SpiritwolfBasicAttack", "SonaQ"
         };
-        internal static bool canDodge(String spellName)
+        internal static bool CanDodge(String spellName)
         {
             return HaveHitEffect.Contains(spellName);
         }

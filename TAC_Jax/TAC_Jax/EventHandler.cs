@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LeagueSharp;
 using LeagueSharp.Common;
 using SharpDX;
@@ -20,20 +17,20 @@ namespace TAC_Jax
         internal static void AntiGapCloser(ActiveGapcloser gapcloser)
         {
             if (ObjectManager.Player.Distance(gapcloser.Sender) < MenuHandler.Config.Item("gapcloseRange_E").GetValue<Slider>().Value && MenuHandler.Config.Item("gapclose_E").GetValue<bool>())
-                SkillHandler.E.Cast(Jax.packetCast);
+                SkillHandler.E.Cast(Jax.PacketCast);
         }
-        internal static void onInterrupt(Obj_AI_Base unit, InterruptableSpell spell)
+        internal static void OnInterrupt(Obj_AI_Base unit, InterruptableSpell spell)
         {
             if (!MenuHandler.Config.Item("interruptE").GetValue<bool>() 
                 || ObjectManager.Player.IsDead
-                    || !GameHandler.isCastingE || SkillHandler.E.IsReady()) return;
-            if (GameHandler.isCastingE && SkillHandler.E.IsReady())
+                    || !GameHandler.IsCastingE || SkillHandler.E.IsReady()) return;
+            if (GameHandler.IsCastingE && SkillHandler.E.IsReady())
             {
                 float distance = ObjectManager.Player.Distance(unit);
                 if (SkillHandler.Q.IsReady() && distance < SkillHandler.Q.Range && distance > SkillHandler.E.Range)
-                    SkillHandler.Q.Cast(Jax.packetCast);
+                    SkillHandler.Q.Cast(Jax.PacketCast);
                 if(distance < SkillHandler.E.Range)
-                    SkillHandler.E.Cast(Jax.packetCast);
+                    SkillHandler.E.Cast(Jax.PacketCast);
             }
         }
         
@@ -43,7 +40,7 @@ namespace TAC_Jax
             // Check on effects, so we can use E to dodge they're spell effects.
             if(!unit.IsMe)
             {
-                if(GameSpellHandler.canDodge(spellName) && !GameHandler.isCastingE)
+                if(GameSpellHandler.CanDodge(spellName) && !GameHandler.IsCastingE)
                 {
                     SkillHandler.E.Cast();
                 }
@@ -54,11 +51,11 @@ namespace TAC_Jax
                 }*/
             }
         }
-        internal static bool canDieFromLeaping(Obj_AI_Hero target)
+        internal static bool CanDieFromLeaping(Obj_AI_Hero target)
         {
             return target.Health < (ObjectManager.Player.GetSpellDamage(target, SpellSlot.Q) + ObjectManager.Player.GetSpellDamage(target,SpellSlot.W));
         }
-        internal static void onHarass()
+        internal static void OnHarass()
         {
             Obj_AI_Hero target = SimpleTs.GetTarget(SkillHandler.Q.Range, SimpleTs.DamageType.Physical);
             if(target != null)
@@ -70,72 +67,72 @@ namespace TAC_Jax
                  */
                 if(SkillHandler.Q.IsReady() && SkillHandler.W.IsReady())
                 {
-                    if (ObjectManager.Player.Level >= 6 && GameHandler.buffCount > 0 && GameHandler.buffCount % 3 == 0)
+                    if (ObjectManager.Player.Level >= 6 && GameHandler.BuffCount > 0 && GameHandler.BuffCount % 3 == 0)
                     {
                         if(SkillHandler.E.IsReady())
-                            SkillHandler.E.Cast(Jax.packetCast);
-                        SkillHandler.Q.Cast(target,Jax.packetCast);
+                            SkillHandler.E.Cast(Jax.PacketCast);
+                        SkillHandler.Q.Cast(target,Jax.PacketCast);
                     }
                     else
                     {
                         if(SkillHandler.E.IsReady())
-                            SkillHandler.E.Cast(Jax.packetCast);
-                        SkillHandler.Q.Cast(Jax.packetCast);
+                            SkillHandler.E.Cast(Jax.PacketCast);
+                        SkillHandler.Q.Cast(Jax.PacketCast);
                     }
                 }
-                if (GameHandler.isCastingE && SkillHandler.E.IsReady())
+                if (GameHandler.IsCastingE && SkillHandler.E.IsReady())
                 {
-                    SkillHandler.E.Cast(Jax.packetCast);
+                    SkillHandler.E.Cast(Jax.PacketCast);
                 }
             }
         }
 
         internal static void Orbwalking_AfterAttack(Obj_AI_Base unit, Obj_AI_Base target)
         {
-            if(SkillHandler.W.IsReady() && target.IsValidTarget(Orbwalking.GetRealAutoAttackRange(target) + 50))
+            if(SkillHandler.W.IsReady() && target.IsValidTarget(Orbwalking.GetRealAutoAttackRange(ObjectManager.Player) + 50))
             {
                 switch (GameHandler.Orbwalker.ActiveMode)
                 {
                     case Orbwalking.OrbwalkingMode.Combo:
                     case Orbwalking.OrbwalkingMode.Mixed:
-                        SkillHandler.W.Cast(Jax.packetCast);
+                        SkillHandler.W.Cast(Jax.PacketCast);
                         break;
                     case Orbwalking.OrbwalkingMode.LaneClear:
-                        if (MenuHandler.Config.Item("clear_w").GetValue<bool>()) SkillHandler.W.Cast(Jax.packetCast);
+                        if (MenuHandler.Config.Item("clear_w").GetValue<bool>()) SkillHandler.W.Cast(Jax.PacketCast);
                         break;
                 }
             }
         }
-        internal static void onCombo()
+        internal static void OnCombo()
         {
             /**
              * Todo:
              * Try to predict if enemy flash, only then Q
-             * If you go in and you are near: AA + E + W + AA + E = max dmg with no bork
-             * If the dumb bastard goes in: E + AA + BOTRK + W + AA + E + Q
              * */
             Obj_AI_Hero target = SimpleTs.GetTarget(SkillHandler.Q.Range,SimpleTs.DamageType.Physical);
             if(target != null)
             {
                 if(SkillHandler.E.IsReady() && SkillHandler.Q.IsReady() && ObjectManager.Player.Distance(target) < SkillHandler.Q.Range)
                 {
-                    SkillHandler.Q.Cast(target, Jax.packetCast);
-                    SkillHandler.E.Cast(Jax.packetCast);
+                    SkillHandler.Q.Cast(target, Jax.PacketCast);
+                    SkillHandler.E.Cast(Jax.PacketCast);
                 }
-                if ((ObjectManager.Player.Distance(target) < SkillHandler.E.Range && !GameHandler.isCastingE && SkillHandler.E.IsReady())
-                        || (GameHandler.isCastingE && SkillHandler.E.IsReady() && ObjectManager.Player.Distance(target) < (SkillHandler.E.Range - 30f)))
+                if ((ObjectManager.Player.Distance(target) < SkillHandler.E.Range && !GameHandler.IsCastingE && SkillHandler.E.IsReady())
+                        || (GameHandler.IsCastingE && SkillHandler.E.IsReady() && ObjectManager.Player.Distance(target) < (SkillHandler.E.Range - 30f)))
                 {
-                    SkillHandler.E.Cast(Jax.packetCast);
+                    SkillHandler.E.Cast(Jax.PacketCast);
                 }
 
                 // if we are out of distance we need to cast our Q to get near him.
                 // if he is not valid target in our range we have to cast q to get near him.
-                if(!target.IsValidTarget(SkillHandler.E.Range) && GameHandler.isCastingE)
+                if(!target.IsValidTarget(SkillHandler.E.Range) && GameHandler.IsCastingE)
                 {
-                    SkillHandler.Q.Cast(target,Jax.packetCast);
+                    SkillHandler.Q.Cast(target,Jax.PacketCast);
                 }
 
-                if ((Items.HasItem(3144) || Items.HasItem(3153)) && target.ServerPosition.Distance(ObjectManager.Player.ServerPosition) <= 450)
+                if (MenuHandler.Config.Item("botrk_"+target.BaseSkinName).GetValue<bool>() 
+                    && (Items.HasItem(3144) || Items.HasItem(3153)) 
+                        && target.ServerPosition.Distance(ObjectManager.Player.ServerPosition) <= 450)
                 {
                     double damage = ObjectManager.Player.GetItemDamage(target, Damage.DamageItems.Botrk);
                     if ((Items.HasItem(3144) || Items.HasItem(3153)) && ObjectManager.Player.Health + damage < ObjectManager.Player.MaxHealth)
@@ -149,13 +146,13 @@ namespace TAC_Jax
                  * Also check if I just used Q and auto-attacked 
                  * for biggest damage possible
                  */
-                if (canDieFromLeaping(target) && SkillHandler.Q.IsReady() && SkillHandler.W.IsReady())
+                if (CanDieFromLeaping(target) && SkillHandler.Q.IsReady() && SkillHandler.W.IsReady())
                 {
-                    SkillHandler.W.Cast(Jax.packetCast);
-                    SkillHandler.Q.Cast(target, Jax.packetCast);
+                    SkillHandler.W.Cast(Jax.PacketCast);
+                    SkillHandler.Q.Cast(target, Jax.PacketCast);
                 }
                 // Check if our flash and q is ready 
-                if(SkillHandler.Q.IsReady() && SkillHandler.W.IsReady() && SkillHandler.Flash.IsReady() && canDieFromLeaping(target))
+                if(SkillHandler.Q.IsReady() && SkillHandler.W.IsReady() && SkillHandler.Flash.IsReady() && CanDieFromLeaping(target))
                 {
                     // Check if it is actually worth the flash
                     // Only Flash Q if target is going to die, or else it's not worth
@@ -164,9 +161,9 @@ namespace TAC_Jax
                             && target.ChampionsKilled > target.Deaths
                                 && target.CountEnemysInRange((int)(SkillHandler.Q.Range + SkillHandler.Flash.Range)) < MenuHandler.Config.Item("acQ_useIfWorthEnemy").GetValue<Slider>().Value)
                     {
-                        SkillHandler.Flash.Cast(target.Position,Jax.packetCast);
-                        SkillHandler.W.Cast(Jax.packetCast);
-                        SkillHandler.Q.Cast(target.Position, Jax.packetCast);
+                        SkillHandler.Flash.Cast(target.Position,Jax.PacketCast);
+                        SkillHandler.W.Cast(Jax.PacketCast);
+                        SkillHandler.Q.Cast(target.Position, Jax.PacketCast);
                     }
                 }
             }
@@ -179,27 +176,27 @@ namespace TAC_Jax
                 var dBuffBro = buff.Count;
                 if (dBuffBro > 0)
                 {
-                    GameHandler.buffCount++;
-                    if (GameHandler.buffCount != dBuffBro && dBuffBro < 6 && dBuffBro > 1)
-                        GameHandler.buffCount = dBuffBro;
-                    GameHandler.lastTick = Environment.TickCount;
-                    if (Jax.debug)
-                        Game.PrintChat("(" + GameHandler.buffCount + ") Buff: JaxRelentlessAssaultAS Count: " + dBuffBro);
-                    GameHandler.hasResetBuffCount = false;
+                    GameHandler.BuffCount++;
+                    if (GameHandler.BuffCount != dBuffBro && dBuffBro < 6 && dBuffBro > 1)
+                        GameHandler.BuffCount = dBuffBro;
+                    GameHandler.LastTick = Environment.TickCount;
+                    if (Jax.Debug)
+                        Game.PrintChat("(" + GameHandler.BuffCount + ") Buff: JaxRelentlessAssaultAS Count: " + dBuffBro);
+                    GameHandler.HasResetBuffCount = false;
                 }
             }
         }
-        internal static void onLaneClear()
+        internal static void OnLaneClear()
         {
             foreach (var minions in ObjectManager.Get<Obj_AI_Minion>().Where(minion => minion.IsValidTarget(SkillHandler.Q.Range)).OrderBy(minion => minion.Health))
             {
-                if (MenuHandler.Config.Item("clear_e").GetValue<bool>() && SkillHandler.E.IsReady() && minions.IsValidTarget(SkillHandler.E.Range) && !GameHandler.isCastingE)
+                if (MenuHandler.Config.Item("clear_e").GetValue<bool>() && SkillHandler.E.IsReady() && minions.IsValidTarget(SkillHandler.E.Range) && !GameHandler.IsCastingE)
                 {
-                    SkillHandler.E.Cast(Jax.packetCast);
+                    SkillHandler.E.Cast(Jax.PacketCast);
                 }
             }
         }
-        internal static void smartR()
+        internal static void SmartR()
         {
             if (ObjectManager.Player.CountEnemysInRange(550) <= 3 &&
                 ObjectManager.Player.HealthPercentage() <=
@@ -212,20 +209,20 @@ namespace TAC_Jax
                 {
                     case Orbwalking.OrbwalkingMode.Combo:
                         if (MenuHandler.Config.Item("useR_combo").GetValue<bool>())
-                            SkillHandler.R.Cast(Jax.packetCast);
+                            SkillHandler.R.Cast(Jax.PacketCast);
                         break;
                     case Orbwalking.OrbwalkingMode.Mixed:
                         if (MenuHandler.Config.Item("useR_mixed").GetValue<bool>())
-                            SkillHandler.R.Cast(Jax.packetCast);
+                            SkillHandler.R.Cast(Jax.PacketCast);
                         break;
                     case Orbwalking.OrbwalkingMode.None:
                         if (MenuHandler.Config.Item("useR_flee").GetValue<bool>() && MenuHandler.Config.Item("Flee").GetValue<bool>())
-                            SkillHandler.R.Cast(Jax.packetCast);
+                            SkillHandler.R.Cast(Jax.PacketCast);
                         break;
                 }
             }
         }
-        internal static void killSteal()
+        internal static void KillSteal()
         {
             if (SkillHandler.W.IsReady() && SkillHandler.Q.IsReady())
             {
@@ -233,8 +230,8 @@ namespace TAC_Jax
                         in ObjectManager.Get<Obj_AI_Hero>().Where(hero => !hero.IsDead && hero.IsEnemy && hero.IsValidTarget(SkillHandler.Q.Range)
                             && SkillHandler.Q.GetHealthPrediction(hero) <= SkillHandler.Q.GetDamage(hero) + SkillHandler.W.GetDamage(hero)).OrderBy(i => i.Health).OrderByDescending(i => i.Distance3D(ObjectManager.Player)))
                 {
-                    if (SkillHandler.W.IsReady()) SkillHandler.W.Cast(Jax.packetCast);
-                    if (SkillHandler.Q.IsReady()) SkillHandler.Q.Cast(target, Jax.packetCast);
+                    if (SkillHandler.W.IsReady()) SkillHandler.W.Cast(Jax.PacketCast);
+                    if (SkillHandler.Q.IsReady()) SkillHandler.Q.Cast(target, Jax.PacketCast);
                 }
             }
         }
@@ -250,7 +247,7 @@ namespace TAC_Jax
             {
                 if (SkillHandler.Q.IsReady())
                 {
-                    SkillHandler.Q.CastOnUnit(ward,Jax.packetCast);
+                    SkillHandler.Q.CastOnUnit(ward,Jax.PacketCast);
                     return;
                 }
             }
@@ -260,7 +257,7 @@ namespace TAC_Jax
             {
                 if (SkillHandler.Q.IsReady())
                 {
-                    SkillHandler.Q.CastOnUnit(hero, Jax.packetCast);
+                    SkillHandler.Q.CastOnUnit(hero, Jax.PacketCast);
                     return;
                 }
             }
@@ -270,12 +267,12 @@ namespace TAC_Jax
             {
                 if (SkillHandler.Q.IsReady())
                 {
-                    SkillHandler.Q.CastOnUnit(minion, Jax.packetCast);
+                    SkillHandler.Q.CastOnUnit(minion, Jax.PacketCast);
                     return;
                 }
             }
 
-            if (Environment.TickCount <= GameHandler.lastPlaced + 3000 || !SkillHandler.E.IsReady()) return;
+            if (Environment.TickCount <= GameHandler.LastPlaced + 3000 || !SkillHandler.E.IsReady()) return;
 
             Vector3 cursorPos = Game.CursorPos;
             Vector3 myPos = ObjectManager.Player.Position;
@@ -289,8 +286,8 @@ namespace TAC_Jax
             if (invSlot == null) return;
 
             Items.UseItem((int)invSlot.Id, wardPosition);
-            GameHandler.lastWardPos = wardPosition;
-            GameHandler.lastPlaced = Environment.TickCount;
+            GameHandler.LastWardPos = wardPosition;
+            GameHandler.LastPlaced = Environment.TickCount;
         }
 
         private static InventorySlot FindBestWardItem()
