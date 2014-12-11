@@ -12,7 +12,7 @@ namespace TAC_Kalista
     {
         public static float GetDamageToTarget(Obj_AI_Base target)
         {
-            double damage = 0;//ObjectManager.Player.GetAutoAttackDamage(target);
+            double damage = 0;
             if (SkillHandler.Q.IsReady() && ObjectManager.Player.Distance(target) < SkillHandler.Q.Range)
                 damage += ObjectManager.Player.GetSpellDamage(target, SpellSlot.Q);
             if (SkillHandler.E.IsReady() && ObjectManager.Player.Distance(target) < SkillHandler.E.Range)
@@ -53,10 +53,8 @@ namespace TAC_Kalista
         {
             return ObjectManager.Player.Mana * 100 / ObjectManager.Player.MaxMana;
         }
+        #region Hellsing E calculation
         internal static Obj_AI_Hero Player = ObjectManager.Player;
-        /**
-         * @author Hellsing
-         * */
         public static double GetRealDamage(Obj_AI_Base target, int customStacks = -1)
         {
             return Player.CalcDamage(target, Damage.DamageType.Physical, GetRawRendDamage(target, customStacks));
@@ -69,5 +67,6 @@ namespace TAC_Kalista
                    (SkillHandler.RendDamageBonusPerSpear[SkillHandler.E.Level - 1] +
                     SkillHandler.RendDamageBonusPerSpearMultiplier[SkillHandler.E.Level - 1]*SkillHandler.AttackDamage);
         }
+        #endregion
     }
 }

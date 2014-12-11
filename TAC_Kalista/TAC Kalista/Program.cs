@@ -32,7 +32,7 @@ namespace TAC_Kalista
             AntiGapcloser.OnEnemyGapcloser += FightHandler.AntiGapCloser;
             Obj_AI_Hero.OnProcessSpellCast += FightHandler.OnProcessSpellCast;
         }
-
+        #region Hellsing
         static void Game_OnGameSendPacket(GamePacketEventArgs args)
         {
             if (args.PacketData[0] == Packet.C2S.Cast.Header && ObjectManager.Player.IsDashing() && Packet.C2S.Cast.Decoded(args.PacketData).Slot == SpellSlot.Q)
@@ -40,6 +40,7 @@ namespace TAC_Kalista
                 args.Process = false;
             }
         }
+        #endregion
         public static void OnGameUpdateModes(EventArgs args)
         {
             Drawings = MenuHandler.Config.Item("enableDrawings").GetValue<bool>();

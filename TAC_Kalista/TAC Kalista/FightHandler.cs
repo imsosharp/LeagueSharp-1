@@ -74,77 +74,6 @@ namespace TAC_Kalista
                 MathHandler.CastMinionE(SimpleTs.GetTarget(SkillHandler.E.Range,SimpleTs.DamageType.Physical));
             }
         }
-        /**
-         * @author Hellsing
-         * */
-        public static void OnLaneClear()
-        {
-            if (MenuHandler.Config.Item("enableClear").GetValue<bool>())// && MenuHandler.Config.Item("useEwc").GetValue<bool>() && SkillHandler.E.IsReady())
-            {
-                if (MenuHandler.Config.Item("wcQ").GetValue<bool>() && SkillHandler.Q.IsReady())
-                {
-                    var minions = ObjectManager.Get<Obj_AI_Minion>().Where(m => m.BaseSkinName.Contains("Minion") && m.IsValidTarget(SkillHandler.Q.Range)).ToList();
-                    if (minions.Count >= 3)
-                    {
-                        minions.Sort((m1, m2) => m2.Distance(ObjectManager.Player, true).CompareTo(m1.Distance(ObjectManager.Player, true)));
-                        int bestHitCount = 0;
-                        PredictionOutput bestResult = null;
-                        foreach (var minion in minions)
-                        {
-                            var prediction = SkillHandler.Q.GetPrediction(minion);
-                            var targets = prediction.CollisionObjects;
-                            targets.Sort((t1, t2) => t1.Distance(ObjectManager.Player, true).CompareTo(t2.Distance(ObjectManager.Player, true)));
-                            targets.Add(minion);
-                            for (int i = 0; i < targets.Count; i++)
-                            {
-                                if (ObjectManager.Player.GetSpellDamage(targets[i], SpellSlot.Q) * 0.9 < targets[i].Health || i == targets.Count)
-                                {
-                                    if (i >= 3 && (bestResult == null || bestHitCount < i))
-                                    {
-                                        bestHitCount = i;
-                                        bestResult = prediction;
-                                    }
-                                    break;
-                                }
-                            }
-                        }
-                        if (bestResult != null) SkillHandler.Q.Cast(bestResult.CastPosition);
-                    }
-                }
-
-                if (MenuHandler.Config.Item("wcE").GetValue<bool>() && SkillHandler.E.IsReady())
-                {
-                    List<Obj_AI_Base> minions = MinionManager.GetMinions(ObjectManager.Player.Position, SkillHandler.E.Range);
-                    if (minions.Count >= 3)
-                    {
-                        int conditionMet = 0;
-                        foreach (var minion in minions)
-                        {
-                            if (MathHandler.GetRealDamage(minion) * 0.9 > minion.Health)
-                                conditionMet++;
-                        }
-                        if (conditionMet >= 3) SkillHandler.E.Cast(true);
-                    }
-                    IEnumerable<Obj_AI_Base> minionsBig = MinionManager.GetMinions(ObjectManager.Player.Position, SkillHandler.E.Range).Where(m => m.BaseSkinName.Contains("MinionSiege"));
-                    foreach (var minion in minionsBig)
-                    {
-                        if (MathHandler.GetRealDamage(minion) > minion.Health)
-                        {
-                            SkillHandler.E.Cast(true);
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-        /**
-         * @author Hellsing
-         * */
-        public static void OnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
-        {
-            if (sender.IsMe && args.SData.Name == "KalistaExpungeWrapper") 
-                Utility.DelayAction.Add(250,Orbwalking.ResetAutoAttackTimer);
-        }
 
         public static void SaveSould()
         {
@@ -213,6 +142,73 @@ namespace TAC_Kalista
                 if (goal != null) SkillHandler.Q.Cast(goal, Kalista.PacketCast);
             }
         }
+        #region Hellsing
+
+        public static void OnLaneClear()
+        {
+            if (MenuHandler.Config.Item("enableClear").GetValue<bool>())// && MenuHandler.Config.Item("useEwc").GetValue<bool>() && SkillHandler.E.IsReady())
+            {
+                if (MenuHandler.Config.Item("wcQ").GetValue<bool>() && SkillHandler.Q.IsReady())
+                {
+                    var minions = ObjectManager.Get<Obj_AI_Minion>().Where(m => m.BaseSkinName.Contains("Minion") && m.IsValidTarget(SkillHandler.Q.Range)).ToList();
+                    if (minions.Count >= 3)
+                    {
+                        minions.Sort((m1, m2) => m2.Distance(ObjectManager.Player, true).CompareTo(m1.Distance(ObjectManager.Player, true)));
+                        int bestHitCount = 0;
+                        PredictionOutput bestResult = null;
+                        foreach (var minion in minions)
+                        {
+                            var prediction = SkillHandler.Q.GetPrediction(minion);
+                            var targets = prediction.CollisionObjects;
+                            targets.Sort((t1, t2) => t1.Distance(ObjectManager.Player, true).CompareTo(t2.Distance(ObjectManager.Player, true)));
+                            targets.Add(minion);
+                            for (int i = 0; i < targets.Count; i++)
+                            {
+                                if (ObjectManager.Player.GetSpellDamage(targets[i], SpellSlot.Q) * 0.9 < targets[i].Health || i == targets.Count)
+                                {
+                                    if (i >= 3 && (bestResult == null || bestHitCount < i))
+                                    {
+                                        bestHitCount = i;
+                                        bestResult = prediction;
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                        if (bestResult != null) SkillHandler.Q.Cast(bestResult.CastPosition);
+                    }
+                }
+
+                if (MenuHandler.Config.Item("wcE").GetValue<bool>() && SkillHandler.E.IsReady())
+                {
+                    List<Obj_AI_Base> minions = MinionManager.GetMinions(ObjectManager.Player.Position, SkillHandler.E.Range);
+                    if (minions.Count >= 3)
+                    {
+                        int conditionMet = 0;
+                        foreach (var minion in minions)
+                        {
+                            if (MathHandler.GetRealDamage(minion) * 0.9 > minion.Health)
+                                conditionMet++;
+                        }
+                        if (conditionMet >= 3) SkillHandler.E.Cast(true);
+                    }
+                    IEnumerable<Obj_AI_Base> minionsBig = MinionManager.GetMinions(ObjectManager.Player.Position, SkillHandler.E.Range).Where(m => m.BaseSkinName.Contains("MinionSiege"));
+                    foreach (var minion in minionsBig)
+                    {
+                        if (MathHandler.GetRealDamage(minion) > minion.Health)
+                        {
+                            SkillHandler.E.Cast(true);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        public static void OnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
+        {
+            if (sender.IsMe && args.SData.Name == "KalistaExpungeWrapper")
+                Utility.DelayAction.Add(250, Orbwalking.ResetAutoAttackTimer);
+        }
         internal static Obj_AI_Base GetDashObject
         {
             get
@@ -256,5 +252,6 @@ namespace TAC_Kalista
         {
             return (float)(Math.Sqrt(a.X * a.X + a.Y * a.Y));
         }
+        #endregion
     }
 }
