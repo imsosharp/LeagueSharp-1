@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using LeagueSharp;
 using LeagueSharp.Common;
 using Color = System.Drawing.Color;
@@ -44,7 +40,6 @@ namespace TAC_Kalista
             Config.SubMenu("ac").SubMenu("itemsAC").AddItem(new MenuItem("useItems", "Use Items").SetValue(new KeyBind("G".ToCharArray()[0], KeyBindType.Toggle)));
 
             Config.SubMenu("ac").SubMenu("itemsAC").AddItem(new MenuItem("allIn", "All in mode").SetValue(new KeyBind("U".ToCharArray()[0], KeyBindType.Toggle)));
-//            Config.SubMenu("ac").SubMenu("itemsAC").AddItem(new MenuItem("allInAt", "Auto All in when X hero").SetValue(new Slider(2, 1, 5)));
             
             Config.SubMenu("ac").SubMenu("itemsAC").AddItem(new MenuItem("BOTRK", "Use BOTRK").SetValue(true));
             Config.SubMenu("ac").SubMenu("itemsAC").AddItem(new MenuItem("GHOSTBLADE", "Use Ghostblade").SetValue(true));
@@ -65,7 +60,7 @@ namespace TAC_Kalista
 
             Config.AddSubMenu(new Menu("Misc", "misc"));
             Config.SubMenu("misc").AddItem(new MenuItem("saveSould", "Save soulbound").SetValue(true));
-            Config.SubMenu("misc").AddItem(new MenuItem("soulHP", "Save soul at HP%").SetValue(new Slider(15,1,100)));
+            Config.SubMenu("misc").AddItem(new MenuItem("soulHP", "Save soul at HP%").SetValue(new Slider(15,1)));
             Config.SubMenu("misc").AddItem(new MenuItem("soulEnemyCount", "and at X enemy around").SetValue(new Slider(3, 1, 5)));
             Config.SubMenu("misc").AddItem(new MenuItem("antiGap", "Anti-Gap Closer").SetValue(false));
             Config.SubMenu("misc").AddItem(new MenuItem("antiGapRange", "Gap close range").SetValue(new Slider(300, 300, 400)));
@@ -74,7 +69,7 @@ namespace TAC_Kalista
             Config.AddSubMenu(new Menu("Harass settings", "harass"));
             Config.SubMenu("harass").AddItem(new MenuItem("harassQ", "Use Q").SetValue(true));
             Config.SubMenu("harass").AddItem(new MenuItem("stackE", "Use E at").SetValue(new Slider(1, 1, 10)));
-            Config.SubMenu("harass").AddItem(new MenuItem("manaPercent", "Mana %").SetValue(new Slider(40, 1, 100)));
+            Config.SubMenu("harass").AddItem(new MenuItem("manaPercent", "Mana %").SetValue(new Slider(40, 1)));
 
             Config.AddSubMenu(new Menu("Wave Clear settings", "wc"));
             Config.SubMenu("wc").AddItem(new MenuItem("wcQ", "Use Q").SetValue(true));

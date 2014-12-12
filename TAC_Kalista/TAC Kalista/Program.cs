@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LeagueSharp;
 using LeagueSharp.Common;
 
@@ -17,7 +13,7 @@ namespace TAC_Kalista
         static void Main(string[] args)
         {
             Game.PrintChat("---------------------------");
-            Game.PrintChat("[<font color='#FF0000'>v4</font>]<font color='#7A6EFF'>Twilight's Auto Carry:</font> <font color='#86E5E1'>Kalista</font>");
+            Game.PrintChat("[<font color='#FF0000'>v4.1</font>]<font color='#7A6EFF'>Twilight's Auto Carry:</font> <font color='#86E5E1'>Kalista</font>");
             CustomEvents.Game.OnGameLoad += Load;
         }
         public static void Load(EventArgs args)
@@ -30,7 +26,7 @@ namespace TAC_Kalista
             Game.OnGameUpdate += OnGameUpdateModes;
             Game.OnGameSendPacket += Game_OnGameSendPacket;
             AntiGapcloser.OnEnemyGapcloser += FightHandler.AntiGapCloser;
-            Obj_AI_Hero.OnProcessSpellCast += FightHandler.OnProcessSpellCast;
+            Obj_AI_Base.OnProcessSpellCast += FightHandler.OnProcessSpellCast;
         }
         #region Hellsing
         static void Game_OnGameSendPacket(GamePacketEventArgs args)
@@ -46,24 +42,20 @@ namespace TAC_Kalista
             Drawings = MenuHandler.Config.Item("enableDrawings").GetValue<bool>();
             Debug = MenuHandler.Config.Item("debug").GetValue<bool>();
             PacketCast = MenuHandler.Config.Item("Packets").GetValue<bool>();
-            if (ObjectManager.Player.HasBuff("Recall")) return;
-
-            if (MenuHandler.Config.Item("Orbwalk").GetValue<KeyBind>().Active)
+            if (ObjectManager.Player.HasBuff("Recall") || ObjectManager.Player.IsDead) return;
+            switch (MenuHandler.Orb.ActiveMode)
             {
-                FightHandler.OnCombo();
+                case Orbwalking.OrbwalkingMode.Combo:
+                    FightHandler.OnCombo();
+                    break;
+                case Orbwalking.OrbwalkingMode.Mixed:
+                    FightHandler.OnHarass();
+                    break;
+                case Orbwalking.OrbwalkingMode.LaneClear:
+                    FightHandler.OnLaneClear();
+                    break;
             }
-            else if (MenuHandler.Config.Item("Farm").GetValue<KeyBind>().Active)
-            {
-                FightHandler.OnHarass();
-            }
-            else if (MenuHandler.Config.Item("LaneClear").GetValue<KeyBind>().Active)
-            {
-                FightHandler.OnLaneClear();
-            }
-            if (MenuHandler.Config.Item("saveSould").GetValue<bool>())
-            {
-                FightHandler.SaveSould();
-            }
+            if (MenuHandler.Config.Item("saveSould").GetValue<bool>()) FightHandler.SaveSould();
             SmiteHandler.Init();
 
         }

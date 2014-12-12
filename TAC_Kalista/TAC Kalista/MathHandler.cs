@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using LeagueSharp;
 using LeagueSharp.Common;
 
@@ -20,29 +16,24 @@ namespace TAC_Kalista
             return (float)damage;
         }
 
-        internal static int CheckBuff(Obj_AI_Base target)
+        internal static BuffInstance CheckBuff(Obj_AI_Base target)
         {
-            var buff = target.Buffs.FirstOrDefault(b => b.DisplayName == "KalistaExpungeMarker");
-            return buff != null ? buff.Count : 0;
+            return target.Buffs.FirstOrDefault(hero => hero.DisplayName == "KalistaExpungeMarker");
         }
         internal static void CastMinionE(Obj_AI_Base target)
         {
             if (ObjectManager.Get<Obj_AI_Hero>().Any(
                         hero => hero.IsValidTarget(SkillHandler.E.Range)
                             &&
-                                CheckBuff(hero) >= 1
+                                CheckBuff(hero).Count >= 1
                             ))
             {
-                List<Obj_AI_Base> minions = MinionManager.GetMinions(ObjectManager.Player.Position, SkillHandler.E.Range,MinionTypes.All,MinionTeam.Enemy,MinionOrderTypes.Health);
-                foreach (var minion in minions)
+                var minions = MinionManager.GetMinions(ObjectManager.Player.Position, SkillHandler.E.Range);
+                if (minions.Any(minion => GetRealDamage(minion) > minion.Health))
                 {
-                    if (MathHandler.GetRealDamage(minion) > minion.Health)
-                    {
-                        SkillHandler.E.Cast(Kalista.PacketCast);
-                        break;
-                    }
+                    SkillHandler.E.Cast(Kalista.PacketCast);
                 }
-            }        
+            }
         }
 
         public static float GetPlayerHealthPercentage()
@@ -63,7 +54,7 @@ namespace TAC_Kalista
         {
             return SkillHandler.BaseRendDamage[SkillHandler.E.Level - 1] + 0.6*SkillHandler.AttackDamage
                    +
-                   (CheckBuff(target) - 1)*
+                   (CheckBuff(target).Count - 1)*
                    (SkillHandler.RendDamageBonusPerSpear[SkillHandler.E.Level - 1] +
                     SkillHandler.RendDamageBonusPerSpearMultiplier[SkillHandler.E.Level - 1]*SkillHandler.AttackDamage);
         }
